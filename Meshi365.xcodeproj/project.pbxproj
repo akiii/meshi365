@@ -1,0 +1,469 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B8D0787B163D3D870050FF39 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8D0787A163D3D870050FF39 /* UIKit.framework */; };
+		B8D0787D163D3D870050FF39 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8D0787C163D3D870050FF39 /* Foundation.framework */; };
+		B8D0787F163D3D870050FF39 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8D0787E163D3D870050FF39 /* CoreGraphics.framework */; };
+		B8D07881163D3D870050FF39 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8D07880163D3D870050FF39 /* CoreData.framework */; };
+		B8D07887163D3D870050FF39 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B8D07885163D3D870050FF39 /* InfoPlist.strings */; };
+		B8D07889163D3D870050FF39 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D07888163D3D870050FF39 /* main.m */; };
+		B8D0788D163D3D870050FF39 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D0788C163D3D870050FF39 /* AppDelegate.m */; };
+		B8D0788F163D3D870050FF39 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = B8D0788E163D3D870050FF39 /* Default.png */; };
+		B8D07891163D3D870050FF39 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8D07890163D3D870050FF39 /* Default@2x.png */; };
+		B8D07893163D3D870050FF39 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8D07892163D3D870050FF39 /* Default-568h@2x.png */; };
+		B8D07896163D3D870050FF39 /* Meshi365.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B8D07894163D3D870050FF39 /* Meshi365.xcdatamodeld */; };
+		B8D0789E163D3D870050FF39 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8D0789D163D3D870050FF39 /* SenTestingKit.framework */; };
+		B8D0789F163D3D870050FF39 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8D0787A163D3D870050FF39 /* UIKit.framework */; };
+		B8D078A0163D3D870050FF39 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8D0787C163D3D870050FF39 /* Foundation.framework */; };
+		B8D078A1163D3D870050FF39 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8D07880163D3D870050FF39 /* CoreData.framework */; };
+		B8D078A9163D3D870050FF39 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B8D078A7163D3D870050FF39 /* InfoPlist.strings */; };
+		B8D078AC163D3D870050FF39 /* Meshi365Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D078AB163D3D870050FF39 /* Meshi365Tests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B8D078A2163D3D870050FF39 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B8D0786D163D3D870050FF39 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B8D07875163D3D870050FF39;
+			remoteInfo = Meshi365;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		B8D07876163D3D870050FF39 /* Meshi365.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Meshi365.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B8D0787A163D3D870050FF39 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		B8D0787C163D3D870050FF39 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		B8D0787E163D3D870050FF39 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		B8D07880163D3D870050FF39 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		B8D07884163D3D870050FF39 /* Meshi365-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Meshi365-Info.plist"; sourceTree = "<group>"; };
+		B8D07886163D3D870050FF39 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		B8D07888163D3D870050FF39 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		B8D0788A163D3D870050FF39 /* Meshi365-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Meshi365-Prefix.pch"; sourceTree = "<group>"; };
+		B8D0788B163D3D870050FF39 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		B8D0788C163D3D870050FF39 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		B8D0788E163D3D870050FF39 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		B8D07890163D3D870050FF39 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		B8D07892163D3D870050FF39 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		B8D07895163D3D870050FF39 /* Meshi365.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Meshi365.xcdatamodel; sourceTree = "<group>"; };
+		B8D0789C163D3D870050FF39 /* Meshi365Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Meshi365Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B8D0789D163D3D870050FF39 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		B8D078A6163D3D870050FF39 /* Meshi365Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Meshi365Tests-Info.plist"; sourceTree = "<group>"; };
+		B8D078A8163D3D870050FF39 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		B8D078AA163D3D870050FF39 /* Meshi365Tests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Meshi365Tests.h; sourceTree = "<group>"; };
+		B8D078AB163D3D870050FF39 /* Meshi365Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Meshi365Tests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B8D07873163D3D870050FF39 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B8D0787B163D3D870050FF39 /* UIKit.framework in Frameworks */,
+				B8D0787D163D3D870050FF39 /* Foundation.framework in Frameworks */,
+				B8D0787F163D3D870050FF39 /* CoreGraphics.framework in Frameworks */,
+				B8D07881163D3D870050FF39 /* CoreData.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B8D07898163D3D870050FF39 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B8D0789E163D3D870050FF39 /* SenTestingKit.framework in Frameworks */,
+				B8D0789F163D3D870050FF39 /* UIKit.framework in Frameworks */,
+				B8D078A0163D3D870050FF39 /* Foundation.framework in Frameworks */,
+				B8D078A1163D3D870050FF39 /* CoreData.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B8D0786B163D3D870050FF39 = {
+			isa = PBXGroup;
+			children = (
+				B8D07882163D3D870050FF39 /* Meshi365 */,
+				B8D078A4163D3D870050FF39 /* Meshi365Tests */,
+				B8D07879163D3D870050FF39 /* Frameworks */,
+				B8D07877163D3D870050FF39 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B8D07877163D3D870050FF39 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B8D07876163D3D870050FF39 /* Meshi365.app */,
+				B8D0789C163D3D870050FF39 /* Meshi365Tests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B8D07879163D3D870050FF39 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B8D0787A163D3D870050FF39 /* UIKit.framework */,
+				B8D0787C163D3D870050FF39 /* Foundation.framework */,
+				B8D0787E163D3D870050FF39 /* CoreGraphics.framework */,
+				B8D07880163D3D870050FF39 /* CoreData.framework */,
+				B8D0789D163D3D870050FF39 /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B8D07882163D3D870050FF39 /* Meshi365 */ = {
+			isa = PBXGroup;
+			children = (
+				B8D0788B163D3D870050FF39 /* AppDelegate.h */,
+				B8D0788C163D3D870050FF39 /* AppDelegate.m */,
+				B8D07894163D3D870050FF39 /* Meshi365.xcdatamodeld */,
+				B8D07883163D3D870050FF39 /* Supporting Files */,
+			);
+			path = Meshi365;
+			sourceTree = "<group>";
+		};
+		B8D07883163D3D870050FF39 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B8D07884163D3D870050FF39 /* Meshi365-Info.plist */,
+				B8D07885163D3D870050FF39 /* InfoPlist.strings */,
+				B8D07888163D3D870050FF39 /* main.m */,
+				B8D0788A163D3D870050FF39 /* Meshi365-Prefix.pch */,
+				B8D0788E163D3D870050FF39 /* Default.png */,
+				B8D07890163D3D870050FF39 /* Default@2x.png */,
+				B8D07892163D3D870050FF39 /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B8D078A4163D3D870050FF39 /* Meshi365Tests */ = {
+			isa = PBXGroup;
+			children = (
+				B8D078AA163D3D870050FF39 /* Meshi365Tests.h */,
+				B8D078AB163D3D870050FF39 /* Meshi365Tests.m */,
+				B8D078A5163D3D870050FF39 /* Supporting Files */,
+			);
+			path = Meshi365Tests;
+			sourceTree = "<group>";
+		};
+		B8D078A5163D3D870050FF39 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B8D078A6163D3D870050FF39 /* Meshi365Tests-Info.plist */,
+				B8D078A7163D3D870050FF39 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B8D07875163D3D870050FF39 /* Meshi365 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B8D078AF163D3D870050FF39 /* Build configuration list for PBXNativeTarget "Meshi365" */;
+			buildPhases = (
+				B8D07872163D3D870050FF39 /* Sources */,
+				B8D07873163D3D870050FF39 /* Frameworks */,
+				B8D07874163D3D870050FF39 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Meshi365;
+			productName = Meshi365;
+			productReference = B8D07876163D3D870050FF39 /* Meshi365.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B8D0789B163D3D870050FF39 /* Meshi365Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B8D078B2163D3D870050FF39 /* Build configuration list for PBXNativeTarget "Meshi365Tests" */;
+			buildPhases = (
+				B8D07897163D3D870050FF39 /* Sources */,
+				B8D07898163D3D870050FF39 /* Frameworks */,
+				B8D07899163D3D870050FF39 /* Resources */,
+				B8D0789A163D3D870050FF39 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B8D078A3163D3D870050FF39 /* PBXTargetDependency */,
+			);
+			name = Meshi365Tests;
+			productName = Meshi365Tests;
+			productReference = B8D0789C163D3D870050FF39 /* Meshi365Tests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B8D0786D163D3D870050FF39 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = Akifumi;
+			};
+			buildConfigurationList = B8D07870163D3D870050FF39 /* Build configuration list for PBXProject "Meshi365" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = B8D0786B163D3D870050FF39;
+			productRefGroup = B8D07877163D3D870050FF39 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B8D07875163D3D870050FF39 /* Meshi365 */,
+				B8D0789B163D3D870050FF39 /* Meshi365Tests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B8D07874163D3D870050FF39 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B8D07887163D3D870050FF39 /* InfoPlist.strings in Resources */,
+				B8D0788F163D3D870050FF39 /* Default.png in Resources */,
+				B8D07891163D3D870050FF39 /* Default@2x.png in Resources */,
+				B8D07893163D3D870050FF39 /* Default-568h@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B8D07899163D3D870050FF39 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B8D078A9163D3D870050FF39 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		B8D0789A163D3D870050FF39 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B8D07872163D3D870050FF39 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B8D07889163D3D870050FF39 /* main.m in Sources */,
+				B8D0788D163D3D870050FF39 /* AppDelegate.m in Sources */,
+				B8D07896163D3D870050FF39 /* Meshi365.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B8D07897163D3D870050FF39 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B8D078AC163D3D870050FF39 /* Meshi365Tests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B8D078A3163D3D870050FF39 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B8D07875163D3D870050FF39 /* Meshi365 */;
+			targetProxy = B8D078A2163D3D870050FF39 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		B8D07885163D3D870050FF39 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B8D07886163D3D870050FF39 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		B8D078A7163D3D870050FF39 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B8D078A8163D3D870050FF39 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		B8D078AD163D3D870050FF39 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B8D078AE163D3D870050FF39 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B8D078B0163D3D870050FF39 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Meshi365/Meshi365-Prefix.pch";
+				INFOPLIST_FILE = "Meshi365/Meshi365-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		B8D078B1163D3D870050FF39 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Meshi365/Meshi365-Prefix.pch";
+				INFOPLIST_FILE = "Meshi365/Meshi365-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		B8D078B3163D3D870050FF39 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Meshi365.app/Meshi365";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Meshi365/Meshi365-Prefix.pch";
+				INFOPLIST_FILE = "Meshi365Tests/Meshi365Tests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		B8D078B4163D3D870050FF39 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Meshi365.app/Meshi365";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Meshi365/Meshi365-Prefix.pch";
+				INFOPLIST_FILE = "Meshi365Tests/Meshi365Tests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B8D07870163D3D870050FF39 /* Build configuration list for PBXProject "Meshi365" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B8D078AD163D3D870050FF39 /* Debug */,
+				B8D078AE163D3D870050FF39 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B8D078AF163D3D870050FF39 /* Build configuration list for PBXNativeTarget "Meshi365" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B8D078B0163D3D870050FF39 /* Debug */,
+				B8D078B1163D3D870050FF39 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		B8D078B2163D3D870050FF39 /* Build configuration list for PBXNativeTarget "Meshi365Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B8D078B3163D3D870050FF39 /* Debug */,
+				B8D078B4163D3D870050FF39 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		B8D07894163D3D870050FF39 /* Meshi365.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				B8D07895163D3D870050FF39 /* Meshi365.xcdatamodel */,
+			);
+			currentVersion = B8D07895163D3D870050FF39 /* Meshi365.xcdatamodel */;
+			path = Meshi365.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = B8D0786D163D3D870050FF39 /* Project object */;
+}
