@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C180947163F29C9003400EB /* starNonSelect.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C180946163F29C9003400EB /* starNonSelect.png */; };
+		8C18094A163F2A1A003400EB /* sampleMenu.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C180949163F2A1A003400EB /* sampleMenu.png */; };
+		8C180950163F355B003400EB /* MSMiniCalenderTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C18094F163F355B003400EB /* MSMiniCalenderTableView.m */; };
 		8C7B3BD1163E3F2600B8D7C1 /* MSRootTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C7B3BD0163E3F2600B8D7C1 /* MSRootTabBarController.m */; };
 		8CD1BA56163EEF8C00AFA334 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 8CD1BA55163EEF8C00AFA334 /* star.png */; };
 		B805248F163E45AB005B74F8 /* MSNetworkConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = B805248E163E45AB005B74F8 /* MSNetworkConnector.m */; };
@@ -50,6 +53,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8C180946163F29C9003400EB /* starNonSelect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = starNonSelect.png; sourceTree = "<group>"; };
+		8C180949163F2A1A003400EB /* sampleMenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sampleMenu.png; sourceTree = "<group>"; };
+		8C18094E163F355B003400EB /* MSMiniCalenderTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMiniCalenderTableView.h; sourceTree = "<group>"; };
+		8C18094F163F355B003400EB /* MSMiniCalenderTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMiniCalenderTableView.m; sourceTree = "<group>"; };
 		8C7B3BCF163E3F2600B8D7C1 /* MSRootTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSRootTabBarController.h; sourceTree = "<group>"; };
 		8C7B3BD0163E3F2600B8D7C1 /* MSRootTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSRootTabBarController.m; sourceTree = "<group>"; };
 		8CD1BA55163EEF8C00AFA334 /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
@@ -125,6 +132,8 @@
 		B80524A2163EEB59005B74F8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				8C180949163F2A1A003400EB /* sampleMenu.png */,
+				8C180946163F29C9003400EB /* starNonSelect.png */,
 				8CD1BA55163EEF8C00AFA334 /* star.png */,
 				B80524A3163EEB59005B74F8 /* no_image.png */,
 				B80524A4163EEB59005B74F8 /* no_image@2x.png */,
@@ -157,6 +166,8 @@
 			children = (
 				B80524BE163EEC7A005B74F8 /* MSFoodLineCell.h */,
 				B80524BF163EEC7A005B74F8 /* MSFoodLineCell.m */,
+				8C18094E163F355B003400EB /* MSMiniCalenderTableView.h */,
+				8C18094F163F355B003400EB /* MSMiniCalenderTableView.m */,
 			);
 			path = VIews;
 			sourceTree = "<group>";
@@ -323,6 +334,8 @@
 				B80524A5163EEB59005B74F8 /* no_image.png in Resources */,
 				B80524A6163EEB59005B74F8 /* no_image@2x.png in Resources */,
 				8CD1BA56163EEF8C00AFA334 /* star.png in Resources */,
+				8C180947163F29C9003400EB /* starNonSelect.png in Resources */,
+				8C18094A163F2A1A003400EB /* sampleMenu.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -370,6 +383,7 @@
 				B80524BB163EEBBA005B74F8 /* MSRecommendViewController.m in Sources */,
 				B80524BC163EEBBA005B74F8 /* MSTodayMealViewController.m in Sources */,
 				B80524C0163EEC7A005B74F8 /* MSFoodLineCell.m in Sources */,
+				8C180950163F355B003400EB /* MSMiniCalenderTableView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
