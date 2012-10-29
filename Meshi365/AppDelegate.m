@@ -10,6 +10,8 @@
 #import "MSNetworkConnector.h"
 #import "MSUIIDController.h"
 
+#define URL_OF_USER_LOGIN   @"http://aqueous-brushlands-6933.herokuapp.com/user/login"
+
 @implementation AppDelegate
 
 @synthesize managedObjectContext = _managedObjectContext;
@@ -32,7 +34,10 @@
     [ud registerDefaults:defaults];
     
     NSString *uiid = [[[MSUIIDController alloc] init] uiid];
-    [MSNetworkConnector requestToUrl:@"http://localhost:3000/user/login/" method:RequestMethodPost params:[NSString stringWithFormat:@"uiid=%@", uiid] block:^(NSData *response) {}];
+    [MSNetworkConnector requestToUrl:URL_OF_USER_LOGIN method:RequestMethodPost params:[NSString stringWithFormat:@"uiid=%@", uiid] block:^(NSData *response) {
+        NSString *res = [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
+        NSLog(@"res : %@", res);
+    }];
     
     return YES;
 }
