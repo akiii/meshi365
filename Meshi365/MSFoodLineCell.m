@@ -10,6 +10,17 @@
 
 @implementation MSFoodLineCell
 
+
+- (void) layoutSubviews {
+    [super layoutSubviews];
+	// self.imageView.frame = CGRectMake(5, 5, self.imageView.image.size.width * self.imageView.image.scale / [[UIScreen mainScreen] scale], self.imageView.image.size.height * self.imageView.image.scale / [[UIScreen mainScreen] scale]);
+	self.imageView.frame = CGRectMake(5, 5, 100,100);
+
+    self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+	//   self.imageView.layer.masksToBounds = YES;
+    //self.imageView.cornerRadius = 5.0;
+}
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -18,8 +29,8 @@
 		self.imageView.image = [UIImage imageNamed:@"no_image.png"];
 
 		int length = [UIScreen mainScreen].bounds.size.width-10;
-		self.imageView.frame = CGRectMake(5,5,30, 30);
-		
+		self.imageView.frame = CGRectMake(60,5,30, 30);
+	
 		
 		self.imageView.contentMode = UIViewContentModeScaleAspectFill;
 		self.imageView.clipsToBounds = YES;
