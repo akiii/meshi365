@@ -33,39 +33,37 @@
 -(void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
-    UIImageView *breakfast = [[UIImageView alloc] init];
-    UIImageView *lunch = [[UIImageView alloc] init];
-    UIImageView *supper = [[UIImageView alloc] init];
     
-    breakfast.userInteractionEnabled = YES;
-    lunch.userInteractionEnabled = YES;
-    supper.userInteractionEnabled = YES;
+    //Making views in Today Meal
+    UIImageView *breakfastImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_image.png"]];
+    UIImageView *lunchImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_image.png"]];
+    UIImageView *supperImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_image.png"]];
     
-    UITapGestureRecognizer *tap_breakfast = [[UITapGestureRecognizer alloc]
-                                                initWithTarget:self
-                                                action:@selector(breakfastCameraAction)];
-    UITapGestureRecognizer *tap_lunch = [[UITapGestureRecognizer alloc]
-                                                initWithTarget:self
-                                                action:@selector(lunchCameraAction)];
-    UITapGestureRecognizer *tap_supper = [[UITapGestureRecognizer alloc]
-                                                initWithTarget:self
-                                                action:@selector(supperCameraAction)];
+    //Image View をタップで反応できるようにする設定
+    breakfastImageView.userInteractionEnabled = YES;
+    lunchImageView.userInteractionEnabled = YES;
+    supperImageView.userInteractionEnabled = YES;
     
-    [breakfast addGestureRecognizer:tap_breakfast];
-    [lunch addGestureRecognizer:tap_lunch];
-    [supper addGestureRecognizer:tap_supper];
+    //タップされた時に実行される関数を指定
+    [breakfastImageView addGestureRecognizer:[[UITapGestureRecognizer alloc]
+                                              initWithTarget:self
+                                              action:@selector(breakfastCameraAction)]];
+    [lunchImageView addGestureRecognizer:[[UITapGestureRecognizer alloc]
+                                          initWithTarget:self
+                                          action:@selector(lunchCameraAction)]];
+    [supperImageView addGestureRecognizer:[[UITapGestureRecognizer alloc]
+                                           initWithTarget:self
+                                           action:@selector(supperCameraAction)]];
+        
+    //画像の大きさを設定
+    breakfastImageView.frame = CGRectMake(20,30,280,70);
+    lunchImageView.frame = CGRectMake(20,120,280,70);
+    supperImageView.frame = CGRectMake(20,210,280,70);
     
-    breakfast.image = [UIImage imageNamed:@"no_image.png"];
-    lunch.image = [UIImage imageNamed:@"no_image.png"];
-    supper.image = [UIImage imageNamed:@"no_image.png"];
-    
-    breakfast.frame = CGRectMake(20,30,280,93);
-    lunch.frame = CGRectMake(20,150,280,93);
-    supper.frame = CGRectMake(20,270,280,93);
-    
-    [self.view addSubview:breakfast];
-    [self.view addSubview:lunch];
-    [self.view addSubview:supper];
+    //画像の表示
+    [self.view addSubview:breakfastImageView];
+    [self.view addSubview:lunchImageView];
+    [self.view addSubview:supperImageView];
 }
 
 -(void)breakfastCameraAction{
