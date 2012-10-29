@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface MSUIIDController : NSObject
+#define kUIID   @"UIID"
 
+@interface MSUIIDController : NSObject
+- (BOOL)exist;
+- (NSString *)uiid;
+- (NSString *)create;
 @end
