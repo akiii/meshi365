@@ -29,12 +29,11 @@
 {
     [super viewDidLoad];
 	
-	self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:style];
-    self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    self.tableView.dataSource = self;
-    self.tableView.delegate = self;
-    [self.view addSubview:self.tableView];
-	
+	UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    tableView.dataSource = self;
+    tableView.delegate = self;
+    [self.view addSubview:tableView];
 }
 
 - (void)didReceiveMemoryWarning
@@ -45,34 +44,8 @@
 
 
 - (void)viewWillAppear:(BOOL)animated {
-	
-	
 	[super viewWillAppear:animated];
-	
-    // detail から master に戻ってきた場合に、選択された行のハイライトを消す。
-    NSIndexPath *indexPath = tableView.indexPathForSelectedRow;
-    if (indexPath != nil) {
-        [tableView deselectRowAtIndexPath:indexPath animated:animated];
-    }
-
-	
 }
-
-
-
-
-
-- (id)initWithStyle:(UITableViewStyle)theStyle
-{
-    self = [super init];    // xib ファイルは使わないと仮定。
-    if (self != nil) {
-        style = theStyle;
-    }
-    return self;
-}
-
-
-
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -86,7 +59,7 @@
 
 
 
-- (UITableViewCell *)tableView:(UITableView *)theTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
 	
@@ -95,15 +68,12 @@
 		cell = [[MSFoodLineCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 	}
 	
-	
     return cell;
 }
 
 
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	
-	
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {	
 	return 200;
 	
 	//sample
@@ -131,6 +101,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath != nil) {
+        [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    }
 }
 
 

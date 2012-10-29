@@ -9,14 +9,4 @@
 #import <UIKit/UIKit.h>
 
 @interface MSFoodLineViewController : UIViewController<UITableViewDataSource, UITableViewDelegate> 
-{
-	UITableViewStyle style; 
-	UITableView *tableView;
-	
-}
-
-@property (nonatomic, strong) UITableView *tableView;
-
-- (id)initWithStyle:(UITableViewStyle)theStyle;
-
 @end
