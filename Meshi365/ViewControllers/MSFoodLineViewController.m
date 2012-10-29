@@ -65,7 +65,7 @@
 	
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-		cell = [[MSFoodLineCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+		cell = [[MSFoodLineCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
 	}
 	
     return cell;
@@ -73,27 +73,10 @@
 
 
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {	
-	return 200;
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+	//todo セルのサイズに合わせてか可変を
+	return 450;
 	
-	//sample
-//	NSString* text = @"表示するテキスト";
-//	UIFont* font = [UIFont systemFontOfSize:12];
-//	
-//	
-//	
-//	// label は表示する UILabel
-//	CGSize size = CGSizeMake(label.size.width, 1000);
-//	CGSize textSize = [text sizeWithFont:font constrainedToSize:size lineBreakMode:UILineBreakModeCharacterWrap];
-//	
-//	float height = 50.0f; // セルの最低限の高さ
-//	
-//	// 元の UILabel よりも高さが高ければ高さを補正する
-//	float h = textSize.height - label.size.height;
-//	if (h > 0) {
-//		height += h;
-//	}
-//	return height;
 }
 
 
