@@ -16,12 +16,7 @@
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
-
+@property (nonatomic, strong) MSRootTabBarController *rootTabBarController;
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
-
-@property(nonatomic,strong) MSRootTabBarController *rootTabBarController;
-
-
-
 @end

@@ -23,9 +23,8 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
 	
-	
-	self.rootTabBarController = [[MSRootTabBarController alloc]init];
-	[self.window addSubview:self.rootTabBarController.view];
+	self.rootTabBarController = [[MSRootTabBarController alloc] init];
+    self.window.rootViewController = self.rootTabBarController;
 		
 	NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     NSMutableDictionary *defaults = [NSMutableDictionary dictionary];
