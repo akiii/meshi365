@@ -29,6 +29,12 @@
 {
     [super viewDidLoad];
 	
+	UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+	scrollView.backgroundColor = [UIColor cyanColor];
+	scrollView.contentSize = CGSizeMake([UIScreen mainScreen].bounds.size.width*5/3.0f, 0);
+	scrollView.showsHorizontalScrollIndicator = YES;
+    scrollView.showsVerticalScrollIndicator = NO;
+	
 	
 	int tableViewNum = 3;
 	MSMiniCalenderTableView *miniCalenderTableView[tableViewNum];
@@ -41,8 +47,13 @@
 		int width = [UIScreen mainScreen].bounds.size.width/3;
 		miniCalenderTableView[i].frame = CGRectMake(i*width, 10, width, height);
 		
-		[self.view addSubview: miniCalenderTableView[i]];
+		//[self.view addSubview: miniCalenderTableView[i]];
+		
+		[scrollView addSubview:miniCalenderTableView[i]];
 	}
+	
+	[self.view addSubview:scrollView];
+
 
 }
 
