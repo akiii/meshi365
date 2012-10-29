@@ -1,5 +1,5 @@
 //
-//  MSMiniCalenderViewController.h
+//  MSMiniCalenderTableView.h
 //  Meshi365
 //
 //  Created by Mlle.Irene on 2012/10/29.
@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-
-@interface MSMiniCalenderViewController : UIViewController
+@interface MSMiniCalenderTableView : UITableView
 
 @end

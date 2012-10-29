@@ -7,6 +7,8 @@
 //
 
 #import "MSMiniCalenderViewController.h"
+#import "MSMiniCalenderTableView.h"
+
 
 @interface MSMiniCalenderViewController ()
 
@@ -26,6 +28,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	
+	MSMiniCalenderTableView *miniCcalenderTableView;
+	miniCcalenderTableView = [[MSMiniCalenderTableView alloc]init];
+	
+	
+	[self.view addSubview: miniCcalenderTableView];
 
 }
 
