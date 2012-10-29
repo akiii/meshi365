@@ -27,17 +27,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-}
-
--(void) viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
     
+    msCamera = [[MSCameraViewController alloc] init];
+    
+    no_image_size = CGSizeMake(280, 70);
     
     //Making views in Today Meal
-    UIImageView *breakfastImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_image.png"]];
-    UIImageView *lunchImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_image.png"]];
-    UIImageView *supperImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_image.png"]];
+    breakfastImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_image.png"]];
+    lunchImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_image.png"]];
+    supperImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_image.png"]];
     
     //Image View をタップで反応できるようにする設定
     breakfastImageView.userInteractionEnabled = YES;
@@ -54,11 +52,13 @@
     [supperImageView addGestureRecognizer:[[UITapGestureRecognizer alloc]
                                            initWithTarget:self
                                            action:@selector(supperCameraAction)]];
-        
+    
     //画像の大きさを設定
-    breakfastImageView.frame = CGRectMake(20,30,280,70);
-    lunchImageView.frame = CGRectMake(20,120,280,70);
-    supperImageView.frame = CGRectMake(20,210,280,70);
+    breakfastImageView.frame = CGRectMake(20,30,no_image_size.width ,no_image_size.height);
+    lunchImageView.frame = CGRectMake(20,120,no_image_size.width ,no_image_size.height);
+    supperImageView.frame = CGRectMake(20,210,no_image_size.width ,no_image_size.height);
+    
+    breakfastImageView.contentMode = UIViewContentModeScaleAspectFill;
     
     //画像の表示
     [self.view addSubview:breakfastImageView];
@@ -66,8 +66,32 @@
     [self.view addSubview:supperImageView];
 }
 
+-(void) viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    if([msCamera.state isEqualToString:@"breakfast"]){
+        breakfastImageView.image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect([msCamera.camera_image CGImage], CGRectMake(0, (msCamera.camera_image.size.height-msCamera.camera_image.size.width/4)/2, msCamera.camera_image.size.width, msCamera.camera_image.size.width/4))];
+        /*
+        int new_image_height =
+            msCamera.camera_image.size.height*no_image_size.width/msCamera.camera_image.size.width;
+        
+        UIGraphicsBeginImageContext(no_image_size);
+        [msCamera.camera_image drawInRect:CGRectMake(0, 0, no_image_size.width,new_image_height)];
+        breakfastImageView.image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect([UIGraphicsGetImageFromCurrentImageContext() CGImage], CGRectMake(0, 0, no_image_size.width, no_image_size.height))];
+        UIGraphicsEndImageContext();
+        NSLog(@"%f",(new_image_height-no_image_size.height)/2);
+         */
+    }
+}
+
 -(void)breakfastCameraAction{
     NSLog(@"Breakfast");
+    
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
+        msCamera.state = @"breakfast";
+        msCamera.sourceType = UIImagePickerControllerSourceTypeCamera;
+        msCamera.allowsEditing = YES;
+        [self presentModalViewController:msCamera animated:YES];
+    }    
 }
 
 -(void)lunchCameraAction{
