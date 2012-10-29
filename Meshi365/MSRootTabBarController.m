@@ -26,6 +26,13 @@
 		self.miniCalenderViewController	= [[MSMiniCalenderViewController alloc]init];
 		self.recommendViewController	= [[MSRecommendViewController alloc]init];
 		self.configViewController		= [[MSConfigViewController alloc]init];
+		
+		
+		self.todayMEalViewController.title = @"Today";
+		self.foodLineViewController.title = @"FoodLine";
+		self.miniCalenderViewController.title = @"MiniCal";
+		self.recommendViewController.title = @"Recommend";
+		self.configViewController.title = @"Config";
 
 		
 		NSArray *views = [NSArray arrayWithObjects:self.todayMEalViewController, self.foodLineViewController, self.miniCalenderViewController, self. recommendViewController, self.configViewController, nil];
