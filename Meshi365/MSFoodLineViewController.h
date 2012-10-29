@@ -15,7 +15,7 @@
 	
 }
 
-@property (nonatomic, retain) UITableView *tableView;
+@property (nonatomic, strong) UITableView *tableView;
 
 - (id)initWithStyle:(UITableViewStyle)theStyle;
 

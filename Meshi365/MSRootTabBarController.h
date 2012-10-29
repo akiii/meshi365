@@ -16,10 +16,10 @@
 
 @interface MSRootTabBarController : UITabBarController
 
-@property MSTodayMealViewController *todayMEalViewController;
-@property MSFoodLineViewController *foodLineViewController;
-@property MSMiniCalenderViewController *miniCalenderViewController;
-@property MSRecommendViewController *recommendViewController;
-@property MSConfigViewController *configViewController;
+@property (nonatomic, strong) MSTodayMealViewController *todayMEalViewController;
+@property (nonatomic, strong) MSFoodLineViewController *foodLineViewController;
+@property (nonatomic, strong) MSMiniCalenderViewController *miniCalenderViewController;
+@property (nonatomic, strong) MSRecommendViewController *recommendViewController;
+@property (nonatomic, strong) MSConfigViewController *configViewController;
 
 @end

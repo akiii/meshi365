@@ -13,7 +13,6 @@
 @end
 
 @implementation MSFoodLineViewController
-@synthesize tableView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -27,6 +26,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	
+	self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:style];
+    self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    [self.view addSubview:self.tableView];
+	
 }
 
 - (void)didReceiveMemoryWarning
@@ -64,39 +70,20 @@
 }
 
 
-// loadView メソッドを追加。
-- (void)loadView
-{
-	UIView *view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
-	
-    // tableView の frame は view.bounds 全体と仮定。他の UI 部品を配置する場合は要調整。
-    tableView = [[UITableView alloc] initWithFrame:view.bounds style:style];
-    tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    tableView.dataSource = self;
-    tableView.delegate = self;
-    [view addSubview:tableView];
-	
-    // 必要に応じて、ここで他の UI 部品を生成。
-	
-    self.view = view;
-}
 
 
-
-
-// そのまま。
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
 }
 
-// そのまま。
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return 1;
 }
 
-// そのまま。
+
+
 - (UITableViewCell *)tableView:(UITableView *)theTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
@@ -106,16 +93,13 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
 	
-    // cell の内容を設定。
 	
     return cell;
 }
 
 
-// そのまま。
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // 行が選択された場合の処理。
 }
 
 
