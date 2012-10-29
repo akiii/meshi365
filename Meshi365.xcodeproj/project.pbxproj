@@ -10,6 +10,7 @@
 		275E0D26163E531700DB961A /* no_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 275E0D24163E531700DB961A /* no_image.png */; };
 		275E0D27163E531700DB961A /* no_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 275E0D25163E531700DB961A /* no_image@2x.png */; };
 		8C15FD39163E49BB00FAA06D /* MSFoodLineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C15FD38163E49BB00FAA06D /* MSFoodLineViewController.m */; };
+		8C15FD44163E556C00FAA06D /* MSFoodLineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C15FD43163E556C00FAA06D /* MSFoodLineCell.m */; };
 		8C7B3BD1163E3F2600B8D7C1 /* MSRootTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C7B3BD0163E3F2600B8D7C1 /* MSRootTabBarController.m */; };
 		8C9A0BCB163E43A900242D6B /* MSCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C9A0BC8163E43A900242D6B /* MSCameraViewController.m */; };
 		8C9A0BCC163E43A900242D6B /* MSTodayMealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C9A0BCA163E43A900242D6B /* MSTodayMealViewController.m */; };
@@ -52,6 +53,8 @@
 		275E0D25163E531700DB961A /* no_image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no_image@2x.png"; sourceTree = "<group>"; };
 		8C15FD37163E49BB00FAA06D /* MSFoodLineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSFoodLineViewController.h; sourceTree = "<group>"; };
 		8C15FD38163E49BB00FAA06D /* MSFoodLineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSFoodLineViewController.m; sourceTree = "<group>"; };
+		8C15FD42163E556B00FAA06D /* MSFoodLineCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSFoodLineCell.h; sourceTree = "<group>"; };
+		8C15FD43163E556C00FAA06D /* MSFoodLineCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSFoodLineCell.m; sourceTree = "<group>"; };
 		8C7B3BCF163E3F2600B8D7C1 /* MSRootTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSRootTabBarController.h; sourceTree = "<group>"; };
 		8C7B3BD0163E3F2600B8D7C1 /* MSRootTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSRootTabBarController.m; sourceTree = "<group>"; };
 		8C9A0BC7163E43A900242D6B /* MSCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSCameraViewController.h; sourceTree = "<group>"; };
@@ -175,6 +178,8 @@
 				8C15FD38163E49BB00FAA06D /* MSFoodLineViewController.m */,
 				B8052499163E4EF0005B74F8 /* MSUIIDController.h */,
 				B805249A163E4EF0005B74F8 /* MSUIIDController.m */,
+				8C15FD42163E556B00FAA06D /* MSFoodLineCell.h */,
+				8C15FD43163E556C00FAA06D /* MSFoodLineCell.m */,
 			);
 			path = Meshi365;
 			sourceTree = "<group>";
@@ -335,6 +340,7 @@
 				B805248F163E45AB005B74F8 /* MSNetworkConnector.m in Sources */,
 				8C15FD39163E49BB00FAA06D /* MSFoodLineViewController.m in Sources */,
 				B805249B163E4EF0005B74F8 /* MSUIIDController.m in Sources */,
+				8C15FD44163E556C00FAA06D /* MSFoodLineCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

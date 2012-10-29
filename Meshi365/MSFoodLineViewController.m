@@ -91,6 +91,9 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+		
+		cell.imageView.image = [UIImage imageNamed:@"no_image.png"];
+		cell.textLabel.text = @"ほげ";
     }
 	
 	
