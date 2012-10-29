@@ -14,6 +14,7 @@
 		8C9A0BD2163E444800242D6B /* MSMiniCalenderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C9A0BD1163E444800242D6B /* MSMiniCalenderViewController.m */; };
 		8C9A0BD5163E448C00242D6B /* MSRecommendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C9A0BD4163E448C00242D6B /* MSRecommendViewController.m */; };
 		8C9A0BD8163E449B00242D6B /* MSConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C9A0BD7163E449B00242D6B /* MSConfigViewController.m */; };
+		B805248F163E45AB005B74F8 /* MSNetworkConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = B805248E163E45AB005B74F8 /* MSNetworkConnector.m */; };
 		B8D0787B163D3D870050FF39 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8D0787A163D3D870050FF39 /* UIKit.framework */; };
 		B8D0787D163D3D870050FF39 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8D0787C163D3D870050FF39 /* Foundation.framework */; };
 		B8D0787F163D3D870050FF39 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8D0787E163D3D870050FF39 /* CoreGraphics.framework */; };
@@ -58,6 +59,8 @@
 		8C9A0BD4163E448C00242D6B /* MSRecommendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSRecommendViewController.m; sourceTree = "<group>"; };
 		8C9A0BD6163E449B00242D6B /* MSConfigViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSConfigViewController.h; sourceTree = "<group>"; };
 		8C9A0BD7163E449B00242D6B /* MSConfigViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSConfigViewController.m; sourceTree = "<group>"; };
+		B805248D163E45AB005B74F8 /* MSNetworkConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSNetworkConnector.h; sourceTree = "<group>"; };
+		B805248E163E45AB005B74F8 /* MSNetworkConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSNetworkConnector.m; sourceTree = "<group>"; };
 		B8D07876163D3D870050FF39 /* Meshi365.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Meshi365.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8D0787A163D3D870050FF39 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B8D0787C163D3D870050FF39 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -159,6 +162,8 @@
 				8C9A0BD4163E448C00242D6B /* MSRecommendViewController.m */,
 				8C9A0BD6163E449B00242D6B /* MSConfigViewController.h */,
 				8C9A0BD7163E449B00242D6B /* MSConfigViewController.m */,
+				B805248D163E45AB005B74F8 /* MSNetworkConnector.h */,
+				B805248E163E45AB005B74F8 /* MSNetworkConnector.m */,
 			);
 			path = Meshi365;
 			sourceTree = "<group>";
@@ -315,6 +320,7 @@
 				8C9A0BD2163E444800242D6B /* MSMiniCalenderViewController.m in Sources */,
 				8C9A0BD5163E448C00242D6B /* MSRecommendViewController.m in Sources */,
 				8C9A0BD8163E449B00242D6B /* MSConfigViewController.m in Sources */,
+				B805248F163E45AB005B74F8 /* MSNetworkConnector.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
