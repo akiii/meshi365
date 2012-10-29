@@ -23,16 +23,31 @@
     return self;
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
+-(void)imagePickerController:(UIImagePickerController*)picker
+       didFinishPickingImage:(UIImage*)image editingInfo:(NSDictionary*)editingInfo{
+    
+    //[self dismissModalViewControllerAnimated:YES];  // モーダルビューを閉じる
+    
+    // 渡されてきた画像をフォトアルバムに保存する
+    UIImageWriteToSavedPhotosAlbum(
+                                   image, self, @selector(targetImage:didFinishSavingWithError:contextInfo:),
+                                   NULL);
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+//画像の保存完了時に呼ばれるメソッド
+-(void)targetImage:(UIImage*)image
+didFinishSavingWithError:(NSError*)error contextInfo:(void*)context{
+    
+    if(error){
+    }else{
+    }
+}
+
+
+
+//画像の選択がキャンセルされた時に呼ばれる
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+    //[self dismissModalViewControllerAnimated:YES];  // モーダルビューを閉じる
 }
 
 @end
