@@ -165,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				B8D07882163D3D870050FF39 /* Meshi365 */,
+				B8D07883163D3D870050FF39 /* Supporting Files */,
 				B8D078A4163D3D870050FF39 /* Meshi365Tests */,
 				B8D07879163D3D870050FF39 /* Frameworks */,
 				B8D07877163D3D870050FF39 /* Products */,
@@ -195,17 +196,16 @@
 		B8D07882163D3D870050FF39 /* Meshi365 */ = {
 			isa = PBXGroup;
 			children = (
-				8C7B3BCF163E3F2600B8D7C1 /* MSRootTabBarController.h */,
-				8C7B3BD0163E3F2600B8D7C1 /* MSRootTabBarController.m */,
 				B8D0788B163D3D870050FF39 /* AppDelegate.h */,
 				B8D0788C163D3D870050FF39 /* AppDelegate.m */,
 				B8D07894163D3D870050FF39 /* Meshi365.xcdatamodeld */,
-				B80524A7163EEBBA005B74F8 /* ViewControllers */,
-				B8D07883163D3D870050FF39 /* Supporting Files */,
 				B805248D163E45AB005B74F8 /* MSNetworkConnector.h */,
 				B805248E163E45AB005B74F8 /* MSNetworkConnector.m */,
 				B8052499163E4EF0005B74F8 /* MSUIIDController.h */,
 				B805249A163E4EF0005B74F8 /* MSUIIDController.m */,
+				8C7B3BCF163E3F2600B8D7C1 /* MSRootTabBarController.h */,
+				8C7B3BD0163E3F2600B8D7C1 /* MSRootTabBarController.m */,
+				B80524A7163EEBBA005B74F8 /* ViewControllers */,
 			);
 			path = Meshi365;
 			sourceTree = "<group>";
@@ -223,6 +223,7 @@
 				B8D07892163D3D870050FF39 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			path = Meshi365;
 			sourceTree = "<group>";
 		};
 		B8D078A4163D3D870050FF39 /* Meshi365Tests */ = {
