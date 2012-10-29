@@ -69,17 +69,27 @@
 -(void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     if([msCamera.state isEqualToString:@"breakfast"]){
-        breakfastImageView.image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect([msCamera.camera_image CGImage], CGRectMake(0, (msCamera.camera_image.size.height-msCamera.camera_image.size.width/4)/2, msCamera.camera_image.size.width, msCamera.camera_image.size.width/4))];
-        /*
-        int new_image_height =
-            msCamera.camera_image.size.height*no_image_size.width/msCamera.camera_image.size.width;
-        
-        UIGraphicsBeginImageContext(no_image_size);
-        [msCamera.camera_image drawInRect:CGRectMake(0, 0, no_image_size.width,new_image_height)];
-        breakfastImageView.image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect([UIGraphicsGetImageFromCurrentImageContext() CGImage], CGRectMake(0, 0, no_image_size.width, no_image_size.height))];
-        UIGraphicsEndImageContext();
-        NSLog(@"%f",(new_image_height-no_image_size.height)/2);
-         */
+        CGRect image_rect = CGRectMake(0,
+                                       (msCamera.camera_image.size.height-msCamera.camera_image.size.width/4)/2,
+                                       msCamera.camera_image.size.width,
+                                       msCamera.camera_image.size.width/4);
+        breakfastImageView.image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect( [msCamera.camera_image CGImage], image_rect)];
+    }
+    
+    if([msCamera.state isEqualToString:@"lunch"]){
+        CGRect image_rect = CGRectMake(0,
+                                       (msCamera.camera_image.size.height-msCamera.camera_image.size.width/4)/2,
+                                       msCamera.camera_image.size.width,
+                                       msCamera.camera_image.size.width/4);
+        lunchImageView.image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect( [msCamera.camera_image CGImage], image_rect)];
+    }
+    
+    if([msCamera.state isEqualToString:@"supper"]){
+        CGRect image_rect = CGRectMake(0,
+                                       (msCamera.camera_image.size.height-msCamera.camera_image.size.width/4)/2,
+                                       msCamera.camera_image.size.width,
+                                       msCamera.camera_image.size.width/4);
+        supperImageView.image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect( [msCamera.camera_image CGImage], image_rect)];
     }
 }
 
@@ -96,9 +106,21 @@
 
 -(void)lunchCameraAction{
     NSLog(@"Lunch");
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
+        msCamera.state = @"lunch";
+        msCamera.sourceType = UIImagePickerControllerSourceTypeCamera;
+        msCamera.allowsEditing = YES;
+        [self presentModalViewController:msCamera animated:YES];
+    }
 }
 -(void)supperCameraAction{
     NSLog(@"Supper");
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
+        msCamera.state = @"supper";
+        msCamera.sourceType = UIImagePickerControllerSourceTypeCamera;
+        msCamera.allowsEditing = YES;
+        [self presentModalViewController:msCamera animated:YES];
+    }
 }
 
 - (void)didReceiveMemoryWarning
