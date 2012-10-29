@@ -10,4 +10,6 @@
 
 @interface MSValueImageViewController : UIViewController
 
+@property (nonatomic,strong) UIImage *taken_image;
+
 @end

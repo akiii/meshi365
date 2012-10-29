@@ -18,6 +18,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        self.view.backgroundColor = [UIColor whiteColor];
         // Custom initialization
     }
     return self;
@@ -26,7 +27,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+}
+
+-(void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    UIImageView *taken_imageView = [[UIImageView alloc] initWithImage:self.taken_image];
+    taken_imageView.frame = CGRectMake(0, 0, 100, 100);
+    [self.view addSubview:taken_imageView];
+    
 }
 
 - (void)didReceiveMemoryWarning
