@@ -29,11 +29,11 @@
 {
     [super viewDidLoad];
 	
-	MSMiniCalenderTableView *miniCcalenderTableView;
-	miniCcalenderTableView = [[MSMiniCalenderTableView alloc]init];
+	MSMiniCalenderTableView *miniCalenderTableView;
+	miniCalenderTableView = [[MSMiniCalenderTableView alloc]init];
 	
 	
-	[self.view addSubview: miniCcalenderTableView];
+	[self.view addSubview: miniCalenderTableView];
 
 }
 

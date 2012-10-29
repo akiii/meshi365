@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MSMiniCalenderTableView : UITableView
+@interface MSMiniCalenderTableView : UITableView<UITableViewDataSource, UITableViewDelegate>
+
 
 @end
