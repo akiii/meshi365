@@ -8,6 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+#import "MSTodayMealViewController.h"
+#import "MSFoodLineViewController.h"
+#import "MSMiniCalenderViewController.h"
+#import "MSRecommendViewController.h"
+#import "MSConfigViewController.h"
+
 @interface MSRootTabBarController : UITabBarController
+
+@property MSTodayMealViewController *todayMEalViewController;
+@property MSFoodLineViewController *foodLineViewController;
+@property MSMiniCalenderViewController *miniCalenderViewController;
+@property MSRecommendViewController *recommendViewController;
+@property MSConfigViewController *configViewController;
 
 @end

@@ -20,7 +20,17 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+ 		
+		self.todayMEalViewController	= [[MSTodayMealViewController alloc]init];
+		self.foodLineViewController		= [[MSFoodLineViewController alloc]init];
+		self.miniCalenderViewController	= [[MSMiniCalenderViewController alloc]init];
+		self.recommendViewController	= [[MSRecommendViewController alloc]init];
+		self.configViewController		= [[MSConfigViewController alloc]init];
+
+		
+		NSArray *views = [NSArray arrayWithObjects:self.todayMEalViewController, self.foodLineViewController, self.miniCalenderViewController, self. recommendViewController, self.configViewController, nil];
+		[self setViewControllers:views animated:NO];
+
     }
     return self;
 }
