@@ -29,7 +29,7 @@
 		
 	NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     NSMutableDictionary *defaults = [NSMutableDictionary dictionary];
-    [defaults setObject:nil forKey:kUIID];
+    [defaults setObject:@"" forKey:kUIID];
     [ud registerDefaults:defaults];
     
     NSString *uiid = [[[MSUIIDController alloc] init] uiid];
