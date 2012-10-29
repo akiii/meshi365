@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "MSNetworkConnector.h"
+#import "MSUIIDController.h"
 
 @implementation AppDelegate
 
@@ -24,12 +26,16 @@
 	
 	self.rootTabBarController = [[MSRootTabBarController alloc]init];
 	[self.window addSubview:self.rootTabBarController.view];
-	
+		
+	NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSMutableDictionary *defaults = [NSMutableDictionary dictionary];
+    [defaults setObject:nil forKey:kUIID];
+    [ud registerDefaults:defaults];
+    
+    NSString *uiid = [[[MSUIIDController alloc] init] uiid];
+    [MSNetworkConnector requestToUrl:@"http://localhost:3000/user/login/" method:RequestMethodPost params:[NSString stringWithFormat:@"uiid=%@", uiid] block:^(NSData *response) {}];
+    
     return YES;
-	
-	
-	
-	
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
