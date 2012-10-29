@@ -10,4 +10,5 @@
 
 @interface MSFoodLineCell : UITableViewCell
 
+
 @end

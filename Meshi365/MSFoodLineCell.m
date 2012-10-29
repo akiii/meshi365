@@ -14,7 +14,29 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        // Initialization code
+		
+		self.imageView.image = [UIImage imageNamed:@"no_image.png"];
+
+		int length = [UIScreen mainScreen].bounds.size.width-10;
+		self.imageView.frame = CGRectMake(5,5,30, 30);
+		
+		
+		self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+		self.imageView.clipsToBounds = YES;
+	
+
+		//self.textLabel.text = @"ほげ";
+	
+												 //	UIImageView image
+		
+		UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(20, 100, 280, 20)];
+        [name setFont:[UIFont systemFontOfSize:18]];
+		name.text = @"Rice";
+        
+		[self addSubview:name];
+        // accessory
+        [self setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+		
     }
     return self;
 }
