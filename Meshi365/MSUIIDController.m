@@ -12,30 +12,33 @@
 
 - (BOOL)exist{
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if ([defaults objectForKey:kUIID]) {
-        return YES;
-    }else {
+    if ([[defaults objectForKey:kUIID] isEqual:@""]) {
         return NO;
+    }else {
+        return YES;
     }
 }
 
 - (NSString *)uiid{
     if ([self exist]) {
-        return [self uuid];
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSString *uiid = [defaults objectForKey:kUIID];
+        return uiid;
     }else {
         return [self create];
     }
 }
 
 - (NSString *)create{
-    CFUUIDRef uuidObj = CFUUIDCreate(nil);
-    NSString *uuidString = (__bridge NSString*)CFUUIDCreateString(nil, uuidObj);
-    CFRelease(uuidObj);
-    return uuidString;
-}
-
-- (NSString *)uuid{
-    return [[NSUserDefaults standardUserDefaults] objectForKey:kUIID];
+    CFUUIDRef uiidObj = CFUUIDCreate(nil);
+    NSString *uiidString = (__bridge NSString*)CFUUIDCreateString(nil, uiidObj);
+    CFRelease(uiidObj);
+    
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    [ud setObject:uiidString forKey:kUIID];
+    [ud synchronize];
+    
+    return uiidString;
 }
 
 @end
