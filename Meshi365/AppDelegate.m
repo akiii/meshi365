@@ -20,6 +20,11 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+	
+	
+	self.rootTabBarController = [[MSRootTabBarController alloc]init];
+	[self.window addSubview:self.rootTabBarController.view];
+	
     return YES;
 	
 	
