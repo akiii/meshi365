@@ -29,13 +29,20 @@
 {
     [super viewDidLoad];
 	
-	MSMiniCalenderTableView *miniCalenderTableView;
-	miniCalenderTableView = [[MSMiniCalenderTableView alloc]init];
 	
-	int height = [UIScreen mainScreen].bounds.size.height - 10;
-	miniCalenderTableView.frame = CGRectMake(10, 10, 100, height);
+	int tableViewNum = 3;
+	MSMiniCalenderTableView *miniCalenderTableView[tableViewNum];
 	
-	[self.view addSubview: miniCalenderTableView];
+	for( int i = 0 ; i < tableViewNum; i++)
+	{
+		miniCalenderTableView[i] = [[MSMiniCalenderTableView alloc]init];
+		
+		int height = [UIScreen mainScreen].bounds.size.height - 10;
+		int width = [UIScreen mainScreen].bounds.size.width/3;
+		miniCalenderTableView[i].frame = CGRectMake(i*width, 10, width, height);
+		
+		[self.view addSubview: miniCalenderTableView[i]];
+	}
 
 }
 

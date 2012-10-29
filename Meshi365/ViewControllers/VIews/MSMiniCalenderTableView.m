@@ -70,8 +70,10 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 4;
+    return 10;
 }
+
+
 
 
 
@@ -84,7 +86,14 @@
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 		
 		
-		cell.textLabel.text = @"hoge";
+		int size = [UIScreen mainScreen].bounds.size.width/3 - 20;
+		UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(3, 5, size, size)];
+		imageView.image = [UIImage imageNamed:@"sampleMenu.png"];
+		imageView.contentMode = UIViewContentModeScaleToFill;
+		
+		
+		[cell addSubview:imageView];
+
 	}
 	
     return cell;
@@ -94,7 +103,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	//todo セルのサイズに合わせてか可変を
-	return 100;
+	return 120;
 	
 }
 
