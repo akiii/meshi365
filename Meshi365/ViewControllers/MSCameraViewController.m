@@ -9,7 +9,6 @@
 #import "MSCameraViewController.h"
 
 @interface MSCameraViewController ()
-
 @end
 
 @implementation MSCameraViewController
@@ -18,25 +17,24 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        self.delegate = self;
         // Custom initialization
     }
     return self;
 }
 
--(void)imagePickerController:(UIImagePickerController*)picker
-       didFinishPickingImage:(UIImage*)image editingInfo:(NSDictionary*)editingInfo{
+-(void)imagePickerController:(UIImagePickerController*)picker didFinishPickingImage:(UIImage*)image editingInfo:(NSDictionary*)editingInfo{
     
-    //[self dismissModalViewControllerAnimated:YES];  // モーダルビューを閉じる
+    self.camera_image = image;
     
-    // 渡されてきた画像をフォトアルバムに保存する
-    UIImageWriteToSavedPhotosAlbum(
-                                   image, self, @selector(targetImage:didFinishSavingWithError:contextInfo:),
-                                   NULL);
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 //画像の保存完了時に呼ばれるメソッド
 -(void)targetImage:(UIImage*)image
 didFinishSavingWithError:(NSError*)error contextInfo:(void*)context{
+    
+    NSLog(@"test");
     
     if(error){
     }else{
@@ -47,7 +45,8 @@ didFinishSavingWithError:(NSError*)error contextInfo:(void*)context{
 
 //画像の選択がキャンセルされた時に呼ばれる
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
-    //[self dismissModalViewControllerAnimated:YES];  // モーダルビューを閉じる
+    [self dismissModalViewControllerAnimated:YES];
+    NSLog(@"test");
 }
 
 @end
