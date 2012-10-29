@@ -7,18 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		275E0D26163E531700DB961A /* no_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 275E0D24163E531700DB961A /* no_image.png */; };
-		275E0D27163E531700DB961A /* no_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 275E0D25163E531700DB961A /* no_image@2x.png */; };
-		8C15FD39163E49BB00FAA06D /* MSFoodLineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C15FD38163E49BB00FAA06D /* MSFoodLineViewController.m */; };
-		8C15FD44163E556C00FAA06D /* MSFoodLineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C15FD43163E556C00FAA06D /* MSFoodLineCell.m */; };
 		8C7B3BD1163E3F2600B8D7C1 /* MSRootTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C7B3BD0163E3F2600B8D7C1 /* MSRootTabBarController.m */; };
-		8C9A0BCB163E43A900242D6B /* MSCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C9A0BC8163E43A900242D6B /* MSCameraViewController.m */; };
-		8C9A0BCC163E43A900242D6B /* MSTodayMealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C9A0BCA163E43A900242D6B /* MSTodayMealViewController.m */; };
-		8C9A0BD2163E444800242D6B /* MSMiniCalenderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C9A0BD1163E444800242D6B /* MSMiniCalenderViewController.m */; };
-		8C9A0BD5163E448C00242D6B /* MSRecommendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C9A0BD4163E448C00242D6B /* MSRecommendViewController.m */; };
-		8C9A0BD8163E449B00242D6B /* MSConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C9A0BD7163E449B00242D6B /* MSConfigViewController.m */; };
 		B805248F163E45AB005B74F8 /* MSNetworkConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = B805248E163E45AB005B74F8 /* MSNetworkConnector.m */; };
 		B805249B163E4EF0005B74F8 /* MSUIIDController.m in Sources */ = {isa = PBXBuildFile; fileRef = B805249A163E4EF0005B74F8 /* MSUIIDController.m */; };
+		B80524A5163EEB59005B74F8 /* no_image.png in Resources */ = {isa = PBXBuildFile; fileRef = B80524A3163EEB59005B74F8 /* no_image.png */; };
+		B80524A6163EEB59005B74F8 /* no_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B80524A4163EEB59005B74F8 /* no_image@2x.png */; };
+		B80524B6163EEBBA005B74F8 /* MSCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B80524A9163EEBBA005B74F8 /* MSCameraViewController.m */; };
+		B80524B7163EEBBA005B74F8 /* MSConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B80524AB163EEBBA005B74F8 /* MSConfigViewController.m */; };
+		B80524B9163EEBBA005B74F8 /* MSFoodLineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B80524AF163EEBBA005B74F8 /* MSFoodLineViewController.m */; };
+		B80524BA163EEBBA005B74F8 /* MSMiniCalenderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B80524B1163EEBBA005B74F8 /* MSMiniCalenderViewController.m */; };
+		B80524BB163EEBBA005B74F8 /* MSRecommendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B80524B3163EEBBA005B74F8 /* MSRecommendViewController.m */; };
+		B80524BC163EEBBA005B74F8 /* MSTodayMealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B80524B5163EEBBA005B74F8 /* MSTodayMealViewController.m */; };
+		B80524C0163EEC7A005B74F8 /* MSFoodLineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B80524BF163EEC7A005B74F8 /* MSFoodLineCell.m */; };
 		B8D0787B163D3D870050FF39 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8D0787A163D3D870050FF39 /* UIKit.framework */; };
 		B8D0787D163D3D870050FF39 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8D0787C163D3D870050FF39 /* Foundation.framework */; };
 		B8D0787F163D3D870050FF39 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8D0787E163D3D870050FF39 /* CoreGraphics.framework */; };
@@ -49,28 +49,28 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		275E0D24163E531700DB961A /* no_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = no_image.png; sourceTree = "<group>"; };
-		275E0D25163E531700DB961A /* no_image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no_image@2x.png"; sourceTree = "<group>"; };
-		8C15FD37163E49BB00FAA06D /* MSFoodLineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSFoodLineViewController.h; sourceTree = "<group>"; };
-		8C15FD38163E49BB00FAA06D /* MSFoodLineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSFoodLineViewController.m; sourceTree = "<group>"; };
-		8C15FD42163E556B00FAA06D /* MSFoodLineCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSFoodLineCell.h; sourceTree = "<group>"; };
-		8C15FD43163E556C00FAA06D /* MSFoodLineCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSFoodLineCell.m; sourceTree = "<group>"; };
 		8C7B3BCF163E3F2600B8D7C1 /* MSRootTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSRootTabBarController.h; sourceTree = "<group>"; };
 		8C7B3BD0163E3F2600B8D7C1 /* MSRootTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSRootTabBarController.m; sourceTree = "<group>"; };
-		8C9A0BC7163E43A900242D6B /* MSCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSCameraViewController.h; sourceTree = "<group>"; };
-		8C9A0BC8163E43A900242D6B /* MSCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSCameraViewController.m; sourceTree = "<group>"; };
-		8C9A0BC9163E43A900242D6B /* MSTodayMealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSTodayMealViewController.h; sourceTree = "<group>"; };
-		8C9A0BCA163E43A900242D6B /* MSTodayMealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSTodayMealViewController.m; sourceTree = "<group>"; };
-		8C9A0BD0163E444800242D6B /* MSMiniCalenderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMiniCalenderViewController.h; sourceTree = "<group>"; };
-		8C9A0BD1163E444800242D6B /* MSMiniCalenderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMiniCalenderViewController.m; sourceTree = "<group>"; };
-		8C9A0BD3163E448C00242D6B /* MSRecommendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSRecommendViewController.h; sourceTree = "<group>"; };
-		8C9A0BD4163E448C00242D6B /* MSRecommendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSRecommendViewController.m; sourceTree = "<group>"; };
-		8C9A0BD6163E449B00242D6B /* MSConfigViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSConfigViewController.h; sourceTree = "<group>"; };
-		8C9A0BD7163E449B00242D6B /* MSConfigViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSConfigViewController.m; sourceTree = "<group>"; };
 		B805248D163E45AB005B74F8 /* MSNetworkConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSNetworkConnector.h; sourceTree = "<group>"; };
 		B805248E163E45AB005B74F8 /* MSNetworkConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSNetworkConnector.m; sourceTree = "<group>"; };
 		B8052499163E4EF0005B74F8 /* MSUIIDController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSUIIDController.h; sourceTree = "<group>"; };
 		B805249A163E4EF0005B74F8 /* MSUIIDController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSUIIDController.m; sourceTree = "<group>"; };
+		B80524A3163EEB59005B74F8 /* no_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = no_image.png; sourceTree = "<group>"; };
+		B80524A4163EEB59005B74F8 /* no_image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no_image@2x.png"; sourceTree = "<group>"; };
+		B80524A8163EEBBA005B74F8 /* MSCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSCameraViewController.h; sourceTree = "<group>"; };
+		B80524A9163EEBBA005B74F8 /* MSCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSCameraViewController.m; sourceTree = "<group>"; };
+		B80524AA163EEBBA005B74F8 /* MSConfigViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSConfigViewController.h; sourceTree = "<group>"; };
+		B80524AB163EEBBA005B74F8 /* MSConfigViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSConfigViewController.m; sourceTree = "<group>"; };
+		B80524AE163EEBBA005B74F8 /* MSFoodLineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSFoodLineViewController.h; sourceTree = "<group>"; };
+		B80524AF163EEBBA005B74F8 /* MSFoodLineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSFoodLineViewController.m; sourceTree = "<group>"; };
+		B80524B0163EEBBA005B74F8 /* MSMiniCalenderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMiniCalenderViewController.h; sourceTree = "<group>"; };
+		B80524B1163EEBBA005B74F8 /* MSMiniCalenderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMiniCalenderViewController.m; sourceTree = "<group>"; };
+		B80524B2163EEBBA005B74F8 /* MSRecommendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSRecommendViewController.h; sourceTree = "<group>"; };
+		B80524B3163EEBBA005B74F8 /* MSRecommendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSRecommendViewController.m; sourceTree = "<group>"; };
+		B80524B4163EEBBA005B74F8 /* MSTodayMealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSTodayMealViewController.h; sourceTree = "<group>"; };
+		B80524B5163EEBBA005B74F8 /* MSTodayMealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSTodayMealViewController.m; sourceTree = "<group>"; };
+		B80524BE163EEC7A005B74F8 /* MSFoodLineCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSFoodLineCell.h; sourceTree = "<group>"; };
+		B80524BF163EEC7A005B74F8 /* MSFoodLineCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSFoodLineCell.m; sourceTree = "<group>"; };
 		B8D07876163D3D870050FF39 /* Meshi365.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Meshi365.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8D0787A163D3D870050FF39 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B8D0787C163D3D870050FF39 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -120,6 +120,44 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B80524A2163EEB59005B74F8 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B80524A3163EEB59005B74F8 /* no_image.png */,
+				B80524A4163EEB59005B74F8 /* no_image@2x.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		B80524A7163EEBBA005B74F8 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				B80524BD163EEC79005B74F8 /* VIews */,
+				B80524A8163EEBBA005B74F8 /* MSCameraViewController.h */,
+				B80524A9163EEBBA005B74F8 /* MSCameraViewController.m */,
+				B80524AA163EEBBA005B74F8 /* MSConfigViewController.h */,
+				B80524AB163EEBBA005B74F8 /* MSConfigViewController.m */,
+				B80524AE163EEBBA005B74F8 /* MSFoodLineViewController.h */,
+				B80524AF163EEBBA005B74F8 /* MSFoodLineViewController.m */,
+				B80524B0163EEBBA005B74F8 /* MSMiniCalenderViewController.h */,
+				B80524B1163EEBBA005B74F8 /* MSMiniCalenderViewController.m */,
+				B80524B2163EEBBA005B74F8 /* MSRecommendViewController.h */,
+				B80524B3163EEBBA005B74F8 /* MSRecommendViewController.m */,
+				B80524B4163EEBBA005B74F8 /* MSTodayMealViewController.h */,
+				B80524B5163EEBBA005B74F8 /* MSTodayMealViewController.m */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		B80524BD163EEC79005B74F8 /* VIews */ = {
+			isa = PBXGroup;
+			children = (
+				B80524BE163EEC7A005B74F8 /* MSFoodLineCell.h */,
+				B80524BF163EEC7A005B74F8 /* MSFoodLineCell.m */,
+			);
+			path = VIews;
+			sourceTree = "<group>";
+		};
 		B8D0786B163D3D870050FF39 = {
 			isa = PBXGroup;
 			children = (
@@ -154,32 +192,17 @@
 		B8D07882163D3D870050FF39 /* Meshi365 */ = {
 			isa = PBXGroup;
 			children = (
-				275E0D24163E531700DB961A /* no_image.png */,
-				275E0D25163E531700DB961A /* no_image@2x.png */,
 				8C7B3BCF163E3F2600B8D7C1 /* MSRootTabBarController.h */,
 				8C7B3BD0163E3F2600B8D7C1 /* MSRootTabBarController.m */,
-				8C9A0BC7163E43A900242D6B /* MSCameraViewController.h */,
-				8C9A0BC8163E43A900242D6B /* MSCameraViewController.m */,
-				8C9A0BC9163E43A900242D6B /* MSTodayMealViewController.h */,
-				8C9A0BCA163E43A900242D6B /* MSTodayMealViewController.m */,
 				B8D0788B163D3D870050FF39 /* AppDelegate.h */,
 				B8D0788C163D3D870050FF39 /* AppDelegate.m */,
 				B8D07894163D3D870050FF39 /* Meshi365.xcdatamodeld */,
+				B80524A7163EEBBA005B74F8 /* ViewControllers */,
 				B8D07883163D3D870050FF39 /* Supporting Files */,
-				8C9A0BD0163E444800242D6B /* MSMiniCalenderViewController.h */,
-				8C9A0BD1163E444800242D6B /* MSMiniCalenderViewController.m */,
-				8C9A0BD3163E448C00242D6B /* MSRecommendViewController.h */,
-				8C9A0BD4163E448C00242D6B /* MSRecommendViewController.m */,
-				8C9A0BD6163E449B00242D6B /* MSConfigViewController.h */,
-				8C9A0BD7163E449B00242D6B /* MSConfigViewController.m */,
 				B805248D163E45AB005B74F8 /* MSNetworkConnector.h */,
 				B805248E163E45AB005B74F8 /* MSNetworkConnector.m */,
-				8C15FD37163E49BB00FAA06D /* MSFoodLineViewController.h */,
-				8C15FD38163E49BB00FAA06D /* MSFoodLineViewController.m */,
 				B8052499163E4EF0005B74F8 /* MSUIIDController.h */,
 				B805249A163E4EF0005B74F8 /* MSUIIDController.m */,
-				8C15FD42163E556B00FAA06D /* MSFoodLineCell.h */,
-				8C15FD43163E556C00FAA06D /* MSFoodLineCell.m */,
 			);
 			path = Meshi365;
 			sourceTree = "<group>";
@@ -187,6 +210,7 @@
 		B8D07883163D3D870050FF39 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B80524A2163EEB59005B74F8 /* Resources */,
 				B8D07884163D3D870050FF39 /* Meshi365-Info.plist */,
 				B8D07885163D3D870050FF39 /* InfoPlist.strings */,
 				B8D07888163D3D870050FF39 /* main.m */,
@@ -292,8 +316,8 @@
 				B8D0788F163D3D870050FF39 /* Default.png in Resources */,
 				B8D07891163D3D870050FF39 /* Default@2x.png in Resources */,
 				B8D07893163D3D870050FF39 /* Default-568h@2x.png in Resources */,
-				275E0D26163E531700DB961A /* no_image.png in Resources */,
-				275E0D27163E531700DB961A /* no_image@2x.png in Resources */,
+				B80524A5163EEB59005B74F8 /* no_image.png in Resources */,
+				B80524A6163EEB59005B74F8 /* no_image@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,15 +356,15 @@
 				B8D0788D163D3D870050FF39 /* AppDelegate.m in Sources */,
 				B8D07896163D3D870050FF39 /* Meshi365.xcdatamodeld in Sources */,
 				8C7B3BD1163E3F2600B8D7C1 /* MSRootTabBarController.m in Sources */,
-				8C9A0BCB163E43A900242D6B /* MSCameraViewController.m in Sources */,
-				8C9A0BCC163E43A900242D6B /* MSTodayMealViewController.m in Sources */,
-				8C9A0BD2163E444800242D6B /* MSMiniCalenderViewController.m in Sources */,
-				8C9A0BD5163E448C00242D6B /* MSRecommendViewController.m in Sources */,
-				8C9A0BD8163E449B00242D6B /* MSConfigViewController.m in Sources */,
 				B805248F163E45AB005B74F8 /* MSNetworkConnector.m in Sources */,
-				8C15FD39163E49BB00FAA06D /* MSFoodLineViewController.m in Sources */,
 				B805249B163E4EF0005B74F8 /* MSUIIDController.m in Sources */,
-				8C15FD44163E556C00FAA06D /* MSFoodLineCell.m in Sources */,
+				B80524B6163EEBBA005B74F8 /* MSCameraViewController.m in Sources */,
+				B80524B7163EEBBA005B74F8 /* MSConfigViewController.m in Sources */,
+				B80524B9163EEBBA005B74F8 /* MSFoodLineViewController.m in Sources */,
+				B80524BA163EEBBA005B74F8 /* MSMiniCalenderViewController.m in Sources */,
+				B80524BB163EEBBA005B74F8 /* MSRecommendViewController.m in Sources */,
+				B80524BC163EEBBA005B74F8 /* MSTodayMealViewController.m in Sources */,
+				B80524C0163EEC7A005B74F8 /* MSFoodLineCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
