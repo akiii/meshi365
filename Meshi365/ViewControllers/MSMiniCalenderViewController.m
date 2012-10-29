@@ -32,6 +32,8 @@
 	MSMiniCalenderTableView *miniCalenderTableView;
 	miniCalenderTableView = [[MSMiniCalenderTableView alloc]init];
 	
+	int height = [UIScreen mainScreen].bounds.size.height - 10;
+	miniCalenderTableView.frame = CGRectMake(10, 10, 100, height);
 	
 	[self.view addSubview: miniCalenderTableView];
 

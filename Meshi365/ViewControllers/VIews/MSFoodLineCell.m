@@ -19,9 +19,11 @@
 	int x = 10;
 	int y = 10;
 	int dy=30;
+	
 	self.textLabel.text = @"Break Fast";
 	self.textLabel.frame =  CGRectMake(x, y, [UIScreen mainScreen].bounds.size.width,30);
 
+	
 	self.detailTextLabel.text = @"hh:mm dd/MM/yy";
 	self.detailTextLabel.textAlignment =  NSTextAlignmentLeft;
 	self.detailTextLabel.frame =  CGRectMake(x+100, y, [UIScreen mainScreen].bounds.size.width,30);
@@ -32,6 +34,7 @@
 	self.imageView.frame = CGRectMake(x, y, length,length);
     self.imageView.contentMode = UIViewContentModeScaleToFill;
 	y+=length+10;
+	
 	
 	UILabel *menuName = [[UILabel alloc] initWithFrame:CGRectMake(x, y, [UIScreen mainScreen].bounds.size.width, 30)];
 	[menuName setFont:[UIFont systemFontOfSize:18]];
