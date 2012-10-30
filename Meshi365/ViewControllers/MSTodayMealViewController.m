@@ -59,7 +59,7 @@
     lunchImageView.frame = CGRectMake(20,130,no_image_size.width ,no_image_size.height);
     supperImageView.frame = CGRectMake(20,230,no_image_size.width ,no_image_size.height);
     
-    breakfastImageView.contentMode = UIViewContentModeScaleAspectFill;
+    breakfastImageView.contentMode = UIViewContentModeScaleAspectFit;
     
     //画像の表示
     [self.view addSubview:breakfastImageView];
@@ -69,7 +69,6 @@
     UILabel *othersLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 310, 80, 30)];
     othersLabel.backgroundColor = [UIColor clearColor];
     othersLabel.text = @"Others";
-    NSLog(@"澤田参上！");
     [self.view addSubview:othersLabel];
 }
 
@@ -81,10 +80,6 @@
         msValueImageView.delegate = self;
         msValueImageView.original_image = msCamera.camera_image;
         [self.view addSubview:msValueImageView];
-        CGRect image_rect = CGRectMake(0, (msCamera.camera_image.size.height-msCamera.camera_image.size.width/4)/2,
-                                       msCamera.camera_image.size.width,
-                                       msCamera.camera_image.size.width/4);
-        breakfastImageView.image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect( [msCamera.camera_image CGImage], image_rect)];
     }
     if([msCamera.state isEqualToString:@"lunch"]){
         CGRect image_rect = CGRectMake(0, (msCamera.camera_image.size.height-msCamera.camera_image.size.width/4)/2,
@@ -138,6 +133,27 @@ clickedButtonAtIndex:(NSInteger)buttonIndex {
 }
 
 -(void) save_image:(id)sender{
+    
+    NSLog(@"%@", [MSAWSConnector postFoodPictureToAWS:msValueImageView.resized_image]);
+    
+    CGRect image_rect = CGRectMake(0, (msValueImageView.resized_image.size.height-no_image_size.height)/2,
+                                   msValueImageView.resized_image.size.width,
+                                   msValueImageView.resized_image.size.height*no_image_size.height
+                                    /no_image_size.width);
+    if([msCamera.state isEqualToString:@"breakfast"])
+        breakfastImageView.image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect
+                                    ([msValueImageView.resized_image CGImage], image_rect)];
+    
+    
+    [msValueImageView removeFromSuperview];
+}
+
+-(void) cancel_image:(id)sender{
+    
+    
+    //UIImage *image = [UIImage imageNamed:@"no_image_breakfast.png"];
+    //[MSAWSConnector postFoodPictureToAWS:image];
+    
     [msValueImageView removeFromSuperview];
 }
 

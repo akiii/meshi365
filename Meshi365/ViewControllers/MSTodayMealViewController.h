@@ -1,6 +1,8 @@
+
 #import <UIKit/UIKit.h>
 #import "MSCameraViewController.h"
 #import "MSValueImageView.h"
+#import "MSAWSConnector.h"
 
 @interface MSTodayMealViewController : UIViewController<UIActionSheetDelegate>{
     UIImageView *breakfastImageView;
