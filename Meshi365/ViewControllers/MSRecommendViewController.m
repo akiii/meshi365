@@ -28,7 +28,7 @@
     [super viewDidLoad];
 
 	int height = [UIScreen mainScreen].bounds.size.height - 10;
-	int width = [UIScreen mainScreen].bounds.size.width/3;
+	int width = [UIScreen mainScreen].bounds.size.width/2;
 	int tableViewNum = 2;
 	MSRecommendTableView *recommendTableView[tableViewNum];
 	UILabel *label[tableViewNum];
@@ -37,8 +37,8 @@
 		label[i] = [[UILabel alloc]init];
 		switch(i)
 		{
-			case 0:label[i].text = @"self data";
-			case 1:label[i].text = @"others data";
+			case 0:label[i].text = @"self data";	break;
+			case 1:label[i].text = @"others data";	break;
 		}
 		label[i].backgroundColor = [UIColor colorWithRed:0.9 green:0.87 blue:0.92 alpha:1.0];
 		label[i].frame = CGRectMake(i*width+2, 30, width, 30);
