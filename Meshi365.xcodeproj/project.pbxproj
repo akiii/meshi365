@@ -20,6 +20,7 @@
 		8C180947163F29C9003400EB /* starNonSelect.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C180946163F29C9003400EB /* starNonSelect.png */; };
 		8C18094A163F2A1A003400EB /* sampleMenu.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C180949163F2A1A003400EB /* sampleMenu.png */; };
 		8C180950163F355B003400EB /* MSMiniCalenderTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C18094F163F355B003400EB /* MSMiniCalenderTableView.m */; };
+		8C66D31816408A9B0010777F /* MSRecommendTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C66D31716408A9B0010777F /* MSRecommendTableView.m */; };
 		8C7B3BD1163E3F2600B8D7C1 /* MSRootTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C7B3BD0163E3F2600B8D7C1 /* MSRootTabBarController.m */; };
 		8CD1BA56163EEF8C00AFA334 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 8CD1BA55163EEF8C00AFA334 /* star.png */; };
 		B805248F163E45AB005B74F8 /* MSNetworkConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = B805248E163E45AB005B74F8 /* MSNetworkConnector.m */; };
@@ -85,6 +86,8 @@
 		8C180949163F2A1A003400EB /* sampleMenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sampleMenu.png; sourceTree = "<group>"; };
 		8C18094E163F355B003400EB /* MSMiniCalenderTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMiniCalenderTableView.h; sourceTree = "<group>"; };
 		8C18094F163F355B003400EB /* MSMiniCalenderTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMiniCalenderTableView.m; sourceTree = "<group>"; };
+		8C66D31616408A9B0010777F /* MSRecommendTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSRecommendTableView.h; sourceTree = "<group>"; };
+		8C66D31716408A9B0010777F /* MSRecommendTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSRecommendTableView.m; sourceTree = "<group>"; };
 		8C7B3BCF163E3F2600B8D7C1 /* MSRootTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSRootTabBarController.h; sourceTree = "<group>"; };
 		8C7B3BD0163E3F2600B8D7C1 /* MSRootTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSRootTabBarController.m; sourceTree = "<group>"; };
 		8CD1BA55163EEF8C00AFA334 /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
@@ -223,6 +226,8 @@
 				8C1699EF163F937100194888 /* MSMiniCalenderScrollView.m */,
 				B805252216406429005B74F8 /* MSFoodPictureImage.h */,
 				B805252316406429005B74F8 /* MSFoodPictureImage.m */,
+				8C66D31616408A9B0010777F /* MSRecommendTableView.h */,
+				8C66D31716408A9B0010777F /* MSRecommendTableView.m */,
 			);
 			path = VIews;
 			sourceTree = "<group>";
@@ -470,6 +475,7 @@
 				B8052507163F96C6005B74F8 /* MSUser.m in Sources */,
 				B805250A163FA2A8005B74F8 /* MSFoodPicture.m in Sources */,
 				B805252416406429005B74F8 /* MSFoodPictureImage.m in Sources */,
+				8C66D31816408A9B0010777F /* MSRecommendTableView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
