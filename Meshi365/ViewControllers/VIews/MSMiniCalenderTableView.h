@@ -10,5 +10,7 @@
 
 @interface MSMiniCalenderTableView : UITableView<UITableViewDataSource, UITableViewDelegate>
 
+@property (nonatomic,strong)NSString *tableName;
+
 
 @end

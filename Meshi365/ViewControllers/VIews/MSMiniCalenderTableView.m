@@ -87,12 +87,18 @@
 		
 		
 		int size = [UIScreen mainScreen].bounds.size.width/3 - 20;
-		UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(3, 5, size, size)];
+		UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(3, 10, size, size)];
 		imageView.image = [UIImage imageNamed:@"sampleMenu.png"];
 		imageView.contentMode = UIViewContentModeScaleToFill;
-		
-		
 		[cell addSubview:imageView];
+		
+		
+		
+		UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(3, 3, size, 30)];
+		label.text = @"Breakfast";
+		
+		[cell addSubview:label];
+		
 
 	}
 	
@@ -115,6 +121,11 @@
     if (indexPath != nil) {
         [tableView deselectRowAtIndexPath:indexPath animated:NO];
     }
+}
+
+- (NSString *)tableView:(UITableView *)tableView
+titleForHeaderInSection:(NSInteger)section{
+	return self.tableName;
 }
 
 
