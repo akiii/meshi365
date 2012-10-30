@@ -9,8 +9,8 @@
 #import "MSRecommendViewController.h"
 #import "MSRecommendTableView.h"
 #import "MSNetworkConnector.h"
-
-
+#import "MSRecommendCell.h"
+#import "MSAWSConnector.h"
 
 @interface MSRecommendViewController ()
 
@@ -99,7 +99,7 @@
 	
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-		cell =[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier imageUrl:[MSAWSConnector foodPictureImageUrlFromJsonArray:jsonArray imageNum:indexPath.row] jsonData:jsonArray[indexPath.row] ];
+		cell =[[MSRecommendCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier imageUrl:[MSAWSConnector foodPictureImageUrlFromJsonArray:jsonArray imageNum:indexPath.row] jsonData:jsonArray[indexPath.row] ];
 	}
 	
 	return cell;

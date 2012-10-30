@@ -10,4 +10,9 @@
 
 @interface MSRecommendCell : UITableViewCell
 
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+		   imageUrl:(NSURL*)url  jsonData:(NSDictionary*)jsonData;
+
+
+
 @end
