@@ -2,13 +2,15 @@
 #import "MSCameraViewController.h"
 #import "MSValueImageView.h"
 
-@interface MSTodayMealViewController : UIViewController{
+@interface MSTodayMealViewController : UIViewController<UIActionSheetDelegate>{
     UIImageView *breakfastImageView;
     UIImageView *lunchImageView;
     UIImageView *supperImageView;
     
     MSCameraViewController *msCamera;
     MSValueImageView *msValueImageView;
+    
+    UIActionSheet *as;
     
     CGSize no_image_size;
 }
