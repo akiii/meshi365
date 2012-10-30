@@ -24,7 +24,7 @@
     // Custom initialization
     NSString *uiid = [[MSUIIDController sharedController] uiid];
     NSString *fn = [NSString stringWithFormat:@"%@-%@", uiid, [NSDate date]];
-    NSString *fileName = [self MD5:fn];
+    NSString *fileName = [self md5:fn];
     
     AmazonS3Client *s3 = [[AmazonS3Client alloc] initWithAccessKey:AWS_ACCESS_KEY_ID withSecretKey:AWS_SECRET_KEY];
     [s3 createBucket:[[S3CreateBucketRequest alloc] initWithName:AWS_BUCKET_NAME]];
@@ -39,7 +39,7 @@
     return [NSURL URLWithString:urlString];
 }
 
-+ (NSString *)MD5:(NSString*)str{
++ (NSString *)md5:(NSString*)str{
     const char *cStr = [str UTF8String];
     unsigned char digest[CC_MD5_DIGEST_LENGTH];
     CC_MD5( cStr, strlen(cStr), digest );
