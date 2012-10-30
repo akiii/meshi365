@@ -9,9 +9,7 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        self.view.backgroundColor = [UIColor colorWithRed:1.0 green:0.93 blue:0.8 alpha:1.0];
-    }
+    if(self) self.view.backgroundColor = [UIColor colorWithRed:1.0 green:0.93 blue:0.8 alpha:1.0];
     return self;
 }
 
@@ -120,7 +118,6 @@
 
 -(void)actionSheet:(UIActionSheet*)actionSheet
 clickedButtonAtIndex:(NSInteger)buttonIndex {
-    
     if(buttonIndex!=2){
         if(buttonIndex)
             msCamera.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
@@ -143,17 +140,17 @@ clickedButtonAtIndex:(NSInteger)buttonIndex {
     if([msCamera.state isEqualToString:@"breakfast"])
         breakfastImageView.image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect
                                     ([msValueImageView.resized_image CGImage], image_rect)];
-    
-    
+    if([msCamera.state isEqualToString:@"lunch"])
+        lunchImageView.image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect
+                                    ([msValueImageView.resized_image CGImage], image_rect)];
+    if([msCamera.state isEqualToString:@"supper"])
+        supperImageView.image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect
+                                    ([msValueImageView.resized_image CGImage], image_rect)];
+    msCamera.state = nil;
     [msValueImageView removeFromSuperview];
 }
 
 -(void) cancel_image:(id)sender{
-    
-    
-    //UIImage *image = [UIImage imageNamed:@"no_image_breakfast.png"];
-    //[MSAWSConnector postFoodPictureToAWS:image];
-    
     [msValueImageView removeFromSuperview];
 }
 
