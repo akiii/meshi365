@@ -9,13 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface MSFoodLineCell : UITableViewCell
-{
-	const NSString* imageUrl;
-}
 
-- (void)setImageUrl:(NSString*) url;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-		   imageUrl:(NSString*)url;
+		   imageUrl:(NSURL*)url;
 
 @end

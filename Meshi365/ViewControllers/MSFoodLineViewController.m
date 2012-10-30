@@ -10,6 +10,8 @@
 
 #import "MSFoodLineCell.h"
 #import "MSNetworkConnector.h"
+#import "MSAWSConnector.h"
+
 
 @interface MSFoodLineViewController ()
 
@@ -73,12 +75,14 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+	
     static NSString *CellIdentifier = @"Cell";
 	
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-		cell = [[MSFoodLineCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier imageUrl:[NSString stringWithString: [jsonData[0] objectForKey:@"url"]]  ];
+		cell = [[MSFoodLineCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier imageUrl:[MSAWSConnector getFoodLineImageUrlFromJson:jsonData imageNo:indexPath.row]  ];
 	}
+	
 	return cell;
 }
 

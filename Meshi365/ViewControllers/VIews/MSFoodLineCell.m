@@ -8,6 +8,12 @@
 
 #import "MSFoodLineCell.h"
 
+@interface MSFoodLineCell()
+@property(nonatomic, strong) NSURL* imageUrl;
+
+
+@end
+
 @implementation MSFoodLineCell
 
 
@@ -30,7 +36,11 @@
 	y+=dy;
 	
 	int length = [UIScreen mainScreen].bounds.size.width-20;
-	self.imageView.image = [UIImage imageNamed:@"sampleMenu.png"];
+	
+	NSData* data = [NSData dataWithContentsOfURL:_imageUrl];
+	self.imageView.image = [[UIImage alloc] initWithData:data];	
+	//self.imageView.image = [UIImage imageNamed:@"sampleMenu.png"];
+	
 	self.imageView.frame = CGRectMake(x, y, length,length);
     self.imageView.contentMode = UIViewContentModeScaleToFill;
 	y+=length+10;
@@ -79,10 +89,10 @@
 }
 
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier imageUrl:(NSString*)url
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier imageUrl:(NSURL*)url
 {
-	imageUrl = url;
-	NSLog(@"imageUrl:%@",imageUrl);
+	_imageUrl = url;
+	NSLog(@"imageUrl:%@",_imageUrl);
 	return [super initWithStyle:style reuseIdentifier:reuseIdentifier];
 }
 

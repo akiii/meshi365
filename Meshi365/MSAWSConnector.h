@@ -10,4 +10,5 @@
 
 @interface MSAWSConnector : NSObject
 + (NSURL *)postFoodPictureToAWS:(UIImage *)image;
++ (NSURL*) getFoodLineImageUrlFromJson:(NSArray*)jsonData imageNo:(int) imageNo;
 @end
