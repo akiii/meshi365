@@ -9,5 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface MSRecommendViewController : UIViewController
+<UITableViewDataSource, UITableViewDelegate>
+
+{
+	NSArray* jsonArray;
+}
 
 @end
