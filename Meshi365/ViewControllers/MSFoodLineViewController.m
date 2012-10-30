@@ -44,7 +44,7 @@
 	[MSNetworkConnector requestToUrl:@"http://aqueous-brushlands-6933.herokuapp.com/food_pictures" method:RequestMethodGet params:nil block:^(NSData *response)
 	 {
 		 jsonData = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
-		 // NSLog(@"json : %@", jsonData);
+		  NSLog(@"json : %@", jsonData);
 		 //NSLog(@"url : %@", [jsonData[0] objectForKey:@"url"]);
 	 }];
 	
@@ -81,7 +81,7 @@
 	
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-		cell =[[MSFoodLineCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier imageUrl:[MSAWSConnector getFoodLineImageUrlFromJson:jsonData imageNo:indexPath.row]  ];
+		cell =[[MSFoodLineCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier imageUrl:[MSAWSConnector getFoodLineImageUrlFromJson:jsonData imageNo:indexPath.row] jsonData:jsonData[indexPath.row] ];
 	}
 	
 	return cell;
