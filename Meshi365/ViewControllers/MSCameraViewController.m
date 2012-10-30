@@ -27,10 +27,6 @@
     
     self.camera_image = image;
     
-    MSValueImageViewController *msValueImageViewController = [[MSValueImageViewController alloc] init];
-    msValueImageViewController.taken_image = image;
-    //[self presentModalViewController:msValueImageViewController animated:YES];
-    
     [self dismissModalViewControllerAnimated:NO];
 }
 

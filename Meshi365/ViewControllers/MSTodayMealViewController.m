@@ -30,9 +30,6 @@
     
     msCamera = [[MSCameraViewController alloc] init];
     
-    UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 400)];
-    lbl.text = [self getMD5fromStr:@"sakaiyasuomi"];
-    [self.view addSubview:lbl];
     
     no_image_size = CGSizeMake(
                                280, 70);
@@ -74,10 +71,6 @@
 -(void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     if([msCamera.state isEqualToString:@"breakfast"]){
-        MSValueImageViewController *msValueImageViewControll = [[MSValueImageViewController alloc] init];
-        msValueImageViewControll.taken_image = msCamera.camera_image;
-        [self presentModalViewController:msValueImageViewControll animated:YES];
-
         CGRect image_rect = CGRectMake(0,
                                        (msCamera.camera_image.size.height-msCamera.camera_image.size.width/4)/2,
                                        msCamera.camera_image.size.width,

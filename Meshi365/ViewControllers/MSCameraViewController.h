@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MSValueImageViewController.h"
 
 @interface MSCameraViewController : UIImagePickerController
 <UINavigationControllerDelegate,UIImagePickerControllerDelegate>
