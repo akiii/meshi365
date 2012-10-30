@@ -76,7 +76,7 @@
     if([msCamera.state isEqualToString:@"breakfast"]){
         msValueImageView = [[MSValueImageView alloc] init];
         msValueImageView.delegate = self;
-        msValueImageView.original_image = msCamera.camera_image;
+        msValueImageView.cameraImage = msCamera.camera_image;
         [self.view addSubview:msValueImageView];
     }
     if([msCamera.state isEqualToString:@"lunch"]){
@@ -130,22 +130,21 @@ clickedButtonAtIndex:(NSInteger)buttonIndex {
 }
 
 -(void) save_image:(id)sender{
+    NSLog(@"%@", [MSAWSConnector postFoodPictureToAWS:msValueImageView.squareFoodPictureImage]);
     
-    NSLog(@"%@", [MSAWSConnector postFoodPictureToAWS:msValueImageView.resized_image]);
-    
-    CGRect image_rect = CGRectMake(0, (msValueImageView.resized_image.size.height-no_image_size.height)/2,
-                                   msValueImageView.resized_image.size.width,
-                                   msValueImageView.resized_image.size.height*no_image_size.height
+    CGRect image_rect = CGRectMake(0, (msValueImageView.squareFoodPictureImage.size.height-no_image_size.height)/2,
+                                   msValueImageView.squareFoodPictureImage.size.width,
+                                   msValueImageView.squareFoodPictureImage.size.height*no_image_size.height
                                     /no_image_size.width);
     if([msCamera.state isEqualToString:@"breakfast"])
         breakfastImageView.image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect
-                                    ([msValueImageView.resized_image CGImage], image_rect)];
+                                    ([msValueImageView.squareFoodPictureImage CGImage], image_rect)];
     if([msCamera.state isEqualToString:@"lunch"])
         lunchImageView.image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect
-                                    ([msValueImageView.resized_image CGImage], image_rect)];
+                                    ([msValueImageView.squareFoodPictureImage CGImage], image_rect)];
     if([msCamera.state isEqualToString:@"supper"])
         supperImageView.image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect
-                                    ([msValueImageView.resized_image CGImage], image_rect)];
+                                    ([msValueImageView.squareFoodPictureImage CGImage], image_rect)];
     msCamera.state = nil;
     [msValueImageView removeFromSuperview];
 }
