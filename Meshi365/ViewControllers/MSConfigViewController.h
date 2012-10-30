@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface MSConfigViewController : UIViewController
+<UITextFieldDelegate>
 
 @end
