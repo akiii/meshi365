@@ -8,6 +8,18 @@
 
 #import "MSUser.h"
 
+static MSUser *currentUser = nil;
+
 @implementation MSUser
+
++ (MSUser *)currentUser{
+    if (!currentUser) {
+        NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+        currentUser = [[MSUser alloc] init];
+        currentUser.uid = [[ud objectForKey:kUserId] intValue];
+        currentUser.uiid = [ud objectForKey:kUIID];
+    }
+    return currentUser;
+}
 
 @end

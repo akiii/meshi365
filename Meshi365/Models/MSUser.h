@@ -9,7 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface MSUser : NSObject
-@property (assign) int id;
++ (MSUser *)currentUser;
+@property (assign) int uid;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *uiid;
 @end
