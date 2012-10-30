@@ -11,6 +11,7 @@
 #define kUIID   @"UIID"
 
 @interface MSUIIDController : NSObject
++ (MSUIIDController *)sharedController;
 - (BOOL)exist;
 - (NSString *)uiid;
 - (NSString *)create;

@@ -8,7 +8,16 @@
 
 #import "MSUIIDController.h"
 
+static MSUIIDController *controller = nil;
+
 @implementation MSUIIDController
+
++ (MSUIIDController *)sharedController{
+    if (!controller) {
+        controller = [[MSUIIDController alloc] init];
+    }
+    return controller;
+}
 
 - (BOOL)exist{
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -39,6 +48,10 @@
     [ud synchronize];
     
     return uiidString;
+}
+
+- (void)dealloc{
+    controller = nil;
 }
 
 @end

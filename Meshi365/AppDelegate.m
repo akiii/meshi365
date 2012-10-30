@@ -33,7 +33,7 @@
     [defaults setObject:@"" forKey:kUIID];
     [ud registerDefaults:defaults];
     
-    NSString *uiid = [[[MSUIIDController alloc] init] uiid];
+    NSString *uiid = [[MSUIIDController sharedController] uiid];
     [MSNetworkConnector requestToUrl:URL_OF_USER_LOGIN method:RequestMethodPost params:[NSString stringWithFormat:@"uiid=%@", uiid] block:^(NSData *response) {
         NSString *res = [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
         NSLog(@"res : %@", res);
