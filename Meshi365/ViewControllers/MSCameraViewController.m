@@ -29,9 +29,9 @@
     
     MSValueImageViewController *msValueImageViewController = [[MSValueImageViewController alloc] init];
     msValueImageViewController.taken_image = image;
-    [self presentModalViewController:msValueImageViewController animated:YES];
+    //[self presentModalViewController:msValueImageViewController animated:YES];
     
-    //[self dismissModalViewControllerAnimated:YES];
+    [self dismissModalViewControllerAnimated:NO];
 }
 
 //画像の保存完了時に呼ばれるメソッド

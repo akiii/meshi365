@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MSCameraViewController.h"
+#import "MSValueImageViewController.h"
 
 @interface MSTodayMealViewController : UIViewController{
     UIImageView *breakfastImageView;
