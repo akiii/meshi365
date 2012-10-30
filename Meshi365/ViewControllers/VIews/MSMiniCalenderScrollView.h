@@ -10,5 +10,6 @@
 
 @interface MSMiniCalenderScrollView : UIScrollView<UIScrollViewDelegate>
 
+-(void)setLayout:(int)tableNum;
 -(void)fixScrollOffset;
 @end

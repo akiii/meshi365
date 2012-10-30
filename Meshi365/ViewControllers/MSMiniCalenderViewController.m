@@ -29,22 +29,12 @@
 {
     [super viewDidLoad];
 	
-	int tableViewNum = 30;
+	int tableViewNum = 10;
 
 	scrollView = [[MSMiniCalenderScrollView alloc] initWithFrame:self.view.bounds];
-	scrollView.backgroundColor = [UIColor cyanColor];
-	scrollView.contentSize = CGSizeMake([UIScreen mainScreen].bounds.size.width*tableViewNum/3.0f, 0);
-	scrollView.showsHorizontalScrollIndicator = YES;
-    scrollView.showsVerticalScrollIndicator = NO;
-	scrollView.bounces = YES;
-	scrollView.pagingEnabled = NO;
-	//[scrollView setDecelerationRate:0.01f];
+	[scrollView setLayout:tableViewNum];
 
 	
-	
-	CGRect rect = CGRectMake( 100,200, 200, 400 );
-	[scrollView zoomToRect:rect animated:YES];
-
 	
 	MSMiniCalenderTableView *miniCalenderTableView[tableViewNum];
 	UILabel *dayLabel[tableViewNum];
@@ -77,7 +67,7 @@
 		int width = [UIScreen mainScreen].bounds.size.width/3;
 		miniCalenderTableView[i].frame = CGRectMake(i*width, 60, width, height);
 		
-		dayLabel[i].frame = CGRectMake(i*width, 30, width, 30);
+		dayLabel[i].frame = CGRectMake(i*width+2, 30, width, 30);
 		
 		[scrollView addSubview:miniCalenderTableView[i]];
 		[scrollView addSubview:dayLabel[i]];
