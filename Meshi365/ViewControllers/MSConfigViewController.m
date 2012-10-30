@@ -7,7 +7,6 @@
 //
 
 #import "MSConfigViewController.h"
-#import "MSUIIDController.h"
 
 @interface MSConfigViewController ()
 

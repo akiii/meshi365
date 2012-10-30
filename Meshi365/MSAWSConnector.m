@@ -21,8 +21,6 @@
 #define AWS_ACCESS_KEY_ID           @"AKIAIGLYHE4PH36VP7HQ"
 #define AWS_SECRET_KEY              @"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"
 
-#define URL_OF_POST_FOOD_PICTURE    @"http://aqueous-brushlands-6933.herokuapp.com/post/food_picture"
-
 @implementation MSAWSConnector
 
 + (NSURL *)postFoodPictureToAWS:(UIImage *)image{
