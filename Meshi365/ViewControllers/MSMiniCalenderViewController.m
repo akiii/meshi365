@@ -45,14 +45,13 @@
 	
 	MSMiniCalenderTableView *miniCalenderTableView[tableViewNum];
 	UILabel *dayLabel[tableViewNum];
-	UILabel *monthLabel[tableViewNum];
+	UILabel *monthLabel= [[UILabel alloc]init];
 	for( int i = 0 ; i < tableViewNum; i++)
 	{
 		miniCalenderTableView[i] = [[MSMiniCalenderTableView alloc]init];
 		miniCalenderTableView[i].bounces = YES;
 		
 		dayLabel[i] = [[UILabel alloc]init];
-		monthLabel[i] = [[UILabel alloc]init];
 		
 		
 		NSDate* date= [NSDate dateWithTimeIntervalSinceNow: -24*60*60 * i];
@@ -67,8 +66,6 @@
 			dayLabel[i].text = [NSString stringWithFormat:@"%2d",dateComps.day];
 		}
 		
-		monthLabel[i].text = [NSString stringWithFormat:@"%2d",dateComps.month];
-
 		
 		dayLabel[i].backgroundColor = [UIColor colorWithRed:0.9 green:0.87 blue:0.92 alpha:1.0];
 		
@@ -78,15 +75,21 @@
 		miniCalenderTableView[i].frame = CGRectMake(i*width, 60, width, height);
 		
 		dayLabel[i].frame = CGRectMake(i*width, 30, width, 30);
-		monthLabel[i].frame = CGRectMake(i*width, 0, width, 30);
 		
 		[scrollView addSubview:miniCalenderTableView[i]];
 		[scrollView addSubview:dayLabel[i]];
-		[scrollView addSubview:monthLabel[i]];
-
+	
 	}
 	
+
+	
+	monthLabel.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width/2, 30);
+	//	monthLabel.text = [NSString stringWithFormat:@"%2d",dateComps.month];
+	monthLabel.text = [NSString stringWithFormat:@"JUN/MAY"];
+
+	
 	[self.view addSubview:scrollView];
+	[self.view addSubview:monthLabel];
 
 
 }
