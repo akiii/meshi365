@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "MSNetworkConnector.h"
 #import "MSUIIDController.h"
+#import "MSUser.h"
 
 #define URL_OF_USER_LOGIN   @"http://aqueous-brushlands-6933.herokuapp.com/user/login"
 
@@ -30,13 +31,21 @@
 		
 	NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     NSMutableDictionary *defaults = [NSMutableDictionary dictionary];
+    [defaults setObject:@'0' forKey:kUserId];
     [defaults setObject:@"" forKey:kUIID];
     [ud registerDefaults:defaults];
     
     NSString *uiid = [[MSUIIDController sharedController] uiid];
     [MSNetworkConnector requestToUrl:URL_OF_USER_LOGIN method:RequestMethodPost params:[NSString stringWithFormat:@"uiid=%@", uiid] block:^(NSData *response) {
-        NSString *res = [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
-        NSLog(@"res : %@", res);
+        NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableContainers error:nil];
+        if ([[jsonDic objectForKey:@"save"] boolValue]) {            
+            NSNumber *userId = [NSNumber numberWithInt:[[jsonDic objectForKey:kUserId] intValue]];
+            NSString *uiid = [jsonDic objectForKey:kUIID];
+            NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+            [ud setObject:userId forKey:kUserId];
+            [ud setObject:uiid forKey:kUIID];
+            [ud synchronize];
+        }
     }];
     
     return YES;
