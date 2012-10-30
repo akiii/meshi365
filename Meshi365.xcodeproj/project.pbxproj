@@ -115,6 +115,7 @@
 		B8052506163F96C6005B74F8 /* MSUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSUser.m; sourceTree = "<group>"; };
 		B8052508163FA2A8005B74F8 /* MSFoodPicture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSFoodPicture.h; sourceTree = "<group>"; };
 		B8052509163FA2A8005B74F8 /* MSFoodPicture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSFoodPicture.m; sourceTree = "<group>"; };
+		B805252016403E94005B74F8 /* MSGlobal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSGlobal.h; sourceTree = "<group>"; };
 		B8D07876163D3D870050FF39 /* Meshi365.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Meshi365.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8D0787A163D3D870050FF39 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B8D0787C163D3D870050FF39 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -272,6 +273,7 @@
 				B8D0788B163D3D870050FF39 /* AppDelegate.h */,
 				B8D0788C163D3D870050FF39 /* AppDelegate.m */,
 				B8D07894163D3D870050FF39 /* Meshi365.xcdatamodeld */,
+				B805252016403E94005B74F8 /* MSGlobal.h */,
 				B805248D163E45AB005B74F8 /* MSNetworkConnector.h */,
 				B805248E163E45AB005B74F8 /* MSNetworkConnector.m */,
 				B80524FB163F92F8005B74F8 /* MSAWSConnector.h */,
