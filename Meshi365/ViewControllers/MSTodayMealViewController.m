@@ -10,8 +10,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        
-        
+        self.view.backgroundColor = [UIColor colorWithRed:1.0 green:0.93 blue:0.8 alpha:1.0];
     }
     return self;
 }
@@ -21,21 +20,22 @@
     [super viewDidLoad];
     
     msCamera = [[MSCameraViewController alloc] init];
+    msCamera.state = nil;
     
-    no_image_size = CGSizeMake(280, 70);
+    no_image_size = CGSizeMake(280, 80);
     
     as = [[UIActionSheet alloc] init];
     as.delegate = self;
-    as.title = @"選択してください。";
-    [as addButtonWithTitle:@"カメラから選択"];
-    [as addButtonWithTitle:@"ライブラリから選択"];
-    [as addButtonWithTitle:@"キャンセル"];
+    as.title = @"";
+    [as addButtonWithTitle:@"Take Photo"];
+    [as addButtonWithTitle:@"Choose From Library"];
+    [as addButtonWithTitle:@"Cancel"];
     as.cancelButtonIndex = 2;
     
     //Making views in Today Meal
-    breakfastImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_image.png"]];
-    lunchImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_image.png"]];
-    supperImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_image.png"]];
+    breakfastImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_image_breakfast.png"]];
+    lunchImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_image_lunch.png"]];
+    supperImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_image_supper.png"]];
     
     //Image View をタップで反応できるようにする設定
     breakfastImageView.userInteractionEnabled = YES;
@@ -53,10 +53,11 @@
                                            initWithTarget:self
                                            action:@selector(supperCameraAction)]];
     
+    
     //画像の大きさを設定
     breakfastImageView.frame = CGRectMake(20,30,no_image_size.width ,no_image_size.height);
-    lunchImageView.frame = CGRectMake(20,120,no_image_size.width ,no_image_size.height);
-    supperImageView.frame = CGRectMake(20,210,no_image_size.width ,no_image_size.height);
+    lunchImageView.frame = CGRectMake(20,130,no_image_size.width ,no_image_size.height);
+    supperImageView.frame = CGRectMake(20,230,no_image_size.width ,no_image_size.height);
     
     breakfastImageView.contentMode = UIViewContentModeScaleAspectFill;
     
@@ -64,10 +65,17 @@
     [self.view addSubview:breakfastImageView];
     [self.view addSubview:lunchImageView];
     [self.view addSubview:supperImageView];
+    
+    UILabel *othersLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 310, 80, 30)];
+    othersLabel.backgroundColor = [UIColor clearColor];
+    othersLabel.text = @"Others";
+    NSLog(@"澤田参上！");
+    [self.view addSubview:othersLabel];
 }
 
 -(void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    
     if([msCamera.state isEqualToString:@"breakfast"]){
         msValueImageView = [[MSValueImageView alloc] init];
         msValueImageView.delegate = self;
