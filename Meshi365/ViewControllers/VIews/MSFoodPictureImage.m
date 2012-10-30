@@ -10,4 +10,15 @@
 
 @implementation MSFoodPictureImage
 
+- (id)init{
+    if (self = [super init]) {
+        self.foodPicture = [[MSFoodPicture alloc] init];
+    }
+    return self;
+}
+
+- (void)dealloc{
+    self.foodPicture = nil;
+}
+
 @end
