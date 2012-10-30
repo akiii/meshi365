@@ -21,7 +21,7 @@ static MSUIIDController *controller = nil;
 
 - (BOOL)exist{
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if ([[defaults objectForKey:kUIID] isEqual:@""]) {
+    if ([[defaults objectForKey:kUIID] isEqualToString:@""]) {
         return NO;
     }else {
         return YES;
@@ -29,24 +29,20 @@ static MSUIIDController *controller = nil;
 }
 
 - (NSString *)uiid{
+    NSString *uiid;
     if ([self exist]) {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        NSString *uiid = [defaults objectForKey:kUIID];
-        return uiid;
+        uiid = [defaults objectForKey:kUIID];
     }else {
-        return [self create];
+        uiid = [self create];
     }
+    return uiid;
 }
 
 - (NSString *)create{
     CFUUIDRef uiidObj = CFUUIDCreate(nil);
     NSString *uiidString = (__bridge NSString*)CFUUIDCreateString(nil, uiidObj);
     CFRelease(uiidObj);
-    
-    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    [ud setObject:uiidString forKey:kUIID];
-    [ud synchronize];
-    
     return uiidString;
 }
 
