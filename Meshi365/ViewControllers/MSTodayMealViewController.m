@@ -24,6 +24,14 @@
     
     no_image_size = CGSizeMake(280, 70);
     
+    as = [[UIActionSheet alloc] init];
+    as.delegate = self;
+    as.title = @"選択してください。";
+    [as addButtonWithTitle:@"カメラから選択"];
+    [as addButtonWithTitle:@"ライブラリから選択"];
+    [as addButtonWithTitle:@"キャンセル"];
+    as.cancelButtonIndex = 2;
+    
     //Making views in Today Meal
     breakfastImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_image.png"]];
     lunchImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_image.png"]];
@@ -86,33 +94,41 @@
 
 -(void)breakfastCameraAction{
     NSLog(@"Breakfast");
-    
     if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
         msCamera.state = @"breakfast";
-        msCamera.sourceType = UIImagePickerControllerSourceTypeCamera;
-        msCamera.allowsEditing = YES;
-        [self presentModalViewController:msCamera animated:YES];
-    }    
+        [as showFromTabBar:self.tabBarController.tabBar];
+    }
 }
 
 -(void)lunchCameraAction{
     NSLog(@"Lunch");
     if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
         msCamera.state = @"lunch";
-        msCamera.sourceType = UIImagePickerControllerSourceTypeCamera;
-        msCamera.allowsEditing = YES;
-        [self presentModalViewController:msCamera animated:YES];
+        [as showFromTabBar:self.tabBarController.tabBar];
     }
 }
 -(void)supperCameraAction{
     NSLog(@"Supper");
     if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
         msCamera.state = @"supper";
-        msCamera.sourceType = UIImagePickerControllerSourceTypeCamera;
+        [as showFromTabBar:self.tabBarController.tabBar];
+    }
+}
+
+-(void)actionSheet:(UIActionSheet*)actionSheet
+clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if(buttonIndex!=2){
+        if(buttonIndex)
+            msCamera.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        else
+            msCamera.sourceType = UIImagePickerControllerSourceTypeCamera;
+
         msCamera.allowsEditing = YES;
         [self presentModalViewController:msCamera animated:YES];
     }
 }
+
 -(void) save_image:(id)sender{
     [msValueImageView removeFromSuperview];
 }
