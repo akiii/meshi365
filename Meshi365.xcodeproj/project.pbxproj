@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		279DA492163F466500AF6E26 /* MSValueImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 279DA491163F466500AF6E26 /* MSValueImageViewController.m */; };
+		279DA49E163F689D00AF6E26 /* MSValueImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 279DA49D163F689D00AF6E26 /* MSValueImageView.m */; };
 		8C180947163F29C9003400EB /* starNonSelect.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C180946163F29C9003400EB /* starNonSelect.png */; };
 		8C18094A163F2A1A003400EB /* sampleMenu.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C180949163F2A1A003400EB /* sampleMenu.png */; };
 		8C180950163F355B003400EB /* MSMiniCalenderTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C18094F163F355B003400EB /* MSMiniCalenderTableView.m */; };
@@ -56,8 +56,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		279DA490163F466500AF6E26 /* MSValueImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSValueImageViewController.h; sourceTree = "<group>"; };
-		279DA491163F466500AF6E26 /* MSValueImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSValueImageViewController.m; sourceTree = "<group>"; };
+		279DA49C163F689D00AF6E26 /* MSValueImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSValueImageView.h; sourceTree = "<group>"; };
+		279DA49D163F689D00AF6E26 /* MSValueImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSValueImageView.m; sourceTree = "<group>"; };
 		8C180946163F29C9003400EB /* starNonSelect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = starNonSelect.png; sourceTree = "<group>"; };
 		8C180949163F2A1A003400EB /* sampleMenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sampleMenu.png; sourceTree = "<group>"; };
 		8C18094E163F355B003400EB /* MSMiniCalenderTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMiniCalenderTableView.h; sourceTree = "<group>"; };
@@ -166,8 +166,8 @@
 				B80524B3163EEBBA005B74F8 /* MSRecommendViewController.m */,
 				B80524B4163EEBBA005B74F8 /* MSTodayMealViewController.h */,
 				B80524B5163EEBBA005B74F8 /* MSTodayMealViewController.m */,
-				279DA490163F466500AF6E26 /* MSValueImageViewController.h */,
-				279DA491163F466500AF6E26 /* MSValueImageViewController.m */,
+				279DA49C163F689D00AF6E26 /* MSValueImageView.h */,
+				279DA49D163F689D00AF6E26 /* MSValueImageView.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -397,7 +397,7 @@
 				B80524BC163EEBBA005B74F8 /* MSTodayMealViewController.m in Sources */,
 				B80524C0163EEC7A005B74F8 /* MSFoodLineCell.m in Sources */,
 				8C180950163F355B003400EB /* MSMiniCalenderTableView.m in Sources */,
-				279DA492163F466500AF6E26 /* MSValueImageViewController.m in Sources */,
+				279DA49E163F689D00AF6E26 /* MSValueImageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

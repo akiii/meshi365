@@ -30,7 +30,9 @@
     
     msCamera = [[MSCameraViewController alloc] init];
     
-    no_image_size = CGSizeMake(280, 70);
+    
+    no_image_size = CGSizeMake(
+                               280, 70);
     
     //Making views in Today Meal
     breakfastImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_image.png"]];
@@ -121,12 +123,6 @@
         msCamera.allowsEditing = YES;
         [self presentModalViewController:msCamera animated:YES];
     }
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

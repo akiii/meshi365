@@ -1,5 +1,5 @@
 //
-//  MSValueImageViewController.h
+//  MSValueImageView.h
 //  Meshi365
 //
 //  Created by tatsuya on 10/30/12.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MSValueImageViewController : UIViewController
+@interface MSValueImageView : UIView
 
 @end

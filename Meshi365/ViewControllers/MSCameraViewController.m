@@ -27,7 +27,7 @@
     
     self.camera_image = image;
     
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissModalViewControllerAnimated:NO];
 }
 
 //画像の保存完了時に呼ばれるメソッド
