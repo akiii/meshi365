@@ -22,4 +22,9 @@ static MSUser *currentUser = nil;
     return currentUser;
 }
 
+- (void)dealloc{
+    self.name = nil;
+    self.uiid = nil;
+}
+
 @end
