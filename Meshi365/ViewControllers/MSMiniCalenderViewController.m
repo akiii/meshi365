@@ -36,6 +36,8 @@
 
 	
 	
+	int height = [UIScreen mainScreen].bounds.size.height - 10;
+	int width = [UIScreen mainScreen].bounds.size.width/3;
 	MSMiniCalenderTableView *miniCalenderTableView[tableViewNum];
 	UILabel *dayLabel[tableViewNum];
 	UILabel *monthLabel= [[UILabel alloc]init];
@@ -43,10 +45,10 @@
 	{
 		miniCalenderTableView[i] = [[MSMiniCalenderTableView alloc]init];
 		miniCalenderTableView[i].bounces = YES;
+		miniCalenderTableView[i].frame = CGRectMake(i*width, 60, width, height);
+
 		
 		dayLabel[i] = [[UILabel alloc]init];
-		
-		
 		NSDate* date= [NSDate dateWithTimeIntervalSinceNow: -24*60*60 * i];
 		NSCalendar *calendar = [NSCalendar currentCalendar];
 		NSDateComponents *dateComps = [calendar components:NSDayCalendarUnit|NSMonthCalendarUnit fromDate:date];
@@ -58,16 +60,10 @@
 		{
 			dayLabel[i].text = [NSString stringWithFormat:@"%2d",dateComps.day];
 		}
-		
-		
 		dayLabel[i].backgroundColor = [UIColor colorWithRed:0.9 green:0.87 blue:0.92 alpha:1.0];
-		
-		
-		int height = [UIScreen mainScreen].bounds.size.height - 10;
-		int width = [UIScreen mainScreen].bounds.size.width/3;
-		miniCalenderTableView[i].frame = CGRectMake(i*width, 60, width, height);
-		
 		dayLabel[i].frame = CGRectMake(i*width+2, 30, width, 30);
+		
+		
 		
 		[scrollView addSubview:miniCalenderTableView[i]];
 		[scrollView addSubview:dayLabel[i]];

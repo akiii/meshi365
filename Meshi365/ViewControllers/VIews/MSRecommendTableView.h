@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MSRecommendTableView : UITableView
+@interface MSRecommendTableView : UITableView<UITableViewDataSource, UITableViewDelegate>
+
+
 
 @end
