@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-
+#import "MSMiniCalenderScrollView.h"
 @interface MSMiniCalenderViewController : UIViewController
+{
+	MSMiniCalenderScrollView *scrollView;
 
+}
 @end

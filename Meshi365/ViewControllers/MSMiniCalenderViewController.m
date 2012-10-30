@@ -31,17 +31,19 @@
 	
 	int tableViewNum = 30;
 
-	UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+	scrollView = [[MSMiniCalenderScrollView alloc] initWithFrame:self.view.bounds];
 	scrollView.backgroundColor = [UIColor cyanColor];
 	scrollView.contentSize = CGSizeMake([UIScreen mainScreen].bounds.size.width*tableViewNum/3.0f, 0);
 	scrollView.showsHorizontalScrollIndicator = YES;
     scrollView.showsVerticalScrollIndicator = NO;
 	scrollView.bounces = NO;
-	scrollView.pagingEnabled = YES;
+	//scrollView.pagingEnabled = YES;
 	
 	
 	
-	
+	CGRect rect = CGRectMake( 100,200, 200, 400 );
+	[scrollView zoomToRect:rect animated:YES];
+
 	
 	MSMiniCalenderTableView *miniCalenderTableView[tableViewNum];
 	UILabel *dayLabel[tableViewNum];
@@ -83,7 +85,8 @@
 	
 
 	
-	monthLabel.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width/2, 30);
+	monthLabel.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 30);
+	monthLabel.textAlignment = NSTextAlignmentCenter;
 	//	monthLabel.text = [NSString stringWithFormat:@"%2d",dateComps.month];
 	monthLabel.text = [NSString stringWithFormat:@"JUN/MAY"];
 
@@ -99,5 +102,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 @end
