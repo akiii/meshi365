@@ -1,11 +1,3 @@
-//
-//  MSTodayMealViewController.m
-//  Meshi365
-//
-//  Created by Mlle.Irene on 2012/10/29.
-//  Copyright (c) 2012年 Akifumi. All rights reserved.
-//
-
 #import "MSTodayMealViewController.h"
 
 @interface MSTodayMealViewController ()
@@ -30,9 +22,7 @@
     
     msCamera = [[MSCameraViewController alloc] init];
     
-    
-    no_image_size = CGSizeMake(
-                               280, 70);
+    no_image_size = CGSizeMake(280, 70);
     
     //Making views in Today Meal
     breakfastImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_image.png"]];
@@ -71,24 +61,23 @@
 -(void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     if([msCamera.state isEqualToString:@"breakfast"]){
-        CGRect image_rect = CGRectMake(0,
-                                       (msCamera.camera_image.size.height-msCamera.camera_image.size.width/4)/2,
+        msValueImageView = [[MSValueImageView alloc] init];
+        msValueImageView.delegate = self;
+        msValueImageView.original_image = msCamera.camera_image;
+        [self.view addSubview:msValueImageView];
+        CGRect image_rect = CGRectMake(0, (msCamera.camera_image.size.height-msCamera.camera_image.size.width/4)/2,
                                        msCamera.camera_image.size.width,
                                        msCamera.camera_image.size.width/4);
         breakfastImageView.image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect( [msCamera.camera_image CGImage], image_rect)];
     }
-    
     if([msCamera.state isEqualToString:@"lunch"]){
-        CGRect image_rect = CGRectMake(0,
-                                       (msCamera.camera_image.size.height-msCamera.camera_image.size.width/4)/2,
+        CGRect image_rect = CGRectMake(0, (msCamera.camera_image.size.height-msCamera.camera_image.size.width/4)/2,
                                        msCamera.camera_image.size.width,
                                        msCamera.camera_image.size.width/4);
         lunchImageView.image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect( [msCamera.camera_image CGImage], image_rect)];
     }
-    
     if([msCamera.state isEqualToString:@"supper"]){
-        CGRect image_rect = CGRectMake(0,
-                                       (msCamera.camera_image.size.height-msCamera.camera_image.size.width/4)/2,
+        CGRect image_rect = CGRectMake(0, (msCamera.camera_image.size.height-msCamera.camera_image.size.width/4)/2,
                                        msCamera.camera_image.size.width,
                                        msCamera.camera_image.size.width/4);
         supperImageView.image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect( [msCamera.camera_image CGImage], image_rect)];
@@ -123,6 +112,9 @@
         msCamera.allowsEditing = YES;
         [self presentModalViewController:msCamera animated:YES];
     }
+}
+-(void) save_image:(id)sender{
+    [msValueImageView removeFromSuperview];
 }
 
 @end

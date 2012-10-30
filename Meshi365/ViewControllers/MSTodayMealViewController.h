@@ -1,13 +1,6 @@
-//
-//  MSTodayMealViewController.h
-//  Meshi365
-//
-//  Created by Mlle.Irene on 2012/10/29.
-//  Copyright (c) 2012年 Akifumi. All rights reserved.
-//
-
 #import <UIKit/UIKit.h>
 #import "MSCameraViewController.h"
+#import "MSValueImageView.h"
 
 @interface MSTodayMealViewController : UIViewController{
     UIImageView *breakfastImageView;
@@ -15,6 +8,8 @@
     UIImageView *supperImageView;
     
     MSCameraViewController *msCamera;
+    MSValueImageView *msValueImageView;
+    
     CGSize no_image_size;
 }
 

@@ -1,13 +1,9 @@
-//
-//  MSValueImageView.h
-//  Meshi365
-//
-//  Created by tatsuya on 10/30/12.
-//  Copyright (c) 2012 Akifumi. All rights reserved.
-//
-
 #import <UIKit/UIKit.h>
 
 @interface MSValueImageView : UIView
+
+@property (nonatomic,strong) id delegate;
+@property (nonatomic,strong) UIImage *original_image;
+@property (nonatomic,strong) UIImage *resized_image;
 
 @end
