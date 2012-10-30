@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface MSAWSConnector : NSObject
-
++ (NSURL *)postFoodPictureToAWS:(UIImage *)image;
 @end

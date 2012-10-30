@@ -8,15 +8,20 @@
 
 #import "MSAWSConnector.h"
 #import "MSUIIDController.h"
+#import "MSUser.h"
+#import "MSFoodPicture.h"
+#import "MSNetworkConnector.h"
 #import "CommonCrypto/CommonDigest.h"
 #import <AWSiOSSDK/S3/AmazonS3Client.h>
 
-#define AWS_BASE_URL        @"https://s3.amazonaws.com"
+#define AWS_BASE_URL                @"https://s3.amazonaws.com"
 
-#define AWS_BUCKET_NAME     @"meshi365-images"
+#define AWS_BUCKET_NAME             @"meshi365-images"
 
-#define AWS_ACCESS_KEY_ID   @"AKIAIGLYHE4PH36VP7HQ"
-#define AWS_SECRET_KEY      @"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"
+#define AWS_ACCESS_KEY_ID           @"AKIAIGLYHE4PH36VP7HQ"
+#define AWS_SECRET_KEY              @"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"
+
+#define URL_OF_POST_FOOD_PICTURE    @"http://aqueous-brushlands-6933.herokuapp.com/post/food_picture"
 
 @implementation MSAWSConnector
 
@@ -36,6 +41,16 @@
     [s3 putObject:por];
     
     NSString *urlString = [NSString stringWithFormat:@"%@/%@/%@", AWS_BASE_URL, AWS_BUCKET_NAME, fileName];
+    
+    MSFoodPicture *foodPicture = [[MSFoodPicture alloc] init];
+    foodPicture.userId = [MSUser currentUser].uid;
+    foodPicture.url = urlString;
+    foodPicture.storeName = @"";
+    foodPicture.menuName = @"";
+    foodPicture.starNum = 0;
+    [MSNetworkConnector requestToUrl:URL_OF_POST_FOOD_PICTURE method:RequestMethodPost params:foodPicture.params block:^(NSData *response) {
+    }];
+    
     return [NSURL URLWithString:urlString];
 }
 
