@@ -9,6 +9,7 @@
 #import "MSFoodLineViewController.h"
 
 #import "MSFoodLineCell.h"
+#import "MSNetworkConnector.h"
 
 @interface MSFoodLineViewController ()
 
@@ -34,6 +35,17 @@
     tableView.dataSource = self;
     tableView.delegate = self;
     [self.view addSubview:tableView];
+	
+	
+	
+	[MSNetworkConnector requestToUrl:@"http://aqueous-brushlands-6933.herokuapp.com/food_pictures" method:RequestMethodGet params:nil block:^(NSData *response)
+	 {
+		 jsonData = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
+		 // NSLog(@"json : %@", jsonData);
+		 //NSLog(@"url : %@", [jsonData[0] objectForKey:@"url"]);
+	 }];
+	
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -65,10 +77,9 @@
 	
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-		cell = [[MSFoodLineCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
+		cell = [[MSFoodLineCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier imageUrl:[NSString stringWithString: [jsonData[0] objectForKey:@"url"]]  ];
 	}
-	
-    return cell;
+	return cell;
 }
 
 

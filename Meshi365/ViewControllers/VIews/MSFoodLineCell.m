@@ -72,13 +72,21 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-		
         // accessory
         [self setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
-		
     }
     return self;
 }
+
+
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier imageUrl:(NSString*)url
+{
+	imageUrl = url;
+	NSLog(@"imageUrl:%@",imageUrl);
+	return [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+}
+
+
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
@@ -86,5 +94,7 @@
 
     // Configure the view for the selected state
 }
+
+
 
 @end

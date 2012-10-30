@@ -8,5 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MSFoodLineViewController : UIViewController<UITableViewDataSource, UITableViewDelegate> 
+@interface MSFoodLineViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
+{
+	NSArray *jsonData;
+}
 @end
