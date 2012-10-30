@@ -58,7 +58,7 @@
     return md5;
 }
 
-+ (NSURL*) getFoodLineImageUrlFromJson:(NSArray*)jsonData imageNo:(int) imageNo
++ (NSURL *)foodPictureImageUrlFromJsonArray:(NSArray*)jsonArray imageNum:(int)imageNum
 {
 	AmazonS3Client *s3 = [[AmazonS3Client alloc] initWithAccessKey:AWS_ACCESS_KEY_ID withSecretKey:AWS_SECRET_KEY];
 	S3ResponseHeaderOverrides *override = [[S3ResponseHeaderOverrides alloc] init];
@@ -66,9 +66,10 @@
 
 	
 	S3GetPreSignedURLRequest *gpsur = [[S3GetPreSignedURLRequest alloc] init];
-	gpsur.key     = [[jsonData[0] objectForKey:@"url"] lastPathComponent];
-	gpsur.bucket  = AWS_BUCKET_NAME;//[Constants pictureBucket];
-	gpsur.expires = [NSDate dateWithTimeIntervalSinceNow:(NSTimeInterval) 3600];  // Added an hour's worth of seconds to the current time.
+	gpsur.key     = [[jsonArray[imageNum] objectForKey:@"url"] lastPathComponent];
+	gpsur.bucket  = AWS_BUCKET_NAME;
+	gpsur.expires = [NSDate dateWithTimeIntervalSinceNow:(NSTimeInterval) 3600];
+
 	gpsur.responseHeaderOverrides = override;
 	return [s3 getPreSignedURL:gpsur];
 
