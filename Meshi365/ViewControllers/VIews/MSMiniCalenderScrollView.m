@@ -15,6 +15,8 @@
     self = [super initWithFrame:frame];
     if (self) {
 		self.delegate = self;
+	
+	
 	}
     return self;
 }
@@ -28,22 +30,28 @@
 }
 */
 
+
+- (void)fixScrollOffset
+{
+	
+	int step = [UIScreen mainScreen].bounds.size.width/3;
+	float stopX = (int)((self.contentOffset.x+ step*0.5f) / step) * step;
+	[self setContentOffset:CGPointMake( stopX, 0.0f) animated:YES];
+	
+}
+
 - (void)scrollViewDidEndDecelerating:(UIScrollView*)scrollView
 {
-	// メソッドに渡された scrollView を使って、先ほどと同じ方法で、現在位置からページ番号を割り出します。
-	
-	//[self setContentOffset:CGPointMake(0.0f, 0.0f) animated:YES];
+	[self fixScrollOffset];
 }
+
 
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)_scrollView
 willDecelerate:(BOOL)decelerate
 {
-	//    offset.x = _scrollView.contentOffset.x/screenScale;
-	// offset.y = _scrollView.contentOffset.y/screenScale;
-
-	[self setContentOffset:CGPointMake(0.0f, 0.0f) animated:YES];
-
+	if(decelerate == 0)
+		[self fixScrollOffset];
 }
 
 @end

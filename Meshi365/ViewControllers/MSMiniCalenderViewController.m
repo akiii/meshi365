@@ -36,9 +36,10 @@
 	scrollView.contentSize = CGSizeMake([UIScreen mainScreen].bounds.size.width*tableViewNum/3.0f, 0);
 	scrollView.showsHorizontalScrollIndicator = YES;
     scrollView.showsVerticalScrollIndicator = NO;
-	scrollView.bounces = NO;
-	//scrollView.pagingEnabled = YES;
-	
+	scrollView.bounces = YES;
+	scrollView.pagingEnabled = NO;
+	//[scrollView setDecelerationRate:0.01f];
+
 	
 	
 	CGRect rect = CGRectMake( 100,200, 200, 400 );
