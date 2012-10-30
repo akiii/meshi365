@@ -23,7 +23,7 @@
 
 @implementation MSAWSConnector
 
-+ (NSURL *)postFoodPictureToAWS:(UIImage *)image{
++ (NSURL *)postFoodPictureToAWS:(MSFoodPictureImage *)image{
     // Custom initialization
     NSString *uiid = [[MSUIIDController sharedController] uiid];
     NSString *fn = [NSString stringWithFormat:@"%@-%@", uiid, [NSDate date]];
@@ -40,13 +40,7 @@
     
     NSString *urlString = [NSString stringWithFormat:@"%@/%@/%@", AWS_BASE_URL, AWS_BUCKET_NAME, fileName];
     
-    MSFoodPicture *foodPicture = [[MSFoodPicture alloc] init];
-    foodPicture.userId = [MSUser currentUser].uid;
-    foodPicture.url = urlString;
-    foodPicture.storeName = @"";
-    foodPicture.menuName = @"";
-    foodPicture.starNum = 0;
-    [MSNetworkConnector requestToUrl:URL_OF_POST_FOOD_PICTURE method:RequestMethodPost params:foodPicture.params block:^(NSData *response) {
+    [MSNetworkConnector requestToUrl:URL_OF_POST_FOOD_PICTURE method:RequestMethodPost params:image.foodPicture.params block:^(NSData *response) {
     }];
     
     return [NSURL URLWithString:urlString];
