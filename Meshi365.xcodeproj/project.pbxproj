@@ -24,6 +24,8 @@
 		B80524BB163EEBBA005B74F8 /* MSRecommendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B80524B3163EEBBA005B74F8 /* MSRecommendViewController.m */; };
 		B80524BC163EEBBA005B74F8 /* MSTodayMealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B80524B5163EEBBA005B74F8 /* MSTodayMealViewController.m */; };
 		B80524C0163EEC7A005B74F8 /* MSFoodLineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B80524BF163EEC7A005B74F8 /* MSFoodLineCell.m */; };
+		B80524E8163F59A6005B74F8 /* AWSiOSSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B80524E6163F59A6005B74F8 /* AWSiOSSDK.framework */; };
+		B80524E9163F59A6005B74F8 /* AWSPersistence.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B80524E7163F59A6005B74F8 /* AWSPersistence.framework */; };
 		B8D0787B163D3D870050FF39 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8D0787A163D3D870050FF39 /* UIKit.framework */; };
 		B8D0787D163D3D870050FF39 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8D0787C163D3D870050FF39 /* Foundation.framework */; };
 		B8D0787F163D3D870050FF39 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8D0787E163D3D870050FF39 /* CoreGraphics.framework */; };
@@ -83,6 +85,8 @@
 		B80524B5163EEBBA005B74F8 /* MSTodayMealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSTodayMealViewController.m; sourceTree = "<group>"; };
 		B80524BE163EEC7A005B74F8 /* MSFoodLineCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSFoodLineCell.h; sourceTree = "<group>"; };
 		B80524BF163EEC7A005B74F8 /* MSFoodLineCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSFoodLineCell.m; sourceTree = "<group>"; };
+		B80524E6163F59A6005B74F8 /* AWSiOSSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSiOSSDK.framework; sourceTree = "<group>"; };
+		B80524E7163F59A6005B74F8 /* AWSPersistence.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSPersistence.framework; sourceTree = "<group>"; };
 		B8D07876163D3D870050FF39 /* Meshi365.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Meshi365.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8D0787A163D3D870050FF39 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B8D0787C163D3D870050FF39 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -115,6 +119,8 @@
 				B8D0787D163D3D870050FF39 /* Foundation.framework in Frameworks */,
 				B8D0787F163D3D870050FF39 /* CoreGraphics.framework in Frameworks */,
 				B8D07881163D3D870050FF39 /* CoreData.framework in Frameworks */,
+				B80524E8163F59A6005B74F8 /* AWSiOSSDK.framework in Frameworks */,
+				B80524E9163F59A6005B74F8 /* AWSPersistence.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -200,6 +206,8 @@
 		B8D07879163D3D870050FF39 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B80524E6163F59A6005B74F8 /* AWSiOSSDK.framework */,
+				B80524E7163F59A6005B74F8 /* AWSPersistence.framework */,
 				B8D0787A163D3D870050FF39 /* UIKit.framework */,
 				B8D0787C163D3D870050FF39 /* Foundation.framework */,
 				B8D0787E163D3D870050FF39 /* CoreGraphics.framework */,
@@ -486,6 +494,10 @@
 		B8D078B0163D3D870050FF39 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Meshi365/Meshi365-Prefix.pch";
 				INFOPLIST_FILE = "Meshi365/Meshi365-Info.plist";
@@ -497,6 +509,10 @@
 		B8D078B1163D3D870050FF39 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Meshi365/Meshi365-Prefix.pch";
 				INFOPLIST_FILE = "Meshi365/Meshi365-Info.plist";
