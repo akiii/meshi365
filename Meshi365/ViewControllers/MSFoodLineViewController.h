@@ -10,6 +10,6 @@
 
 @interface MSFoodLineViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
 {
-	NSArray *jsonData;
+	NSArray *jsonArray;
 }
 @end
