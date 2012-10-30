@@ -10,7 +10,6 @@
 
 @interface MSFoodLineCell : UITableViewCell
 
-
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 		   imageUrl:(NSURL*)url;
 

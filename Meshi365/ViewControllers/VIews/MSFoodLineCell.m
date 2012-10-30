@@ -19,7 +19,7 @@
 
 - (void) layoutSubviews {
     [super layoutSubviews];
-	
+	self.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.0];
 	
 	
 	int x = 10;
@@ -35,12 +35,8 @@
 	self.detailTextLabel.frame =  CGRectMake(x+100, y, [UIScreen mainScreen].bounds.size.width,30);
 	y+=dy;
 	
+	
 	int length = [UIScreen mainScreen].bounds.size.width-20;
-	
-	NSData* data = [NSData dataWithContentsOfURL:_imageUrl];
-	self.imageView.image = [[UIImage alloc] initWithData:data];	
-	//self.imageView.image = [UIImage imageNamed:@"sampleMenu.png"];
-	
 	self.imageView.frame = CGRectMake(x, y, length,length);
     self.imageView.contentMode = UIViewContentModeScaleToFill;
 	y+=length+10;
@@ -74,7 +70,7 @@
 		[self addSubview:starImg[i]];
 	}
 	
-	
+
 
 }
 
@@ -82,9 +78,9 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        // accessory
-        [self setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+		[self loadImage];
     }
+
     return self;
 }
 
@@ -92,8 +88,39 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier imageUrl:(NSURL*)url
 {
 	_imageUrl = url;
-	NSLog(@"imageUrl:%@",_imageUrl);
-	return [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+	//NSLog(@"imageUrl:%@",_imageUrl);
+	return [self initWithStyle:style reuseIdentifier:reuseIdentifier];
+}
+
+- (void)loadImage
+{
+	//set indicator
+	UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 32.0f, 32.0f)];
+	indicator.color = [UIColor colorWithRed:0.4 green:0.0 blue:0.1 alpha:1.0];
+	[indicator setCenter:CGPointMake(self.frame.size.width/2.0f, 180.0f)];
+	[self addSubview: indicator];
+	[indicator startAnimating];
+	
+	
+	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+	
+	
+	//load image
+	dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_queue_t q_main = dispatch_get_main_queue();
+	
+    self.imageView.image = nil;
+    dispatch_async(q_global, ^{
+		NSData* data = [NSData dataWithContentsOfURL:_imageUrl];
+		UIImage* image = [[UIImage alloc] initWithData:data];
+        
+        dispatch_async(q_main, ^{
+            self.imageView.image = image;
+			//			[indicator stopAnimating];
+			[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        });
+    });
+	
 }
 
 

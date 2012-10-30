@@ -24,6 +24,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+
     }
     return self;
 }
@@ -80,7 +81,7 @@
 	
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-		cell = [[MSFoodLineCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier imageUrl:[MSAWSConnector getFoodLineImageUrlFromJson:jsonData imageNo:indexPath.row]  ];
+		cell =[[MSFoodLineCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier imageUrl:[MSAWSConnector getFoodLineImageUrlFromJson:jsonData imageNo:indexPath.row]  ];
 	}
 	
 	return cell;
