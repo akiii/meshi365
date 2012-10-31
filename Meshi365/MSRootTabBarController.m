@@ -21,6 +21,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
  		
+        self.view.backgroundColor = [UIColor blackColor];
+        
 		self.todayMEalViewController	= [[MSTodayMealViewController alloc]init];
 		self.foodLineViewController		= [[MSFoodLineViewController alloc]init];
 		self.miniCalenderViewController	= [[MSMiniCalenderViewController alloc]init];

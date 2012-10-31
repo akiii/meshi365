@@ -73,23 +73,14 @@
 -(void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
-    if([msCamera.state isEqualToString:@"breakfast"]){
+    NSLog(@"%@",msCamera.state);
+    if([msCamera.state isEqualToString:@"breakfast"]||[msCamera.state isEqualToString:@"lunch"]||[msCamera.state isEqualToString:@"supper"]){
         msValueImageView = [[MSValueImageView alloc] init];
         msValueImageView.delegate = self;
         msValueImageView.cameraImage = msCamera.camera_image;
+        
+        self.tabBarController.tabBar.hidden=YES;
         [self.view addSubview:msValueImageView];
-    }
-    if([msCamera.state isEqualToString:@"lunch"]){
-        CGRect image_rect = CGRectMake(0, (msCamera.camera_image.size.height-msCamera.camera_image.size.width/4)/2,
-                                       msCamera.camera_image.size.width,
-                                       msCamera.camera_image.size.width/4);
-        lunchImageView.image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect( [msCamera.camera_image CGImage], image_rect)];
-    }
-    if([msCamera.state isEqualToString:@"supper"]){
-        CGRect image_rect = CGRectMake(0, (msCamera.camera_image.size.height-msCamera.camera_image.size.width/4)/2,
-                                       msCamera.camera_image.size.width,
-                                       msCamera.camera_image.size.width/4);
-        supperImageView.image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect( [msCamera.camera_image CGImage], image_rect)];
     }
 }
 
@@ -108,6 +99,7 @@
         [as showFromTabBar:self.tabBarController.tabBar];
     }
 }
+
 -(void)supperCameraAction{
     NSLog(@"Supper");
     if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
@@ -134,8 +126,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex {
     
     CGRect image_rect = CGRectMake(0, (msValueImageView.squareFoodPictureImage.size.height-no_image_size.height)/2,
                                    msValueImageView.squareFoodPictureImage.size.width,
-                                   msValueImageView.squareFoodPictureImage.size.height*no_image_size.height
-                                    /no_image_size.width);
+                                   msValueImageView.squareFoodPictureImage.size.height*no_image_size.height/no_image_size.width);
     if([msCamera.state isEqualToString:@"breakfast"])
         breakfastImageView.image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect
                                     ([msValueImageView.squareFoodPictureImage CGImage], image_rect)];
@@ -146,10 +137,12 @@ clickedButtonAtIndex:(NSInteger)buttonIndex {
         supperImageView.image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect
                                     ([msValueImageView.squareFoodPictureImage CGImage], image_rect)];
     msCamera.state = nil;
+    self.tabBarController.tabBar.hidden=NO;
     [msValueImageView removeFromSuperview];
 }
 
 -(void) cancel_image:(id)sender{
+    self.tabBarController.tabBar.hidden=NO;
     [msValueImageView removeFromSuperview];
 }
 
