@@ -8,6 +8,7 @@
 
 #import "MSConfigViewController.h"
 
+
 @interface MSConfigViewController ()
 @property(nonatomic,strong) UITextField *textField;
 @end
@@ -18,7 +19,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-			
+		
 		
 		
     }
@@ -72,8 +73,34 @@
 	[scrollView addSubview:submitButton];
 	y+=dy;
 	
+	
+	
+	UIButton *fbButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+	[fbButton setTitle:@"FB post" forState:UIControlStateNormal];
+	fbButton.frame = CGRectMake(x+210, y, 80, 30);
+	[fbButton addTarget:self action:@selector(fbPost:) forControlEvents:UIControlEventTouchDown];
+	[scrollView addSubview:fbButton];
+	y+=dy;
+	
+	UIButton *twButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+	[twButton setTitle:@"TW post" forState:UIControlStateNormal];
+	twButton.frame = CGRectMake(x+210, y, 80, 30);
+	[twButton addTarget:self action:@selector(twPost:) forControlEvents:UIControlEventTouchDown];
+	[scrollView addSubview:twButton];
+	y+=dy;
 
+	
+	UIButton *twButton2 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+	[twButton2 setTitle:@"TW post2" forState:UIControlStateNormal];
+	twButton2.frame = CGRectMake(x+210, y, 80, 30);
+	postMsg = @"SLRequest post test.";
+	[twButton2 addTarget:self action:@selector(twPost2:) forControlEvents:UIControlEventTouchDown];
+	[scrollView addSubview:twButton2];
+	y+=dy;
 
+	
+	
+	
 }
 
 - (void)didReceiveMemoryWarning
@@ -86,6 +113,85 @@
 -(void)submitNickname:(UITextField*)textfield{
 	NSLog(@"submit!!!!!!!");
 }
+
+
+-(void)fbPost:(UITextField*)textfield{
+	SLComposeViewController *facebookPostVC = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
+	[facebookPostVC setInitialText:@"facebook投稿テスト"];
+	[facebookPostVC addImage:[UIImage imageNamed:@"star.png"]];
+	[self presentViewController:facebookPostVC animated:YES completion:nil];
+}
+
+- (void)twPost:(UITextField*)textfield{
+	//- (IBAction)twPost:(UIButton *)sender {
+	SLComposeViewController *twitterPostVC = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
+	[twitterPostVC setInitialText:@"twitter投稿テスト"];
+	[twitterPostVC addImage:[UIImage imageNamed:@"star.png"]];
+	[self presentViewController:twitterPostVC animated:YES completion:nil];
+}
+
+- (void)twPost2:(UITextField*)textfield
+{
+	
+	if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
+        ACAccountStore *accountStore = [[ACAccountStore alloc] init];
+        ACAccountType *accountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
+        [accountStore
+         requestAccessToAccountsWithType:accountType
+         options:nil
+         completion:^(BOOL granted, NSError *error) {
+             if (granted) {
+                 NSArray *accountArray = [accountStore accountsWithAccountType:accountType];
+                 if (accountArray.count > 0) {
+                     NSURL *url = [NSURL URLWithString:@"http://api.twitter.com/1/statuses/update.json"];
+                     NSDictionary *params = [NSDictionary dictionaryWithObject:postMsg forKey:@"status"];
+                     
+                     SLRequest *request = [SLRequest requestForServiceType:SLServiceTypeTwitter
+                                                             requestMethod:SLRequestMethodPOST
+                                                                       URL:url
+                                                                parameters:params];
+                     [request setAccount:[accountArray objectAtIndex:0]];
+                     [request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+                         NSLog(@"responseData=%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
+                     }];
+                 }
+             }
+         }];
+    }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//	
+//	
+//	
+//	NSLog(@"post tweet\n");
+//	
+//	
+//	// Build a twitter request
+//	
+//	SLRequest *postRequest = [[SLRequest alloc] init];
+//							  
+//	//SLRequest *postRequest = [[SLRequest alloc] initWithURL:
+//							  [NSURL URLWithString:@"http://api.twitter.com/1/statuses/update.json"] parameters:[NSDictionary dictionaryWithObject:msg forKey:@"status"] requestMethod:SLRequestMethodPOST];
+//	
+//	// Post the request
+//	[postRequest setAccount:self.account];
+//	
+//	// Block handler to manage the response
+//	[postRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error)
+//	 {
+//		 NSLog(@"Twitter response, HTTP response: %i", [urlResponse statusCode]);
+//	 }];
+}
+
+
+
 
 -(BOOL)textFieldShouldReturn:(UITextField*)textField{
 	[_textField resignFirstResponder];

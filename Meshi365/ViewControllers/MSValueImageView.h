@@ -4,7 +4,7 @@
 
 #define kNumOfStars 5
 
-@interface MSValueImageView : UIView<UITableViewDelegate,UITableViewDataSource,NSXMLParserDelegate,CLLocationManagerDelegate>{
+@interface MSValueImageView : UIScrollView<UITableViewDelegate,UITableViewDataSource,NSXMLParserDelegate,CLLocationManagerDelegate>{
     UIButton *star[kNumOfStars];
     UIImageView *im;
     
@@ -19,7 +19,6 @@
     
 }
 
-@property (nonatomic,strong) id delegate;
 @property (nonatomic       ) int cnt_stars;
 @property (nonatomic,strong) UIImage *cameraImage;
 @property (nonatomic,strong) MSFoodPictureImage *squareFoodPictureImage;
