@@ -31,7 +31,7 @@
 		self.foodLineNavigationViewController.title = @"FoodLine";
 		self.miniCalenderViewController.title = @"MiniCal";
 		self.recommendViewController.title = @"Recommend";
-		self.configViewController.title = @"Config";
+		self.configViewController.title = @"Account";
 
 		NSArray *views = [NSArray arrayWithObjects:self.todayMEalViewController, self.foodLineNavigationViewController, self.miniCalenderViewController, self. recommendViewController, self.configViewController, nil];
 		[self setViewControllers:views animated:NO];
