@@ -29,6 +29,7 @@
 		8C7B3BD1163E3F2600B8D7C1 /* MSRootTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C7B3BD0163E3F2600B8D7C1 /* MSRootTabBarController.m */; };
 		8CD1BA56163EEF8C00AFA334 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 8CD1BA55163EEF8C00AFA334 /* star.png */; };
 		8CECB8D616417CC600BA4BE2 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CECB8D516417CC600BA4BE2 /* Social.framework */; };
+		8CECB8DD16418A4B00BA4BE2 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CECB8DC16418A4B00BA4BE2 /* Accounts.framework */; };
 		B805248F163E45AB005B74F8 /* MSNetworkConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = B805248E163E45AB005B74F8 /* MSNetworkConnector.m */; };
 		B805249B163E4EF0005B74F8 /* MSUIIDController.m in Sources */ = {isa = PBXBuildFile; fileRef = B805249A163E4EF0005B74F8 /* MSUIIDController.m */; };
 		B80524A5163EEB59005B74F8 /* no_image.png in Resources */ = {isa = PBXBuildFile; fileRef = B80524A3163EEB59005B74F8 /* no_image.png */; };
@@ -107,6 +108,7 @@
 		8C7B3BD0163E3F2600B8D7C1 /* MSRootTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSRootTabBarController.m; sourceTree = "<group>"; };
 		8CD1BA55163EEF8C00AFA334 /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
 		8CECB8D516417CC600BA4BE2 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		8CECB8DC16418A4B00BA4BE2 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		B805248D163E45AB005B74F8 /* MSNetworkConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSNetworkConnector.h; sourceTree = "<group>"; };
 		B805248E163E45AB005B74F8 /* MSNetworkConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSNetworkConnector.m; sourceTree = "<group>"; };
 		B8052499163E4EF0005B74F8 /* MSUIIDController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSUIIDController.h; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8CECB8DD16418A4B00BA4BE2 /* Accounts.framework in Frameworks */,
 				8CECB8D616417CC600BA4BE2 /* Social.framework in Frameworks */,
 				2757A2AF16416E1800975AC8 /* CoreLocation.framework in Frameworks */,
 				B8D0787B163D3D870050FF39 /* UIKit.framework in Frameworks */,
@@ -272,7 +275,6 @@
 		B8D0786B163D3D870050FF39 = {
 			isa = PBXGroup;
 			children = (
-				8CECB8D516417CC600BA4BE2 /* Social.framework */,
 				B8D07882163D3D870050FF39 /* Meshi365 */,
 				B8D07883163D3D870050FF39 /* Supporting Files */,
 				B8D078A4163D3D870050FF39 /* Meshi365Tests */,
@@ -293,6 +295,8 @@
 		B8D07879163D3D870050FF39 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8CECB8DC16418A4B00BA4BE2 /* Accounts.framework */,
+				8CECB8D516417CC600BA4BE2 /* Social.framework */,
 				2757A2AE16416E1800975AC8 /* CoreLocation.framework */,
 				B80524E6163F59A6005B74F8 /* AWSiOSSDK.framework */,
 				B80524E7163F59A6005B74F8 /* AWSPersistence.framework */,
