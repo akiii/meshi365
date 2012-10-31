@@ -114,7 +114,7 @@
     [super viewDidAppear:animated];
     
     MSSignUpViewController *view = [[MSSignUpViewController alloc]init];
-    [self presentModalViewController:view animated:YES];
+    //[self presentModalViewController:view animated:YES];
     
 }
 

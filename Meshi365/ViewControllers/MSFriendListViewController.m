@@ -27,19 +27,16 @@
 {
     [super viewDidLoad];
     
-    UIBarButtonItem *btn =
-    [[UIBarButtonItem alloc]
-     initWithTitle:@"Edit"
-     style:UIBarButtonItemStylePlain
-     target:self
-     action:@selector(deleteFriend)
-     ];
-    self.navigationItem.rightBarButtonItem = btn;
+    self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    UITableView *table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen]applicationFrame].size.width, [[UIScreen mainScreen]applicationFrame].size.height - self.tabBarController.tabBar.frame.size.height-self.navigationController.navigationBar.frame.size.height) style:UITableViewStylePlain];
-    table.delegate = self;
-    table.dataSource = self;
-    [self.view addSubview:table];
+    friendArray = [NSMutableArray array];
+    for(int i=0;i<30;i++)
+        [friendArray addObject:[NSString stringWithFormat:@"Friend%d",i]];
+    
+    myTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen]applicationFrame].size.width, [[UIScreen mainScreen]applicationFrame].size.height - self.tabBarController.tabBar.frame.size.height-self.navigationController.navigationBar.frame.size.height) style:UITableViewStylePlain];
+    myTableView.delegate = self;
+    myTableView.dataSource = self;
+    [self.view addSubview:myTableView];
     
 }
 -(void)deleteFriend{
@@ -52,22 +49,30 @@
 {return 1;}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{return 30;}
+{return [friendArray count];}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
 	
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];	}
+    if (cell == nil) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 	
-    cell.textLabel.text = [NSString stringWithFormat:@"Friend%d",indexPath.row];
+    cell.textLabel.text = [friendArray objectAtIndex:indexPath.row];
     
 	return cell;
 }
-/*
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{return 25;}
-*/
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+ forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [friendArray removeObjectAtIndex:indexPath.row];
+        [myTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    }
+}
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated {
+    [super setEditing:editing animated:animated];
+    [myTableView setEditing:editing animated:animated];
+}
+
 @end

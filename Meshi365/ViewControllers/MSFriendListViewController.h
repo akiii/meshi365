@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MSFriendListViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
+@interface MSFriendListViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>{
+    UITableView *myTableView;
+    NSMutableArray *friendArray;
+}
 
 @end
