@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MSFriendListViewController.h"
 
 @interface MSFoodLineViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
 {

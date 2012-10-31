@@ -38,21 +38,32 @@
 {
     [super viewDidLoad];
 	
+    /*
 	int naviHeight = 44;
 	UINavigationBar *naviBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, naviHeight)];
     naviBar.tintColor = [UIColor colorWithRed:1.0 green:0.80 blue:0.1 alpha:0.7];
     UINavigationItem *title = [[UINavigationItem alloc] initWithTitle:@"Food Line"];
     [naviBar pushNavigationItem:title animated:YES];
     [self.view addSubview:naviBar];
-
+    */
+    
+	self.navigationController.title = @"Food Line";
+    
+    UIBarButtonItem *btn =
+        [[UIBarButtonItem alloc]
+         initWithTitle:@"Friend"  // 画像を指定
+         style:UIBarButtonItemStylePlain  // スタイルを指定（※下記表参照）
+         target:self  // デリゲートのターゲットを指定
+         action:@selector(moveFriend)  // ボタンが押されたときに呼ばれるメソッドを指定
+         ];
+    self.navigationItem.rightBarButtonItem = btn;
 	
 	UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-	tableView.frame = CGRectMake(0, naviHeight, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height - naviHeight);
+	tableView.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
     tableView.dataSource = self;
     tableView.delegate = self;
     [self.view addSubview:tableView];
-	
 	
 	
 	[MSNetworkConnector requestToUrl:@"http://aqueous-brushlands-6933.herokuapp.com/food_pictures" method:RequestMethodGet params:nil block:^(NSData *response)
@@ -121,8 +132,6 @@
 }
 
 
-
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath != nil) {
@@ -130,8 +139,9 @@
     }
 }
 
-
-
-
+-(void)moveFriend{
+    MSFriendListViewController *friendListVC = [[MSFriendListViewController alloc]init];
+    [self.navigationController pushViewController:friendListVC animated:YES];
+}
 
 @end
