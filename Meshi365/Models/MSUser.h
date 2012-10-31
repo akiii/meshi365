@@ -9,8 +9,11 @@
 #import <Foundation/Foundation.h>
 
 @interface MSUser : NSObject
-+ (MSUser *)currentUser;
 @property (assign) int uid;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *uiid;
+@property (nonatomic, strong) NSString *profileImageUrl;
+@property (readonly) NSString *params;
++ (MSUser *)currentUser;
+- (BOOL)signuped;
 @end
