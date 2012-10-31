@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2757A2AF16416E1800975AC8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2757A2AE16416E1800975AC8 /* CoreLocation.framework */; };
 		279DA49E163F689D00AF6E26 /* MSValueImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 279DA49D163F689D00AF6E26 /* MSValueImageView.m */; };
 		279FB497163FAAFA0057D896 /* no_image_breakfast.png in Resources */ = {isa = PBXBuildFile; fileRef = 279FB491163FAAFA0057D896 /* no_image_breakfast.png */; };
 		279FB498163FAAFA0057D896 /* no_image_breakfast@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 279FB492163FAAFA0057D896 /* no_image_breakfast@2x.png */; };
@@ -71,6 +72,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2757A2AE16416E1800975AC8 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		279DA49C163F689D00AF6E26 /* MSValueImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSValueImageView.h; sourceTree = "<group>"; };
 		279DA49D163F689D00AF6E26 /* MSValueImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSValueImageView.m; sourceTree = "<group>"; };
 		279FB491163FAAFA0057D896 /* no_image_breakfast.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = no_image_breakfast.png; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2757A2AF16416E1800975AC8 /* CoreLocation.framework in Frameworks */,
 				B8D0787B163D3D870050FF39 /* UIKit.framework in Frameworks */,
 				B8D0787D163D3D870050FF39 /* Foundation.framework in Frameworks */,
 				B8D0787F163D3D870050FF39 /* CoreGraphics.framework in Frameworks */,
@@ -271,6 +274,7 @@
 		B8D07879163D3D870050FF39 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2757A2AE16416E1800975AC8 /* CoreLocation.framework */,
 				B80524E6163F59A6005B74F8 /* AWSiOSSDK.framework */,
 				B80524E7163F59A6005B74F8 /* AWSPersistence.framework */,
 				B8D0787A163D3D870050FF39 /* UIKit.framework */,
