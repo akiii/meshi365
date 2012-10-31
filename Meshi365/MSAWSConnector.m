@@ -23,7 +23,11 @@
 
 @implementation MSAWSConnector
 
-+ (NSURL *)postFoodPictureToAWS:(MSFoodPictureImage *)image{
++ (NSURL *)uploadProfileImageToAWS:(UIImage *)image{
+    return nil;
+}
+
++ (NSURL *)uploadFoodPictureToAWS:(MSFoodPictureImage *)image{
     // Custom initialization
     NSString *uiid = [[MSUIIDController sharedController] uiid];
     NSString *fn = [NSString stringWithFormat:@"%@-%@", uiid, [NSDate date]];
