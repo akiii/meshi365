@@ -67,7 +67,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 4;
+    return 15;
 }
 
 
@@ -77,11 +77,15 @@
 	
     static NSString *CellIdentifier = @"Cell";
 	
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    MSFoodLineCell *cell =[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-		cell =[[MSFoodLineCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier imageUrl:[MSAWSConnector foodPictureImageUrlFromJsonArray:jsonArray imageNum:indexPath.row] jsonData:jsonArray[indexPath.row] ];
+		cell =[[MSFoodLineCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] ;
+		
 	}
-	
+	[cell updateJsonData:[MSAWSConnector foodPictureImageUrlFromJsonArray:jsonArray imageNum:indexPath.row] jsonData:jsonArray[indexPath.row]];
+
+
+
 	return cell;
 }
 

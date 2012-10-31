@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface MSRecommendTableView : UITableView<UITableViewDataSource, UITableViewDelegate>
-
+{
+	NSArray *jsonArray;
+}
 
 
 @end

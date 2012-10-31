@@ -87,23 +87,23 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-		[self loadImage];
-    }
-
+		//noting to do
+	}
     return self;
 }
 
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier imageUrl:(NSURL*)url jsonData:(NSDictionary*)jsonData
+- (void)updateJsonData:(NSURL*)imageUrl jsonData:(NSDictionary*)jsonData
 {
-	_imageUrl = url;
+	_imageUrl = imageUrl;
 	_jsonData = jsonData;
-	//NSLog(@"imageUrl:%@",_imageUrl);
-	return [self initWithStyle:style reuseIdentifier:reuseIdentifier];
+	NSLog(@"imageUrl:%@",_imageUrl);
+	[self loadImage];
 }
 
 - (void)loadImage
 {
+	NSLog(@"Load FoodLine image");
 	//set indicator
 	UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 32.0f, 32.0f)];
 	indicator.color = [UIColor colorWithRed:0.4 green:0.0 blue:0.1 alpha:1.0];
@@ -126,8 +126,10 @@
         
         dispatch_async(q_main, ^{
             self.imageView.image = image;
-			//			[indicator stopAnimating];
+			[indicator stopAnimating];
 			[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+			
+			[self layoutSubviews];
         });
     });
 	

@@ -7,6 +7,8 @@
 //
 
 #import "MSRecommendTableView.h"
+#import "MSRecommendCell.h"
+#import "MSAWSConnector.h"s
 
 @implementation MSRecommendTableView
 
@@ -14,7 +16,8 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code
+		self.delegate = self;
+		self.dataSource = self;
     }
     return self;
 }
@@ -50,14 +53,17 @@
 	
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+		//		cell = [[MSRecommendCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier jsonData:jsonArray[indexPath.row]];
 		
-		
+		cell =[[MSRecommendCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier imageUrl:[MSAWSConnector foodPictureImageUrlFromJsonArray:jsonArray imageNum:10] jsonData:jsonArray[indexPath.row] ];
+	
+
+	
 		int size = [UIScreen mainScreen].bounds.size.width/2;
-		UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(3, 10, size, size)];
-		imageView.image = [UIImage imageNamed:@"sampleMenu.png"];
-		imageView.contentMode = UIViewContentModeScaleToFill;
-		[cell addSubview:imageView];
+//		UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(3, 10, size, size)];
+//		imageView.image = [UIImage imageNamed:@"sampleMenu.png"];
+//		imageView.contentMode = UIViewContentModeScaleToFill;
+//		[cell addSubview:imageView];
 		
 		
 		
@@ -76,7 +82,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	//todo セルのサイズに合わせてか可変を
-	return 120;
+	return 450;
 	
 }
 

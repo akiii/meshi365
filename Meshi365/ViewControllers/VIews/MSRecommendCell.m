@@ -37,7 +37,7 @@
 	y+=dy;
 	
 	
-	int length = [UIScreen mainScreen].bounds.size.width-20;
+	int length = [UIScreen mainScreen].bounds.size.width/4-10;
 	self.imageView.frame = CGRectMake(x, y, length,length);
     self.imageView.contentMode = UIViewContentModeScaleToFill;
 	y+=length+10;
@@ -101,7 +101,7 @@
 	//set indicator
 	UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 32.0f, 32.0f)];
 	indicator.color = [UIColor colorWithRed:0.4 green:0.0 blue:0.1 alpha:1.0];
-	[indicator setCenter:CGPointMake(self.frame.size.width/2.0f, 180.0f)];
+	[indicator setCenter:CGPointMake(self.frame.size.width/4.0f, 180.0f)];
 	[self addSubview: indicator];
 	[indicator startAnimating];
 	
