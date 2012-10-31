@@ -69,6 +69,8 @@
 //        }
 //    }];
     
+    [self dismissModalViewControllerAnimated:YES];
+    
 }
 
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
