@@ -24,6 +24,11 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+		_imageCache = [[NSCache alloc] init];
+		_requestingUrls = [[NSCache alloc] init];
+		//        _imageCache.countLimit = 20;
+		//        _imageCache.totalCostLimit = 640 * 480 * 10;
+
 
     }
     return self;
@@ -89,11 +94,20 @@
     MSFoodLineCell *cell =[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
 		cell =[[MSFoodLineCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] ;
-		
 	}
-	[cell updateJsonData:[MSAWSConnector foodPictureImageUrlFromJsonArray:jsonArray imageNum:indexPath.row] jsonData:jsonArray[indexPath.row]];
-
-
+	
+	
+	
+	
+	NSURL *imageUrl = [MSAWSConnector foodPictureImageUrlFromJsonArray:jsonArray imageNum:indexPath.row];
+	if (![_requestingUrls objectForKey:imageUrl])
+	{
+		[_requestingUrls setObject:@"lock" forKey:imageUrl];
+		[cell updateJsonData:imageUrl jsonData:jsonArray[indexPath.row] imageCache:_imageCache];
+	}
+	
+	
+	
 
 	return cell;
 }

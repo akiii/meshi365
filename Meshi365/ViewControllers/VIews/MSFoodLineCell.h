@@ -10,6 +10,6 @@
 
 @interface MSFoodLineCell : UITableViewCell
 
-- (void)updateJsonData:(NSURL*)imageUrl  jsonData:(NSDictionary*)jsonData;
+- (void)updateJsonData:(NSURL*)imageUrl  jsonData:(NSDictionary*)jsonData imageCache:(NSCache*)imageCache;
 
 @end

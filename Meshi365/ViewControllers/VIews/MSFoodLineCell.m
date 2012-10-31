@@ -93,15 +93,15 @@
 }
 
 
-- (void)updateJsonData:(NSURL*)imageUrl jsonData:(NSDictionary*)jsonData
+- (void)updateJsonData:(NSURL*)imageUrl jsonData:(NSDictionary*)jsonData imageCache:(NSCache *)imageCache
 {
 	_imageUrl = imageUrl;
 	_jsonData = jsonData;
 	NSLog(@"imageUrl:%@",_imageUrl);
-	[self loadImage];
+	[self loadImage:imageCache];
 }
 
-- (void)loadImage
+- (void)loadImage:(NSCache*)imageCache
 {
 	NSLog(@"Load FoodLine image");
 	//set indicator
@@ -126,6 +126,7 @@
         
         dispatch_async(q_main, ^{
             self.imageView.image = image;
+			[imageCache setObject:image forKey:_imageUrl];
 			[indicator stopAnimating];
 			[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 			
