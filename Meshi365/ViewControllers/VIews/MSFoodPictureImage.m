@@ -10,8 +10,8 @@
 
 @implementation MSFoodPictureImage
 
-- (id)init{
-    if (self = [super init]) {
+- (id)initWithCGImage:(CGImageRef)cgImage{
+    if (self = [super initWithCGImage:cgImage]) {
         self.foodPicture = [[MSFoodPicture alloc] init];
     }
     return self;
