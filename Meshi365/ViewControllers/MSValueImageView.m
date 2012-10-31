@@ -30,40 +30,47 @@
         amenityArray = [NSMutableArray array];
         locationArray = [NSMutableArray array];
         
-        self.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 480);
+        //スクロールビューの設定
+        self.frame = CGRectMake(0, 44, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen]applicationFrame].size.height - 44);
         self.backgroundColor = [UIColor colorWithRed:1.0 green:0.93 blue:0.8 alpha:1.0];
+        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 800)];
+        view.backgroundColor = self.backgroundColor;
+        self.contentSize = view.bounds.size;
         
         int left_line = ([[UIScreen mainScreen] bounds].size.width-200)/2;
         self.cnt_stars = 3;
         
-        
+        //撮影画像表示
         im = [[UIImageView alloc] init];
         im.frame = CGRectMake(left_line, 30, 200, 200);
-        [self addSubview:im];
+        [view addSubview:im];
         
+        //評価星の表示
         for (int i = 0; i < kNumOfStars; i++) {
             star[i] = [UIButton buttonWithType:UIButtonTypeCustom];
             star[i].frame = CGRectMake(left_line + 30 * i, 240, 30, 30);
             star[i].tag = i;
             [self setBackgroundImageOfStarButton:star[i].tag];
             [star[i] addTarget:self action:@selector(tap_star0:) forControlEvents:UIControlEventTouchDown];
-            [self addSubview:star[i]];
+            [view addSubview:star[i]];
         }
         
+        //店リスト表示
         [nameArray addObject:@"Store Data Loading..."];
         UITableView *table = [[UITableView alloc] init];
         table.frame = CGRectMake(left_line-20, 280, 240, 130);
         table.delegate = self;
         table.dataSource = self;
-        [self addSubview:table];
+        [view addSubview:table];
         
+        //位置情報の取得設定
         locationManager = [[CLLocationManager alloc] init];
         locationManager.delegate = self;
         locationManager.desiredAccuracy = kCLLocationAccuracyBest;
         locationManager.distanceFilter = kCLDistanceFilterNone;
         [locationManager startUpdatingLocation];
 
-        
+        //店情報取得の非同期処理設定
         dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
         dispatch_queue_t q_main = dispatch_get_main_queue();
         
@@ -81,21 +88,24 @@
             dispatch_async(q_main, ^{[table reloadData];});
         });
         
-        
+        //キャンセルボタン設定
         UIButton *cancel_button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         cancel_button.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2-85, 420, 80, 30);
-        [cancel_button setTitle:@"cancel" forState:UIControlStateNormal];
+        [cancel_button setTitle:@"Cancel" forState:UIControlStateNormal];
         [cancel_button addTarget:self.delegate action:@selector(cancel_image:)
                 forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:cancel_button];
+        [view addSubview:cancel_button];
         
+        //保存ボタン設定
         UIButton *save_button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         save_button.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2+5, 420, 80, 30);
-        [save_button setTitle:@"save" forState:UIControlStateNormal];
+        [save_button setTitle:@"Save" forState:UIControlStateNormal];
         [save_button addTarget:self.delegate action:@selector(save_image:)
               forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:save_button];
+        [view addSubview:save_button];
         
+        //ビューの表示
+        [self addSubview:view];
     }
     return self;
 }
@@ -215,7 +225,7 @@ parseErrorOccurred:(NSError *)parseError {
     longitude = newLocation.coordinate.longitude;
     latitude = newLocation.coordinate.latitude;
     
-    NSLog(@"longitude=%f,latitude=%f",longitude,latitude);
+    //NSLog(@"longitude=%f,latitude=%f",longitude,latitude);
 }
 
 

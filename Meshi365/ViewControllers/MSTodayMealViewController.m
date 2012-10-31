@@ -147,7 +147,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex {
 }
 
 -(void) save_image:(id)sender{
-    [MSAWSConnector postFoodPictureToAWS:msValueImageView.squareFoodPictureImage];
+    [MSAWSConnector uploadFoodPictureToAWS:msValueImageView.squareFoodPictureImage];
     
     CGRect image_rect = CGRectMake(0, (msValueImageView.squareFoodPictureImage.size.height-no_image_size.height)/2,
                                    msValueImageView.squareFoodPictureImage.size.width,

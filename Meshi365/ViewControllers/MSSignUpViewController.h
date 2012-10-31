@@ -1,5 +1,5 @@
 //
-//  MSFriendListViewController.h
+//  MSSignUpViewController.h
 //  Meshi365
 //
 //  Created by tatsuya on 11/1/12.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MSFriendListViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
+@interface MSSignUpViewController : UIViewController
 
 @end

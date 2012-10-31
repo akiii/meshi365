@@ -23,7 +23,11 @@
 
 @implementation MSAWSConnector
 
-+ (NSURL *)postFoodPictureToAWS:(MSFoodPictureImage *)image{
++ (NSURL *)uploadProfileImageToAWS:(UIImage *)image{
+    return nil;
+}
+
++ (NSURL *)uploadFoodPictureToAWS:(MSFoodPictureImage *)image{
     // Custom initialization
     NSString *uiid = [[MSUIIDController sharedController] uiid];
     NSString *fn = [NSString stringWithFormat:@"%@-%@", uiid, [NSDate date]];
@@ -36,17 +40,20 @@
     
     NSData *imageData = [[NSData alloc] initWithData:UIImagePNGRepresentation(image)];
     por.data = imageData;
-    [s3 putObject:por];
+    S3PutObjectResponse *res = [s3 putObject:por];
     
-    NSString *urlString = [NSString stringWithFormat:@"%@/%@/%@", AWS_BASE_URL, AWS_BUCKET_NAME, fileName];
-    
-    image.foodPicture.userId = [MSUser currentUser].uid;
-    image.foodPicture.url = urlString;
-    
-    [MSNetworkConnector requestToUrl:URL_OF_POST_FOOD_PICTURE method:RequestMethodPost params:image.foodPicture.params block:^(NSData *response) {
-    }];
-    
-    return [NSURL URLWithString:urlString];
+    if (res) {
+        NSString *urlString = [NSString stringWithFormat:@"%@/%@/%@", AWS_BASE_URL, AWS_BUCKET_NAME, fileName];
+        
+        image.foodPicture.userId = [MSUser currentUser].uid;
+        image.foodPicture.url = urlString;
+        
+        [MSNetworkConnector requestToUrl:URL_OF_POST_FOOD_PICTURE method:RequestMethodPost params:image.foodPicture.params block:^(NSData *response) {
+        }];
+        return [NSURL URLWithString:urlString];
+    }else {
+        return nil;
+    }
 }
 
 + (NSString *)md5:(NSString*)str{

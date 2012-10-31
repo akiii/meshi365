@@ -26,13 +26,48 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    
+    UIBarButtonItem *btn =
+    [[UIBarButtonItem alloc]
+     initWithTitle:@"Edit"
+     style:UIBarButtonItemStylePlain
+     target:self
+     action:@selector(deleteFriend)
+     ];
+    self.navigationItem.rightBarButtonItem = btn;
+    
+    UITableView *table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen]applicationFrame].size.width, [[UIScreen mainScreen]applicationFrame].size.height - self.tabBarController.tabBar.frame.size.height-self.navigationController.navigationBar.frame.size.height) style:UITableViewStylePlain];
+    table.delegate = self;
+    table.dataSource = self;
+    [self.view addSubview:table];
+    
+}
+-(void)deleteFriend{
+
 }
 
-- (void)didReceiveMemoryWarning
+#pragma mark Table View
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{return 1;}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{return 30;}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    static NSString *CellIdentifier = @"Cell";
+	
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];	}
+	
+    cell.textLabel.text = [NSString stringWithFormat:@"Friend%d",indexPath.row];
+    
+	return cell;
 }
-
+/*
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{return 25;}
+*/
 @end
