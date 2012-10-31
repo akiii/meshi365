@@ -30,6 +30,16 @@
 {
     [super viewDidLoad];
 
+	
+	
+	
+	[MSNetworkConnector requestToUrl:@"http://aqueous-brushlands-6933.herokuapp.com/food_pictures" method:RequestMethodGet params:nil block:^(NSData *response)
+	 {
+		 jsonArray = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
+	 }];
+	
+	NSLog(@"json count:%d",jsonArray.count);
+	
 	int height = [UIScreen mainScreen].bounds.size.height - 10;
 	int width = [UIScreen mainScreen].bounds.size.width/2;
 	int tableViewNum = 2;
@@ -47,10 +57,14 @@
 		label[i].frame = CGRectMake(i*width+2, 30, width, 30);
 	
 		
-		
 		recommendTableView[i] = [[MSRecommendTableView alloc]init];
+		
+		recommendTableView[i].jsonArray = jsonArray;
+
 		recommendTableView[i].bounces = YES;
 		recommendTableView[i].frame = CGRectMake(i*width, 60, width, height);
+		
+		
 		
 		
 		[self.view addSubview:recommendTableView[i]];
@@ -60,11 +74,6 @@
 	
 	
 	
-	
-	[MSNetworkConnector requestToUrl:@"http://aqueous-brushlands-6933.herokuapp.com/food_pictures" method:RequestMethodGet params:nil block:^(NSData *response)
-	 {
-		 jsonArray = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
-	 }];
 }
 
 - (void)didReceiveMemoryWarning

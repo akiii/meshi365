@@ -66,8 +66,10 @@
 
 	
 	S3GetPreSignedURLRequest *gpsur = [[S3GetPreSignedURLRequest alloc] init];
+	
+	NSLog(@"gpsur.key:num[%d] url[%@]",imageNum,[jsonArray[imageNum] objectForKey:@"url"]);
+	
 	gpsur.key     = [[jsonArray[imageNum] objectForKey:@"url"] lastPathComponent];
-	NSLog(@"gpsur.key:%@",[[jsonArray[imageNum] objectForKey:@"url"] lastPathComponent]);
 	gpsur.bucket  = AWS_BUCKET_NAME;
 	gpsur.expires = [NSDate dateWithTimeIntervalSinceNow:(NSTimeInterval) 3600];
 

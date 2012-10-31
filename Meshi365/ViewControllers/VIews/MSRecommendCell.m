@@ -37,7 +37,7 @@
 	y+=dy;
 	
 	
-	int length = [UIScreen mainScreen].bounds.size.width/4-10;
+	int length = [UIScreen mainScreen].bounds.size.width/2-10;
 	self.imageView.frame = CGRectMake(x, y, length,length);
     self.imageView.contentMode = UIViewContentModeScaleToFill;
 	y+=length+10;
@@ -88,13 +88,14 @@
 }
 
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier imageUrl:(NSURL*)url jsonData:(NSDictionary*)jsonData
+- (void)updateJsonData:(NSURL*)imageUrl jsonData:(NSDictionary*)jsonData
 {
-	_imageUrl = url;
+	_imageUrl = imageUrl;
 	_jsonData = jsonData;
-	//NSLog(@"imageUrl:%@",_imageUrl);
-	return [self initWithStyle:style reuseIdentifier:reuseIdentifier];
+	NSLog(@"imageUrl:%@",_imageUrl);
+	[self loadImage];
 }
+
 
 - (void)loadImage
 {
@@ -120,8 +121,10 @@
         
         dispatch_async(q_main, ^{
             self.imageView.image = image;
-			//			[indicator stopAnimating];
+			[indicator stopAnimating];
 			[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+			[self layoutSubviews];
+			
         });
     });
 	
