@@ -29,9 +29,18 @@
 {
     [super viewDidLoad];
 	
+	int naviHeight = 44;
+	UINavigationBar *naviBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, naviHeight)];
+    naviBar.tintColor = [UIColor colorWithRed:1.0 green:0.80 blue:0.1 alpha:0.7];
+    UINavigationItem *title = [[UINavigationItem alloc] initWithTitle:@"MiniCalender"];
+    [naviBar pushNavigationItem:title animated:YES];
+    [self.view addSubview:naviBar];
+
+	
 	int tableViewNum = 10;
 
 	scrollView = [[MSMiniCalenderScrollView alloc] initWithFrame:self.view.bounds];
+	scrollView.frame = CGRectMake(0, naviHeight, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height - naviHeight);
 	[scrollView setLayout:tableViewNum];
 
 	
@@ -45,7 +54,7 @@
 	{
 		miniCalenderTableView[i] = [[MSMiniCalenderTableView alloc]init];
 		miniCalenderTableView[i].bounces = YES;
-		miniCalenderTableView[i].frame = CGRectMake(i*width, 60, width, height);
+		miniCalenderTableView[i].frame = CGRectMake(i*width, naviHeight+14, width, height);
 
 		
 		dayLabel[i] = [[UILabel alloc]init];
@@ -61,7 +70,7 @@
 			dayLabel[i].text = [NSString stringWithFormat:@"%2d",dateComps.day];
 		}
 		dayLabel[i].backgroundColor = [UIColor colorWithRed:0.9 green:0.87 blue:0.92 alpha:1.0];
-		dayLabel[i].frame = CGRectMake(i*width+2, 30, width, 30);
+		dayLabel[i].frame = CGRectMake(i*width+2, naviHeight-14, width, 30);
 		
 		
 		
@@ -72,7 +81,7 @@
 	
 
 	
-	monthLabel.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 30);
+	monthLabel.frame = CGRectMake(0, naviHeight, [UIScreen mainScreen].bounds.size.width, 30);
 	monthLabel.textAlignment = NSTextAlignmentCenter;
 	//	monthLabel.text = [NSString stringWithFormat:@"%2d",dateComps.month];
 	monthLabel.text = [NSString stringWithFormat:@"JUN/MAY"];

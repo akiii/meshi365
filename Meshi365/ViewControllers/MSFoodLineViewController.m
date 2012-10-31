@@ -33,8 +33,17 @@
 {
     [super viewDidLoad];
 	
+	int naviHeight = 44;
+	UINavigationBar *naviBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, naviHeight)];
+    naviBar.tintColor = [UIColor colorWithRed:1.0 green:0.80 blue:0.1 alpha:0.7];
+    UINavigationItem *title = [[UINavigationItem alloc] initWithTitle:@"Food Line"];
+    [naviBar pushNavigationItem:title animated:YES];
+    [self.view addSubview:naviBar];
+
+	
 	UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+	tableView.frame = CGRectMake(0, naviHeight, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height - naviHeight);
     tableView.dataSource = self;
     tableView.delegate = self;
     [self.view addSubview:tableView];
