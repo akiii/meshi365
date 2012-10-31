@@ -7,8 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Social/Social.h>
+#import <Accounts/Accounts.h>
+
 
 @interface MSConfigViewController : UIViewController
 <UITextFieldDelegate>
+{
+	NSString *postMsg;
+}
+
+
 
 @end
