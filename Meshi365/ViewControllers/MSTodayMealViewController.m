@@ -113,7 +113,6 @@
 }
 
 -(void)breakfastCameraAction{
-    NSLog(@"Breakfast");
     if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
         msCamera.state = @"breakfast";
         [as showFromTabBar:self.tabBarController.tabBar];
@@ -121,7 +120,6 @@
 }
 
 -(void)lunchCameraAction{
-    NSLog(@"Lunch");
     if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
         msCamera.state = @"lunch";
         [as showFromTabBar:self.tabBarController.tabBar];
@@ -129,7 +127,6 @@
 }
 
 -(void)supperCameraAction{
-    NSLog(@"Supper");
     if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
         msCamera.state = @"supper";
         [as showFromTabBar:self.tabBarController.tabBar];
@@ -150,7 +147,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex {
 }
 
 -(void) save_image:(id)sender{
-    NSLog(@"%@", [MSAWSConnector postFoodPictureToAWS:msValueImageView.squareFoodPictureImage]);
+    [MSAWSConnector postFoodPictureToAWS:msValueImageView.squareFoodPictureImage];
     
     CGRect image_rect = CGRectMake(0, (msValueImageView.squareFoodPictureImage.size.height-no_image_size.height)/2,
                                    msValueImageView.squareFoodPictureImage.size.width,

@@ -92,7 +92,6 @@
 {
 	_imageUrl = imageUrl;
 	_jsonData = jsonData;
-	NSLog(@"imageUrl:%@",_imageUrl);
 	[self loadImage];
 }
 
