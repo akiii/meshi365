@@ -104,12 +104,18 @@
     
     if([msCamera.state isEqualToString:@"breakfast"]||[msCamera.state isEqualToString:@"lunch"]||[msCamera.state isEqualToString:@"supper"]){
         msValueImageView = [[MSValueImageView alloc] init];
-        msValueImageView.delegate = self;
         msValueImageView.cameraImage = msCamera.camera_image;
         
         [self hideTabBar:self.tabBarController];
         [self.view addSubview:msValueImageView];
     }
+}
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    
+    MSSignUpViewController *view = [[MSSignUpViewController alloc]init];
+    [self presentModalViewController:view animated:YES];
+    
 }
 
 -(void)breakfastCameraAction{
