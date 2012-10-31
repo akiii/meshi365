@@ -40,6 +40,9 @@
     
     NSString *urlString = [NSString stringWithFormat:@"%@/%@/%@", AWS_BASE_URL, AWS_BUCKET_NAME, fileName];
     
+    image.foodPicture.userId = [MSUser currentUser].uid;
+    image.foodPicture.url = urlString;
+    
     [MSNetworkConnector requestToUrl:URL_OF_POST_FOOD_PICTURE method:RequestMethodPost params:image.foodPicture.params block:^(NSData *response) {
     }];
     
@@ -64,7 +67,6 @@
 	S3ResponseHeaderOverrides *override = [[S3ResponseHeaderOverrides alloc] init];
 	override.contentType = @"image/png";
 
-	
 	S3GetPreSignedURLRequest *gpsur = [[S3GetPreSignedURLRequest alloc] init];
 	
 	NSLog(@"gpsur.key:num[%d] url[%@]",imageNum,[jsonArray[imageNum] objectForKey:@"url"]);
