@@ -1,3 +1,5 @@
+#define SEARCH_DISTANCE 0.005
+
 #import "MSValueImageView.h"
 
 @implementation MSValueImageView
@@ -55,14 +57,27 @@
         table.dataSource = self;
         [self addSubview:table];
         
+        locationManager = [[CLLocationManager alloc] init];
+        locationManager.delegate = self;
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        locationManager.distanceFilter = kCLDistanceFilterNone;
+        [locationManager startUpdatingLocation];
+
+        
         dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
         dispatch_queue_t q_main = dispatch_get_main_queue();
         
         dispatch_async(q_global, ^{
-            NSXMLParser *parser = [[NSXMLParser alloc] initWithData:[[self getDataFrom:@"http://api.openstreetmap.org/api/0.6/map?bbox=-87.6668175558495,41.87111869318251,-87.598153005071,41.88087786790583"] dataUsingEncoding:NSUTF8StringEncoding]];
+            while (longitude*latitude==0)
+                [NSThread sleepForTimeInterval:0.1];
+            //NSLog(@"first! longitude=%f,latitude=%f",longitude,latitude);
+            
+            NSXMLParser *parser = [[NSXMLParser alloc] initWithData:[[self getDataFrom:[NSString stringWithFormat:@"http://api.openstreetmap.org/api/0.6/map?bbox=%f,%f,%f,%f",longitude-SEARCH_DISTANCE,latitude-SEARCH_DISTANCE,longitude+SEARCH_DISTANCE,latitude+SEARCH_DISTANCE]] dataUsingEncoding:NSUTF8StringEncoding]];
             [nameArray removeAllObjects];
             parser.delegate = self;
             [parser parse];
+            
+            [locationManager stopUpdatingLocation];
             dispatch_async(q_main, ^{[table reloadData];});
         });
         
@@ -191,6 +206,16 @@ foundCharacters:(NSString *)string {
 
 - (void)parser:(NSXMLParser *)parser
 parseErrorOccurred:(NSError *)parseError {
+}
+
+#pragma mark Location
+- (void)locationManager:(CLLocationManager *)manager
+    didUpdateToLocation:(CLLocation *)newLocation
+           fromLocation:(CLLocation *)oldLocation{
+    longitude = newLocation.coordinate.longitude;
+    latitude = newLocation.coordinate.latitude;
+    
+    NSLog(@"longitude=%f,latitude=%f",longitude,latitude);
 }
 
 

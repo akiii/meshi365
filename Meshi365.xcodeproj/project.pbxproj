@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2757A2AF16416E1800975AC8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2757A2AE16416E1800975AC8 /* CoreLocation.framework */; };
+		2757A2B31641765F00975AC8 /* MSFoodLineNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2757A2B21641765F00975AC8 /* MSFoodLineNavigationViewController.m */; };
 		279DA49E163F689D00AF6E26 /* MSValueImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 279DA49D163F689D00AF6E26 /* MSValueImageView.m */; };
 		279FB497163FAAFA0057D896 /* no_image_breakfast.png in Resources */ = {isa = PBXBuildFile; fileRef = 279FB491163FAAFA0057D896 /* no_image_breakfast.png */; };
 		279FB498163FAAFA0057D896 /* no_image_breakfast@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 279FB492163FAAFA0057D896 /* no_image_breakfast@2x.png */; };
@@ -73,6 +74,8 @@
 
 /* Begin PBXFileReference section */
 		2757A2AE16416E1800975AC8 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		2757A2B11641765F00975AC8 /* MSFoodLineNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSFoodLineNavigationViewController.h; sourceTree = "<group>"; };
+		2757A2B21641765F00975AC8 /* MSFoodLineNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSFoodLineNavigationViewController.m; sourceTree = "<group>"; };
 		279DA49C163F689D00AF6E26 /* MSValueImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSValueImageView.h; sourceTree = "<group>"; };
 		279DA49D163F689D00AF6E26 /* MSValueImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSValueImageView.m; sourceTree = "<group>"; };
 		279FB491163FAAFA0057D896 /* no_image_breakfast.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = no_image_breakfast.png; sourceTree = "<group>"; };
@@ -217,6 +220,8 @@
 				B80524B5163EEBBA005B74F8 /* MSTodayMealViewController.m */,
 				279DA49C163F689D00AF6E26 /* MSValueImageView.h */,
 				279DA49D163F689D00AF6E26 /* MSValueImageView.m */,
+				2757A2B11641765F00975AC8 /* MSFoodLineNavigationViewController.h */,
+				2757A2B21641765F00975AC8 /* MSFoodLineNavigationViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -486,6 +491,7 @@
 				B805252416406429005B74F8 /* MSFoodPictureImage.m in Sources */,
 				8C66D31816408A9B0010777F /* MSRecommendTableView.m in Sources */,
 				8C0CC86516408F6B008B830B /* MSRecommendCell.m in Sources */,
+				2757A2B31641765F00975AC8 /* MSFoodLineNavigationViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

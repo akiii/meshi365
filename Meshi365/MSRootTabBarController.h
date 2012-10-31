@@ -10,6 +10,7 @@
 
 #import "MSTodayMealViewController.h"
 #import "MSFoodLineViewController.h"
+#import "MSFoodLineNavigationViewController.h"
 #import "MSMiniCalenderViewController.h"
 #import "MSRecommendViewController.h"
 #import "MSConfigViewController.h"
@@ -17,7 +18,7 @@
 @interface MSRootTabBarController : UITabBarController
 
 @property (nonatomic, strong) MSTodayMealViewController *todayMEalViewController;
-@property (nonatomic, strong) MSFoodLineViewController *foodLineViewController;
+@property (nonatomic, strong) MSFoodLineNavigationViewController *foodLineNavigationViewController;
 @property (nonatomic, strong) MSMiniCalenderViewController *miniCalenderViewController;
 @property (nonatomic, strong) MSRecommendViewController *recommendViewController;
 @property (nonatomic, strong) MSConfigViewController *configViewController;

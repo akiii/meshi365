@@ -17,26 +17,24 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
- 		
         self.view.backgroundColor = [UIColor blackColor];
         
+        MSFoodLineViewController *view = [[MSFoodLineViewController alloc]init];
+        
 		self.todayMEalViewController	= [[MSTodayMealViewController alloc]init];
-		self.foodLineViewController		= [[MSFoodLineViewController alloc]init];
+		self.foodLineNavigationViewController		= [[MSFoodLineNavigationViewController alloc]initWithRootViewController:view];
 		self.miniCalenderViewController	= [[MSMiniCalenderViewController alloc]init];
 		self.recommendViewController	= [[MSRecommendViewController alloc]init];
 		self.configViewController		= [[MSConfigViewController alloc]init];
 		
-		
 		self.todayMEalViewController.title = @"Today";
-		self.foodLineViewController.title = @"FoodLine";
+		self.foodLineNavigationViewController.title = @"FoodLine";
 		self.miniCalenderViewController.title = @"MiniCal";
 		self.recommendViewController.title = @"Recommend";
 		self.configViewController.title = @"Config";
 
-		
-		NSArray *views = [NSArray arrayWithObjects:self.todayMEalViewController, self.foodLineViewController, self.miniCalenderViewController, self. recommendViewController, self.configViewController, nil];
+		NSArray *views = [NSArray arrayWithObjects:self.todayMEalViewController, self.foodLineNavigationViewController, self.miniCalenderViewController, self. recommendViewController, self.configViewController, nil];
 		[self setViewControllers:views animated:NO];
-
     }
     return self;
 }
