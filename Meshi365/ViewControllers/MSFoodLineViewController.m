@@ -47,7 +47,7 @@
     [self.view addSubview:naviBar];
     */
     
-	self.navigationController.title = @"Food Line";
+	self.navigationItem.title = @"Food Line";
     
     UIBarButtonItem *btn =
         [[UIBarButtonItem alloc]
