@@ -11,9 +11,6 @@
 #import "MSUIIDController.h"
 #import "MSUser.h"
 
-#define URL_OF_USER_LOGIN   @"http://aqueous-brushlands-6933.herokuapp.com/user/login"
-#define URL_OF_SIGN_UP      @"http://aqueous-brushlands-6933.herokuapp.com/api/signup"
-
 @implementation AppDelegate
 
 @synthesize managedObjectContext = _managedObjectContext;
