@@ -9,9 +9,6 @@
 #import "MSRootTabBarController.h"
 
 @interface MSRootTabBarController ()
-
-
-
 @end
 
 @implementation MSRootTabBarController

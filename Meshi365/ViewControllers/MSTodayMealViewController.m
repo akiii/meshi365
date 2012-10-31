@@ -6,6 +6,29 @@
 
 @implementation MSTodayMealViewController
 
+
+- (void)hideTabBar:(UITabBarController *) tabbarcontroller{
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.5];
+    for(UIView *view in tabbarcontroller.view.subviews){
+        if([view isKindOfClass:[UITabBar class]])
+            [view setFrame:CGRectMake(view.frame.origin.x, 480, view.frame.size.width, view.frame.size.height)];
+        else [view setFrame:CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, 480)];
+    }
+    [UIView commitAnimations];
+}
+
+- (void)showTabBar:(UITabBarController *) tabbarcontroller{
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.5];
+    for(UIView *view in tabbarcontroller.view.subviews){
+        if([view isKindOfClass:[UITabBar class]])
+            [view setFrame:CGRectMake(view.frame.origin.x, 431, view.frame.size.width, view.frame.size.height)];
+        else [view setFrame:CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, 431)];
+    }
+    [UIView commitAnimations];
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -30,6 +53,12 @@
     [as addButtonWithTitle:@"Cancel"];
     as.cancelButtonIndex = 2;
     
+    UINavigationBar *naviBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 44)];
+    naviBar.tintColor = [UIColor colorWithRed:1.0 green:0.80 blue:0.1 alpha:0.7];
+    UINavigationItem *title = [[UINavigationItem alloc] initWithTitle:@"Today Menu"];
+    [naviBar pushNavigationItem:title animated:YES];
+    [self.view addSubview:naviBar];
+    
     //Making views in Today Meal
     breakfastImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_image_breakfast.png"]];
     lunchImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_image_lunch.png"]];
@@ -53,9 +82,9 @@
     
     
     //画像の大きさを設定
-    breakfastImageView.frame = CGRectMake(20,30,no_image_size.width ,no_image_size.height);
-    lunchImageView.frame = CGRectMake(20,130,no_image_size.width ,no_image_size.height);
-    supperImageView.frame = CGRectMake(20,230,no_image_size.width ,no_image_size.height);
+    breakfastImageView.frame = CGRectMake(20,50,no_image_size.width ,no_image_size.height);
+    lunchImageView.frame = CGRectMake(20,135,no_image_size.width ,no_image_size.height);
+    supperImageView.frame = CGRectMake(20,220,no_image_size.width ,no_image_size.height);
     
     breakfastImageView.contentMode = UIViewContentModeScaleAspectFit;
     
@@ -64,7 +93,7 @@
     [self.view addSubview:lunchImageView];
     [self.view addSubview:supperImageView];
     
-    UILabel *othersLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 310, 80, 30)];
+    UILabel *othersLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 300, 80, 30)];
     othersLabel.backgroundColor = [UIColor clearColor];
     othersLabel.text = @"Others";
     [self.view addSubview:othersLabel];
@@ -73,13 +102,12 @@
 -(void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
-    NSLog(@"%@",msCamera.state);
     if([msCamera.state isEqualToString:@"breakfast"]||[msCamera.state isEqualToString:@"lunch"]||[msCamera.state isEqualToString:@"supper"]){
         msValueImageView = [[MSValueImageView alloc] init];
         msValueImageView.delegate = self;
         msValueImageView.cameraImage = msCamera.camera_image;
         
-        self.tabBarController.tabBar.hidden=YES;
+        [self hideTabBar:self.tabBarController];
         [self.view addSubview:msValueImageView];
     }
 }
@@ -127,22 +155,28 @@ clickedButtonAtIndex:(NSInteger)buttonIndex {
     CGRect image_rect = CGRectMake(0, (msValueImageView.squareFoodPictureImage.size.height-no_image_size.height)/2,
                                    msValueImageView.squareFoodPictureImage.size.width,
                                    msValueImageView.squareFoodPictureImage.size.height*no_image_size.height/no_image_size.width);
-    if([msCamera.state isEqualToString:@"breakfast"])
+    if([msCamera.state isEqualToString:@"breakfast"]){
         breakfastImageView.image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect
                                     ([msValueImageView.squareFoodPictureImage CGImage], image_rect)];
-    if([msCamera.state isEqualToString:@"lunch"])
+        breakfastImageView.userInteractionEnabled = NO;
+    }
+    if([msCamera.state isEqualToString:@"lunch"]){
         lunchImageView.image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect
                                     ([msValueImageView.squareFoodPictureImage CGImage], image_rect)];
-    if([msCamera.state isEqualToString:@"supper"])
+        lunchImageView.userInteractionEnabled = NO;
+    }
+    if([msCamera.state isEqualToString:@"supper"]){
         supperImageView.image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect
                                     ([msValueImageView.squareFoodPictureImage CGImage], image_rect)];
+        supperImageView.userInteractionEnabled = NO;
+    }
     msCamera.state = nil;
-    self.tabBarController.tabBar.hidden=NO;
+    [self showTabBar:self.tabBarController];
     [msValueImageView removeFromSuperview];
 }
 
 -(void) cancel_image:(id)sender{
-    self.tabBarController.tabBar.hidden=NO;
+    [self showTabBar:self.tabBarController];
     [msValueImageView removeFromSuperview];
 }
 

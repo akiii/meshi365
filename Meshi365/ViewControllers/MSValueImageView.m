@@ -2,22 +2,6 @@
 
 @implementation MSValueImageView
 
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        nameArray = [NSMutableArray array];
-        amenityArray = [NSMutableArray array];
-        locationArray = [NSMutableArray array];
-        
-        self.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 480);
-        self.backgroundColor = [UIColor colorWithRed:1.0 green:0.93 blue:0.8 alpha:1.0];
-        
-        
-    }
-    return self;
-}
-
 - (NSString *) getDataFrom:(NSString *)url{
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setHTTPMethod:@"GET"];
@@ -36,72 +20,91 @@
     return [[NSString alloc] initWithData:oResponseData encoding:NSUTF8StringEncoding];
 }
 
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        nameArray = [NSMutableArray array];
+        amenityArray = [NSMutableArray array];
+        locationArray = [NSMutableArray array];
+        
+        self.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 480);
+        self.backgroundColor = [UIColor colorWithRed:1.0 green:0.93 blue:0.8 alpha:1.0];
+        
+        int left_line = ([[UIScreen mainScreen] bounds].size.width-200)/2;
+        self.cnt_stars = 3;
+        
+        
+        im = [[UIImageView alloc] init];
+        im.frame = CGRectMake(left_line, 30, 200, 200);
+        [self addSubview:im];
+        
+        for (int i = 0; i < kNumOfStars; i++) {
+            star[i] = [UIButton buttonWithType:UIButtonTypeCustom];
+            star[i].frame = CGRectMake(left_line + 30 * i, 240, 30, 30);
+            star[i].tag = i;
+            [self setBackgroundImageOfStarButton:star[i].tag];
+            [star[i] addTarget:self action:@selector(tap_star0:) forControlEvents:UIControlEventTouchDown];
+            [self addSubview:star[i]];
+        }
+        
+        [nameArray addObject:@"Store Data Loading..."];
+        UITableView *table = [[UITableView alloc] init];
+        table.frame = CGRectMake(left_line-20, 280, 240, 130);
+        table.delegate = self;
+        table.dataSource = self;
+        [self addSubview:table];
+        
+        dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        dispatch_queue_t q_main = dispatch_get_main_queue();
+        
+        dispatch_async(q_global, ^{
+            NSXMLParser *parser = [[NSXMLParser alloc] initWithData:[[self getDataFrom:@"http://api.openstreetmap.org/api/0.6/map?bbox=-87.6668175558495,41.87111869318251,-87.598153005071,41.88087786790583"] dataUsingEncoding:NSUTF8StringEncoding]];
+            [nameArray removeAllObjects];
+            parser.delegate = self;
+            [parser parse];
+            dispatch_async(q_main, ^{[table reloadData];});
+        });
+        
+        
+        UIButton *cancel_button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        cancel_button.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2-85, 420, 80, 30);
+        [cancel_button setTitle:@"cancel" forState:UIControlStateNormal];
+        [cancel_button addTarget:self.delegate action:@selector(cancel_image:)
+                forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:cancel_button];
+        
+        UIButton *save_button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        save_button.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2+5, 420, 80, 30);
+        [save_button setTitle:@"save" forState:UIControlStateNormal];
+        [save_button addTarget:self.delegate action:@selector(save_image:)
+              forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:save_button];
+        
+    }
+    return self;
+}
+
+
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
-    NSLog(@"drawRect");
-    int left_line = ([[UIScreen mainScreen] bounds].size.width-200)/2;
-    self.cnt_stars = 3;
-    
-    CGRect image_rect = CGRectMake(0, (self.cameraImage.size.height-self.cameraImage.size.width)/2,
+    if(im.image==nil){
+        CGRect image_rect;
+        if(self.cameraImage.size.height>self.cameraImage.size.width)
+                image_rect = CGRectMake(0, (self.cameraImage.size.height-self.cameraImage.size.width)/2,
                                    self.cameraImage.size.width,
                                    self.cameraImage.size.width);
-    self.squareFoodPictureImage = [[MSFoodPictureImage alloc] initWithCGImage:CGImageCreateWithImageInRect([self.cameraImage CGImage], image_rect)];
-    
-    UIImageView *im = [[UIImageView alloc] initWithImage:self.squareFoodPictureImage];
-    im.frame = CGRectMake(left_line, 30, 200, 200);
-    [self addSubview:im];
-
-    for (int i = 0; i < kNumOfStars; i++) {
-        star[i] = [UIButton buttonWithType:UIButtonTypeCustom];
-        star[i].frame = CGRectMake(left_line + 30 * i, 240, 30, 30);
-        star[i].tag = i;
-        [self setBackgroundImageOfStarButton:star[i].tag];
-        [star[i] addTarget:self action:@selector(tap_star0:) forControlEvents:UIControlEventTouchDown];
-        [self addSubview:star[i]];
-    }
-    
-    [nameArray addObject:@"Store Data Loading..."];
-    UITableView *table = [[UITableView alloc] init];
-    table.frame = CGRectMake(left_line-20, 280, 240, 60);
-    table.delegate = self;
-    table.dataSource = self;
-    [self addSubview:table];
-    [nameArray removeAllObjects];
-    
-    dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_queue_t q_main = dispatch_get_main_queue();
-    
-    dispatch_async(q_global, ^{
-        NSLog(@"API start");
-        //NSLog(@"%@",[self getDataFrom:@"http://api.openstreetmap.org//api/0.6/map?bbox=-87.6668175558495,41.87111869318251,-87.598153005071,41.88087786790583"]);
+        else    image_rect = CGRectMake((self.cameraImage.size.width-self.cameraImage.size.height)/2, 0,
+                                     self.cameraImage.size.height,
+                                     self.cameraImage.size.height);
         
-        NSXMLParser *parser = [[NSXMLParser alloc] initWithData:[[self getDataFrom:@"http://api.openstreetmap.org/api/0.6/map?bbox=-87.6668175558495,41.87111869318251,-87.598153005071,41.88087786790583"] dataUsingEncoding:NSUTF8StringEncoding]];
-        parser.delegate = self;
-        [parser parse];
-        dispatch_async(q_main, ^{
-            NSLog(@"%@",nameArray);
-            NSLog(@"%@",amenityArray);
-            NSLog(@"%@",locationArray);
-            [table reloadData];
-        });
-    });
-    
-    
-    UIButton *cancel_button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    cancel_button.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2-85, 350, 80, 30);
-    [cancel_button setTitle:@"cancel" forState:UIControlStateNormal];
-    [cancel_button addTarget:self.delegate action:@selector(cancel_image:)
-          forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:cancel_button];
-    
-    UIButton *save_button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    save_button.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2+5, 350, 80, 30);
-    [save_button setTitle:@"save" forState:UIControlStateNormal];
-    [save_button addTarget:self.delegate action:@selector(save_image:)
-          forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:save_button];
+        self.squareFoodPictureImage = [[MSFoodPictureImage alloc]
+                                       initWithCGImage:CGImageCreateWithImageInRect([self.cameraImage CGImage], image_rect)];
+        im.image = self.squareFoodPictureImage;
+    }
+
 }
 
 -(void) tap_star0:(UIButton *)sender{

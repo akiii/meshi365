@@ -5,7 +5,7 @@
 
 @interface MSValueImageView : UIView<UITableViewDelegate,UITableViewDataSource,NSXMLParserDelegate>{
     UIButton *star[kNumOfStars];
-    
+    UIImageView *im;
     
     //For XMLParser
     int node_flag,amenity_flag;
