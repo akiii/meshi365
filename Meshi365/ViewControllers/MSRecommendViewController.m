@@ -44,9 +44,7 @@
 	 {
 		 jsonArray = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
 	 }];
-	
-	NSLog(@"json count:%d",jsonArray.count);
-	
+		
 	int height = [UIScreen mainScreen].bounds.size.height - 10;
 	int width = [UIScreen mainScreen].bounds.size.width/2;
 	int tableViewNum = 2;
