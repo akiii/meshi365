@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MSNetworkConnector.h"
+#import "MSUIIDController.h"
+#import "MSUser.h"
 
-@interface MSSignUpViewController : UIViewController
+@interface MSSignUpViewController : UIViewController{
+    UITextField *tf;
+}
 
 @end
