@@ -10,7 +10,7 @@
 #import "MSFoodPictureImage.h"
 
 @interface MSAWSConnector : NSObject
-+ (NSURL *)uploadProfileImageToAWS:(UIImage *)image;
-+ (NSURL *)uploadFoodPictureToAWS:(MSFoodPictureImage *)image;
++ (NSString *)uploadProfileImageToAWS:(UIImage *)image;
++ (NSString *)uploadFoodPictureToAWS:(MSFoodPictureImage *)image;
 + (NSURL *)foodPictureImageUrlFromJsonArray:(NSArray*)jsonArray imageNum:(int)imageNum;
 @end
