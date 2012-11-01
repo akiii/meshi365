@@ -81,7 +81,7 @@
 	[super viewWillAppear:animated];
 
 	
-	[MSNetworkConnector requestToUrl:URL_OF_FOOD_LINE_PICTURES method:RequestMethodGet params:nil block:^(NSData *response)
+	[MSNetworkConnector requestToUrl:URL_OF_FOOD_LINE( [[MSUser currentUser] uiid]) method:RequestMethodGet params:nil block:^(NSData *response)
 	 {
 		 jsonArray = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
 		 

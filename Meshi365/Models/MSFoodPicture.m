@@ -34,13 +34,14 @@
 		self.url		= [json objectForKey:@"url"];
 		
 		self.storeName	= [json objectForKey:@"store_name"];
-		if(!self.storeName)self.storeName = @"";
+		NSLog(@".......store name %@",self.storeName);
+		if(self.storeName != nil)self.storeName = @"<no name>";
 		
 		self.menuName	= [json objectForKey:@"menu_name"];
-		if(!self.menuName)self.menuName = @"";
+		if(self.menuName != nil)self.menuName = @"<no name>";
 		
 		self.comment	= [json objectForKey:@"comment"];
-		if(!self.comment)self.storeName = @"";
+		if(self.comment != nil)self.storeName = @"<no name>";
 		
 		self.starNum	= [[json objectForKey:@"star_num"] integerValue];
 	}
