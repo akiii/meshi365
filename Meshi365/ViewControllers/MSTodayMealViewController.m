@@ -93,9 +93,29 @@
     [self.view addSubview:lunchImageView];
     [self.view addSubview:supperImageView];
     
+    cntOtherImage = 1;
+    
     UILabel *othersLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 300, 80, 30)];
     othersLabel.backgroundColor = [UIColor clearColor];
     othersLabel.text = @"Others";
+    
+    int i;
+    UIImageView *im;
+    for (i=0; i<cntOtherImage; i++) {
+        im = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sampleMenu.png"]];
+        im.frame = CGRectMake(25+i*65,330,60,60);
+        [self.view addSubview:im];
+    }
+    
+    otherImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_image_others.png"]];
+    otherImageView.userInteractionEnabled = YES;
+    [otherImageView addGestureRecognizer:[[UITapGestureRecognizer alloc]
+                                           initWithTarget:self
+                                           action:@selector(otherCameraAction)]];
+    otherImageView.frame = CGRectMake(25+i*65,330,60,60);
+    [self.view addSubview:otherImageView];
+    
+    
     [self.view addSubview:othersLabel];
 }
 
@@ -141,6 +161,13 @@
     }
 }
 
+-(void)otherCameraAction{
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
+        msCamera.state = @"other";
+        [as showFromTabBar:self.tabBarController.tabBar];
+    }
+}
+
 -(void)actionSheet:(UIActionSheet*)actionSheet
 clickedButtonAtIndex:(NSInteger)buttonIndex {
     if(buttonIndex!=2){
@@ -155,7 +182,23 @@ clickedButtonAtIndex:(NSInteger)buttonIndex {
 }
 
 -(void) save_image:(id)sender{
-    [MSAWSConnector uploadFoodPictureToAWS:msValueImageView.squareFoodPictureImage];
+    
+    NSString *urlString = [MSAWSConnector uploadFoodPictureToAWS:msValueImageView.squareFoodPictureImage];
+    msValueImageView.squareFoodPictureImage.foodPicture.uiid = [MSUser currentUser].uiid;
+    msValueImageView.squareFoodPictureImage.foodPicture.mealType = [msCamera.state isEqualToString:@"breakfast"]?0:
+    [msCamera.state isEqualToString:@"lunch"]?1:
+    [msCamera.state isEqualToString:@"supper"]?2:3;
+    msValueImageView.squareFoodPictureImage.foodPicture.url = urlString;
+    msValueImageView.squareFoodPictureImage.foodPicture.storeName = msValueImageView.place_name;
+    msValueImageView.squareFoodPictureImage.foodPicture.menuName = msValueImageView.meal_name;
+    msValueImageView.squareFoodPictureImage.foodPicture.comment= msValueImageView.comment_text;
+    msValueImageView.squareFoodPictureImage.foodPicture.starNum= msValueImageView.cnt_stars;
+    
+//    image.foodPicture.uiid = [MSUser currentUser].uiid;
+//    image.foodPicture.url = urlString;
+//    
+//    [MSNetworkConnector requestToUrl:URL_OF_POST_FOOD_PICTURE method:RequestMethodPost params:image.foodPicture.params block:^(NSData *response) {}];
+    
     
     CGRect image_rect = CGRectMake(0, (msValueImageView.squareFoodPictureImage.size.height-no_image_size.height)/2,
                                    msValueImageView.squareFoodPictureImage.size.width,
@@ -175,6 +218,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex {
                                     ([msValueImageView.squareFoodPictureImage CGImage], image_rect)];
         supperImageView.userInteractionEnabled = NO;
     }
+    
     msCamera.state = nil;
     [self showTabBar:self.tabBarController];
     naviBar.topItem.title = @"Today Menu";
