@@ -38,22 +38,6 @@
     }else{
         self.signUpViewController = [[MSSignUpViewController alloc] init];
         self.window.rootViewController = self.signUpViewController;
-        
-        currentUser.name = @"name aaa";
-        currentUser.uiid = [[MSUIIDController sharedController] create];
-        currentUser.profileImageUrl = @"http://profile_image_url";
-        
-        [MSNetworkConnector requestToUrl:URL_OF_SIGN_UP method:RequestMethodPost params:currentUser.params block:^(NSData *response) {
-            NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
-            if ([[jsonDic objectForKey:@"save"] boolValue]) {
-                NSNumber *userId = [NSNumber numberWithInt:[[jsonDic objectForKey:kUserId] intValue]];
-                NSString *uiid = [jsonDic objectForKey:kUIID];
-                NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-                [ud setObject:userId forKey:kUserId];
-                [ud setObject:uiid forKey:kUIID];
-                [ud synchronize];
-            }
-        }];
     }
     
     return YES;

@@ -15,9 +15,17 @@
 }
 
 -(void)imagePickerController:(UIImagePickerController*)picker didFinishPickingImage:(UIImage*)image editingInfo:(NSDictionary*)editingInfo{
+    CGRect image_rect;
+    if(image.size.height>image.size.width)
+        image_rect = CGRectMake(0, (image.size.height-image.size.width)/2,
+                                image.size.width,
+                                image.size.width);
+    else    image_rect = CGRectMake((image.size.width-image.size.height)/2, 0,
+                                    image.size.height,
+                                    image.size.height);
     
-    self.camera_image = image;
-    
+    self.camera_image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect([image CGImage], image_rect)];
+
     [self dismissModalViewControllerAnimated:NO];
 }
 

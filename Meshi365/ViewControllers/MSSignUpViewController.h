@@ -10,9 +10,14 @@
 #import "MSNetworkConnector.h"
 #import "MSUIIDController.h"
 #import "MSUser.h"
+#import "MSCameraViewController.h"
 
-@interface MSSignUpViewController : UIViewController{
+@interface MSSignUpViewController : UIViewController<UITextFieldDelegate,UIActionSheetDelegate>{
     UITextField *tf;
+    UIImageView *profileImageView;
+    MSCameraViewController *msCamera;
+    
+    UIActionSheet *as;
 }
 
 @end
