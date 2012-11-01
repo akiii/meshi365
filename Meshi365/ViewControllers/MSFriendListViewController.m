@@ -29,6 +29,13 @@
     
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
+    MSUser *currentUser = [MSUser currentUser];
+    
+    [MSNetworkConnector fetchDataFromUrl:URL_OF_GET_FRIENDS(currentUser.uiid) method:RequestMethodGet params:nil block:^(NSData *response) {
+        NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
+        NSLog(@"");
+    }];
+    
     friendArray = [NSMutableArray array];
     for(int i=0;i<30;i++)
         [friendArray addObject:[NSString stringWithFormat:@"Friend%d",i]];

@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MSUser.h"
+#import "MSNetworkConnector.h"
 
 @interface MSFriendListViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>{
     UITableView *myTableView;

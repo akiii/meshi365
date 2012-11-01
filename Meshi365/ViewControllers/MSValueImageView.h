@@ -16,7 +16,7 @@
     CLLocationManager *locationManager; // 現在地情報取得
     double latitude, longitude;
     
-    
+    UITextView *comment;
 }
 
 @property (nonatomic       ) int cnt_stars;
