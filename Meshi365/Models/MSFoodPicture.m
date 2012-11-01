@@ -14,7 +14,7 @@
 - (id)init{
     if (self = [super init]) {
         self.uiid = [MSUser currentUser].uiid;
-        self.type = 1;
+        self.mealType = 1;
         self.url = @"";
         self.storeName = @"";
         self.menuName = @"";
@@ -27,7 +27,7 @@
 - (NSString *)params{
     NSString *params = [NSString string];
     params = [params stringByAppendingFormat:@"%@=%@&", @"uiid",         self.uiid];
-    params = [params stringByAppendingFormat:@"%@=%@&", @"type",         [NSNumber numberWithInt:self.type]];
+    params = [params stringByAppendingFormat:@"%@=%@&", @"meal_type",         [NSNumber numberWithInt:self.mealType]];
     params = [params stringByAppendingFormat:@"%@=%@&", @"url",          self.url];
     if (![self.storeName isEqualToString:@""]) {
         params = [params stringByAppendingFormat:@"%@=%@&", @"store_name",   self.storeName];

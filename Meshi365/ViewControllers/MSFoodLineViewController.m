@@ -69,6 +69,8 @@
 	[MSNetworkConnector requestToUrl:URL_OF_FOOD_LINE_PICTURES method:RequestMethodGet params:nil block:^(NSData *response)
 	 {
 		 jsonArray = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
+		 
+		 NSLog(@"JsonArray %@",jsonArray);
 	 }];
 	
 
@@ -123,9 +125,6 @@
 		NSLog(@"......isntImageCache:%d",indexPath.row);
 
 		
-		//	[_requestingUrls setObject:@"lock" forKey:imageUrl];
-		
-		
 		//load image
 		dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
 		dispatch_queue_t q_main = dispatch_get_main_queue();
@@ -136,7 +135,7 @@
 			UIImage* image = [[UIImage alloc] initWithData:data];
 			
 			dispatch_async(q_main, ^{
-				//[_imageCache setObject:image forKey:imageUrl];
+				[_imageCache setObject:image forKey:imageUrl];
 				NSLog(@"......done load:%d",indexPath.row);
 
 			});
@@ -156,7 +155,6 @@
 		//		//NSLog(@"requestingUrls:cache[%d]:%@",indexPath.row,[_requestingUrls objectForKey:indexPath]);
 		//
 		//	}
-		
 		//[cell updateJsonData:imageAccessKeyUrl jsonData:jsonArray[indexPath.row] imageCache:_imageCache imageCacheKey:imageUrl];
 	}
 	
