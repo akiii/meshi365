@@ -37,7 +37,7 @@
 		if(!self.storeName)self.storeName = @"";
 		
 		self.menuName	= [json objectForKey:@"menu_name"];
-		if(!self.menuName)menuName = @"";
+		if(!self.menuName)self.menuName = @"";
 		
 		self.comment	= [json objectForKey:@"comment"];
 		if(!self.comment)self.storeName = @"";
