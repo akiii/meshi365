@@ -106,12 +106,10 @@
 }
 
 
-- (void)updateJsonData:(NSString*)imageUrl foodPicture:(MSFoodPicture*)foodPict image:(UIImage*)image{
-	//_imageUrl = imageUrl;
-	//_jsonData = jsonData;
+- (void)updateJsonData:(MSFoodPicture*)foodPict image:(UIImage*)image
+{
 	_foodPicture = foodPict;
 	self.imageView.image = image;
-	
 }
 
 //- (void)loadImage:(NSCache*)imageCache imageCacheKey:(NSString*)imageCacheKey

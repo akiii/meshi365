@@ -13,7 +13,7 @@
 @interface MSFoodLineCell : UITableViewCell
 
 
-- (void)updateJsonData:(NSString*)imageUrl foodPicture:(MSFoodPicture*)foodPict image:(UIImage*)image;
+- (void)updateJsonData:(MSFoodPicture*)foodPict image:(UIImage*)image;
 
 
 @property(nonatomic,strong) NSString* imageCacheKey;

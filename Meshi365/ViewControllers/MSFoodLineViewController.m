@@ -123,65 +123,42 @@
 	NSString *imageUrl = foodPicture.url;
 	cell.imageUrl = imageUrl;
 	
-	
-	cell.textLabel.text =  [NSString stringWithFormat:@"%d",indexPath.row];
-	
-	NSLog(@"......make access key %d",indexPath.row);
+	//NSLog(@"......make access key %d",indexPath.row);
 	NSURL *imageAccessKeyUrl = [MSAWSConnector foodPictureImageUrlFromJsonArray:jsonArray imageNum:indexPath.row];
-	
 	
 	
 	if([_imageCache objectForKey:imageUrl] )
 	{
-		NSLog(@"......isImageCache:%d",indexPath.row);
-		
-		[cell updateJsonData:imageAccessKeyUrl foodPicture:foodPicture   image:[_imageCache objectForKey:imageUrl]];
-		
+		//NSLog(@"......isImageCache:%d",indexPath.row);
+		[cell updateJsonData:foodPicture image:[_imageCache objectForKey:imageUrl]];
 		[cell layoutSubviews];
 	}
-	//	else if(![_requestingUrls objectForKey:imageUrl])
 	else
 	{
-		NSLog(@"......no ImageCache:%d",indexPath.row);
-		
+		//NSLog(@"......no ImageCache:%d",indexPath.row);
 		cell.imageView.image = [UIImage imageNamed:@"star.png"];
-		
 		
 		//load image
 		dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
 		dispatch_queue_t q_main = dispatch_get_main_queue();
-		
-		
-		
-		//cell.imageView.image = nil;
 		dispatch_async(q_global, ^{
-			NSLog(@"...... load start:%d",indexPath.row);
-			
-			//	[_requestingUrls setObject:@"lock" forKey:imageUrl];
-			
+			//NSLog(@"...... load start:%d",indexPath.row);
 			NSData* data = [NSData dataWithContentsOfURL:imageAccessKeyUrl];
 			UIImage* image = [[UIImage alloc] initWithData:data];
 			
 			
 			dispatch_async(q_main, ^{
-				//cell.imageView.image = [UIImage imageNamed:@"star.png"];
-				
 				[_imageCache setObject:image forKey:imageUrl];
-				
-				//[cell reloadInputViews];
-				//ok
-				NSLog(@"...... %@",imageUrl);
-				NSLog(@"...... %@",cell.imageUrl);
-				
+				//NSLog(@"...... %@",imageUrl);
+				//NSLog(@"...... %@",cell.imageUrl);
 				if( [imageUrl  isEqualToString:cell.imageUrl])
 				{
-					NSLog(@"...... fuck:%d",indexPath.row);
-
-					[cell updateJsonData:imageAccessKeyUrl foodPicture:foodPicture   image:image];
+					//	NSLog(@"...... fuck:%d",indexPath.row);
+					[cell updateJsonData:foodPicture   image:image];
 					[cell layoutSubviews];
 				}
 				
-				NSLog(@"...... load done:%d",indexPath.row);
+				//NSLog(@"...... load done:%d",indexPath.row);
 				
 			});
 			
