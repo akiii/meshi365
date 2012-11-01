@@ -1,5 +1,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import <Social/Social.h>
+#import <Accounts/Accounts.h>
 #import "MSFoodPictureImage.h"
 
 #define kNumOfStars 5
