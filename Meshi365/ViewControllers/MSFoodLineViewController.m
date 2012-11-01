@@ -14,6 +14,7 @@
 
 
 @interface MSFoodLineViewController ()
+@property(nonatomic,strong)	UITableView *tableView;
 
 @end
 
@@ -58,12 +59,12 @@
 	 ];
     self.navigationItem.rightBarButtonItem = btn;
 	
-	tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
-    tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-	tableView.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
-    tableView.dataSource = self;
-    tableView.delegate = self;
-    [self.view addSubview:tableView];
+	_tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+	_tableView.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
+    _tableView.dataSource = self;
+    _tableView.delegate = self;
+    [self.view addSubview:_tableView];
 	
 
 	
@@ -90,7 +91,7 @@
 	 }];
 	
 	
-	[tableView reloadData];
+	[_tableView reloadData];
 
 }
 
@@ -120,6 +121,8 @@
 	
 	MSFoodPicture *foodPicture = [[MSFoodPicture alloc]init: jsonArray[indexPath.row] ];
 	NSString *imageUrl = foodPicture.url;
+	cell.imageUrl = imageUrl;
+	
 	
 	cell.textLabel.text =  [NSString stringWithFormat:@"%d",indexPath.row];
 	
@@ -142,7 +145,6 @@
 		NSLog(@"......no ImageCache:%d",indexPath.row);
 		
 		cell.imageView.image = [UIImage imageNamed:@"star.png"];
-		cell.imageUrl = [NSString stringWithFormat:@"%@",cell.imageUrl];
 		
 		
 		//load image
@@ -168,9 +170,13 @@
 				
 				//[cell reloadInputViews];
 				//ok
+				NSLog(@"...... %@",imageUrl);
+				NSLog(@"...... %@",cell.imageUrl);
 				
-				if( [imageUrl  isEqualToString:[NSString stringWithFormat:@"%@",cell.imageUrl]])
+				if( [imageUrl  isEqualToString:cell.imageUrl])
 				{
+					NSLog(@"...... fuck:%d",indexPath.row);
+
 					[cell updateJsonData:imageAccessKeyUrl foodPicture:foodPicture   image:image];
 					[cell layoutSubviews];
 				}
