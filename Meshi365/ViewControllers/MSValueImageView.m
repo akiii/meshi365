@@ -154,7 +154,7 @@
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect{
     if(im.image==nil){
-        self.squareFoodPictureImage = [[MSFoodPictureImage alloc] initWithCGImage:(__bridge CGImageRef)(self.cameraImage)];
+        self.squareFoodPictureImage = [[MSFoodPictureImage alloc] initWithCGImage:[self.cameraImage CGImage]];
         im.image = self.squareFoodPictureImage;
     }
 }
@@ -195,6 +195,30 @@
 }
 
 -(void)twitter:(id)sender{
+    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
+        ACAccountStore *accountStore = [[ACAccountStore alloc] init];
+        ACAccountType *accountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
+        [accountStore requestAccessToAccountsWithType:accountType
+                                              options:nil
+                                           completion:^(BOOL granted, NSError *error) {
+                                               if (granted) {
+                                                   NSArray *accountArray = [accountStore accountsWithAccountType:accountType];
+                                                   if (accountArray.count > 0) {
+                                                       NSURL *url = [NSURL URLWithString:@"http://api.twitter.com/1/statuses/update.json"];
+                                                       NSDictionary *params = [NSDictionary dictionaryWithObject:@"test" forKey:@"status"];
+                     
+                                                       SLRequest *request = [SLRequest requestForServiceType:SLServiceTypeTwitter
+                                                             requestMethod:SLRequestMethodPOST
+                                                                       URL:url
+                                                                parameters:params];
+                                                       [request setAccount:[accountArray objectAtIndex:0]];
+                                                       [request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+                                                           NSLog(@"responseData=%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
+                     }];
+                 }
+             }
+         }];
+    }
 }
 -(void)facebook:(id)sender{
 }
