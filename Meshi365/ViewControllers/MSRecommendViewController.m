@@ -40,7 +40,7 @@
 	
 	
 	
-	[MSNetworkConnector requestToUrl:@"http://aqueous-brushlands-6933.herokuapp.com/food_pictures" method:RequestMethodGet params:nil block:^(NSData *response)
+	[MSNetworkConnector requestToUrl:URL_OF_FOOD_LINE_PICTURES method:RequestMethodGet params:nil block:^(NSData *response)
 	 {
 		 jsonArray = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
 	 }];

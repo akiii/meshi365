@@ -22,9 +22,27 @@ static MSUser *currentUser = nil;
     return currentUser;
 }
 
+- (BOOL)signuped{
+    if ([currentUser.uiid isEqualToString:@""]) {
+        return NO;
+    }else {
+        return YES;
+    }
+}
+
+- (NSString *)params{
+    NSLog(@"id : %@", self.uiid);
+    NSString *params = [NSString string];
+    params = [params stringByAppendingFormat:@"%@=%@&", @"name",                self.name];
+    params = [params stringByAppendingFormat:@"%@=%@&", @"uiid",                self.uiid];
+    params = [params stringByAppendingFormat:@"%@=%@&", @"profile_image_url",   self.profileImageUrl];
+    return params;
+}
+
 - (void)dealloc{
     self.name = nil;
     self.uiid = nil;
+    self.profileImageUrl = nil;
 }
 
 @end

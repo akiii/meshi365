@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2732C97F164200BF000B3AB0 /* Icon_FaceBook.png in Resources */ = {isa = PBXBuildFile; fileRef = 2732C97D164200BF000B3AB0 /* Icon_FaceBook.png */; };
+		2732C980164200BF000B3AB0 /* Icon_Twitter.png in Resources */ = {isa = PBXBuildFile; fileRef = 2732C97E164200BF000B3AB0 /* Icon_Twitter.png */; };
 		2757A2AF16416E1800975AC8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2757A2AE16416E1800975AC8 /* CoreLocation.framework */; };
 		2757A2B31641765F00975AC8 /* MSFoodLineNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2757A2B21641765F00975AC8 /* MSFoodLineNavigationViewController.m */; };
 		2757A2B61641796600975AC8 /* MSFriendListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2757A2B51641796600975AC8 /* MSFriendListViewController.m */; };
@@ -78,6 +80,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2732C97D164200BF000B3AB0 /* Icon_FaceBook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_FaceBook.png; sourceTree = "<group>"; };
+		2732C97E164200BF000B3AB0 /* Icon_Twitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_Twitter.png; sourceTree = "<group>"; };
 		2757A2AE16416E1800975AC8 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		2757A2B11641765F00975AC8 /* MSFoodLineNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSFoodLineNavigationViewController.h; sourceTree = "<group>"; };
 		2757A2B21641765F00975AC8 /* MSFoodLineNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSFoodLineNavigationViewController.m; sourceTree = "<group>"; };
@@ -200,6 +204,8 @@
 		B80524A2163EEB59005B74F8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2732C97D164200BF000B3AB0 /* Icon_FaceBook.png */,
+				2732C97E164200BF000B3AB0 /* Icon_Twitter.png */,
 				27D1ABCD164022F10010EDF7 /* no_image_others.png */,
 				27D1ABCE164022F10010EDF7 /* no_image_others@2x.png */,
 				279FB491163FAAFA0057D896 /* no_image_breakfast.png */,
@@ -458,6 +464,8 @@
 				279FB49C163FAAFA0057D896 /* no_image_supper@2x.png in Resources */,
 				27D1ABCF164022F10010EDF7 /* no_image_others.png in Resources */,
 				27D1ABD0164022F10010EDF7 /* no_image_others@2x.png in Resources */,
+				2732C97F164200BF000B3AB0 /* Icon_FaceBook.png in Resources */,
+				2732C980164200BF000B3AB0 /* Icon_Twitter.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -53,7 +53,7 @@
     [as addButtonWithTitle:@"Cancel"];
     as.cancelButtonIndex = 2;
     
-    UINavigationBar *naviBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 44)];
+    naviBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 44)];
     naviBar.tintColor = [UIColor colorWithRed:1.0 green:0.80 blue:0.1 alpha:0.7];
     UINavigationItem *title = [[UINavigationItem alloc] initWithTitle:@"Today Menu"];
     [naviBar pushNavigationItem:title animated:YES];
@@ -102,14 +102,22 @@
 -(void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
+    naviBar.topItem.title = @"Today Menu";
     if([msCamera.state isEqualToString:@"breakfast"]||[msCamera.state isEqualToString:@"lunch"]||[msCamera.state isEqualToString:@"supper"]){
         msValueImageView = [[MSValueImageView alloc] init];
-        msValueImageView.delegate = self;
         msValueImageView.cameraImage = msCamera.camera_image;
         
+        naviBar.topItem.title = @"Food Image Config";
         [self hideTabBar:self.tabBarController];
         [self.view addSubview:msValueImageView];
     }
+}
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    
+    //MSSignUpViewController *view = [[MSSignUpViewController alloc]init];
+    //[self presentModalViewController:view animated:YES];
+    
 }
 
 -(void)breakfastCameraAction{
@@ -169,11 +177,14 @@ clickedButtonAtIndex:(NSInteger)buttonIndex {
     }
     msCamera.state = nil;
     [self showTabBar:self.tabBarController];
+    naviBar.topItem.title = @"Today Menu";
     [msValueImageView removeFromSuperview];
 }
 
 -(void) cancel_image:(id)sender{
+    msCamera.state = nil;
     [self showTabBar:self.tabBarController];
+    naviBar.topItem.title = @"Today Menu";
     [msValueImageView removeFromSuperview];
 }
 

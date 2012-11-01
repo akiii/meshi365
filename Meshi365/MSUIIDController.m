@@ -34,7 +34,7 @@ static MSUIIDController *controller = nil;
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         uiid = [defaults objectForKey:kUIID];
     }else {
-        uiid = [self create];
+        uiid = @"";
     }
     return uiid;
 }

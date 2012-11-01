@@ -55,10 +55,26 @@
             [view addSubview:star[i]];
         }
         
+        UILabel *lbl0 = [[UILabel alloc]initWithFrame:CGRectMake(left_line-20, 280, 100, 30)];
+        lbl0.backgroundColor = [UIColor clearColor];
+        lbl0.text = @"Comment:";
+        [view addSubview:lbl0];
+        
+        
+        //コメント蘭の設定
+        comment = [[UITextView alloc] initWithFrame:CGRectMake(left_line-20, 310, 240, 120)];
+        comment.font = [UIFont systemFontOfSize:[UIFont systemFontSize]];
+        [view addSubview:comment];
+        
+        UILabel *lbl1 = [[UILabel alloc]initWithFrame:CGRectMake(left_line-20, 440, 100, 30)];
+        lbl1.backgroundColor = [UIColor clearColor];
+        lbl1.text = @"Place:";
+        [view addSubview:lbl1];
+        
         //店リスト表示
-        [nameArray addObject:@"Store Data Loading..."];
+        [nameArray addObject:@"Place Data Loading..."];
         UITableView *table = [[UITableView alloc] init];
-        table.frame = CGRectMake(left_line-20, 280, 240, 130);
+        table.frame = CGRectMake(left_line-20, 470, 240, 130);
         table.delegate = self;
         table.dataSource = self;
         [view addSubview:table];
@@ -77,10 +93,10 @@
         dispatch_async(q_global, ^{
             while (longitude*latitude==0)
                 [NSThread sleepForTimeInterval:0.1];
-            //NSLog(@"first! longitude=%f,latitude=%f",longitude,latitude);
             
             NSXMLParser *parser = [[NSXMLParser alloc] initWithData:[[self getDataFrom:[NSString stringWithFormat:@"http://api.openstreetmap.org/api/0.6/map?bbox=%f,%f,%f,%f",longitude-SEARCH_DISTANCE,latitude-SEARCH_DISTANCE,longitude+SEARCH_DISTANCE,latitude+SEARCH_DISTANCE]] dataUsingEncoding:NSUTF8StringEncoding]];
             [nameArray removeAllObjects];
+            [nameArray addObject:@"Home"];
             parser.delegate = self;
             [parser parse];
             
@@ -90,7 +106,7 @@
         
         //キャンセルボタン設定
         UIButton *cancel_button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        cancel_button.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2-85, 420, 80, 30);
+        cancel_button.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2-85, 650, 80, 30);
         [cancel_button setTitle:@"Cancel" forState:UIControlStateNormal];
         [cancel_button addTarget:self.delegate action:@selector(cancel_image:)
                 forControlEvents:UIControlEventTouchUpInside];
@@ -98,7 +114,7 @@
         
         //保存ボタン設定
         UIButton *save_button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        save_button.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2+5, 420, 80, 30);
+        save_button.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2+5, 650, 80, 30);
         [save_button setTitle:@"Save" forState:UIControlStateNormal];
         [save_button addTarget:self.delegate action:@selector(save_image:)
               forControlEvents:UIControlEventTouchUpInside];
@@ -146,6 +162,15 @@
     else                        backgroundImage = [UIImage imageNamed:@"starNonSelect.png"];
 
     [star[tag] setBackgroundImage:backgroundImage forState:UIControlStateNormal];
+}
+
+- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    UITouch *touch = [touches anyObject];
+    CGPoint location = [touch locationInView:self];
+    
+    [super touchesBegan:touches withEvent:event];
+    if(!CGRectContainsPoint(comment.frame, location))
+        [comment resignFirstResponder];
 }
 
 #pragma mark Restaurant List Table View

@@ -11,8 +11,6 @@
 #import "MSUIIDController.h"
 #import "MSUser.h"
 
-#define URL_OF_USER_LOGIN   @"http://aqueous-brushlands-6933.herokuapp.com/user/login"
-
 @implementation AppDelegate
 
 @synthesize managedObjectContext = _managedObjectContext;
@@ -35,18 +33,24 @@
     [defaults setObject:@"" forKey:kUIID];
     [ud registerDefaults:defaults];
     
-    NSString *uiid = [[MSUIIDController sharedController] uiid];
-    [MSNetworkConnector requestToUrl:URL_OF_USER_LOGIN method:RequestMethodPost params:[NSString stringWithFormat:@"uiid=%@", uiid] block:^(NSData *response) {
-        NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableContainers error:nil];
-        if ([[jsonDic objectForKey:@"save"] boolValue]) {            
-            NSNumber *userId = [NSNumber numberWithInt:[[jsonDic objectForKey:kUserId] intValue]];
-            NSString *uiid = [jsonDic objectForKey:kUIID];
-            NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-            [ud setObject:userId forKey:kUserId];
-            [ud setObject:uiid forKey:kUIID];
-            [ud synchronize];
-        }
-    }];
+    MSUser *currentUser = [MSUser currentUser];
+    if (!currentUser.signuped) {
+        currentUser.name = @"name aaa";
+        currentUser.uiid = [[MSUIIDController sharedController] create];
+        currentUser.profileImageUrl = @"http://profile_image_url";
+        
+        [MSNetworkConnector requestToUrl:URL_OF_SIGN_UP method:RequestMethodPost params:currentUser.params block:^(NSData *response) {
+            NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
+            if ([[jsonDic objectForKey:@"save"] boolValue]) {
+                NSNumber *userId = [NSNumber numberWithInt:[[jsonDic objectForKey:kUserId] intValue]];
+                NSString *uiid = [jsonDic objectForKey:kUIID];
+                NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+                [ud setObject:userId forKey:kUserId];
+                [ud setObject:uiid forKey:kUIID];
+                [ud synchronize];
+            }
+        }];
+    }
     
     return YES;
 }

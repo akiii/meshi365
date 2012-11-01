@@ -23,16 +23,7 @@
 
 @implementation MSAWSConnector
 
-+ (NSURL *)uploadProfileImageToAWS:(UIImage *)image{
-    return nil;
-}
-
-+ (NSURL *)uploadFoodPictureToAWS:(MSFoodPictureImage *)image{
-    // Custom initialization
-    NSString *uiid = [[MSUIIDController sharedController] uiid];
-    NSString *fn = [NSString stringWithFormat:@"%@-%@", uiid, [NSDate date]];
-    NSString *fileName = [self md5:fn];
-    
++ (NSString *)uploadImageToAWS:(UIImage *)image fileName:(NSString *)fileName{
     AmazonS3Client *s3 = [[AmazonS3Client alloc] initWithAccessKey:AWS_ACCESS_KEY_ID withSecretKey:AWS_SECRET_KEY];
     [s3 createBucket:[[S3CreateBucketRequest alloc] initWithName:AWS_BUCKET_NAME]];
     S3PutObjectRequest *por = [[S3PutObjectRequest alloc] initWithKey:fileName inBucket:AWS_BUCKET_NAME];
@@ -43,14 +34,33 @@
     S3PutObjectResponse *res = [s3 putObject:por];
     
     if (res) {
-        NSString *urlString = [NSString stringWithFormat:@"%@/%@/%@", AWS_BASE_URL, AWS_BUCKET_NAME, fileName];
-        
+        return [NSString stringWithFormat:@"%@/%@/%@", AWS_BASE_URL, AWS_BUCKET_NAME, fileName];
+    }else {
+        return nil;
+    }
+}
+
++ (NSString *)uploadProfileImageToAWS:(UIImage *)image{
+    NSString *uiid = [MSUser currentUser].uiid;
+    NSString *fn = uiid;
+    NSString *fileName = [self md5:fn];
+    
+    return [self uploadImageToAWS:image fileName:fileName];
+}
+
++ (NSString *)uploadFoodPictureToAWS:(MSFoodPictureImage *)image{
+    NSString *uiid = [MSUser currentUser].uiid;
+    NSString *fn = [NSString stringWithFormat:@"%@-%@", uiid, [NSDate date]];
+    NSString *fileName = [self md5:fn];
+
+    NSString *urlString = [self uploadImageToAWS:image fileName:fileName];
+    if (urlString) {
         image.foodPicture.userId = [MSUser currentUser].uid;
         image.foodPicture.url = urlString;
         
         [MSNetworkConnector requestToUrl:URL_OF_POST_FOOD_PICTURE method:RequestMethodPost params:image.foodPicture.params block:^(NSData *response) {
         }];
-        return [NSURL URLWithString:urlString];
+        return urlString;
     }else {
         return nil;
     }
