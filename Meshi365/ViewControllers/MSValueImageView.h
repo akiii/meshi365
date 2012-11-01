@@ -17,7 +17,7 @@
     double latitude, longitude;
     
     UITextView *comment;
-    UITextField *meal_name;
+    UITextField *mealNameTextField;
 }
 
 @property (nonatomic       ) int cnt_stars;

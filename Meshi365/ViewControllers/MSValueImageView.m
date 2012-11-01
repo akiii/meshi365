@@ -60,10 +60,10 @@
         lbl1.backgroundColor = [UIColor clearColor];
         lbl1.text = @"Name:";
         [view addSubview:lbl1];
-        meal_name = [[UITextField alloc] initWithFrame:CGRectMake(left_line-20, 310, 200, 28)];
-        meal_name.borderStyle = UITextBorderStyleRoundedRect;
-        [meal_name addTarget:self action:@selector(mealNameSave:) forControlEvents:UIControlEventEditingDidEndOnExit];
-        [view addSubview:meal_name];
+        mealNameTextField = [[UITextField alloc] initWithFrame:CGRectMake(left_line-20, 310, 200, 28)];
+        mealNameTextField.borderStyle = UITextBorderStyleRoundedRect;
+        [mealNameTextField addTarget:self action:@selector(mealNameSave:) forControlEvents:UIControlEventEditingDidEndOnExit];
+        [view addSubview:mealNameTextField];
         
         
         //コメント蘭の設定
@@ -154,20 +154,9 @@
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect{
     if(im.image==nil){
-        CGRect image_rect;
-        if(self.cameraImage.size.height>self.cameraImage.size.width)
-                image_rect = CGRectMake(0, (self.cameraImage.size.height-self.cameraImage.size.width)/2,
-                                   self.cameraImage.size.width,
-                                   self.cameraImage.size.width);
-        else    image_rect = CGRectMake((self.cameraImage.size.width-self.cameraImage.size.height)/2, 0,
-                                     self.cameraImage.size.height,
-                                     self.cameraImage.size.height);
-        
-        self.squareFoodPictureImage = [[MSFoodPictureImage alloc]
-                                       initWithCGImage:CGImageCreateWithImageInRect([self.cameraImage CGImage], image_rect)];
+        self.squareFoodPictureImage = [[MSFoodPictureImage alloc] initWithCGImage:(__bridge CGImageRef)(self.cameraImage)];
         im.image = self.squareFoodPictureImage;
     }
-
 }
 
 -(void) tap_star0:(UIButton *)sender{
@@ -193,12 +182,12 @@
     [super touchesBegan:touches withEvent:event];
     if(!CGRectContainsPoint(comment.frame, location))
         [comment resignFirstResponder];
-    if(!CGRectContainsPoint(meal_name.frame, location))
-        [meal_name resignFirstResponder];
+    if(!CGRectContainsPoint(mealNameTextField.frame, location))
+        [mealNameTextField resignFirstResponder];
 }
 
 -(void) mealNameSave:(id)sender{
-    self.meal_name = meal_name.text;
+    self.meal_name = mealNameTextField.text;
 }
 -(BOOL)textViewShouldEndEditing:(UITextView*)textView{
     self.comment_text = comment.text;
