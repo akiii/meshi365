@@ -7,10 +7,11 @@
 //
 
 #import "MSFoodLineCell.h"
+#import "MSFoodPicture.h"
 
 @interface MSFoodLineCell()
 @property(nonatomic, strong) NSURL* imageUrl;
-@property(nonatomic, strong) NSDictionary* jsonData;
+@property(nonatomic, strong) MSFoodPicture* foodPicture;
 
 
 
@@ -38,7 +39,8 @@
 	//__NSCFString
 	//NSLog(@" class is %@",[[_jsonData objectForKey:@"created_at"] class]);
 	
-	self.detailTextLabel.text = [NSString stringWithFormat:@"%@",[_jsonData objectForKey:@"created_at"]];
+	//self.detailTextLabel.text = [NSString stringWithFormat:@"%@",[_jsonData objectForKey:@"created_at"]];
+	self.detailTextLabel.text = _foodPicture.createdAt;
 	self.detailTextLabel.textAlignment =  NSTextAlignmentLeft;
 	self.detailTextLabel.frame =  CGRectMake(x+100, y, [UIScreen mainScreen].bounds.size.width,30);
 	y+=dy;
@@ -52,8 +54,10 @@
 	
 	UILabel *menuName = [[UILabel alloc] initWithFrame:CGRectMake(x, y, [UIScreen mainScreen].bounds.size.width, 30)];
 	[menuName setFont:[UIFont systemFontOfSize:18]];
-	//menuName.text = @"Rice";
-	menuName.text =[[_jsonData objectForKey:@"menu_num"] stringValue];
+	menuName.text = @"Rice";
+	//menuName.text =[[_jsonData objectForKey:@"menu_num"] stringValue];
+	//menuName.text = _foodPicture.menuName;
+	//[menuName setText:_foodPicture.menuName];
 	[self addSubview:menuName];
 	y+=dy;
 
@@ -61,7 +65,8 @@
 	UILabel *storeName = [[UILabel alloc] initWithFrame:CGRectMake(x, y, [UIScreen mainScreen].bounds.size.width, 30)];
 	[storeName setFont:[UIFont systemFontOfSize:18]];
 	//storeName.text = @"Starbucks";
-	storeName.text =[[_jsonData objectForKey:@"store_num"] stringValue];
+	//storeName.text =[[_jsonData objectForKey:@"store_num"] stringValue];
+	storeName.text = _foodPicture.storeName;
 	[self addSubview:storeName];
 	y+=dy;
 	
@@ -69,7 +74,8 @@
 	int maxStar =5;
 	UIImageView *starImg[maxStar];
 	int starSize = 30;
-	int starNum =  [[_jsonData objectForKey:@"star_num"] intValue];
+	//int starNum =  [[_jsonData objectForKey:@"star_num"] intValue];
+	int starNum = _foodPicture.starNum;
 	for(int i = 0; i < maxStar; i++)
 	{
 		starImg[i] = [[UIImageView alloc]initWithFrame:CGRectMake(x+starSize*i, y, starSize, starSize)];
@@ -94,9 +100,10 @@
 }
 
 
-- (void)updateJsonData:(NSURL*)imageUrl jsonData:(NSDictionary*)jsonData image:(UIImage*)image{
+- (void)updateJsonData:(NSURL*)imageUrl foodPicture:(MSFoodPicture*)foodPict image:(UIImage*)image{
 	_imageUrl = imageUrl;
-	_jsonData = jsonData;
+	//_jsonData = jsonData;
+	_foodPicture = foodPict;
 	self.imageView.image = image;
 	
 }

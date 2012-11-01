@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "MSFriendListViewController.h"
+#import "MSFoodPicture.h"
+
 
 @interface MSFoodLineViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
 {

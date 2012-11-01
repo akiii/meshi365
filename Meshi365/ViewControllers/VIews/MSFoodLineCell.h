@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MSFoodPicture.h"
+
 
 @interface MSFoodLineCell : UITableViewCell
 
 
-- (void)updateJsonData:(NSURL*)imageUrl  jsonData:(NSDictionary*)jsonData image:(UIImage*)image;
+- (void)updateJsonData:(NSURL*)imageUrl foodPicture:(MSFoodPicture*)foodPict image:(UIImage*)image;
 
 
 @property(nonatomic,strong) NSString* imageCacheKey;

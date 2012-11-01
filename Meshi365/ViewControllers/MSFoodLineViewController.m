@@ -116,9 +116,9 @@
 	}
 	
 	
-	NSString *imageUrl = [jsonArray[indexPath.row] objectForKey:@"url"];
 	
-	
+	MSFoodPicture *foodPicture = [[MSFoodPicture alloc]init: jsonArray[indexPath.row] ];
+	NSString *imageUrl = foodPicture.url;
 	
 	cell.textLabel.text =  [NSString stringWithFormat:@"%d",indexPath.row];
 	
@@ -131,12 +131,10 @@
 	{
 		NSLog(@"......isImageCache:%d",indexPath.row);
 		
-		//[[cell imageView] setImage:[_imageCache objectForKey:imageUrl]];
-		[cell updateJsonData:imageAccessKeyUrl jsonData:jsonArray[indexPath.row]   image:[_imageCache objectForKey:imageUrl]];
+		[cell updateJsonData:imageAccessKeyUrl foodPicture:foodPicture   image:[_imageCache objectForKey:imageUrl]];
 		
 		[cell layoutSubviews];
 	}
-	//else if(![_requestingUrls objectForKey:imageUrl])
 	else
 	{
 		NSLog(@"......no ImageCache:%d",indexPath.row);
@@ -162,16 +160,13 @@
 			
 			
 			dispatch_async(q_main, ^{
+				cell.imageView.image = [UIImage imageNamed:@"star.png"];
+				
 				[_imageCache setObject:image forKey:imageUrl];
 				
 				//ok
-				[cell updateJsonData:imageAccessKeyUrl jsonData:jsonArray[indexPath.row]   image:[_imageCache objectForKey:imageUrl]];
+				[cell updateJsonData:imageAccessKeyUrl foodPicture:foodPicture   image:[_imageCache objectForKey:imageUrl]];
 				[cell layoutSubviews];
-				
-				
-				//					UITableViewCell *cell = [sel cellForRowAtIndexPath:indexPath];
-				//                    if (cell)
-				//                        cell.imageView.image = image;
 				
 				NSLog(@"...... load done:%d",indexPath.row);
 				

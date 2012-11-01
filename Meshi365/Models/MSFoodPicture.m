@@ -27,14 +27,24 @@
 
 - (id)init:(NSDictionary*)json
 {
-	self.uiid		= [[json objectForKey:@"uiid"] stringValue];
-	self.mealType	= [[json objectForKey:@"meal_type"] integerValue];
-	self.url		= [[json objectForKey:@"url"] stringValue];
-	self.storeName	= [[json objectForKey:@"store_name"] stringValue];
-	self.menuName	= [[json objectForKey:@"menu_name"] stringValue];
-	self.comment	= [[json objectForKey:@"comment"] stringValue];
-	self.starNum	= [[json objectForKey:@"comment"] integerValue];
-	
+	if (self = [super init]) {
+		self.createdAt	= [json objectForKey:@"created_at"];
+		self.uiid		= [json objectForKey:@"uiid"];
+		self.mealType	= [[json objectForKey:@"meal_type"] integerValue];
+		self.url		= [json objectForKey:@"url"];
+		
+		self.storeName	= [json objectForKey:@"store_name"];
+		if(!self.storeName)self.storeName = @"";
+		
+		self.menuName	= [json objectForKey:@"menu_name"];
+		if(!self.menuName)menuName = @"";
+		
+		self.comment	= [json objectForKey:@"comment"];
+		if(!self.comment)self.storeName = @"";
+		
+		self.starNum	= [[json objectForKey:@"star_num"] integerValue];
+	}
+	return self;
 }
 
 - (NSString *)params{
@@ -59,6 +69,7 @@
 }
 
 - (void)dealloc{
+	self.createdAt = nil;
     self.uiid = nil;
     self.url = nil;
     self.storeName = nil;
