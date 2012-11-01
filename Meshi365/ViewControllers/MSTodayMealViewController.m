@@ -1,4 +1,5 @@
 #import "MSTodayMealViewController.h"
+#import "MSUser.h"
 
 @interface MSTodayMealViewController ()
 
@@ -131,13 +132,6 @@
         [self hideTabBar:self.tabBarController];
         [self.view addSubview:msValueImageView];
     }
-}
--(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    
-    //MSSignUpViewController *view = [[MSSignUpViewController alloc]init];
-    //[self presentModalViewController:view animated:YES];
-    
 }
 
 -(void)breakfastCameraAction{

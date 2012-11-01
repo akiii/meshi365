@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MSRootTabBarController.h"
+#import "MSSignUpViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -17,6 +18,8 @@
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (nonatomic, strong) MSRootTabBarController *rootTabBarController;
+@property (nonatomic, strong) MSSignUpViewController *signUpViewController;
+
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
 @end
