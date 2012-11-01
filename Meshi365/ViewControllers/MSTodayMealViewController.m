@@ -155,12 +155,17 @@ clickedButtonAtIndex:(NSInteger)buttonIndex {
 }
 
 -(void) save_image:(id)sender{
+    
     NSString *urlString = [MSAWSConnector uploadFoodPictureToAWS:msValueImageView.squareFoodPictureImage];
     msValueImageView.squareFoodPictureImage.foodPicture.uiid = [MSUser currentUser].uiid;
-    
-//    msValueImageView.squareFoodPictureImage.foodPicture.starNum=
-//    msValueImageView.squareFoodPictureImage.foodPicture.comment=
-    
+    msValueImageView.squareFoodPictureImage.foodPicture.mealType = [msCamera.state isEqualToString:@"breakfast"]?0:
+    [msCamera.state isEqualToString:@"lunch"]?1:
+    [msCamera.state isEqualToString:@"supper"]?2:3;
+    msValueImageView.squareFoodPictureImage.foodPicture.url = urlString;
+    msValueImageView.squareFoodPictureImage.foodPicture.storeName = msValueImageView.place_name;
+    msValueImageView.squareFoodPictureImage.foodPicture.menuName = msValueImageView.meal_name;
+    msValueImageView.squareFoodPictureImage.foodPicture.comment= msValueImageView.comment_text;
+    msValueImageView.squareFoodPictureImage.foodPicture.starNum= msValueImageView.cnt_stars;
     
 //    image.foodPicture.uiid = [MSUser currentUser].uiid;
 //    image.foodPicture.url = urlString;

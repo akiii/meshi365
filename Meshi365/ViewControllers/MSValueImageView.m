@@ -62,6 +62,7 @@
         [view addSubview:lbl1];
         meal_name = [[UITextField alloc] initWithFrame:CGRectMake(left_line-20, 310, 200, 28)];
         meal_name.borderStyle = UITextBorderStyleRoundedRect;
+        [meal_name addTarget:self action:@selector(mealNameSave:) forControlEvents:UIControlEventEditingDidEndOnExit];
         [view addSubview:meal_name];
         
         
@@ -73,6 +74,7 @@
         
         comment = [[UITextView alloc] initWithFrame:CGRectMake(left_line-20, 380, 240, 120)];
         comment.font = [UIFont systemFontOfSize:[UIFont systemFontSize]];
+        comment.delegate = self;
         [view addSubview:comment];
         
         UILabel *lbl2 = [[UILabel alloc]initWithFrame:CGRectMake(left_line-20, 510, 100, 30)];
@@ -150,8 +152,7 @@
 
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
+- (void)drawRect:(CGRect)rect{
     if(im.image==nil){
         CGRect image_rect;
         if(self.cameraImage.size.height>self.cameraImage.size.width)
@@ -196,6 +197,14 @@
         [meal_name resignFirstResponder];
 }
 
+-(void) mealNameSave:(id)sender{
+    self.meal_name = meal_name.text;
+}
+-(BOOL)textViewShouldEndEditing:(UITextView*)textView{
+    self.comment_text = comment.text;
+    return TRUE;
+}
+
 -(void)twitter:(id)sender{
 }
 -(void)facebook:(id)sender{
@@ -220,6 +229,11 @@
     cell.textLabel.text = [nameArray objectAtIndex:indexPath.row];
     
 	return cell;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES]; // 選択状態の解除をします。
+    self.place_name = [nameArray objectAtIndex:indexPath.row];
+    self.place_name = [amenityArray objectAtIndex:indexPath.row-1];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
