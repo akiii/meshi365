@@ -24,8 +24,6 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
 	
-	self.rootTabBarController = [[MSRootTabBarController alloc] init];
-    self.window.rootViewController = self.rootTabBarController;
 		
 	NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     NSMutableDictionary *defaults = [NSMutableDictionary dictionary];
@@ -34,7 +32,13 @@
     [ud registerDefaults:defaults];
     
     MSUser *currentUser = [MSUser currentUser];
-    if (!currentUser.signuped) {
+    if(currentUser.signuped){
+        self.rootTabBarController = [[MSRootTabBarController alloc] init];
+        self.window.rootViewController = self.rootTabBarController;
+    }else{
+        self.signUpViewController = [[MSSignUpViewController alloc] init];
+        self.window.rootViewController = self.signUpViewController;
+        
         currentUser.name = @"name aaa";
         currentUser.uiid = [[MSUIIDController sharedController] create];
         currentUser.profileImageUrl = @"http://profile_image_url";

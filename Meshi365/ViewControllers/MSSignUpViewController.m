@@ -7,6 +7,8 @@
 //
 
 #import "MSSignUpViewController.h"
+#import "AppDelegate.h"
+#import "MSRootTabBarController.h"
 
 @interface MSSignUpViewController ()
 
@@ -68,6 +70,10 @@
 //            [ud synchronize];
 //        }
 //    }];
+    
+    AppDelegate *delegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
+    MSRootTabBarController *rootTabBarController = [[MSRootTabBarController alloc]init];
+    delegate.window.rootViewController = rootTabBarController;
     
     [self dismissModalViewControllerAnimated:YES];
     

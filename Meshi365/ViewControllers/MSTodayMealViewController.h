@@ -1,7 +1,6 @@
 
 #import <UIKit/UIKit.h>
 #import "MSCameraViewController.h"
-#import "MSSignUpViewController.h"
 #import "MSValueImageView.h"
 #import "MSAWSConnector.h"
 
