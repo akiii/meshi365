@@ -233,7 +233,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES]; // 選択状態の解除をします。
     self.place_name = [nameArray objectAtIndex:indexPath.row];
-    self.place_name = [amenityArray objectAtIndex:indexPath.row-1];
+    self.place_amenity = [amenityArray objectAtIndex:indexPath.row-1];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
