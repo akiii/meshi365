@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface MSFoodPicture : NSObject
-@property (assign) int userId;
+@property (nonatomic, strong) NSString *uiid;
 @property (assign) int type;
 @property (nonatomic, strong) NSString *url;
 @property (nonatomic, strong) NSString *storeName;
