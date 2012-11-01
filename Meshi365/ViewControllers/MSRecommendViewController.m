@@ -59,7 +59,7 @@
 			case 1:label[i].text = @"others data";	break;
 		}
 		label[i].backgroundColor = [UIColor colorWithRed:0.9 green:0.87 blue:0.92 alpha:1.0];
-		label[i].frame = CGRectMake(i*width+2, naviHeight, width, 30);
+		label[i].frame = CGRectMake(i*width, naviHeight, width, 30);
 	
 		
 		recommendTableView[i] = [[MSRecommendTableView alloc]init];
