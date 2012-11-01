@@ -155,7 +155,18 @@ clickedButtonAtIndex:(NSInteger)buttonIndex {
 }
 
 -(void) save_image:(id)sender{
-    [MSAWSConnector uploadFoodPictureToAWS:msValueImageView.squareFoodPictureImage];
+    NSString *urlString = [MSAWSConnector uploadFoodPictureToAWS:msValueImageView.squareFoodPictureImage];
+    msValueImageView.squareFoodPictureImage.foodPicture.uiid = [MSUser currentUser].uiid;
+    
+//    msValueImageView.squareFoodPictureImage.foodPicture.starNum=
+//    msValueImageView.squareFoodPictureImage.foodPicture.comment=
+    
+    
+//    image.foodPicture.uiid = [MSUser currentUser].uiid;
+//    image.foodPicture.url = urlString;
+//    
+//    [MSNetworkConnector requestToUrl:URL_OF_POST_FOOD_PICTURE method:RequestMethodPost params:image.foodPicture.params block:^(NSData *response) {}];
+    
     
     CGRect image_rect = CGRectMake(0, (msValueImageView.squareFoodPictureImage.size.height-no_image_size.height)/2,
                                    msValueImageView.squareFoodPictureImage.size.width,
@@ -175,6 +186,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex {
                                     ([msValueImageView.squareFoodPictureImage CGImage], image_rect)];
         supperImageView.userInteractionEnabled = NO;
     }
+    
     msCamera.state = nil;
     [self showTabBar:self.tabBarController];
     naviBar.topItem.title = @"Today Menu";

@@ -17,9 +17,13 @@
     double latitude, longitude;
     
     UITextView *comment;
+    UITextField *meal_name;
 }
 
 @property (nonatomic       ) int cnt_stars;
+@property (nonatomic,strong) NSString *comment_text;
+@property (nonatomic,strong) NSString *store_name;
+@property (nonatomic,strong) NSString *store_amenity;
 @property (nonatomic,strong) UIImage *cameraImage;
 @property (nonatomic,strong) MSFoodPictureImage *squareFoodPictureImage;
 

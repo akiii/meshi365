@@ -55,26 +55,35 @@
             [view addSubview:star[i]];
         }
         
-        UILabel *lbl0 = [[UILabel alloc]initWithFrame:CGRectMake(left_line-20, 280, 100, 30)];
+        //食事名の設定
+        UILabel *lbl1 = [[UILabel alloc]initWithFrame:CGRectMake(left_line-20, 280, 100, 30)];
+        lbl1.backgroundColor = [UIColor clearColor];
+        lbl1.text = @"Name:";
+        [view addSubview:lbl1];
+        meal_name = [[UITextField alloc] initWithFrame:CGRectMake(left_line-20, 310, 200, 28)];
+        meal_name.borderStyle = UITextBorderStyleRoundedRect;
+        [view addSubview:meal_name];
+        
+        
+        //コメント蘭の設定
+        UILabel *lbl0 = [[UILabel alloc]initWithFrame:CGRectMake(left_line-20, 350, 100, 30)];
         lbl0.backgroundColor = [UIColor clearColor];
         lbl0.text = @"Comment:";
         [view addSubview:lbl0];
         
-        
-        //コメント蘭の設定
-        comment = [[UITextView alloc] initWithFrame:CGRectMake(left_line-20, 310, 240, 120)];
+        comment = [[UITextView alloc] initWithFrame:CGRectMake(left_line-20, 380, 240, 120)];
         comment.font = [UIFont systemFontOfSize:[UIFont systemFontSize]];
         [view addSubview:comment];
         
-        UILabel *lbl1 = [[UILabel alloc]initWithFrame:CGRectMake(left_line-20, 440, 100, 30)];
-        lbl1.backgroundColor = [UIColor clearColor];
-        lbl1.text = @"Place:";
-        [view addSubview:lbl1];
+        UILabel *lbl2 = [[UILabel alloc]initWithFrame:CGRectMake(left_line-20, 510, 100, 30)];
+        lbl2.backgroundColor = [UIColor clearColor];
+        lbl2.text = @"Place:";
+        [view addSubview:lbl2];
         
         //店リスト表示
         [nameArray addObject:@"Place Data Loading..."];
         UITableView *table = [[UITableView alloc] init];
-        table.frame = CGRectMake(left_line-20, 470, 240, 130);
+        table.frame = CGRectMake(left_line-20, 540, 240, 130);
         table.delegate = self;
         table.dataSource = self;
         [view addSubview:table];
@@ -104,9 +113,21 @@
             dispatch_async(q_main, ^{[table reloadData];});
         });
         
+        //Add Social Button
+        UIButton *twitterBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        twitterBtn.frame = CGRectMake(left_line-25, 690, 120, 30);
+        [twitterBtn setBackgroundImage:[UIImage imageNamed:@"Icon_Twitter.png"] forState:UIControlStateNormal];
+        [twitterBtn addTarget:self action:@selector(twitter:) forControlEvents:UIControlEventTouchDown];
+        [view addSubview:twitterBtn];
+        UIButton *facebookBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        facebookBtn.frame = CGRectMake(left_line+105, 690, 120, 30);
+        [facebookBtn setBackgroundImage:[UIImage imageNamed:@"Icon_FaceBook.png"] forState:UIControlStateNormal];
+        [facebookBtn addTarget:self action:@selector(facebook:) forControlEvents:UIControlEventTouchDown];
+        [view addSubview:facebookBtn];
+        
         //キャンセルボタン設定
         UIButton *cancel_button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        cancel_button.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2-85, 650, 80, 30);
+        cancel_button.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2-85, 740, 80, 30);
         [cancel_button setTitle:@"Cancel" forState:UIControlStateNormal];
         [cancel_button addTarget:self.delegate action:@selector(cancel_image:)
                 forControlEvents:UIControlEventTouchUpInside];
@@ -114,7 +135,7 @@
         
         //保存ボタン設定
         UIButton *save_button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        save_button.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2+5, 650, 80, 30);
+        save_button.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2+5, 740, 80, 30);
         [save_button setTitle:@"Save" forState:UIControlStateNormal];
         [save_button addTarget:self.delegate action:@selector(save_image:)
               forControlEvents:UIControlEventTouchUpInside];
@@ -171,8 +192,14 @@
     [super touchesBegan:touches withEvent:event];
     if(!CGRectContainsPoint(comment.frame, location))
         [comment resignFirstResponder];
+    if(!CGRectContainsPoint(meal_name.frame, location))
+        [meal_name resignFirstResponder];
 }
 
+-(void)twitter:(id)sender{
+}
+-(void)facebook:(id)sender{
+}
 #pragma mark Restaurant List Table View
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
