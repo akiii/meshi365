@@ -14,6 +14,7 @@
 
 
 @interface MSFoodLineViewController ()
+@property(nonatomic,strong)	UITableView *tableView;
 
 @end
 
@@ -58,12 +59,12 @@
 	 ];
     self.navigationItem.rightBarButtonItem = btn;
 	
-	tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
-    tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-	tableView.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
-    tableView.dataSource = self;
-    tableView.delegate = self;
-    [self.view addSubview:tableView];
+	_tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+	_tableView.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
+    _tableView.dataSource = self;
+    _tableView.delegate = self;
+    [self.view addSubview:_tableView];
 	
 
 	
@@ -90,7 +91,7 @@
 	 }];
 	
 	
-	[tableView reloadData];
+	[_tableView reloadData];
 
 }
 
@@ -106,7 +107,7 @@
 
 
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	
     static NSString *CellIdentifier = @"Cell";
@@ -120,6 +121,8 @@
 	
 	MSFoodPicture *foodPicture = [[MSFoodPicture alloc]init: jsonArray[indexPath.row] ];
 	NSString *imageUrl = foodPicture.url;
+	cell.imageUrl = imageUrl;
+	
 	
 	cell.textLabel.text =  [NSString stringWithFormat:@"%d",indexPath.row];
 	
@@ -136,12 +139,12 @@
 		
 		[cell layoutSubviews];
 	}
+	//	else if(![_requestingUrls objectForKey:imageUrl])
 	else
 	{
 		NSLog(@"......no ImageCache:%d",indexPath.row);
 		
 		cell.imageView.image = [UIImage imageNamed:@"star.png"];
-		
 		
 		
 		//load image
@@ -154,20 +157,29 @@
 		dispatch_async(q_global, ^{
 			NSLog(@"...... load start:%d",indexPath.row);
 			
-			//[_requestingUrls setObject:@"lock" forKey:imageUrl];
+			//	[_requestingUrls setObject:@"lock" forKey:imageUrl];
 			
 			NSData* data = [NSData dataWithContentsOfURL:imageAccessKeyUrl];
 			UIImage* image = [[UIImage alloc] initWithData:data];
 			
 			
 			dispatch_async(q_main, ^{
-				cell.imageView.image = [UIImage imageNamed:@"star.png"];
+				//cell.imageView.image = [UIImage imageNamed:@"star.png"];
 				
 				[_imageCache setObject:image forKey:imageUrl];
 				
+				//[cell reloadInputViews];
 				//ok
-				[cell updateJsonData:imageAccessKeyUrl foodPicture:foodPicture   image:[_imageCache objectForKey:imageUrl]];
-				[cell layoutSubviews];
+				NSLog(@"...... %@",imageUrl);
+				NSLog(@"...... %@",cell.imageUrl);
+				
+				if( [imageUrl  isEqualToString:cell.imageUrl])
+				{
+					NSLog(@"...... fuck:%d",indexPath.row);
+
+					[cell updateJsonData:imageAccessKeyUrl foodPicture:foodPicture   image:image];
+					[cell layoutSubviews];
+				}
 				
 				NSLog(@"...... load done:%d",indexPath.row);
 				
@@ -182,14 +194,14 @@
 
 
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tv heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	//todo セルのサイズに合わせてか可変を
 	return 450;
 	
 }
 
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tv didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath != nil) {
         [tableView deselectRowAtIndexPath:indexPath animated:NO];

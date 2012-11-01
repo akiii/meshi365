@@ -129,7 +129,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex {
             msCamera.sourceType = UIImagePickerControllerSourceTypeCamera;
         
         msCamera.allowsEditing = YES;
-        [self presentModalViewController:msCamera animated:YES];
+        [self presentViewController:msCamera animated:YES completion:^{}];
     }
 }
 

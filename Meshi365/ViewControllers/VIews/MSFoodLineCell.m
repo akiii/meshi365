@@ -10,7 +10,6 @@
 #import "MSFoodPicture.h"
 
 @interface MSFoodLineCell()
-@property(nonatomic, strong) NSURL* imageUrl;
 @property(nonatomic, strong) MSFoodPicture* foodPicture;
 
 
@@ -107,8 +106,8 @@
 }
 
 
-- (void)updateJsonData:(NSURL*)imageUrl foodPicture:(MSFoodPicture*)foodPict image:(UIImage*)image{
-	_imageUrl = imageUrl;
+- (void)updateJsonData:(NSString*)imageUrl foodPicture:(MSFoodPicture*)foodPict image:(UIImage*)image{
+	//_imageUrl = imageUrl;
 	//_jsonData = jsonData;
 	_foodPicture = foodPict;
 	self.imageView.image = image;
