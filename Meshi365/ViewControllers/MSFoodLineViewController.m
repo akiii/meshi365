@@ -105,16 +105,36 @@
     MSFoodLineCell *cell =[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
 		cell =[[MSFoodLineCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] ;
+		//	NSLog(@"make cell[%d]",indexPath.row);
 	}
 	
 	
+//	ok
+//	NSURL *imageUrl = [MSAWSConnector foodPictureImageUrlFromJsonArray:jsonArray imageNum:indexPath.row];
+//	if(![_requestingUrls objectForKey:indexPath])
+//	{
+//		NSLog(@"requestingUrls:lock[%d]",indexPath.row);
+//		[_requestingUrls setObject:@"lock" forKey:indexPath];
+//		//NSLog(@"requestingUrls:cache[%d]:%@",indexPath.row,[_requestingUrls objectForKey:indexPath]);
+//
+//	}
 	
+	NSString *imageUrl = [jsonArray[indexPath.row] objectForKey:@"url"];
+	cell.imageCacheKey = imageUrl;
 	
-	NSURL *imageUrl = [MSAWSConnector foodPictureImageUrlFromJsonArray:jsonArray imageNum:indexPath.row];
-	if (![_requestingUrls objectForKey:imageUrl])
+	if([_imageCache objectForKey:imageUrl])
 	{
+		cell.imageView.image = [_imageCache objectForKey:imageUrl];
+		[cell layoutSubviews];
+	}
+	else if (![_requestingUrls objectForKey:imageUrl])
+	{
+		
+		NSURL *imageAccessKeyUrl = [MSAWSConnector foodPictureImageUrlFromJsonArray:jsonArray imageNum:indexPath.row];
+
+		NSLog(@"requestingUrls:lock[%d]:%@",indexPath.row,imageUrl);
 		[_requestingUrls setObject:@"lock" forKey:imageUrl];
-		[cell updateJsonData:imageUrl jsonData:jsonArray[indexPath.row] imageCache:_imageCache];
+		[cell updateJsonData:imageAccessKeyUrl jsonData:jsonArray[indexPath.row] imageCache:_imageCache imageCacheKey:imageUrl];
 	}
 	
 	

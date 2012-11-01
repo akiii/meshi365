@@ -13,6 +13,7 @@
 @property(nonatomic, strong) NSDictionary* jsonData;
 
 
+
 @end
 
 @implementation MSFoodLineCell
@@ -93,14 +94,14 @@
 }
 
 
-- (void)updateJsonData:(NSURL*)imageUrl jsonData:(NSDictionary*)jsonData imageCache:(NSCache *)imageCache
+- (void)updateJsonData:(NSURL*)imageUrl jsonData:(NSDictionary*)jsonData imageCache:(NSCache *)imageCache imageCacheKey:(NSString*)imageCacheKey
 {
 	_imageUrl = imageUrl;
 	_jsonData = jsonData;
-	[self loadImage:imageCache];
+	[self loadImage:imageCache imageCacheKey:imageCacheKey];
 }
 
-- (void)loadImage:(NSCache*)imageCache
+- (void)loadImage:(NSCache*)imageCache imageCacheKey:(NSString*)imageCacheKey
 {
 	NSLog(@"Load FoodLine image");
 	//set indicator
@@ -124,13 +125,24 @@
 		UIImage* image = [[UIImage alloc] initWithData:data];
         
         dispatch_async(q_main, ^{
-            self.imageView.image = image;
-			[imageCache setObject:image forKey:_imageUrl];
+			//self.imageView.image = image;
+			[imageCache setObject:image forKey:imageCacheKey];
 			[indicator stopAnimating];
 			[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 			
-			[self layoutSubviews];
-        });
+			
+		if([self.imageCacheKey isEqualToString:imageCacheKey])
+		{
+//			if(self.imageCacheKey == imageCacheKey)
+//			{
+				self.imageView.image = [imageCache objectForKey:imageCacheKey];
+				[self layoutSubviews];
+//			}
+		}
+
+			//	self.imageView.image = [imageCache objectForKey:self.imageCacheKey];
+			//[self layoutSubviews];
+		});
     });
 	
 }
