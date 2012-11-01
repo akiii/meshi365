@@ -81,6 +81,7 @@
 	[super viewWillAppear:animated];
 
 	
+	NSLog(@"your uiid:%@",[[MSUser currentUser] uiid]);
 	[MSNetworkConnector requestToUrl:URL_OF_FOOD_LINE( [[MSUser currentUser] uiid]) method:RequestMethodGet params:nil block:^(NSData *response)
 	 {
 		 jsonArray = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];

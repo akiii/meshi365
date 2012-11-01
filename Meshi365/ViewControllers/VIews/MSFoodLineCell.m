@@ -30,6 +30,13 @@
 	int dy=30;
 	
 	//self.textLabel.text = @"Break Fast";
+	
+	switch (_foodPicture.mealType) {
+		case 0:self.textLabel.text = @"Breakfast";break;
+		case 1:self.textLabel.text = @"Lunch";break;
+		case 2:self.textLabel.text = @"Dinner";break;
+		default:self.textLabel.text = @"Dessert";break;break;
+	}
 	self.textLabel.frame =  CGRectMake(x, y, [UIScreen mainScreen].bounds.size.width,30);
 
 	
@@ -54,10 +61,10 @@
 	
 	UILabel *menuName = [[UILabel alloc] initWithFrame:CGRectMake(x, y, [UIScreen mainScreen].bounds.size.width, 30)];
 	[menuName setFont:[UIFont systemFontOfSize:18]];
-	menuName.text = @"Rice";
+	//menuName.text = @"Rice";
 	//menuName.text =[[_jsonData objectForKey:@"menu_num"] stringValue];
 	//menuName.text = _foodPicture.menuName;
-	//[menuName setText:_foodPicture.menuName];
+	[menuName setText:_foodPicture.menuName];
 	[self addSubview:menuName];
 	y+=dy;
 
