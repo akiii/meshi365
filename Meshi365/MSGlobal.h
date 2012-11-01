@@ -7,12 +7,12 @@
 //
 
 /* params keys : { "name" , "uiid" , "profile_image_url" } */
-#define URL_OF_SIGN_UP                      @"http://aqueous-brushlands-6933.herokuapp.com/api/signup"
-#define URL_OF_GET_FRIENDS(uiid)            [NSString stringWithFormat:@"http://aqueous-brushlands-6933.herokuapp.com/api/%@/friends", uiid]
-#define URL_OF_GET_REQUESTING_USERS(uiid)   [NSString stringWithFormat:@"http://aqueous-brushlands-6933.herokuapp.com/api/%@/requesting_users", uiid]
+#define URL_OF_SIGN_UP                      @"http://peaceful-dusk-7583.herokuapp.com/api/signup"
+#define URL_OF_GET_FRIENDS(uiid)            [NSString stringWithFormat:@"http://peaceful-dusk-7583.herokuapp.com/api/%@/friends", uiid]
+#define URL_OF_GET_REQUESTING_USERS(uiid)   [NSString stringWithFormat:@"http://peaceful-dusk-7583.herokuapp.com/api/%@/requesting_users", uiid]
 /* params keys : { "from_user_uiid" , "to_user_uiid" } */
-#define URL_OF_SEND_FRIEND_REQUEST          @"http://aqueous-brushlands-6933.herokuapp.com/api/send_friend_request"
+#define URL_OF_SEND_FRIEND_REQUEST          @"http://peaceful-dusk-7583.herokuapp.com/api/send_friend_request"
 
 /* params keys : { "uiid" , "url" , "store_name" , "menu_name", "comment" , "star_num" } */
-#define URL_OF_POST_FOOD_PICTURE            @"http://aqueous-brushlands-6933.herokuapp.com/api/post/food_picture"
-#define URL_OF_FOOD_LINE_PICTURES           @"http://aqueous-brushlands-6933.herokuapp.com/food_pictures"
+#define URL_OF_POST_FOOD_PICTURE            @"http://peaceful-dusk-7583.herokuapp.com/api/post/food_picture"
+#define URL_OF_FOOD_LINE_PICTURES           @"http://peaceful-dusk-7583.herokuapp.com/food_pictures"
