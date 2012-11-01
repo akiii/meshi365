@@ -12,6 +12,7 @@
 @interface MSFoodLineViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
 {
 	NSArray *jsonArray;
+	UITableView *tableView;
 	NSCache *_imageCache;
 	NSCache *_requestingUrls;
 

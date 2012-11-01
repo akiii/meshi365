@@ -28,8 +28,8 @@
 		_requestingUrls = [[NSCache alloc] init];
 		//        _imageCache.countLimit = 20;
 		//        _imageCache.totalCostLimit = 640 * 480 * 10;
-
-
+		
+		
     }
     return self;
 }
@@ -39,42 +39,36 @@
     [super viewDidLoad];
 	
     /*
-	int naviHeight = 44;
-	UINavigationBar *naviBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, naviHeight)];
-    naviBar.tintColor = [UIColor colorWithRed:1.0 green:0.80 blue:0.1 alpha:0.7];
-    UINavigationItem *title = [[UINavigationItem alloc] initWithTitle:@"Food Line"];
-    [naviBar pushNavigationItem:title animated:YES];
-    [self.view addSubview:naviBar];
-    */
+	 int naviHeight = 44;
+	 UINavigationBar *naviBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, naviHeight)];
+	 naviBar.tintColor = [UIColor colorWithRed:1.0 green:0.80 blue:0.1 alpha:0.7];
+	 UINavigationItem *title = [[UINavigationItem alloc] initWithTitle:@"Food Line"];
+	 [naviBar pushNavigationItem:title animated:YES];
+	 [self.view addSubview:naviBar];
+	 */
     
 	self.navigationItem.title = @"Food Line";
     
     UIBarButtonItem *btn =
-        [[UIBarButtonItem alloc]
-         initWithTitle:@"Friend"  // 画像を指定
-         style:UIBarButtonItemStylePlain  // スタイルを指定（※下記表参照）
-         target:self  // デリゲートのターゲットを指定
-         action:@selector(moveFriend)  // ボタンが押されたときに呼ばれるメソッドを指定
-         ];
+	[[UIBarButtonItem alloc]
+	 initWithTitle:@"Friend"  // 画像を指定
+	 style:UIBarButtonItemStylePlain  // スタイルを指定（※下記表参照）
+	 target:self  // デリゲートのターゲットを指定
+	 action:@selector(moveFriend)  // ボタンが押されたときに呼ばれるメソッドを指定
+	 ];
     self.navigationItem.rightBarButtonItem = btn;
 	
-	UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+	tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	tableView.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
     tableView.dataSource = self;
     tableView.delegate = self;
     [self.view addSubview:tableView];
 	
-	
-	[MSNetworkConnector requestToUrl:URL_OF_FOOD_LINE_PICTURES method:RequestMethodGet params:nil block:^(NSData *response)
-	 {
-		 jsonArray = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
-		 
-		 NSLog(@"JsonArray %@",jsonArray);
-	 }];
-	
 
+	
 }
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -85,6 +79,18 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
+
+	
+	[MSNetworkConnector requestToUrl:URL_OF_FOOD_LINE_PICTURES method:RequestMethodGet params:nil block:^(NSData *response)
+	 {
+		 jsonArray = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
+		 
+		 NSLog(@"JsonArray %@",jsonArray);
+	 }];
+	
+	
+	[tableView reloadData];
+
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -111,51 +117,67 @@
 	
 	
 	NSString *imageUrl = [jsonArray[indexPath.row] objectForKey:@"url"];
+	
+	
+	
+	cell.textLabel.text =  [NSString stringWithFormat:@"%d",indexPath.row];
+	
+	NSLog(@"......make access key %d",indexPath.row);
 	NSURL *imageAccessKeyUrl = [MSAWSConnector foodPictureImageUrlFromJsonArray:jsonArray imageNum:indexPath.row];
-
-	if([_imageCache objectForKey:imageUrl])
+	
+	
+	
+	if([_imageCache objectForKey:imageUrl] )
 	{
 		NSLog(@"......isImageCache:%d",indexPath.row);
+		
+		//[[cell imageView] setImage:[_imageCache objectForKey:imageUrl]];
 		[cell updateJsonData:imageAccessKeyUrl jsonData:jsonArray[indexPath.row]   image:[_imageCache objectForKey:imageUrl]];
-
+		
 		[cell layoutSubviews];
 	}
+	//else if(![_requestingUrls objectForKey:imageUrl])
 	else
 	{
-		NSLog(@"......isntImageCache:%d",indexPath.row);
-
+		NSLog(@"......no ImageCache:%d",indexPath.row);
+		
+		cell.imageView.image = [UIImage imageNamed:@"star.png"];
+		
+		
 		
 		//load image
-		dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+		dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
 		dispatch_queue_t q_main = dispatch_get_main_queue();
+		
+		
 		
 		//cell.imageView.image = nil;
 		dispatch_async(q_global, ^{
+			NSLog(@"...... load start:%d",indexPath.row);
+			
+			//[_requestingUrls setObject:@"lock" forKey:imageUrl];
+			
 			NSData* data = [NSData dataWithContentsOfURL:imageAccessKeyUrl];
 			UIImage* image = [[UIImage alloc] initWithData:data];
 			
+			
 			dispatch_async(q_main, ^{
 				[_imageCache setObject:image forKey:imageUrl];
-				NSLog(@"......done load:%d",indexPath.row);
-
+				
+				//ok
+				[cell updateJsonData:imageAccessKeyUrl jsonData:jsonArray[indexPath.row]   image:[_imageCache objectForKey:imageUrl]];
+				[cell layoutSubviews];
+				
+				
+				//					UITableViewCell *cell = [sel cellForRowAtIndexPath:indexPath];
+				//                    if (cell)
+				//                        cell.imageView.image = image;
+				
+				NSLog(@"...... load done:%d",indexPath.row);
+				
 			});
+			
 		});
-		
-
-		
-		
-		
-		
-		//	ok
-		//	NSURL *imageUrl = [MSAWSConnector foodPictureImageUrlFromJsonArray:jsonArray imageNum:indexPath.row];
-		//	if(![_requestingUrls objectForKey:indexPath])
-		//	{
-		//		NSLog(@"requestingUrls:lock[%d]",indexPath.row);
-		//		[_requestingUrls setObject:@"lock" forKey:indexPath];
-		//		//NSLog(@"requestingUrls:cache[%d]:%@",indexPath.row,[_requestingUrls objectForKey:indexPath]);
-		//
-		//	}
-		//[cell updateJsonData:imageAccessKeyUrl jsonData:jsonArray[indexPath.row] imageCache:_imageCache imageCacheKey:imageUrl];
 	}
 	
 	
