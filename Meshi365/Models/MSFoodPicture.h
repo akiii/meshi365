@@ -10,9 +10,11 @@
 
 @interface MSFoodPicture : NSObject
 @property (assign) int userId;
+@property (assign) int type;
 @property (nonatomic, strong) NSString *url;
 @property (nonatomic, strong) NSString *storeName;
 @property (nonatomic, strong) NSString *menuName;
+@property (nonatomic, strong) NSString *comment;
 @property (assign) int starNum;
 @property (readonly) NSString *params;
 @end
