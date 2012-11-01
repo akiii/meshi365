@@ -28,7 +28,7 @@
 	int y = 10;
 	int dy=30;
 	
-	self.textLabel.text = @"Break Fast";
+	//self.textLabel.text = @"Break Fast";
 	self.textLabel.frame =  CGRectMake(x, y, [UIScreen mainScreen].bounds.size.width,30);
 
 	
@@ -101,21 +101,21 @@
 	
 }
 
-- (void)loadImage:(NSCache*)imageCache imageCacheKey:(NSString*)imageCacheKey
-{
-	NSLog(@"Load FoodLine image");
-	//set indicator
-	UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 32.0f, 32.0f)];
-	indicator.color = [UIColor colorWithRed:0.4 green:0.0 blue:0.1 alpha:1.0];
-	[indicator setCenter:CGPointMake(self.frame.size.width/2.0f, 180.0f)];
-	[self addSubview: indicator];
-	[indicator startAnimating];
-	
-	
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-	
-	
-}
+//- (void)loadImage:(NSCache*)imageCache imageCacheKey:(NSString*)imageCacheKey
+//{
+//	NSLog(@"Load FoodLine image");
+//	//set indicator
+//	UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 32.0f, 32.0f)];
+//	indicator.color = [UIColor colorWithRed:0.4 green:0.0 blue:0.1 alpha:1.0];
+//	[indicator setCenter:CGPointMake(self.frame.size.width/2.0f, 180.0f)];
+//	[self addSubview: indicator];
+//	[indicator startAnimating];
+//	
+//	
+//	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+//	
+//	
+//}
 
 
 

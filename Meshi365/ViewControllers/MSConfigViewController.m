@@ -197,18 +197,35 @@
 - (void)getFollower:(UITextField*)textfield
 {
 	
-//	https://api.twitter.com/1/followers/ids.json?cursor=-1&screen_name=twitterapi
-//	if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
-//        ACAccountStore *accountStore = [[ACAccountStore alloc] init];
-//        ACAccountType *accountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
-//        [accountStore
-//         requestAccessToAccountsWithType:accountType
-//         options:nil
-//         completion:^(BOOL granted, NSError *error) {
-//             if (granted) {
-//                 NSArray *accountArray = [accountStore accountsWithAccountType:accountType];
-//                 if (accountArray.count > 0) {
-//                     NSURL *url = [NSURL URLWithString:@"https://api.twitter.com/1/followers/ids.json"];
+	
+	if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
+        ACAccountStore *accountStore = [[ACAccountStore alloc] init];
+        ACAccountType *accountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
+        [accountStore
+         requestAccessToAccountsWithType:accountType
+         options:nil
+         completion:^(BOOL granted, NSError *error) {
+             if (granted) {
+                 NSArray *accountArray = [accountStore accountsWithAccountType:accountType];
+                 if (accountArray.count > 0) {
+    
+					 
+					 //				 NSURL *followerIdsURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.twitter.com/1.1/followers/ids.json?user_id=%d", userId]];
+					 //	 SLRequest *request = [SLRequest requestForServiceType:SLServiceTypeTwitter requestMethod:SLRequestMethodGET URL:followerIdsURL parameters:nil];
+					
+					 
+					 
+					 //request.account = self.twitterAccount;
+					 //[request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+					 
+						 
+//						 [request setAccount:[accountArray objectAtIndex:0]];
+//						 [request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+//							 NSLog(@"responseData=%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
+//					 
+//					 
+					 
+//					 NSURL *url = [NSURL URLWithString:@"https://api.twitter.com/1/followers/ids.json"];
 //					 //     NSDictionary *params = [NSDictionary dictionaryWithObject:postMsg forKey:@"status"];
 //                     
 //                     SLRequest *request = [SLRequest requestForServiceType:SLServiceTypeTwitter
@@ -218,11 +235,14 @@
 //                     [request setAccount:[accountArray objectAtIndex:0]];
 //                     [request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
 //                         NSLog(@"responseData=%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
-//                     }];
-//                 }
-//             }
-//         }];
-//    }
+                
+				 
+				 
+					 //}];
+                 }
+             }
+         }];
+    }
 	
 	
 }

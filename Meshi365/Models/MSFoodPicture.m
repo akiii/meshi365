@@ -24,6 +24,18 @@
     return self;
 }
 
+- (id)init:(NSDictionary*)json
+{
+	self.uiid		= [[json objectForKey:@"uiid"] stringValue];
+	self.mealType	= [[json objectForKey:@"meal_type"] integerValue];
+	self.url		= [[json objectForKey:@"url"] stringValue];
+	self.storeName	= [[json objectForKey:@"store_name"] stringValue];
+	self.menuName	= [[json objectForKey:@"menu_name"] stringValue];
+	self.comment	= [[json objectForKey:@"comment"] stringValue];
+	self.starNum	= [[json objectForKey:@"comment"] integerValue];
+	
+}
+
 - (NSString *)params{
     NSString *params = [NSString string];
     params = [params stringByAppendingFormat:@"%@=%@&", @"uiid",         self.uiid];
