@@ -11,7 +11,7 @@
 @interface MSFoodLineCell : UITableViewCell
 
 
-- (void)updateJsonData:(NSURL*)imageUrl  jsonData:(NSDictionary*)jsonData imageCache:(NSCache*)imageCache imageCacheKey:(NSString*)imageCacheKey;
+- (void)updateJsonData:(NSURL*)imageUrl  jsonData:(NSDictionary*)jsonData image:(UIImage*)image;
 
 
 @property(nonatomic,strong) NSString* imageCacheKey;
