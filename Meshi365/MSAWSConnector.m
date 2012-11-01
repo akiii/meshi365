@@ -55,11 +55,10 @@
 
     NSString *urlString = [self uploadImageToAWS:image fileName:fileName];
     if (urlString) {
-        image.foodPicture.userId = [MSUser currentUser].uid;
+        image.foodPicture.uiid = [MSUser currentUser].uiid;
         image.foodPicture.url = urlString;
         
-        [MSNetworkConnector requestToUrl:URL_OF_POST_FOOD_PICTURE method:RequestMethodPost params:image.foodPicture.params block:^(NSData *response) {
-        }];
+        [MSNetworkConnector requestToUrl:URL_OF_POST_FOOD_PICTURE method:RequestMethodPost params:image.foodPicture.params block:^(NSData *response) {}];
         return urlString;
     }else {
         return nil;
