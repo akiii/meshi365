@@ -107,6 +107,7 @@
             
             NSXMLParser *parser = [[NSXMLParser alloc] initWithData:[[self getDataFrom:[NSString stringWithFormat:@"http://api.openstreetmap.org/api/0.6/map?bbox=%f,%f,%f,%f",longitude-SEARCH_DISTANCE,latitude-SEARCH_DISTANCE,longitude+SEARCH_DISTANCE,latitude+SEARCH_DISTANCE]] dataUsingEncoding:NSUTF8StringEncoding]];
             [nameArray removeAllObjects];
+            [nameArray addObject:@"Other"];
             [nameArray addObject:@"Home"];
             parser.delegate = self;
             [parser parse];
@@ -116,14 +117,17 @@
         });
         
         //Add Social Button
-        UIButton *twitterBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        twitterBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         twitterBtn.frame = CGRectMake(left_line-25, 690, 120, 30);
-        [twitterBtn setBackgroundImage:[UIImage imageNamed:@"Icon_Twitter.png"] forState:UIControlStateNormal];
+        self.flag_twitter = false;
+        [twitterBtn setBackgroundImage:[UIImage imageNamed:@"Icon_Twitter_dark.png"] forState:UIControlStateNormal];
         [twitterBtn addTarget:self action:@selector(twitter:) forControlEvents:UIControlEventTouchDown];
         [view addSubview:twitterBtn];
-        UIButton *facebookBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        
+        facebookBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         facebookBtn.frame = CGRectMake(left_line+105, 690, 120, 30);
-        [facebookBtn setBackgroundImage:[UIImage imageNamed:@"Icon_FaceBook.png"] forState:UIControlStateNormal];
+        self.flag_facebook = false;
+        [facebookBtn setBackgroundImage:[UIImage imageNamed:@"Icon_Facebook_dark.png"] forState:UIControlStateNormal];
         [facebookBtn addTarget:self action:@selector(facebook:) forControlEvents:UIControlEventTouchDown];
         [view addSubview:facebookBtn];
         
@@ -195,32 +199,23 @@
 }
 
 -(void)twitter:(id)sender{
-    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
-        ACAccountStore *accountStore = [[ACAccountStore alloc] init];
-        ACAccountType *accountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
-        [accountStore requestAccessToAccountsWithType:accountType
-                                              options:nil
-                                           completion:^(BOOL granted, NSError *error) {
-                                               if (granted) {
-                                                   NSArray *accountArray = [accountStore accountsWithAccountType:accountType];
-                                                   if (accountArray.count > 0) {
-                                                       NSURL *url = [NSURL URLWithString:@"http://api.twitter.com/1/statuses/update.json"];
-                                                       NSDictionary *params = [NSDictionary dictionaryWithObject:@"test" forKey:@"status"];
-                     
-                                                       SLRequest *request = [SLRequest requestForServiceType:SLServiceTypeTwitter
-                                                             requestMethod:SLRequestMethodPOST
-                                                                       URL:url
-                                                                parameters:params];
-                                                       [request setAccount:[accountArray objectAtIndex:0]];
-                                                       [request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
-                                                           NSLog(@"responseData=%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
-                     }];
-                 }
-             }
-         }];
+    if(self.flag_twitter){
+        self.flag_twitter = false;
+        [twitterBtn setBackgroundImage:[UIImage imageNamed:@"Icon_Twitter_dark.png"] forState:UIControlStateNormal];
+    }else{
+        self.flag_twitter = true;
+        [twitterBtn setBackgroundImage:[UIImage imageNamed:@"Icon_Twitter.png"] forState:UIControlStateNormal];
     }
 }
+
 -(void)facebook:(id)sender{
+    if(self.flag_facebook){
+        self.flag_facebook = false;
+        [facebookBtn setBackgroundImage:[UIImage imageNamed:@"Icon_Facebook_dark.png"] forState:UIControlStateNormal];
+    }else{
+        self.flag_facebook = true;
+        [facebookBtn setBackgroundImage:[UIImage imageNamed:@"Icon_Facebook.png"] forState:UIControlStateNormal];
+    }
 }
 #pragma mark Restaurant List Table View
 
@@ -244,9 +239,19 @@
 	return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES]; // 選択状態の解除をします。
+    //[tableView deselectRowAtIndexPath:indexPath animated:YES];
     self.place_name = [nameArray objectAtIndex:indexPath.row];
-    self.place_amenity = [amenityArray objectAtIndex:indexPath.row-1];
+    switch (indexPath.row){
+        case 0:
+            self.place_name = nil;
+            break;
+        case 1:
+            self.place_amenity = @"self_catering";
+            break;
+        default:
+            self.place_amenity = [amenityArray objectAtIndex:indexPath.row-1];
+            break;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

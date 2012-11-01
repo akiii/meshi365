@@ -1,7 +1,5 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
-#import <Social/Social.h>
-#import <Accounts/Accounts.h>
 #import "MSFoodPictureImage.h"
 
 #define kNumOfStars 5
@@ -20,9 +18,14 @@
     
     UITextView *comment;
     UITextField *mealNameTextField;
+    
+    UIButton *twitterBtn;
+    UIButton *facebookBtn;
 }
 
 @property (nonatomic       ) int cnt_stars;
+@property (nonatomic       ) Boolean flag_twitter;
+@property (nonatomic       ) Boolean flag_facebook;
 @property (nonatomic,strong) NSString *comment_text;
 @property (nonatomic,strong) NSString *meal_name;
 @property (nonatomic,strong) NSString *place_name;
