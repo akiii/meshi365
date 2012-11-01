@@ -42,7 +42,7 @@ didFinishSavingWithError:(NSError*)error contextInfo:(void*)context{
 //画像の選択がキャンセルされた時に呼ばれる
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
     self.state = nil;
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:^{}];
 }
 
 @end

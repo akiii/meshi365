@@ -32,7 +32,6 @@
     MSUser *currentUser = [MSUser currentUser];
     
     friendArray = [NSMutableArray array];
-    NSArray *jsonDic;
     [MSNetworkConnector fetchDataFromUrl:URL_OF_GET_FRIENDS(currentUser.uiid) method:RequestMethodGet params:nil block:^(NSData *response) {
         NSArray *jsonDic = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
         NSLog(@"%@",jsonDic);
