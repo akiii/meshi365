@@ -31,14 +31,15 @@
     
     MSUser *currentUser = [MSUser currentUser];
     
+    friendArray = [NSMutableArray array];
+    NSArray *jsonDic;
     [MSNetworkConnector fetchDataFromUrl:URL_OF_GET_FRIENDS(currentUser.uiid) method:RequestMethodGet params:nil block:^(NSData *response) {
-        NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
-        NSLog(@"");
+        NSArray *jsonDic = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
+        NSLog(@"%@",jsonDic);
+        for(int i=0;i<[jsonDic count];i++)
+            [friendArray addObject:[[jsonDic objectAtIndex:i] objectForKey:@"name"]];
     }];
     
-    friendArray = [NSMutableArray array];
-    for(int i=0;i<30;i++)
-        [friendArray addObject:[NSString stringWithFormat:@"Friend%d",i]];
     
     myTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen]applicationFrame].size.width, [[UIScreen mainScreen]applicationFrame].size.height - self.tabBarController.tabBar.frame.size.height-self.navigationController.navigationBar.frame.size.height) style:UITableViewStylePlain];
     myTableView.delegate = self;
