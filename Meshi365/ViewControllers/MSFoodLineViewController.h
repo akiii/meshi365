@@ -15,7 +15,7 @@
 {
 	NSArray *jsonArray;
 	NSCache *_imageCache;
-	NSCache *_requestingUrls;
+	NSCache *_profileImageCache;
 
 
 }
