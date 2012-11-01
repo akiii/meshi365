@@ -27,13 +27,13 @@
 - (NSString *)params{
     NSString *params = [NSString string];
     params = [params stringByAppendingFormat:@"%@=%@&", @"uiid",         self.uiid];
-    params = [params stringByAppendingFormat:@"%@=%@&", @"meal_type",         [NSNumber numberWithInt:self.mealType]];
+    params = [params stringByAppendingFormat:@"%@=%@&", @"meal_type",    [NSNumber numberWithInt:self.mealType]];
     params = [params stringByAppendingFormat:@"%@=%@&", @"url",          self.url];
     if (![self.storeName isEqualToString:@""]) {
         params = [params stringByAppendingFormat:@"%@=%@&", @"store_name",   self.storeName];
     }
     if (![self.menuName isEqualToString:@""]) {
-        params = [params stringByAppendingFormat:@"%@=%@&", @"store_name",   self.menuName];
+        params = [params stringByAppendingFormat:@"%@=%@&", @"menu_name",   self.menuName];
     }
     if (![self.comment isEqualToString:@""]) {
         params = [params stringByAppendingFormat:@"%@=%@&", @"comment",      self.comment];
