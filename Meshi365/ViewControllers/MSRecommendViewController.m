@@ -40,7 +40,7 @@
 	
 	
 	
-	[MSNetworkConnector requestToUrl:URL_OF_FOOD_LINE_PICTURES method:RequestMethodGet params:nil block:^(NSData *response)
+	[MSNetworkConnector requestToUrl:URL_OF_POST_FOOD_PICTURE method:RequestMethodGet params:nil block:^(NSData *response)
 	 {
 		 jsonArray = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
 	 }];
