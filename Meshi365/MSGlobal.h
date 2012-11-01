@@ -16,3 +16,4 @@
 /* params keys : { "uiid" , "url" , "store_name" , "menu_name", "menity" , "comment" , "star_num" } */
 #define URL_OF_POST_FOOD_PICTURE            @"http://morning-depths-1177.herokuapp.com/api/post/food_picture"
 #define URL_OF_FOOD_LINE_PICTURES           @"http://morning-depths-1177.herokuapp.com/food_pictures"
+#define URL_OF_FOOD_LINE(uiid)              [NSString stringWithFormat:@"http://morning-depths-1177.herokuapp.com/api/%@/food_line", uiid]
