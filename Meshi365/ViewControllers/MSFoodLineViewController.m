@@ -136,12 +136,13 @@
 		
 		[cell layoutSubviews];
 	}
+	//	else if(![_requestingUrls objectForKey:imageUrl])
 	else
 	{
 		NSLog(@"......no ImageCache:%d",indexPath.row);
 		
 		cell.imageView.image = [UIImage imageNamed:@"star.png"];
-		
+		cell.imageUrl = [NSString stringWithFormat:@"%@",cell.imageUrl];
 		
 		
 		//load image
@@ -154,20 +155,25 @@
 		dispatch_async(q_global, ^{
 			NSLog(@"...... load start:%d",indexPath.row);
 			
-			//[_requestingUrls setObject:@"lock" forKey:imageUrl];
+			//	[_requestingUrls setObject:@"lock" forKey:imageUrl];
 			
 			NSData* data = [NSData dataWithContentsOfURL:imageAccessKeyUrl];
 			UIImage* image = [[UIImage alloc] initWithData:data];
 			
 			
 			dispatch_async(q_main, ^{
-				cell.imageView.image = [UIImage imageNamed:@"star.png"];
+				//cell.imageView.image = [UIImage imageNamed:@"star.png"];
 				
 				[_imageCache setObject:image forKey:imageUrl];
 				
+				//[cell reloadInputViews];
 				//ok
-				[cell updateJsonData:imageAccessKeyUrl foodPicture:foodPicture   image:[_imageCache objectForKey:imageUrl]];
-				[cell layoutSubviews];
+				
+				if( [imageUrl  isEqualToString:[NSString stringWithFormat:@"%@",cell.imageUrl]])
+				{
+					[cell updateJsonData:imageAccessKeyUrl foodPicture:foodPicture   image:image];
+					[cell layoutSubviews];
+				}
 				
 				NSLog(@"...... load done:%d",indexPath.row);
 				

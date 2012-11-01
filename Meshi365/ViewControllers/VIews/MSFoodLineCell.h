@@ -17,6 +17,7 @@
 
 
 @property(nonatomic,strong) NSString* imageCacheKey;
+@property(nonatomic, strong) NSURL* imageUrl;
 
 
 @end

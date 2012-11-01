@@ -10,7 +10,6 @@
 #import "MSFoodPicture.h"
 
 @interface MSFoodLineCell()
-@property(nonatomic, strong) NSURL* imageUrl;
 @property(nonatomic, strong) MSFoodPicture* foodPicture;
 
 
