@@ -43,7 +43,6 @@
     [super viewDidLoad];
     
     msCamera = [[MSCameraViewController alloc] init];
-    msCamera.state = nil;
     
     no_image_size = CGSizeMake(280, 80);
     
@@ -190,7 +189,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex {
     msValueImageView.squareFoodPictureImage.foodPicture.comment= msValueImageView.comment_text;
     msValueImageView.squareFoodPictureImage.foodPicture.starNum= msValueImageView.cnt_stars;
     
-    [MSNetworkConnector requestToUrl:URL_OF_POST_FOOD_PICTURE method:RequestMethodPost params:msValueImageView.squareFoodPictureImage.foodPicture.params block:^(NSData *response) {}];   
+    [MSNetworkConnector requestToUrl:URL_OF_POST_FOOD_PICTURE method:RequestMethodPost params:msValueImageView.squareFoodPictureImage.foodPicture.params block:^(NSData *response) {}];
     
     CGRect image_rect = CGRectMake(0, (msValueImageView.squareFoodPictureImage.size.height-no_image_size.height)/2,
                                    msValueImageView.squareFoodPictureImage.size.width,
