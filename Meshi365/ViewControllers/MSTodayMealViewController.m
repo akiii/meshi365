@@ -1,3 +1,5 @@
+#import <Social/Social.h>
+#import <Accounts/Accounts.h>
 #import "MSTodayMealViewController.h"
 #import "MSNetworkConnector.h"
 #import "MSUser.h"
@@ -80,7 +82,6 @@
     [supperImageView addGestureRecognizer:[[UITapGestureRecognizer alloc]
                                            initWithTarget:self
                                            action:@selector(supperCameraAction)]];
-    
     
     //画像の大きさを設定
     breakfastImageView.frame = CGRectMake(20,50,no_image_size.width ,no_image_size.height);
@@ -190,6 +191,43 @@ clickedButtonAtIndex:(NSInteger)buttonIndex {
     msValueImageView.squareFoodPictureImage.foodPicture.starNum= msValueImageView.cnt_stars;
     
     [MSNetworkConnector requestToUrl:URL_OF_POST_FOOD_PICTURE method:RequestMethodPost params:msValueImageView.squareFoodPictureImage.foodPicture.params block:^(NSData *response) {}];
+    
+    NSMutableArray *accountTypes = [NSMutableArray array];
+    ACAccountStore *accountStore = [[ACAccountStore alloc] init];
+    if(msValueImageView.flag_twitter&&[SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter])
+        [accountTypes addObject:[accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter]];
+    //if(msValueImageView.flag_facebook&&[SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook])
+        //[accountTypes addObject:[accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook]];
+    for(int i=0;i<[accountTypes count];i++){
+        [accountStore requestAccessToAccountsWithType:[accountTypes objectAtIndex:i]
+                                              options:nil
+                                           completion:^(BOOL granted, NSError *error) {
+            if (granted) {
+                NSArray *accountArray = [accountStore accountsWithAccountType:[accountTypes objectAtIndex:i]];
+                if (accountArray.count > 0) {
+                    NSURL *url = [NSURL URLWithString:@"https://upload.twitter.com/1/statuses/update_with_media.json"];
+                    NSDictionary *params = [NSDictionary dictionaryWithObject:msValueImageView.comment_text forKey:@"status"];
+                                                       
+                    SLRequest *request = [SLRequest requestForServiceType:SLServiceTypeTwitter
+                                                            requestMethod:SLRequestMethodPOST
+                                                                      URL:url
+                                                                parameters:params];
+                    [request setAccount:[accountArray objectAtIndex:0]];
+                    
+                    NSData *imageData = UIImagePNGRepresentation(msValueImageView.squareFoodPictureImage);
+                    [request addMultipartData:imageData withName:@"media[]" type:@"multipart/form-data" filename:nil];
+                    NSLog(@"here");
+                    [request addMultipartData:[msValueImageView.comment_text dataUsingEncoding:NSUTF8StringEncoding] withName:@"status" type:@"multipart/form-data" filename:nil];
+
+                    [request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+                        //NSLog(@"responseData=%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
+                    }];
+                }
+            }
+        }];
+    }
+    
+    
     
     CGRect image_rect = CGRectMake(0, (msValueImageView.squareFoodPictureImage.size.height-no_image_size.height)/2,
                                    msValueImageView.squareFoodPictureImage.size.width,
