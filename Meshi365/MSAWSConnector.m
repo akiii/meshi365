@@ -53,16 +53,7 @@
     NSString *fn = [NSString stringWithFormat:@"%@-%@", uiid, [NSDate date]];
     NSString *fileName = [self md5:fn];
 
-    NSString *urlString = [self uploadImageToAWS:image fileName:fileName];
-    if (urlString) {
-        image.foodPicture.uiid = [MSUser currentUser].uiid;
-        image.foodPicture.url = urlString;
-        
-        [MSNetworkConnector requestToUrl:URL_OF_POST_FOOD_PICTURE method:RequestMethodPost params:image.foodPicture.params block:^(NSData *response) {}];
-        return urlString;
-    }else {
-        return nil;
-    }
+    return [self uploadImageToAWS:image fileName:fileName];
 }
 
 + (NSString *)md5:(NSString*)str{
