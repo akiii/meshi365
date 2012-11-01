@@ -112,7 +112,7 @@
 	
     static NSString *CellIdentifier = @"Cell";
 	
-    MSFoodLineCell *cell =[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    MSFoodLineCell *cell =[_tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
 		cell =[[MSFoodLineCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] ;
 	}
@@ -204,7 +204,7 @@
 - (void)tableView:(UITableView *)tv didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath != nil) {
-        [tableView deselectRowAtIndexPath:indexPath animated:NO];
+        [_tableView deselectRowAtIndexPath:indexPath animated:NO];
     }
 }
 
