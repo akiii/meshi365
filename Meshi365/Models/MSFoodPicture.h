@@ -17,4 +17,7 @@
 @property (nonatomic, strong) NSString *comment;
 @property (assign) int starNum;
 @property (readonly) NSString *params;
+
+- (id)init:(NSDictionary*)json;
+
 @end
