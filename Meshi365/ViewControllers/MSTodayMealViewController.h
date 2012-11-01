@@ -15,6 +15,7 @@
     
     UIActionSheet *as;
     
+    UINavigationBar *naviBar;
     
     CGSize no_image_size;
 }
