@@ -1,4 +1,5 @@
 #import "MSTodayMealViewController.h"
+#import "MSNetworkConnector.h"
 #import "MSUser.h"
 
 @interface MSTodayMealViewController ()
@@ -185,14 +186,11 @@ clickedButtonAtIndex:(NSInteger)buttonIndex {
     msValueImageView.squareFoodPictureImage.foodPicture.url = urlString;
     msValueImageView.squareFoodPictureImage.foodPicture.storeName = msValueImageView.place_name;
     msValueImageView.squareFoodPictureImage.foodPicture.menuName = msValueImageView.meal_name;
+    msValueImageView.squareFoodPictureImage.foodPicture.amenity = msValueImageView.place_amenity;
     msValueImageView.squareFoodPictureImage.foodPicture.comment= msValueImageView.comment_text;
     msValueImageView.squareFoodPictureImage.foodPicture.starNum= msValueImageView.cnt_stars;
     
-//    image.foodPicture.uiid = [MSUser currentUser].uiid;
-//    image.foodPicture.url = urlString;
-//    
-//    [MSNetworkConnector requestToUrl:URL_OF_POST_FOOD_PICTURE method:RequestMethodPost params:image.foodPicture.params block:^(NSData *response) {}];
-    
+    [MSNetworkConnector requestToUrl:URL_OF_POST_FOOD_PICTURE method:RequestMethodPost params:msValueImageView.squareFoodPictureImage.foodPicture.params block:^(NSData *response) {}];   
     
     CGRect image_rect = CGRectMake(0, (msValueImageView.squareFoodPictureImage.size.height-no_image_size.height)/2,
                                    msValueImageView.squareFoodPictureImage.size.width,
