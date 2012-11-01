@@ -6,9 +6,11 @@
 #import "MSAWSConnector.h"
 
 @interface MSTodayMealViewController : UIViewController<UIActionSheetDelegate>{
+    
     UIImageView *breakfastImageView;
     UIImageView *lunchImageView;
     UIImageView *supperImageView;
+    UIImageView *otherImageView;
     
     MSCameraViewController *msCamera;
     MSValueImageView *msValueImageView;
@@ -18,6 +20,8 @@
     UINavigationBar *naviBar;
     
     CGSize no_image_size;
+    
+    int cntOtherImage;
 }
 
 @end

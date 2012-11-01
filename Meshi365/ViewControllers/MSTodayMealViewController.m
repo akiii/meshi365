@@ -93,9 +93,29 @@
     [self.view addSubview:lunchImageView];
     [self.view addSubview:supperImageView];
     
+    cntOtherImage = 1;
+    
     UILabel *othersLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 300, 80, 30)];
     othersLabel.backgroundColor = [UIColor clearColor];
     othersLabel.text = @"Others";
+    
+    int i;
+    UIImageView *im;
+    for (i=0; i<cntOtherImage; i++) {
+        im = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sampleMenu.png"]];
+        im.frame = CGRectMake(25+i*65,330,60,60);
+        [self.view addSubview:im];
+    }
+    
+    otherImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_image_others.png"]];
+    otherImageView.userInteractionEnabled = YES;
+    [otherImageView addGestureRecognizer:[[UITapGestureRecognizer alloc]
+                                           initWithTarget:self
+                                           action:@selector(otherCameraAction)]];
+    otherImageView.frame = CGRectMake(25+i*65,330,60,60);
+    [self.view addSubview:otherImageView];
+    
+    
     [self.view addSubview:othersLabel];
 }
 
@@ -137,6 +157,13 @@
 -(void)supperCameraAction{
     if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
         msCamera.state = @"supper";
+        [as showFromTabBar:self.tabBarController.tabBar];
+    }
+}
+
+-(void)otherCameraAction{
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
+        msCamera.state = @"other";
         [as showFromTabBar:self.tabBarController.tabBar];
     }
 }
