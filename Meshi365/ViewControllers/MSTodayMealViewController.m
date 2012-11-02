@@ -234,7 +234,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex {
         frame = [UIImage imageNamed:@"breakfastMealFrame.png"];
         UIGraphicsBeginImageContext(CGSizeMake(no_image_size.width, no_image_size.height));
         [image drawInRect:CGRectMake(0, 0, no_image_size.width, no_image_size.height)];
-        [frame drawAtPoint:CGPointMake(0, 0)];
+        [frame drawInRect:CGRectMake(0, 0, no_image_size.width, no_image_size.height)];
         breakfastImageView.image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
 
@@ -246,7 +246,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex {
         frame = [UIImage imageNamed:@"lunchMealFrame.png"];
         UIGraphicsBeginImageContext(CGSizeMake(no_image_size.width, no_image_size.height));
         [image drawInRect:CGRectMake(0, 0, no_image_size.width, no_image_size.height)];
-        [frame drawAtPoint:CGPointMake(0, 0)];
+        [frame drawInRect:CGRectMake(0, 0, no_image_size.width, no_image_size.height)];
         lunchImageView.image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
         lunchImageView.userInteractionEnabled = NO;
@@ -257,7 +257,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex {
         frame = [UIImage imageNamed:@"supperMealFrame.png"];
         UIGraphicsBeginImageContext(CGSizeMake(no_image_size.width, no_image_size.height));
         [image drawInRect:CGRectMake(0, 0, no_image_size.width, no_image_size.height)];
-        [frame drawAtPoint:CGPointMake(0, 0)];
+        [frame drawInRect:CGRectMake(0, 0, no_image_size.width, no_image_size.height)];
         supperImageView.image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
         supperImageView.userInteractionEnabled = NO;
