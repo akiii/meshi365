@@ -166,7 +166,9 @@
 					
 					cell.foodImage = image;//[_imageCache objectForKey:foodPicture.url];
 										   //cell.foodPicture = [[MSFoodPicture alloc]init: jsonArray[cell.indexPathRow]];
-					[cell layoutSubviews];
+										   //[cell layoutSubviews];
+					
+					[_tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
 				}
 				
 				NSLog(@"...... load done:%d",indexPath.row);
@@ -201,7 +203,8 @@
 					cell.profileImage = image;
 					//cell.foodPicture = [[MSFoodPicture alloc]init: jsonArray[indexPath.row]];
 
-					[cell layoutSubviews];
+					[_tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+
 				}
 				
 			});
