@@ -28,22 +28,32 @@
 - (id)init:(NSDictionary*)json
 {
 	if (self = [super init]) {
-		NSString *strNull = @"(null)";
-		
+		/*HACK:
+		 jsonの要素の文字列が"<null>"場合、
+		 !name, name == nil , 
+		 name == NULL, 
+		 name isEqualToString @"<null>"
+		 の全ててで検出不能となる。そのため、jsonの要素を一度stringWithFormatする。
+		 */
 		self.createdAt	= [json objectForKey:@"created_at"];
 		self.uiid		= [json objectForKey:@"uiid"];
 		self.mealType	= [[json objectForKey:@"meal_type"] integerValue];
 		self.url		= [json objectForKey:@"url"];
-		self.storeName	= [json objectForKey:@"store_name"];
-		self.menuName	= [json objectForKey:@"menu_name"];
-		self.comment	= [json objectForKey:@"comment"];
+		self.storeName	= [NSString stringWithFormat:@"%@", [json objectForKey:@"store_name"]];
+		self.menuName	= [NSString stringWithFormat:@"%@", [json objectForKey:@"menu_name"]];
+		self.comment	= [NSString stringWithFormat:@"%@", [json objectForKey:@"comment"]];
 		self.starNum	= [[json objectForKey:@"star_num"] integerValue];
 		self.user = [[MSUser alloc] initWithJson:json];
 		
+		NSString *strNull = @"(null)";
 		if([self.storeName isEqualToString:strNull])self.storeName = nil;
 		if([self.menuName isEqualToString:strNull])self.menuName = nil;
 		if([self.comment isEqualToString:strNull])self.comment = nil;
 
+		strNull = @"<null>";
+		if([self.storeName isEqualToString:strNull])self.storeName = nil;
+		if([self.menuName isEqualToString:strNull])self.menuName = nil;
+		if([self.comment isEqualToString:strNull])self.comment = nil;
 	}
 	return self;
 }

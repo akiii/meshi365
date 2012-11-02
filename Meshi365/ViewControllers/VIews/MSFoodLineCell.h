@@ -22,4 +22,5 @@
 @property(nonatomic, strong) UIImage* profileImage;
 @property(assign)int height;
 
+
 @end
