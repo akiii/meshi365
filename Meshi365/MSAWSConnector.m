@@ -68,7 +68,7 @@
     return md5;
 }
 
-+ (NSURL *)foodPictureImageUrlFromJsonArray:(NSArray*)jsonArray imageNum:(int)imageNum
++ (NSURL *)getS3UrlFromString:(NSString*)url
 {
 	AmazonS3Client *s3 = [[AmazonS3Client alloc] initWithAccessKey:AWS_ACCESS_KEY_ID withSecretKey:AWS_SECRET_KEY];
 	S3ResponseHeaderOverrides *override = [[S3ResponseHeaderOverrides alloc] init];
@@ -76,9 +76,8 @@
 
 	S3GetPreSignedURLRequest *gpsur = [[S3GetPreSignedURLRequest alloc] init];
 	
-	NSLog(@"gpsur.key:num[%d] url[%@]",imageNum,[jsonArray[imageNum] objectForKey:@"url"]);
 	
-	gpsur.key     = [[jsonArray[imageNum] objectForKey:@"url"] lastPathComponent];
+	gpsur.key     = [url lastPathComponent];
 	gpsur.bucket  = AWS_BUCKET_NAME;
 	gpsur.expires = [NSDate dateWithTimeIntervalSinceNow:(NSTimeInterval) 3600];
 

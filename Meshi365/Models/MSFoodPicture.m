@@ -35,15 +35,17 @@
 		
 		self.storeName	= [json objectForKey:@"store_name"];
 		NSLog(@".......store name %@",self.storeName);
-		if(self.storeName != nil)self.storeName = @"<no name>";
+		if(self.storeName != nil)self.storeName = nil;
 		
 		self.menuName	= [json objectForKey:@"menu_name"];
-		if(self.menuName != nil)self.menuName = @"<no name>";
+		if(self.menuName != nil)self.menuName = nil;
 		
 		self.comment	= [json objectForKey:@"comment"];
-		if(self.comment != nil)self.storeName = @"<no name>";
+		if(self.comment != nil)self.storeName = nil;
 		
 		self.starNum	= [[json objectForKey:@"star_num"] integerValue];
+		
+		self.user = [[MSUser alloc] initWithJson:json];
 	}
 	return self;
 }

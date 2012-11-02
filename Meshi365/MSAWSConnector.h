@@ -12,5 +12,5 @@
 @interface MSAWSConnector : NSObject
 + (NSString *)uploadProfileImageToAWS:(UIImage *)image;
 + (NSString *)uploadFoodPictureToAWS:(MSFoodPictureImage *)image;
-+ (NSURL *)foodPictureImageUrlFromJsonArray:(NSArray*)jsonArray imageNum:(int)imageNum;
++ (NSURL *)getS3UrlFromString:(NSString*)url;
 @end

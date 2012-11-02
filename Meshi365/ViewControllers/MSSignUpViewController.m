@@ -83,21 +83,21 @@
         
         currentUser.name = tf.text;
         currentUser.uiid = [[MSUIIDController sharedController] create];
-        NSLog(@"%@",currentUser.uiid);
         currentUser.profileImageUrl = [MSAWSConnector uploadProfileImageToAWS:profileImageView.image];
         
-        [MSNetworkConnector requestToUrl:URL_OF_SIGN_UP method:RequestMethodPost params:currentUser.params block:^(NSData *response) {
-            NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
-            if ([[jsonDic objectForKey:@"save"] boolValue]) {
-                NSNumber *userId = [NSNumber numberWithInt:[[jsonDic objectForKey:kUserId] intValue]];
-                NSString *uiid = [jsonDic objectForKey:kUIID];
-                NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-                [ud setObject:userId forKey:kUserId];
-                [ud setObject:uiid forKey:kUIID];
-                [ud synchronize];
-            }
-        }];
-        
+		[currentUser sendUserData];
+//        [MSNetworkConnector requestToUrl:URL_OF_SIGN_UP method:RequestMethodPost params:currentUser.params block:^(NSData *response) {
+//            NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
+//            if ([[jsonDic objectForKey:@"save"] boolValue]) {
+//                NSNumber *userId = [NSNumber numberWithInt:[[jsonDic objectForKey:kUserId] intValue]];
+//                NSString *uiid = [jsonDic objectForKey:kUIID];
+//                NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+//                [ud setObject:userId forKey:kUserId];
+//                [ud setObject:uiid forKey:kUIID];
+//                [ud synchronize];
+//            }
+//        }];
+//        
         AppDelegate *delegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
         MSRootTabBarController *rootTabBarController = [[MSRootTabBarController alloc]init];
         delegate.window.rootViewController = rootTabBarController;
