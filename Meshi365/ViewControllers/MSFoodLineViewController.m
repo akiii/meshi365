@@ -135,9 +135,9 @@
 	
 	
 	//load food image
-	if([_imageCache objectForKey:cell.foodPicture.url] )
+	if([_imageCache objectForKey:foodPicture.url] )
 	{
-		cell.foodImage = [_imageCache objectForKey:cell.foodPicture.url];
+		cell.foodImage = [_imageCache objectForKey:foodPicture.url];
 		//	cell.foodPicture = [[MSFoodPicture alloc]init: jsonArray[cell.indexPathRow]];
 		
 	}
@@ -157,9 +157,9 @@
 			dispatch_async(q_main, ^{
 				//NSLog(@"...... %@",imageUrl);
 				//NSLog(@"...... %@",cell.imageUrl);
-				if( cell.indexPathRow == indexPath.row)
+				//	if( cell.indexPathRow == indexPath.row)
 				{
-					[_imageCache setObject:image forKey:cell.foodPicture.url];
+					[_imageCache setObject:image forKey:foodPicture.url];
 					
 					cell.foodImage = image;//[_imageCache objectForKey:foodPicture.url];
 										   //cell.foodPicture = [[MSFoodPicture alloc]init: jsonArray[cell.indexPathRow]];
@@ -174,9 +174,9 @@
 	
 	
 	//load profile
-	if([_profileImageCache objectForKey:cell.foodPicture.user.profileImageUrl])
+	if([_profileImageCache objectForKey:foodPicture.user.profileImageUrl])
 	{
-		cell.profileImage = [_profileImageCache objectForKey:cell.foodPicture.user.profileImageUrl];
+		cell.profileImage = [_profileImageCache objectForKey:foodPicture.user.profileImageUrl];
 		//cell.foodPicture = [[MSFoodPicture alloc]init: jsonArray[cell.indexPathRow]];
 		
 	}
@@ -191,9 +191,9 @@
 			
 			
 			dispatch_async(q_mainProfile, ^{
-				if( cell.indexPathRow == indexPath.row)
+				//	if( cell.indexPathRow == indexPath.row)
 				{
-					[_profileImageCache setObject:image forKey:cell.foodPicture.user.profileImageUrl];
+					[_profileImageCache setObject:image forKey:foodPicture.user.profileImageUrl];
 					cell.profileImage = image;
 					//cell.foodPicture = [[MSFoodPicture alloc]init: jsonArray[indexPath.row]];
 

@@ -129,7 +129,7 @@
 	
 	
 	int fontSize =  26;
-	int x = 10;
+	int x = 15;
 	int y = 10;
 	int dy=30;
 	int length = 50;
@@ -137,7 +137,7 @@
 	_profileImageView.frame = CGRectMake(x, y, length,length);
 	
 	
-	_userName.frame =CGRectMake(x+length, y+fontSize/2+40, [UIScreen mainScreen].bounds.size.width, fontSize+5);
+	_userName.frame =CGRectMake(x+length+10, y+fontSize/2, [UIScreen mainScreen].bounds.size.width, fontSize+5);
 	[_userName setFont:[UIFont systemFontOfSize:fontSize]];
 	[_userName setText:_foodPicture.user.name];
 	y+=length;
@@ -149,17 +149,14 @@
 		case 2:self.textLabel.text = @"Dinner";break;
 		default:self.textLabel.text = @"Dessert";break;break;
 	}
-	self.textLabel.frame =  CGRectMake(x, y-130, [UIScreen mainScreen].bounds.size.width,30);
+	self.textLabel.frame =  CGRectMake(x, y, [UIScreen mainScreen].bounds.size.width,30);
 	
 	
 	self.detailTextLabel.text = [NSString stringWithFormat:@"Date:%@",_foodPicture.createdAt];
 	self.detailTextLabel.textAlignment =  NSTextAlignmentLeft;
-	self.detailTextLabel.frame =  CGRectMake(x+80, y, [UIScreen mainScreen].bounds.size.width,30);
+	self.detailTextLabel.frame =  CGRectMake(x+90, y, [UIScreen mainScreen].bounds.size.width,30);
 	y+=dy;
 
-	
-	
-	self.textLabel.frame =  CGRectMake(x, y, [UIScreen mainScreen].bounds.size.width,30);
 	
 	
 	self.imageView.image = _foodImage;
@@ -246,6 +243,8 @@
 		_storeName = [[UILabel alloc] init];
 		_menuName = [[UILabel alloc] init];
 		_comment = [[UILabel alloc] init];
+		_userName = [[UILabel alloc] init];
+
 		
 		[self addSubview:_profileImageView];
 		[self addSubview:_userName];

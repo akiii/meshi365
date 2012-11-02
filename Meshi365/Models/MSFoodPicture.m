@@ -28,8 +28,6 @@
 - (id)init:(NSDictionary*)json
 {
 	if (self = [super init]) {
-		NSLog(@"init foodpicture start.");
-
 		/*HACK:
 		 jsonの要素の文字列が"<null>"場合、
 		 !name, name == nil , 
@@ -56,8 +54,6 @@
 		if([self.storeName isEqualToString:strNull])self.storeName = nil;
 		if([self.menuName isEqualToString:strNull])self.menuName = nil;
 		if([self.comment isEqualToString:strNull])self.comment = nil;
-
-		NSLog(@"init foodpicture done.");
 	}
 	return self;
 }
