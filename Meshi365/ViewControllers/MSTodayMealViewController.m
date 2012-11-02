@@ -124,6 +124,42 @@
 -(void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
+    NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
+    [outputFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *sinceDateString = @"2012-11-02";
+    NSString *toDateString = @"2012-11-03";
+    
+    NSString *params = [NSString string];
+    params = [params stringByAppendingFormat:@"%@=%@&", @"my_uiid", [MSUser currentUser].uiid];
+    params = [params stringByAppendingFormat:@"%@=%@&", @"since_date", sinceDateString];
+    
+    params = [params stringByAppendingFormat:@"%@=%@&", @"to_date", toDateString];
+    [MSNetworkConnector requestToUrl:URL_OF_CALENDER([MSUser currentUser].uiid) method:RequestMethodPost params:params block:^(NSData *response){
+
+        NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
+        for (int i=0; i<[jsonArray count]; i++) {
+            MSFoodPicture *foodPicture = [[MSFoodPicture alloc] init:jsonArray[i]];
+            if (breakfastImageView.userInteractionEnabled==YES&&foodPicture.mealType==0) {
+                breakfastImageView.userInteractionEnabled=NO;
+                
+                dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+                dispatch_queue_t q_main = dispatch_get_main_queue();
+        
+                dispatch_async(q_global, ^{
+                    NSURL *foodImageAccessKeyUrl = [MSAWSConnector getS3UrlFromString:foodPicture.url];
+                    NSData* data = [NSData dataWithContentsOfURL:foodImageAccessKeyUrl];
+                    UIImage* image = [[UIImage alloc] initWithData:data];
+                    dispatch_async(q_main, ^{
+                        [self setMealImage:0 :image];
+                    });
+                });
+            }
+        }
+        NSLog(@"%@",jsonArray);
+    }];
+    
+
+    
     naviBar.topItem.title = @"Today Menu";
     if([msCamera.state isEqualToString:@"breakfast"]||[msCamera.state isEqualToString:@"lunch"]||[msCamera.state isEqualToString:@"supper"]){
         msValueImageView = [[MSValueImageView alloc] init];
@@ -242,9 +278,9 @@ clickedButtonAtIndex:(NSInteger)buttonIndex {
 }
 
 -(void) setMealImage:(int)type :(UIImage*)image{
-    CGRect image_rect = CGRectMake(0, (msValueImageView.squareFoodPictureImage.size.height-no_image_size.height)/2,
-                                   msValueImageView.squareFoodPictureImage.size.width,
-                                   msValueImageView.squareFoodPictureImage.size.height*no_image_size.height/no_image_size.width);
+    CGRect image_rect = CGRectMake(0, (image.size.height-no_image_size.height)/2,
+                                   image.size.width,
+                                   image.size.height*no_image_size.height/no_image_size.width);
     UIImage *image0,*frame;
     image0 = [UIImage imageWithCGImage:CGImageCreateWithImageInRect([image CGImage], image_rect)];
     switch (type) {
