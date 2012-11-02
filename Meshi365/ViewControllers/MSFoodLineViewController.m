@@ -115,6 +115,8 @@
     MSFoodLineCell *cell =[_tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
 		cell =[[MSFoodLineCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] ;
+		
+		
 	}
 	
 	
@@ -122,7 +124,7 @@
 	MSFoodPicture *foodPicture = [[MSFoodPicture alloc]init: jsonArray[indexPath.row] ];
 	cell.indexPathRow = indexPath.row;
 	cell.foodPicture = foodPicture;
-	if( cell.indexPathRow == indexPath.row)[cell layoutSubviews];
+	//if( cell.indexPathRow == indexPath.row)[cell layoutSubviews];
 	
 	
 	//NSLog(@"......make access key %d",indexPath.row);
@@ -134,6 +136,8 @@
 	if([_imageCache objectForKey:foodPicture.url] )
 	{
 		cell.foodImage = [_imageCache objectForKey:foodPicture.url];
+		//	cell.foodPicture = [[MSFoodPicture alloc]init: jsonArray[cell.indexPathRow]];
+		
 	}
 	else
 	{
@@ -143,7 +147,7 @@
 		dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
 		dispatch_queue_t q_main = dispatch_get_main_queue();
 		dispatch_async(q_global, ^{
-			//NSLog(@"...... load start:%d",indexPath.row);
+			NSLog(@"...... load start:%d",indexPath.row);
 			NSData* data = [NSData dataWithContentsOfURL:foodImageAccessKeyUrl];
 			UIImage* image = [[UIImage alloc] initWithData:data];
 			
@@ -154,11 +158,12 @@
 				//NSLog(@"...... %@",cell.imageUrl);
 				if( cell.indexPathRow == indexPath.row)
 				{
-					cell.foodImage = [_imageCache objectForKey:foodPicture.url];
-					[cell layoutSubviews];
+					cell.foodImage = image;//[_imageCache objectForKey:foodPicture.url];
+										   //cell.foodPicture = [[MSFoodPicture alloc]init: jsonArray[cell.indexPathRow]];
+					//	[cell layoutSubviews];
 				}
 				
-				//NSLog(@"...... load done:%d",indexPath.row);
+				NSLog(@"...... load done:%d",indexPath.row);
 			});
 		});
 	}
@@ -169,6 +174,8 @@
 	if([_profileImageCache objectForKey:foodPicture.user.profileImageUrl])
 	{
 		cell.profileImage = [_profileImageCache objectForKey:foodPicture.user.profileImageUrl];
+		//cell.foodPicture = [[MSFoodPicture alloc]init: jsonArray[cell.indexPathRow]];
+		
 	}
 	else{
 		cell.profileImage = [UIImage imageNamed:@"star.png"];
@@ -185,7 +192,9 @@
 				if( cell.indexPathRow == indexPath.row)
 				{
 					cell.profileImage = image;
-					[cell layoutSubviews];
+					//cell.foodPicture = [[MSFoodPicture alloc]init: jsonArray[indexPath.row]];
+
+					//	[cell layoutSubviews];
 				}
 				
 			});
@@ -200,8 +209,8 @@
 
 
 - (CGFloat)tableView:(UITableView *)tv heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	MSFoodLineCell *cell = [self tableView:_tableView cellForRowAtIndexPath:indexPath];
-    return cell.height;
+	//MSFoodLineCell *cell = [self tableView:_tableView cellForRowAtIndexPath:indexPath];
+    return 600;//cell.height;
 }
 
 

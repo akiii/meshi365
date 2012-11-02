@@ -82,7 +82,7 @@
 	y+=starSize+5;
 
 	
-	if(_foodPicture.storeName)
+	if(_foodPicture.storeName != nil)
 	{
 		UILabel *storeName = [[UILabel alloc] initWithFrame:CGRectMake(x, y, [UIScreen mainScreen].bounds.size.width, 30)];
 		[storeName setFont:[UIFont systemFontOfSize:18]];
@@ -92,7 +92,7 @@
 	}
 
 	
-	if(_foodPicture.menuName)
+	if(_foodPicture.menuName != nil)
 	{
 		UILabel *menuName = [[UILabel alloc] initWithFrame:CGRectMake(x, y, [UIScreen mainScreen].bounds.size.width, 30)];
 		[menuName setFont:[UIFont systemFontOfSize:18]];
@@ -102,7 +102,7 @@
 		y+=dy;
 	}
 	
-	if(_foodPicture.comment)
+	if(_foodPicture.comment != nil)
 	{
 		UILabel *comment = [[UILabel alloc] initWithFrame:CGRectMake(x, y, [UIScreen mainScreen].bounds.size.width, 30)];
 		[comment setFont:[UIFont systemFontOfSize:18]];
@@ -119,7 +119,7 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-		self.height = 800;
+		self.height = 600;
 		//[self setFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.width, 0, 800)];
 	}
     return self;

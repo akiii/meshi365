@@ -28,22 +28,30 @@
 - (id)init:(NSDictionary*)json
 {
 	if (self = [super init]) {
-		NSString *strNull = @"(null)";
-		
+		NSLog(@"init foodpicture start.");
+
+
 		self.createdAt	= [json objectForKey:@"created_at"];
 		self.uiid		= [json objectForKey:@"uiid"];
 		self.mealType	= [[json objectForKey:@"meal_type"] integerValue];
 		self.url		= [json objectForKey:@"url"];
 		self.storeName	= [json objectForKey:@"store_name"];
 		self.menuName	= [json objectForKey:@"menu_name"];
-		self.comment	= [json objectForKey:@"comment"];
+		self.comment	= [NSString stringWithFormat:@"%@", [json objectForKey:@"comment"]];
 		self.starNum	= [[json objectForKey:@"star_num"] integerValue];
 		self.user = [[MSUser alloc] initWithJson:json];
-		
+	
+		NSString *strNull = @"(null)";
 		if([self.storeName isEqualToString:strNull])self.storeName = nil;
 		if([self.menuName isEqualToString:strNull])self.menuName = nil;
 		if([self.comment isEqualToString:strNull])self.comment = nil;
 
+		strNull = @"<null>";
+		if([self.storeName isEqualToString:strNull])self.storeName = nil;
+		if([self.menuName isEqualToString:strNull])self.menuName = nil;
+		if([self.comment isEqualToString:strNull])self.comment = nil;
+
+		NSLog(@"init foodpicture done.");
 	}
 	return self;
 }
