@@ -27,11 +27,28 @@
 		self.recommendViewController	= [[MSRecommendViewController alloc]init];
 		self.configViewController		= [[MSConfigViewController alloc]init];
 		
-		self.todayMEalViewController.title = @"Today";
+		/*
+        self.todayMEalViewController.title = @"Today";
 		self.foodLineNavigationViewController.title = @"FoodLine";
 		self.miniCalenderViewController.title = @"MiniCal";
 		self.recommendViewController.title = @"Recommend";
 		self.configViewController.title = @"Account";
+        */
+        self.todayMEalViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Today"
+                                                                                image:[UIImage imageNamed:@"tabicon_today.png"]
+                                                                                  tag:0];
+        self.foodLineNavigationViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"FoodLine"
+                                                                                         image:[UIImage imageNamed:@"tabicon_foodline.png"]
+                                                                                           tag:1];
+        self.miniCalenderViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"MiniCal"
+                                                                                   image:[UIImage imageNamed:@"tabicon_minical.png"]
+                                                                                     tag:2];
+        self.recommendViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Recommend"
+                                                                                image:[UIImage imageNamed:@"tabicon_recommend.png"]
+                                                                                  tag:3];
+        self.configViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Account"
+                                                                             image:[UIImage imageNamed:@"tabicon_account.png"]
+                                                                               tag:4];
 
 		NSArray *views = [NSArray arrayWithObjects:self.todayMEalViewController, self.foodLineNavigationViewController, self.miniCalenderViewController, self. recommendViewController, self.configViewController, nil];
 		[self setViewControllers:views animated:NO];
