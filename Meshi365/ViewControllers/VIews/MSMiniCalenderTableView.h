@@ -10,6 +10,6 @@
 
 @interface MSMiniCalenderTableView : UITableView<UITableViewDataSource, UITableViewDelegate>
 
-
+@property(nonatomic,strong)NSArray* jsonArray;
 
 @end

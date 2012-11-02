@@ -48,6 +48,8 @@
 		case 2:self.textLabel.text = @"Dinner";break;
 		default:self.textLabel.text = @"Dessert";break;break;
 	}
+	//self.textLabel.text = [NSString stringWithFormat:@"%d" ,self.indexPathRow ];
+	
 	self.textLabel.frame =  CGRectMake(x, y, [UIScreen mainScreen].bounds.size.width,30);
 	
 	
@@ -79,16 +81,15 @@
 	}
 	y+=starSize+5;
 	
-	
-	
-	[_storeName setEnabled:NO];
-	[_menuName setEnabled:NO];
-	[_comment setEnabled:NO];
+
+	[_storeName setOpaque:YES];
+	[_menuName setOpaque:YES];
+	[_comment setOpaque:YES];
 
 	
 	if(_foodPicture.storeName != nil)
 	{
-		[_storeName setEnabled:YES];
+		[_storeName setOpaque:NO];
 		_storeName.frame = CGRectMake(x, y, [UIScreen mainScreen].bounds.size.width, 30);
 		[_storeName setFont:[UIFont systemFontOfSize:18]];
 		_storeName.text = [NSString stringWithFormat:@"Place:%@",_foodPicture.storeName ];
@@ -98,7 +99,7 @@
 	
 	if(_foodPicture.menuName != nil)
 	{
-		[_menuName setEnabled:YES];
+		[_menuName setOpaque:NO];
 		_menuName.frame = CGRectMake(x, y, [UIScreen mainScreen].bounds.size.width, 30);
 		[_menuName setFont:[UIFont systemFontOfSize:18]];
 		_menuName.text = [NSString stringWithFormat:@"Menu:%@",_foodPicture.menuName ];
@@ -108,14 +109,15 @@
 	
 	if(_foodPicture.comment != nil)
 	{
-		[_comment setEnabled:YES];
+		[_comment setOpaque:NO];
 		_comment.frame = CGRectMake(x, y, [UIScreen mainScreen].bounds.size.width, 30);
 		[_comment setFont:[UIFont systemFontOfSize:18]];
 		_comment.text = [NSString stringWithFormat:@"Comment:%@",_foodPicture.comment ];
 		y+=dy;
 
 	}
-
+	
+	
 	self.height = y;
 }
 

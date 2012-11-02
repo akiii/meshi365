@@ -148,9 +148,9 @@
 	NSLog(@"!!Cell updated:[%d]",indexPath.row);
 
 	MSFoodPicture *foodPicture = [[MSFoodPicture alloc]init: jsonArray[indexPath.row] ];
-	cell.foodPicture = foodPicture;
+	cell.indexPathRow = indexPath.row;
 	
-	
+	//[NSCopyMemoryPages(foodPicture, cell.foodPicture,sizeof(MSFoodPicture))];
 	
 	//load food image
 	if([_imageCache objectForKey:foodPicture.url] )
@@ -172,7 +172,7 @@
 		cell.profileImage = [UIImage imageNamed:@"star.png"];
 	}
 	
-	
+	cell.foodPicture = foodPicture;
 	[cell layoutSubviews];
 	
 	
