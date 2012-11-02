@@ -12,6 +12,5 @@
 @interface MSMiniCalenderViewController : UIViewController
 {
 	MSMiniCalenderScrollView *scrollView;
-
 }
 @end

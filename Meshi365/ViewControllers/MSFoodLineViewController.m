@@ -84,6 +84,31 @@
 	 }];
 	
 	
+	
+
+	//		[_imageRequestCache setObject:@"lock" forKey:foodPicture.url];
+		dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+		dispatch_queue_t q_main = dispatch_get_main_queue();
+		dispatch_async(q_global, ^{
+			for( int i = 0; i < jsonArray.count;i++)
+			{
+			MSFoodPicture *foodPicture = [[MSFoodPicture alloc]init: jsonArray[i] ];
+			NSLog(@"...... load start:%d", i);
+
+			NSURL *foodImageAccessKeyUrl = [MSAWSConnector getS3UrlFromString:foodPicture.url];
+			NSData* data = [NSData dataWithContentsOfURL:foodImageAccessKeyUrl];
+			UIImage* image = [[UIImage alloc] initWithData:data];
+				[_imageCache setObject:image forKey:foodPicture.url];
+[_tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+			}
+			
+			dispatch_async(q_main, ^{
+					NSLog(@"FoodImg loaded:%d",0);
+					
+			});
+		});
+	
+	
 	[_tableView reloadData];
 	
 }
@@ -109,7 +134,7 @@
     if (cell == nil) {
 		cell =[[MSFoodLineCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
 		
-		//NSLog(@"!!Cell Created:[%d]",indexPath.row);
+		NSLog(@"!!Cell Created:[%d]",indexPath.row);
 	}
 
 	MSFoodPicture *foodPicture = [[MSFoodPicture alloc]init: jsonArray[indexPath.row] ];
@@ -126,35 +151,8 @@
 	if([_imageCache objectForKey:foodPicture.url] )
 	{
 		cell.foodImage = [_imageCache objectForKey:foodPicture.url];
-		//	cell.foodPicture = [[MSFoodPicture alloc]init: jsonArray[cell.indexPathRow]];
+		cell.foodPicture = [[MSFoodPicture alloc]init: jsonArray[indexPath.row]];
 		
-	}
-	else if(![_imageRequestCache objectForKey:foodPicture.url])
-	{
-		//NSLog(@"......no ImageCache:%d",indexPath.row);
-		[_imageRequestCache setObject:@"lock" forKey:foodPicture.url];
-		dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
-		dispatch_queue_t q_main = dispatch_get_main_queue();
-		dispatch_async(q_global, ^{
-			NSLog(@"...... load start:%d",indexPath.row);
-			NSURL *foodImageAccessKeyUrl = [MSAWSConnector getS3UrlFromString:foodPicture.url];
-			NSData* data = [NSData dataWithContentsOfURL:foodImageAccessKeyUrl];
-			UIImage* image = [[UIImage alloc] initWithData:data];
-			
-			
-			dispatch_async(q_main, ^{
-				if(image && cell.indexPathRow == indexPath.row)
-				{
-					NSLog(@"FoodImg loaded:%d",cell.indexPathRow);
-				
-						[_imageCache setObject:image forKey:foodPicture.url];
-				
-					cell.foodImage = image;
-					cell.foodPicture = [[MSFoodPicture alloc]init: jsonArray[cell.indexPathRow]];
-					[_tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-				}
-			});
-		});
 	}
 	else
 	{
@@ -216,7 +214,7 @@
 
 
 - (CGFloat)tableView:(UITableView *)tv heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	MSFoodLineCell *cell = [self tableView:_tableView cellForRowAtIndexPath:indexPath];
+	MSFoodLineCell *cell = (MSFoodLineCell*)[self tableView:_tableView cellForRowAtIndexPath:indexPath];
     return cell.height;
 }
 

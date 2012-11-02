@@ -8,9 +8,11 @@
 
 #import "MSMiniCalenderViewController.h"
 #import "MSMiniCalenderTableView.h"
-
+#import "MSUser.h"
+#import "MSNetworkConnector.h"
 
 @interface MSMiniCalenderViewController ()
+@property(nonatomic,strong) NSArray *jsonArray;
 
 @end
 
@@ -91,6 +93,27 @@
 	[self.view addSubview:monthLabel];
 
 
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+	NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
+	[outputFormatter setDateFormat:@"yyyy-MM-dd"];
+	NSString *sinceDateString = @"2012-11-01";
+	NSString *toDateString = @"2012-11-8";
+	
+	NSString *params = [NSString string];
+	params = [params stringByAppendingFormat:@"%@=%@&", @"my_uiid", [MSUser currentUser].uiid];
+	params = [params stringByAppendingFormat:@"%@=%@&", @"since_date", sinceDateString];
+	
+	params = [params stringByAppendingFormat:@"%@=%@&", @"to_date", toDateString];
+	[MSNetworkConnector requestToUrl:URL_OF_CALENDER([MSUser currentUser].uiid) method:RequestMethodPost params:params block:^(NSData *response) {
+		_jsonArray = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
+		
+		NSLog(@"json : %@", _jsonArray);
+	}];
+
+	
 }
 
 - (void)didReceiveMemoryWarning
