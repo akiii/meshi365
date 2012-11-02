@@ -101,6 +101,7 @@
         AppDelegate *delegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
         MSRootTabBarController *rootTabBarController = [[MSRootTabBarController alloc]init];
         delegate.window.rootViewController = rootTabBarController;
+        delegate.window.frame = [[UIScreen mainScreen] bounds];
     }
 }
 

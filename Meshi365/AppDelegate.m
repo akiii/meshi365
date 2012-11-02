@@ -35,6 +35,7 @@
     if(currentUser.signuped){
         self.rootTabBarController = [[MSRootTabBarController alloc] init];
         self.window.rootViewController = self.rootTabBarController;
+        self.window.frame = [[UIScreen mainScreen] bounds];
     }else{
         self.signUpViewController = [[MSSignUpViewController alloc] init];
         self.window.rootViewController = self.signUpViewController;
