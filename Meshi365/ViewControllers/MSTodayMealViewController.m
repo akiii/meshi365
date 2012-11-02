@@ -224,49 +224,14 @@ clickedButtonAtIndex:(NSInteger)buttonIndex {
     
     
     
-    CGRect image_rect = CGRectMake(0, (msValueImageView.squareFoodPictureImage.size.height-no_image_size.height)/2,
-                                   msValueImageView.squareFoodPictureImage.size.width,
-                                   msValueImageView.squareFoodPictureImage.size.height*no_image_size.height/no_image_size.width);
-    UIImage *image,*frame;
-    if([msCamera.state isEqualToString:@"breakfast"]){
-        image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect
-                                    ([msValueImageView.squareFoodPictureImage CGImage], image_rect)];
-        frame = [UIImage imageNamed:@"breakfastMealFrame.png"];
-        UIGraphicsBeginImageContext(CGSizeMake(no_image_size.width, no_image_size.height));
-        [image drawInRect:CGRectMake(0, 0, no_image_size.width, no_image_size.height)];
-        [frame drawInRect:CGRectMake(0, 0, no_image_size.width, no_image_size.height)];
-        breakfastImageView.image = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-
-        breakfastImageView.userInteractionEnabled = NO;
-    }
-    if([msCamera.state isEqualToString:@"lunch"]){
-        image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect
-                                    ([msValueImageView.squareFoodPictureImage CGImage], image_rect)];
-        frame = [UIImage imageNamed:@"lunchMealFrame.png"];
-        UIGraphicsBeginImageContext(CGSizeMake(no_image_size.width, no_image_size.height));
-        [image drawInRect:CGRectMake(0, 0, no_image_size.width, no_image_size.height)];
-        [frame drawInRect:CGRectMake(0, 0, no_image_size.width, no_image_size.height)];
-        lunchImageView.image = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-        lunchImageView.userInteractionEnabled = NO;
-    }
-    if([msCamera.state isEqualToString:@"supper"]){
-        image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect
-                 ([msValueImageView.squareFoodPictureImage CGImage], image_rect)];
-        frame = [UIImage imageNamed:@"supperMealFrame.png"];
-        UIGraphicsBeginImageContext(CGSizeMake(no_image_size.width, no_image_size.height));
-        [image drawInRect:CGRectMake(0, 0, no_image_size.width, no_image_size.height)];
-        [frame drawInRect:CGRectMake(0, 0, no_image_size.width, no_image_size.height)];
-        supperImageView.image = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-        supperImageView.userInteractionEnabled = NO;
-    }
+    if([msCamera.state isEqualToString:@"breakfast"])
+        [self setMealImage:0 :msValueImageView.squareFoodPictureImage];
+    if([msCamera.state isEqualToString:@"lunch"])
+        [self setMealImage:1 :msValueImageView.squareFoodPictureImage];
+    if([msCamera.state isEqualToString:@"supper"])
+        [self setMealImage:2 :msValueImageView.squareFoodPictureImage];
     
-    msCamera.state = nil;
-    [self showTabBar:self.tabBarController];
-    naviBar.topItem.title = @"Today Menu";
-    [msValueImageView removeFromSuperview];
+    [self cancel_image:sender];
 }
 
 -(void) cancel_image:(id)sender{
@@ -274,6 +239,46 @@ clickedButtonAtIndex:(NSInteger)buttonIndex {
     [self showTabBar:self.tabBarController];
     naviBar.topItem.title = @"Today Menu";
     [msValueImageView removeFromSuperview];
+}
+
+-(void) setMealImage:(int)type :(UIImage*)image{
+    CGRect image_rect = CGRectMake(0, (msValueImageView.squareFoodPictureImage.size.height-no_image_size.height)/2,
+                                   msValueImageView.squareFoodPictureImage.size.width,
+                                   msValueImageView.squareFoodPictureImage.size.height*no_image_size.height/no_image_size.width);
+    UIImage *image0,*frame;
+    image0 = [UIImage imageWithCGImage:CGImageCreateWithImageInRect([image CGImage], image_rect)];
+    switch (type) {
+        case 0:
+            frame = [UIImage imageNamed:@"breakfastMealFrame.png"];
+            break;
+        case 1:
+            frame = [UIImage imageNamed:@"lunchMealFrame.png"];
+            break;
+        case 2:
+            frame = [UIImage imageNamed:@"supperMealFrame.png"];
+            break;
+    }
+    
+    UIGraphicsBeginImageContext(CGSizeMake(no_image_size.width, no_image_size.height));
+    [image0 drawInRect:CGRectMake(0, 0, no_image_size.width, no_image_size.height)];
+    [frame drawInRect:CGRectMake(0, 0, no_image_size.width, no_image_size.height)];
+    
+    switch (type) {
+        case 0:
+            breakfastImageView.image = UIGraphicsGetImageFromCurrentImageContext();
+            breakfastImageView.userInteractionEnabled = NO;
+            break;
+        case 1:
+            lunchImageView.image = UIGraphicsGetImageFromCurrentImageContext();
+            lunchImageView.userInteractionEnabled = NO;
+            break;
+        case 2:
+            supperImageView.image = UIGraphicsGetImageFromCurrentImageContext();
+            supperImageView.userInteractionEnabled = NO;
+            break;
+    }
+    UIGraphicsEndImageContext();
+    
 }
 
 @end
