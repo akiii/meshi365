@@ -70,8 +70,8 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    if([msCamera.state isEqualToString:@"active"]) {
-        msCamera.state = nil;
+    if(msCamera.state==1) {
+        msCamera.state = 0;
         profileImageView.image = msCamera.camera_image;
     }
 }
@@ -135,7 +135,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex {
 
 -(void)profileImageSelect{
     if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
-        msCamera.state = @"active";
+        msCamera.state = 1;
         [as showInView:self.view];
     }
 }

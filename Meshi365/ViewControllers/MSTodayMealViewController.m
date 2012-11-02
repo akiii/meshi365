@@ -152,7 +152,7 @@
 
     
     naviBar.topItem.title = @"Today Menu";
-    if([msCamera.state isEqualToString:@"breakfast"]||[msCamera.state isEqualToString:@"lunch"]||[msCamera.state isEqualToString:@"supper"]){
+    if(msCamera.state>0){
         msValueImageView = [[MSValueImageView alloc] init];
         msValueImageView.cameraImage = msCamera.camera_image;
         
@@ -164,28 +164,28 @@
 
 -(void)breakfastCameraAction{
     if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
-        msCamera.state = @"breakfast";
+        msCamera.state = 1;
         [as showFromTabBar:self.tabBarController.tabBar];
     }
 }
 
 -(void)lunchCameraAction{
     if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
-        msCamera.state = @"lunch";
+        msCamera.state = 2;
         [as showFromTabBar:self.tabBarController.tabBar];
     }
 }
 
 -(void)supperCameraAction{
     if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
-        msCamera.state = @"supper";
+        msCamera.state = 3;
         [as showFromTabBar:self.tabBarController.tabBar];
     }
 }
 
 -(void)otherCameraAction{
     if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
-        msCamera.state = @"other";
+        msCamera.state = 4;
         [as showFromTabBar:self.tabBarController.tabBar];
     }
 }
@@ -207,9 +207,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex {
     
     NSString *urlString = [MSAWSConnector uploadFoodPictureToAWS:msValueImageView.squareFoodPictureImage];
     msValueImageView.squareFoodPictureImage.foodPicture.uiid = [MSUser currentUser].uiid;
-    msValueImageView.squareFoodPictureImage.foodPicture.mealType = [msCamera.state isEqualToString:@"breakfast"]?0:
-    [msCamera.state isEqualToString:@"lunch"]?1:
-    [msCamera.state isEqualToString:@"supper"]?2:3;
+    msValueImageView.squareFoodPictureImage.foodPicture.mealType = msCamera.state-1;
     msValueImageView.squareFoodPictureImage.foodPicture.url = urlString;
     [msValueImageView dataPreservation];
     
@@ -249,20 +247,13 @@ clickedButtonAtIndex:(NSInteger)buttonIndex {
         }];
     }
     
-    
-    
-    if([msCamera.state isEqualToString:@"breakfast"])
-        [self setMealImage:0 :msValueImageView.squareFoodPictureImage];
-    if([msCamera.state isEqualToString:@"lunch"])
-        [self setMealImage:1 :msValueImageView.squareFoodPictureImage];
-    if([msCamera.state isEqualToString:@"supper"])
-        [self setMealImage:2 :msValueImageView.squareFoodPictureImage];
+    [self setMealImage:msCamera.state-1 :msValueImageView.squareFoodPictureImage];
     
     [self cancel_image:sender];
 }
 
 -(void) cancel_image:(id)sender{
-    msCamera.state = nil;
+    msCamera.state = 0;
     [self showTabBar:self.tabBarController];
     naviBar.topItem.title = @"Today Menu";
     [msValueImageView removeFromSuperview];

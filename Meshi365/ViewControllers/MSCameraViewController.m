@@ -10,6 +10,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.delegate = self;
+        self.state = 0;
     }
     return self;
 }
@@ -46,7 +47,7 @@ didFinishSavingWithError:(NSError*)error contextInfo:(void*)context{
 
 //画像の選択がキャンセルされた時に呼ばれる
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
-    self.state = nil;
+    self.state = 0;
     [self dismissViewControllerAnimated:YES completion:^{}];
 }
 
