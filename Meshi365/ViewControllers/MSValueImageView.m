@@ -247,11 +247,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     //[tableView deselectRowAtIndexPath:indexPath animated:YES];
     if(indexPath.row==0){
-        self.place_amenity = @"self_catering";
+        self.place_amenity = 0;
     }else if(indexPath.row<=[amenityArray count]){
-        self.place_amenity = [amenityArray objectAtIndex:indexPath.row-1];
+        self.place_amenity = (int)[amenityArray objectAtIndex:indexPath.row-1];
     }else{
         self.place_name = nil;
+        self.place_amenity = 0;
     }
 }
 

@@ -6,9 +6,7 @@
 
 @interface MSTodayMealViewController : UIViewController<UIActionSheetDelegate>{
     
-    UIImageView *breakfastImageView;
-    UIImageView *lunchImageView;
-    UIImageView *supperImageView;
+    UIImageView *mealImageView[3];
     UIImageView *otherImageView;
     
     MSCameraViewController *msCamera;
