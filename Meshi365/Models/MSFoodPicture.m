@@ -18,7 +18,7 @@
         self.url = @"";
         self.storeName = @"";
         self.menuName = @"";
-        self.amenity = @"";
+        self.amenity = 0;
         self.comment = @"";
         self.starNum = 3;
     }
@@ -69,9 +69,7 @@
     if (![self.menuName isEqualToString:@""]) {
         params = [params stringByAppendingFormat:@"%@=%@&", @"menu_name",   self.menuName];
     }
-    if (![self.amenity isEqualToString:@""]) {
-        params = [params stringByAppendingFormat:@"%@=%@&", @"amenity",  self.amenity];
-    }
+    params = [params stringByAppendingFormat:@"%@=%@&", @"amenity",  [NSNumber numberWithInt:self.amenity]];
     if (![self.comment isEqualToString:@""]) {
         params = [params stringByAppendingFormat:@"%@=%@&", @"comment",      self.comment];
     }
@@ -85,7 +83,6 @@
     self.url = nil;
     self.storeName = nil;
     self.menuName = nil;
-    self.amenity = nil;
     self.comment = nil;
 }
 
