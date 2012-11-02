@@ -126,7 +126,7 @@
 	if([_imageCache objectForKey:foodPicture.url] )
 	{
 		cell.foodImage = [_imageCache objectForKey:foodPicture.url];
-		//	cell.foodPicture = [[MSFoodPicture alloc]init: jsonArray[cell.indexPathRow]];
+		cell.foodPicture = [[MSFoodPicture alloc]init: jsonArray[indexPath.row]];
 		
 	}
 	else if(![_imageRequestCache objectForKey:foodPicture.url])
@@ -216,7 +216,7 @@
 
 
 - (CGFloat)tableView:(UITableView *)tv heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	MSFoodLineCell *cell = [self tableView:_tableView cellForRowAtIndexPath:indexPath];
+	MSFoodLineCell *cell = (MSFoodLineCell*)[self tableView:_tableView cellForRowAtIndexPath:indexPath];
     return cell.height;
 }
 
