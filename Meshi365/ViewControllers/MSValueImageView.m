@@ -62,7 +62,6 @@
         [view addSubview:lbl1];
         mealNameTextField = [[UITextField alloc] initWithFrame:CGRectMake(left_line-20, 310, 200, 28)];
         mealNameTextField.borderStyle = UITextBorderStyleRoundedRect;
-        [mealNameTextField addTarget:self action:@selector(mealNameSave:) forControlEvents:UIControlEventEditingDidEndOnExit];
         [view addSubview:mealNameTextField];
         
         
@@ -196,13 +195,6 @@
         [mealNameTextField resignFirstResponder];
 }
 
--(void) mealNameSave:(id)sender{
-    self.meal_name = mealNameTextField.text;
-}
--(BOOL)textViewShouldEndEditing:(UITextView*)textView{
-    self.comment_text = comment.text;
-    return TRUE;
-}
 
 -(void)twitter:(id)sender{
     if(self.flag_twitter){
@@ -223,6 +215,15 @@
         [facebookBtn setBackgroundImage:[UIImage imageNamed:@"Icon_FaceBook.png"] forState:UIControlStateNormal];
     }
 }
+
+-(void)dataPreservation{
+    self.squareFoodPictureImage.foodPicture.storeName = self.place_name;
+    self.squareFoodPictureImage.foodPicture.menuName = mealNameTextField.text;
+    self.squareFoodPictureImage.foodPicture.amenity = self.place_amenity;
+    self.squareFoodPictureImage.foodPicture.comment= comment.text;
+    self.squareFoodPictureImage.foodPicture.starNum= self.cnt_stars;
+}
+
 #pragma mark Restaurant List Table View
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -246,16 +247,12 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     //[tableView deselectRowAtIndexPath:indexPath animated:YES];
-    self.place_name = [nameArray objectAtIndex:indexPath.row];
     if(indexPath.row==0){
         self.place_amenity = @"self_catering";
-        NSLog(@"0");
     }else if(indexPath.row<=[amenityArray count]){
         self.place_amenity = [amenityArray objectAtIndex:indexPath.row-1];
-        NSLog(@"1");
     }else{
         self.place_name = nil;
-        NSLog(@"2");
     }
 }
 

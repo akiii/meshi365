@@ -184,11 +184,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex {
     [msCamera.state isEqualToString:@"lunch"]?1:
     [msCamera.state isEqualToString:@"supper"]?2:3;
     msValueImageView.squareFoodPictureImage.foodPicture.url = urlString;
-    msValueImageView.squareFoodPictureImage.foodPicture.storeName = msValueImageView.place_name;
-    msValueImageView.squareFoodPictureImage.foodPicture.menuName = msValueImageView.meal_name;
-    msValueImageView.squareFoodPictureImage.foodPicture.amenity = msValueImageView.place_amenity;
-    msValueImageView.squareFoodPictureImage.foodPicture.comment= msValueImageView.comment_text;
-    msValueImageView.squareFoodPictureImage.foodPicture.starNum= msValueImageView.cnt_stars;
+    [msValueImageView dataPreservation];
     
     [MSNetworkConnector requestToUrl:URL_OF_POST_FOOD_PICTURE method:RequestMethodPost params:msValueImageView.squareFoodPictureImage.foodPicture.params block:^(NSData *response) {}];
     
@@ -206,7 +202,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex {
                 NSArray *accountArray = [accountStore accountsWithAccountType:[accountTypes objectAtIndex:i]];
                 if (accountArray.count > 0) {
                     NSURL *url = [NSURL URLWithString:@"https://upload.twitter.com/1/statuses/update_with_media.json"];
-                    NSDictionary *params = [NSDictionary dictionaryWithObject:msValueImageView.comment_text forKey:@"status"];
+                    NSDictionary *params = [NSDictionary dictionaryWithObject:msValueImageView.squareFoodPictureImage.foodPicture.comment forKey:@"status"];
                                                        
                     SLRequest *request = [SLRequest requestForServiceType:SLServiceTypeTwitter
                                                             requestMethod:SLRequestMethodPOST
@@ -216,8 +212,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex {
                     
                     NSData *imageData = UIImagePNGRepresentation(msValueImageView.squareFoodPictureImage);
                     [request addMultipartData:imageData withName:@"media[]" type:@"multipart/form-data" filename:nil];
-                    NSLog(@"here");
-                    [request addMultipartData:[msValueImageView.comment_text dataUsingEncoding:NSUTF8StringEncoding] withName:@"status" type:@"multipart/form-data" filename:nil];
+                    [request addMultipartData:[msValueImageView.squareFoodPictureImage.foodPicture.comment dataUsingEncoding:NSUTF8StringEncoding] withName:@"status" type:@"multipart/form-data" filename:nil];
 
                     [request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
                         //NSLog(@"responseData=%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
@@ -238,7 +233,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex {
                                     ([msValueImageView.squareFoodPictureImage CGImage], image_rect)];
         frame = [UIImage imageNamed:@"breakfastMealFrame.png"];
         UIGraphicsBeginImageContext(CGSizeMake(no_image_size.width, no_image_size.height));
-        [image drawInRect:CGRectMake(0, 0,no_image_size.width, no_image_size.height)];
+        [image drawInRect:CGRectMake(0, 0, no_image_size.width, no_image_size.height)];
         [frame drawAtPoint:CGPointMake(0, 0)];
         breakfastImageView.image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
@@ -250,7 +245,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex {
                                     ([msValueImageView.squareFoodPictureImage CGImage], image_rect)];
         frame = [UIImage imageNamed:@"lunchMealFrame.png"];
         UIGraphicsBeginImageContext(CGSizeMake(no_image_size.width, no_image_size.height));
-        [image drawInRect:CGRectMake(0, 0,no_image_size.width, no_image_size.height)];
+        [image drawInRect:CGRectMake(0, 0, no_image_size.width, no_image_size.height)];
         [frame drawAtPoint:CGPointMake(0, 0)];
         lunchImageView.image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
@@ -261,7 +256,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex {
                  ([msValueImageView.squareFoodPictureImage CGImage], image_rect)];
         frame = [UIImage imageNamed:@"supperMealFrame.png"];
         UIGraphicsBeginImageContext(CGSizeMake(no_image_size.width, no_image_size.height));
-        [image drawInRect:CGRectMake(0, 0,no_image_size.width, no_image_size.height)];
+        [image drawInRect:CGRectMake(0, 0, no_image_size.width, no_image_size.height)];
         [frame drawAtPoint:CGPointMake(0, 0)];
         supperImageView.image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
