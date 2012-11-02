@@ -24,10 +24,10 @@
 }
 
 @property (nonatomic       ) int cnt_stars;
+@property (nonatomic       ) int place_amenity;
 @property (nonatomic       ) Boolean flag_twitter;
 @property (nonatomic       ) Boolean flag_facebook;
 @property (nonatomic,strong) NSString *place_name;
-@property (nonatomic,strong) NSString *place_amenity;
 @property (nonatomic,strong) UIImage *cameraImage;
 @property (nonatomic,strong) MSFoodPictureImage *squareFoodPictureImage;
 
