@@ -57,7 +57,7 @@
 		miniCalenderTableView[i] = [[MSMiniCalenderTableView alloc]init];
 		miniCalenderTableView[i].bounces = YES;
 		miniCalenderTableView[i].frame = CGRectMake(i*width, naviHeight+14, width, height);
-
+		//miniCalenderTableView[i].day = i;
 		
 		dayLabel[i] = [[UILabel alloc]init];
 		NSDate* date= [NSDate dateWithTimeIntervalSinceNow: -24*60*60 * i];
