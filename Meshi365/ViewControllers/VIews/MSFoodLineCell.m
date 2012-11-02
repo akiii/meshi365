@@ -34,9 +34,9 @@
     profileImageView.contentMode = UIViewContentModeScaleToFill;
 	[self addSubview:profileImageView];
 	
-
-	UILabel *userName = [[UILabel alloc] initWithFrame:CGRectMake(x+50, y, [UIScreen mainScreen].bounds.size.width, 30)];
-	[userName setFont:[UIFont systemFontOfSize:26]];
+	int fontSize =  26;
+	UILabel *userName = [[UILabel alloc] initWithFrame:CGRectMake(x+length, y+fontSize/2, [UIScreen mainScreen].bounds.size.width, fontSize+5)];
+	[userName setFont:[UIFont systemFontOfSize:fontSize]];
 	[userName setText:_foodPicture.user.name];
 	[self addSubview:userName];
 	y+=length;
@@ -57,9 +57,10 @@
 	y+=dy;
 	
 	
-	length = [UIScreen mainScreen].bounds.size.width-20;
+	length = [UIScreen mainScreen].bounds.size.width-100;
+	int imagePosX = ([UIScreen mainScreen].bounds.size.width  - length )/2;
 	self.imageView.image = _foodImage;
-	self.imageView.frame = CGRectMake(x, y, length,length);
+	self.imageView.frame = CGRectMake(imagePosX, y, length,length);
     self.imageView.contentMode = UIViewContentModeScaleToFill;
 	y+=length+10;
 	
@@ -68,9 +69,10 @@
 	UIImageView *starImg[maxStar];
 	int starSize = 30;
 	int starNum = _foodPicture.starNum;
+	int starPosX =  ([UIScreen mainScreen].bounds.size.width- starSize*maxStar)/2;
 	for(int i = 0; i < maxStar; i++)
 	{
-		starImg[i] = [[UIImageView alloc]initWithFrame:CGRectMake(x+starSize*i, y, starSize, starSize)];
+		starImg[i] = [[UIImageView alloc]initWithFrame:CGRectMake(starPosX+i*starSize, y, starSize, starSize)];
 		if(i < starNum)starImg[i].image = [UIImage imageNamed:@"star.png"];
 		else starImg[i].image = [UIImage imageNamed:@"starNonSelect.png"];
 		
@@ -80,37 +82,50 @@
 	y+=starSize+5;
 
 	
-	if(_foodPicture.menuName)
-	{
-		UILabel *menuName = [[UILabel alloc] initWithFrame:CGRectMake(x, y, [UIScreen mainScreen].bounds.size.width, 30)];
-		[menuName setFont:[UIFont systemFontOfSize:18]];
-		[menuName setText:_foodPicture.menuName];
-		[self addSubview:menuName];
-		y+=dy;
-	}
-	
-	
 	if(_foodPicture.storeName)
 	{
 		UILabel *storeName = [[UILabel alloc] initWithFrame:CGRectMake(x, y, [UIScreen mainScreen].bounds.size.width, 30)];
 		[storeName setFont:[UIFont systemFontOfSize:18]];
-		storeName.text = _foodPicture.storeName;
+		storeName.text = [NSString stringWithFormat:@"Place:%@",_foodPicture.storeName ];
 		[self addSubview:storeName];
 		y+=dy;
 	}
+
 	
+	if(_foodPicture.menuName)
+	{
+		UILabel *menuName = [[UILabel alloc] initWithFrame:CGRectMake(x, y, [UIScreen mainScreen].bounds.size.width, 30)];
+		[menuName setFont:[UIFont systemFontOfSize:18]];
+		menuName.text = [NSString stringWithFormat:@"Menu:%@",_foodPicture.menuName ];
 
+		[self addSubview:menuName];
+		y+=dy;
+	}
+	
+	if(_foodPicture.comment)
+	{
+		UILabel *comment = [[UILabel alloc] initWithFrame:CGRectMake(x, y, [UIScreen mainScreen].bounds.size.width, 30)];
+		[comment setFont:[UIFont systemFontOfSize:18]];
+		comment.text = [NSString stringWithFormat:@"Comment:%@",_foodPicture.comment ];
+		[self addSubview:comment];
+		y+=dy;
+	}
 
+	self.height = y + 5;
+	//[self setFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.width, 0, y+5)];
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-		//noting to do
+		self.height = 800;
+		//[self setFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.width, 0, 800)];
 	}
     return self;
 }
+
+
 
 
 

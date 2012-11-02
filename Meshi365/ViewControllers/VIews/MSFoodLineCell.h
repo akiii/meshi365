@@ -20,5 +20,6 @@
 @property(nonatomic, strong) MSFoodPicture* foodPicture;
 @property(nonatomic, strong) UIImage* foodImage;
 @property(nonatomic, strong) UIImage* profileImage;
+@property(assign)int height;
 
 @end

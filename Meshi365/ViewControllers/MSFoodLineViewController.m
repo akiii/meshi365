@@ -66,7 +66,7 @@
     _tableView.delegate = self;
     [self.view addSubview:_tableView];
 	
-
+	
 	
 }
 
@@ -80,7 +80,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-
+	
 	
 	NSLog(@"your uiid:%@",[[MSUser currentUser] uiid]);
 	[MSNetworkConnector requestToUrl:URL_OF_FOOD_LINE( [[MSUser currentUser] uiid]) method:RequestMethodGet params:nil block:^(NSData *response)
@@ -92,7 +92,7 @@
 	
 	
 	[_tableView reloadData];
-
+	
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -122,7 +122,9 @@
 	MSFoodPicture *foodPicture = [[MSFoodPicture alloc]init: jsonArray[indexPath.row] ];
 	cell.indexPathRow = indexPath.row;
 	cell.foodPicture = foodPicture;
-
+	if( cell.indexPathRow == indexPath.row)[cell layoutSubviews];
+	
+	
 	//NSLog(@"......make access key %d",indexPath.row);
 	NSURL *foodImageAccessKeyUrl = [MSAWSConnector getS3UrlFromString:foodPicture.url];
 	NSURL *profileImageAccessKeyUrl = [MSAWSConnector getS3UrlFromString:foodPicture.user.profileImageUrl];
@@ -132,7 +134,6 @@
 	if([_imageCache objectForKey:foodPicture.url] )
 	{
 		cell.foodImage = [_imageCache objectForKey:foodPicture.url];
-		[cell layoutSubviews];
 	}
 	else
 	{
@@ -153,10 +154,10 @@
 				//NSLog(@"...... %@",cell.imageUrl);
 				if( cell.indexPathRow == indexPath.row)
 				{
-					//	NSLog(@"...... fuck:%d",indexPath.row);
 					cell.foodImage = [_imageCache objectForKey:foodPicture.url];
 					[cell layoutSubviews];
 				}
+				
 				//NSLog(@"...... load done:%d",indexPath.row);
 			});
 		});
@@ -168,7 +169,6 @@
 	if([_profileImageCache objectForKey:foodPicture.user.profileImageUrl])
 	{
 		cell.profileImage = [_profileImageCache objectForKey:foodPicture.user.profileImageUrl];
-		[cell layoutSubviews];
 	}
 	else{
 		cell.profileImage = [UIImage imageNamed:@"star.png"];
@@ -187,6 +187,7 @@
 					cell.profileImage = image;
 					[cell layoutSubviews];
 				}
+				
 			});
 			
 		});
@@ -199,9 +200,8 @@
 
 
 - (CGFloat)tableView:(UITableView *)tv heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	//todo セルのサイズに合わせてか可変を
-	return 450;
-	
+	MSFoodLineCell *cell = [self tableView:_tableView cellForRowAtIndexPath:indexPath];
+    return cell.height;
 }
 
 
