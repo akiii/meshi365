@@ -24,11 +24,6 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
-		_imageCache = [[NSCache alloc] init];
-		_profileImageCache = [[NSCache alloc] init];
-		//        _imageCache.countLimit = 20;
-		//        _imageCache.totalCostLimit = 640 * 480 * 10;
 		
 		
     }
@@ -39,14 +34,6 @@
 {
     [super viewDidLoad];
 	
-    /*
-	 int naviHeight = 44;
-	 UINavigationBar *naviBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, naviHeight)];
-	 naviBar.tintColor = [UIColor colorWithRed:1.0 green:0.80 blue:0.1 alpha:0.7];
-	 UINavigationItem *title = [[UINavigationItem alloc] initWithTitle:@"Food Line"];
-	 [naviBar pushNavigationItem:title animated:YES];
-	 [self.view addSubview:naviBar];
-	 */
     
 	self.navigationItem.title = @"Food Line";
     
@@ -65,10 +52,9 @@
     _tableView.dataSource = self;
     _tableView.delegate = self;
     [self.view addSubview:_tableView];
-	
-	
-	
 }
+
+
 
 
 - (void)didReceiveMemoryWarning
@@ -81,7 +67,14 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	
+	_imageCache = [[NSCache alloc] init];
+	_imageRequestCache = [[NSCache alloc] init];
+	_profileImageCache = [[NSCache alloc] init];
+	_profileImageRequestCache = [[NSCache alloc] init];
+	//        _imageCache.countLimit = 20;
+	//        _imageCache.totalCostLimit = 640 * 480 * 10;
 	
+
 	NSLog(@"your uiid:%@",[[MSUser currentUser] uiid]);
 	[MSNetworkConnector requestToUrl:URL_OF_FOOD_LINE( [[MSUser currentUser] uiid]) method:RequestMethodGet params:nil block:^(NSData *response)
 	 {
@@ -116,22 +109,16 @@
     if (cell == nil) {
 		cell =[[MSFoodLineCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
 		
+		//NSLog(@"!!Cell Created:[%d]",indexPath.row);
 	}
-	
+
 	MSFoodPicture *foodPicture = [[MSFoodPicture alloc]init: jsonArray[indexPath.row] ];
 	cell.indexPathRow = indexPath.row;
 	cell.foodPicture = foodPicture;
-	[cell layoutSubviews];
+	//[cell layoutSubviews];
+	
 
-	NSLog(@".........cell make[%d]",indexPath.row);
 	
-	
-	
-	//if( cell.indexPathRow == indexPath.row)[cell layoutSubviews];
-	
-	
-	//NSLog(@"......make access key %d",indexPath.row);
-	NSURL *foodImageAccessKeyUrl = [MSAWSConnector getS3UrlFromString:foodPicture.url];
 	NSURL *profileImageAccessKeyUrl = [MSAWSConnector getS3UrlFromString:foodPicture.user.profileImageUrl];
 	
 	
@@ -142,38 +129,36 @@
 		//	cell.foodPicture = [[MSFoodPicture alloc]init: jsonArray[cell.indexPathRow]];
 		
 	}
-	else
+	else if(![_imageRequestCache objectForKey:foodPicture.url])
 	{
 		//NSLog(@"......no ImageCache:%d",indexPath.row);
-		cell.foodImage = [UIImage imageNamed:@"star.png"];
-		[_imageCache setObject:cell.foodImage forKey:foodPicture.url];
-
-		
+		[_imageRequestCache setObject:@"lock" forKey:foodPicture.url];
 		dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
 		dispatch_queue_t q_main = dispatch_get_main_queue();
 		dispatch_async(q_global, ^{
 			NSLog(@"...... load start:%d",indexPath.row);
+			NSURL *foodImageAccessKeyUrl = [MSAWSConnector getS3UrlFromString:foodPicture.url];
 			NSData* data = [NSData dataWithContentsOfURL:foodImageAccessKeyUrl];
 			UIImage* image = [[UIImage alloc] initWithData:data];
 			
 			
 			dispatch_async(q_main, ^{
-				//NSLog(@"...... %@",imageUrl);
-				//NSLog(@"...... %@",cell.imageUrl);
-				if( cell.indexPathRow == indexPath.row)
+				if(image && cell.indexPathRow == indexPath.row)
 				{
-					[_imageCache setObject:image forKey:foodPicture.url];
-					
-					cell.foodImage = image;//[_imageCache objectForKey:foodPicture.url];
-										   //cell.foodPicture = [[MSFoodPicture alloc]init: jsonArray[cell.indexPathRow]];
-										   //[cell layoutSubviews];
-					
+					NSLog(@"FoodImg loaded:%d",cell.indexPathRow);
+				
+						[_imageCache setObject:image forKey:foodPicture.url];
+				
+					cell.foodImage = image;
+					cell.foodPicture = [[MSFoodPicture alloc]init: jsonArray[cell.indexPathRow]];
 					[_tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
 				}
-				
-				NSLog(@"...... load done:%d",indexPath.row);
 			});
 		});
+	}
+	else
+	{
+		cell.foodImage = [UIImage imageNamed:@"star.png"];
 	}
 	
 	
@@ -182,12 +167,13 @@
 	if([_profileImageCache objectForKey:foodPicture.user.profileImageUrl])
 	{
 		cell.profileImage = [_profileImageCache objectForKey:foodPicture.user.profileImageUrl];
+	
 		//cell.foodPicture = [[MSFoodPicture alloc]init: jsonArray[cell.indexPathRow]];
 		
 	}
-	else{
-		cell.profileImage = [UIImage imageNamed:@"star.png"];
-		[_imageCache setObject:cell.profileImage forKey:foodPicture.user.profileImageUrl];
+	else if(![_profileImageRequestCache objectForKey:foodPicture.user.profileImageUrl])
+	{
+		[_profileImageRequestCache setObject:@"lock" forKey:foodPicture.user.profileImageUrl];
 		
 		dispatch_queue_t q_globalProfile = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
 		dispatch_queue_t q_mainProfile = dispatch_get_main_queue();
@@ -197,11 +183,16 @@
 			
 			
 			dispatch_async(q_mainProfile, ^{
-				if( cell.indexPathRow == indexPath.row )
+				if(image && cell.indexPathRow == indexPath.row )
 				{
-					[_profileImageCache setObject:image forKey:foodPicture.user.profileImageUrl];
+					NSLog(@"ProfileImg loaded:%d",cell.indexPathRow);
+						[_profileImageCache setObject:image forKey:foodPicture.user.profileImageUrl];
 					cell.profileImage = image;
-					//cell.foodPicture = [[MSFoodPicture alloc]init: jsonArray[indexPath.row]];
+					cell.foodPicture = [[MSFoodPicture alloc]init: jsonArray[indexPath.row]];
+					
+					
+					
+					//	[cell layoutSubviews];
 
 					[_tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
 
@@ -211,6 +202,12 @@
 			
 		});
 	}
+	else{
+		cell.profileImage = [UIImage imageNamed:@"star.png"];
+	}
+	
+	
+	[cell layoutSubviews];
 	
 	
 	return cell;

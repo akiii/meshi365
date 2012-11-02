@@ -31,7 +31,7 @@ static MSUser *currentUser = nil;
 		self.uiid	= [user objectForKey:@"uiid"];
 		self.profileImageUrl = [user objectForKey:@"profile_image_url"];
 		
-		NSLog(@"userName:%@",self.name);
+		//NSLog(@"userName:%@",self.name);
 		
 	}
 	return self;
