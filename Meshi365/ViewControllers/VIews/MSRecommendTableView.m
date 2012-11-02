@@ -63,7 +63,7 @@
 	}
 	
 	
-	[cell updateJsonData:[MSAWSConnector foodPictureImageUrlFromJsonArray:_jsonArray imageNum:indexPath.row] jsonData:_jsonArray[indexPath.row]];
+	//[cell updateJsonData:[MSAWSConnector foodPictureImageUrlFromJsonArray:_jsonArray imageNum:indexPath.row] jsonData:_jsonArray[indexPath.row]];
 	
 	
     return cell;

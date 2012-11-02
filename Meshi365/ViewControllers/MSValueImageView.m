@@ -62,7 +62,6 @@
         [view addSubview:lbl1];
         mealNameTextField = [[UITextField alloc] initWithFrame:CGRectMake(left_line-20, 310, 200, 28)];
         mealNameTextField.borderStyle = UITextBorderStyleRoundedRect;
-        [mealNameTextField addTarget:self action:@selector(mealNameSave:) forControlEvents:UIControlEventEditingDidEndOnExit];
         [view addSubview:mealNameTextField];
         
         
@@ -107,25 +106,31 @@
             
             NSXMLParser *parser = [[NSXMLParser alloc] initWithData:[[self getDataFrom:[NSString stringWithFormat:@"http://api.openstreetmap.org/api/0.6/map?bbox=%f,%f,%f,%f",longitude-SEARCH_DISTANCE,latitude-SEARCH_DISTANCE,longitude+SEARCH_DISTANCE,latitude+SEARCH_DISTANCE]] dataUsingEncoding:NSUTF8StringEncoding]];
             [nameArray removeAllObjects];
-            [nameArray addObject:@"Other"];
+            
             [nameArray addObject:@"Home"];
             parser.delegate = self;
             [parser parse];
+            [nameArray addObject:@"Other"];
             
             [locationManager stopUpdatingLocation];
             dispatch_async(q_main, ^{[table reloadData];});
         });
         
         //Add Social Button
+        UILabel *lbl3 = [[UILabel alloc]initWithFrame:CGRectMake(left_line-20, 670, 200, 30)];
+        lbl3.backgroundColor = [UIColor clearColor];
+        lbl3.text = @"Simultaniously Post:";
+        [view addSubview:lbl3];
+        
         twitterBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        twitterBtn.frame = CGRectMake(left_line-25, 690, 120, 30);
+        twitterBtn.frame = CGRectMake(left_line-25, 700, 120, 30);
         self.flag_twitter = false;
         [twitterBtn setBackgroundImage:[UIImage imageNamed:@"Icon_Twitter_dark.png"] forState:UIControlStateNormal];
         [twitterBtn addTarget:self action:@selector(twitter:) forControlEvents:UIControlEventTouchDown];
         [view addSubview:twitterBtn];
         
         facebookBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        facebookBtn.frame = CGRectMake(left_line+105, 690, 120, 30);
+        facebookBtn.frame = CGRectMake(left_line+105, 700, 120, 30);
         self.flag_facebook = false;
         [facebookBtn setBackgroundImage:[UIImage imageNamed:@"Icon_Facebook_dark.png"] forState:UIControlStateNormal];
         [facebookBtn addTarget:self action:@selector(facebook:) forControlEvents:UIControlEventTouchDown];
@@ -133,7 +138,7 @@
         
         //キャンセルボタン設定
         UIButton *cancel_button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        cancel_button.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2-85, 740, 80, 30);
+        cancel_button.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2-85, 750, 80, 30);
         [cancel_button setTitle:@"Cancel" forState:UIControlStateNormal];
         [cancel_button addTarget:self.delegate action:@selector(cancel_image:)
                 forControlEvents:UIControlEventTouchUpInside];
@@ -141,7 +146,7 @@
         
         //保存ボタン設定
         UIButton *save_button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        save_button.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2+5, 740, 80, 30);
+        save_button.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2+5, 750, 80, 30);
         [save_button setTitle:@"Save" forState:UIControlStateNormal];
         [save_button addTarget:self.delegate action:@selector(save_image:)
               forControlEvents:UIControlEventTouchUpInside];
@@ -190,13 +195,6 @@
         [mealNameTextField resignFirstResponder];
 }
 
--(void) mealNameSave:(id)sender{
-    self.meal_name = mealNameTextField.text;
-}
--(BOOL)textViewShouldEndEditing:(UITextView*)textView{
-    self.comment_text = comment.text;
-    return TRUE;
-}
 
 -(void)twitter:(id)sender{
     if(self.flag_twitter){
@@ -214,9 +212,18 @@
         [facebookBtn setBackgroundImage:[UIImage imageNamed:@"Icon_Facebook_dark.png"] forState:UIControlStateNormal];
     }else{
         self.flag_facebook = true;
-        [facebookBtn setBackgroundImage:[UIImage imageNamed:@"Icon_Facebook.png"] forState:UIControlStateNormal];
+        [facebookBtn setBackgroundImage:[UIImage imageNamed:@"Icon_FaceBook.png"] forState:UIControlStateNormal];
     }
 }
+
+-(void)dataPreservation{
+    self.squareFoodPictureImage.foodPicture.storeName = self.place_name;
+    self.squareFoodPictureImage.foodPicture.menuName = mealNameTextField.text;
+    self.squareFoodPictureImage.foodPicture.amenity = self.place_amenity;
+    self.squareFoodPictureImage.foodPicture.comment= comment.text;
+    self.squareFoodPictureImage.foodPicture.starNum= self.cnt_stars;
+}
+
 #pragma mark Restaurant List Table View
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -240,17 +247,12 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     //[tableView deselectRowAtIndexPath:indexPath animated:YES];
-    self.place_name = [nameArray objectAtIndex:indexPath.row];
-    switch (indexPath.row){
-        case 0:
-            self.place_name = nil;
-            break;
-        case 1:
-            self.place_amenity = @"self_catering";
-            break;
-        default:
-            self.place_amenity = [amenityArray objectAtIndex:indexPath.row-1];
-            break;
+    if(indexPath.row==0){
+        self.place_amenity = @"self_catering";
+    }else if(indexPath.row<=[amenityArray count]){
+        self.place_amenity = [amenityArray objectAtIndex:indexPath.row-1];
+    }else{
+        self.place_name = nil;
     }
 }
 

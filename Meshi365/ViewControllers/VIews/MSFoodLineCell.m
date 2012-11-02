@@ -7,10 +7,8 @@
 //
 
 #import "MSFoodLineCell.h"
-#import "MSFoodPicture.h"
 
 @interface MSFoodLineCell()
-@property(nonatomic, strong) MSFoodPicture* foodPicture;
 
 
 
@@ -28,7 +26,21 @@
 	int y = 10;
 	int dy=30;
 	
-	//self.textLabel.text = @"Break Fast";
+
+	int length = 50;
+	UIImageView* profileImageView = [[UIImageView alloc]init];
+	profileImageView.image = _profileImage;
+	profileImageView.frame = CGRectMake(x, y, length,length);
+    profileImageView.contentMode = UIViewContentModeScaleToFill;
+	[self addSubview:profileImageView];
+	
+	int fontSize =  26;
+	UILabel *userName = [[UILabel alloc] initWithFrame:CGRectMake(x+length, y+fontSize/2, [UIScreen mainScreen].bounds.size.width, fontSize+5)];
+	[userName setFont:[UIFont systemFontOfSize:fontSize]];
+	[userName setText:_foodPicture.user.name];
+	[self addSubview:userName];
+	y+=length;
+
 	
 	switch (_foodPicture.mealType) {
 		case 0:self.textLabel.text = @"Breakfast";break;
@@ -39,94 +51,81 @@
 	self.textLabel.frame =  CGRectMake(x, y, [UIScreen mainScreen].bounds.size.width,30);
 
 	
-	//self.detailTextLabel.text = @"hh:mm dd/MM/yy";
-	//self.detailTextLabel.text = [[_jsonData objectForKey:@"created_at"] stringValue];
-	
-	//__NSCFString
-	//NSLog(@" class is %@",[[_jsonData objectForKey:@"created_at"] class]);
-	
-	//self.detailTextLabel.text = [NSString stringWithFormat:@"%@",[_jsonData objectForKey:@"created_at"]];
 	self.detailTextLabel.text = _foodPicture.createdAt;
 	self.detailTextLabel.textAlignment =  NSTextAlignmentLeft;
 	self.detailTextLabel.frame =  CGRectMake(x+100, y, [UIScreen mainScreen].bounds.size.width,30);
 	y+=dy;
 	
 	
-	int length = [UIScreen mainScreen].bounds.size.width-20;
-	self.imageView.frame = CGRectMake(x, y, length,length);
+	length = [UIScreen mainScreen].bounds.size.width-100;
+	int imagePosX = ([UIScreen mainScreen].bounds.size.width  - length )/2;
+	self.imageView.image = _foodImage;
+	self.imageView.frame = CGRectMake(imagePosX, y, length,length);
     self.imageView.contentMode = UIViewContentModeScaleToFill;
 	y+=length+10;
-	
-	
-	UILabel *menuName = [[UILabel alloc] initWithFrame:CGRectMake(x, y, [UIScreen mainScreen].bounds.size.width, 30)];
-	[menuName setFont:[UIFont systemFontOfSize:18]];
-	//menuName.text = @"Rice";
-	//menuName.text =[[_jsonData objectForKey:@"menu_num"] stringValue];
-	//menuName.text = _foodPicture.menuName;
-	[menuName setText:_foodPicture.menuName];
-	[self addSubview:menuName];
-	y+=dy;
-
-
-	UILabel *storeName = [[UILabel alloc] initWithFrame:CGRectMake(x, y, [UIScreen mainScreen].bounds.size.width, 30)];
-	[storeName setFont:[UIFont systemFontOfSize:18]];
-	//storeName.text = @"Starbucks";
-	//storeName.text =[[_jsonData objectForKey:@"store_num"] stringValue];
-	storeName.text = _foodPicture.storeName;
-	[self addSubview:storeName];
-	y+=dy;
 	
 	
 	int maxStar =5;
 	UIImageView *starImg[maxStar];
 	int starSize = 30;
-	//int starNum =  [[_jsonData objectForKey:@"star_num"] intValue];
 	int starNum = _foodPicture.starNum;
+	int starPosX =  ([UIScreen mainScreen].bounds.size.width- starSize*maxStar)/2;
 	for(int i = 0; i < maxStar; i++)
 	{
-		starImg[i] = [[UIImageView alloc]initWithFrame:CGRectMake(x+starSize*i, y, starSize, starSize)];
+		starImg[i] = [[UIImageView alloc]initWithFrame:CGRectMake(starPosX+i*starSize, y, starSize, starSize)];
 		if(i < starNum)starImg[i].image = [UIImage imageNamed:@"star.png"];
 		else starImg[i].image = [UIImage imageNamed:@"starNonSelect.png"];
 		
 		starImg[i].contentMode = UIViewContentModeScaleAspectFit;
 		[self addSubview:starImg[i]];
 	}
+	y+=starSize+5;
+
 	
+	if(_foodPicture.storeName)
+	{
+		UILabel *storeName = [[UILabel alloc] initWithFrame:CGRectMake(x, y, [UIScreen mainScreen].bounds.size.width, 30)];
+		[storeName setFont:[UIFont systemFontOfSize:18]];
+		storeName.text = [NSString stringWithFormat:@"Place:%@",_foodPicture.storeName ];
+		[self addSubview:storeName];
+		y+=dy;
+	}
 
+	
+	if(_foodPicture.menuName)
+	{
+		UILabel *menuName = [[UILabel alloc] initWithFrame:CGRectMake(x, y, [UIScreen mainScreen].bounds.size.width, 30)];
+		[menuName setFont:[UIFont systemFontOfSize:18]];
+		menuName.text = [NSString stringWithFormat:@"Menu:%@",_foodPicture.menuName ];
 
+		[self addSubview:menuName];
+		y+=dy;
+	}
+	
+	if(_foodPicture.comment)
+	{
+		UILabel *comment = [[UILabel alloc] initWithFrame:CGRectMake(x, y, [UIScreen mainScreen].bounds.size.width, 30)];
+		[comment setFont:[UIFont systemFontOfSize:18]];
+		comment.text = [NSString stringWithFormat:@"Comment:%@",_foodPicture.comment ];
+		[self addSubview:comment];
+		y+=dy;
+	}
+
+	self.height = y + 5;
+	//[self setFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.width, 0, y+5)];
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-		//noting to do
+		self.height = 800;
+		//[self setFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.width, 0, 800)];
 	}
     return self;
 }
 
 
-- (void)updateJsonData:(MSFoodPicture*)foodPict image:(UIImage*)image
-{
-	_foodPicture = foodPict;
-	self.imageView.image = image;
-}
-
-//- (void)loadImage:(NSCache*)imageCache imageCacheKey:(NSString*)imageCacheKey
-//{
-//	NSLog(@"Load FoodLine image");
-//	//set indicator
-//	UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 32.0f, 32.0f)];
-//	indicator.color = [UIColor colorWithRed:0.4 green:0.0 blue:0.1 alpha:1.0];
-//	[indicator setCenter:CGPointMake(self.frame.size.width/2.0f, 180.0f)];
-//	[self addSubview: indicator];
-//	[indicator startAnimating];
-//	
-//	
-//	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-//	
-//	
-//}
 
 
 

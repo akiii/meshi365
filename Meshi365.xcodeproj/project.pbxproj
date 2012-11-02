@@ -13,6 +13,11 @@
 		2757A2B61641796600975AC8 /* MSFriendListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2757A2B51641796600975AC8 /* MSFriendListViewController.m */; };
 		2757A2B916417C1B00975AC8 /* MSFriendFoodLineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2757A2B816417C1B00975AC8 /* MSFriendFoodLineViewController.m */; };
 		2757A2C41641963900975AC8 /* MSSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2757A2C31641963900975AC8 /* MSSignUpViewController.m */; };
+		27684C411643880D0006540B /* tabicon_today.png in Resources */ = {isa = PBXBuildFile; fileRef = 27684C401643880D0006540B /* tabicon_today.png */; };
+		27684C4716438A0A0006540B /* tabicon_account.png in Resources */ = {isa = PBXBuildFile; fileRef = 27684C4316438A0A0006540B /* tabicon_account.png */; };
+		27684C4816438A0A0006540B /* tabicon_foodline.png in Resources */ = {isa = PBXBuildFile; fileRef = 27684C4416438A0A0006540B /* tabicon_foodline.png */; };
+		27684C4916438A0A0006540B /* tabicon_minical.png in Resources */ = {isa = PBXBuildFile; fileRef = 27684C4516438A0A0006540B /* tabicon_minical.png */; };
+		27684C4A16438A0A0006540B /* tabicon_recommend.png in Resources */ = {isa = PBXBuildFile; fileRef = 27684C4616438A0A0006540B /* tabicon_recommend.png */; };
 		279DA49E163F689D00AF6E26 /* MSValueImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 279DA49D163F689D00AF6E26 /* MSValueImageView.m */; };
 		279FB497163FAAFA0057D896 /* no_image_breakfast.png in Resources */ = {isa = PBXBuildFile; fileRef = 279FB491163FAAFA0057D896 /* no_image_breakfast.png */; };
 		279FB498163FAAFA0057D896 /* no_image_breakfast@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 279FB492163FAAFA0057D896 /* no_image_breakfast@2x.png */; };
@@ -25,6 +30,9 @@
 		27EA729B16431ED2007CD1AC /* Icon_Facebook_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 27EA729816431ED2007CD1AC /* Icon_Facebook_dark.png */; };
 		27EA729C16431ED2007CD1AC /* Icon_Facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 27EA729916431ED2007CD1AC /* Icon_Facebook.png */; };
 		27EA729D16431ED2007CD1AC /* Icon_Twitter_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 27EA729A16431ED2007CD1AC /* Icon_Twitter_dark.png */; };
+		27EA72B516434DAE007CD1AC /* breakfastMealFrame.png in Resources */ = {isa = PBXBuildFile; fileRef = 27EA72AF16434DAE007CD1AC /* breakfastMealFrame.png */; };
+		27EA72B716434DAE007CD1AC /* lunchMealFrame.png in Resources */ = {isa = PBXBuildFile; fileRef = 27EA72B116434DAE007CD1AC /* lunchMealFrame.png */; };
+		27EA72B916434DAE007CD1AC /* supperMealFrame.png in Resources */ = {isa = PBXBuildFile; fileRef = 27EA72B316434DAE007CD1AC /* supperMealFrame.png */; };
 		8C0CC86516408F6B008B830B /* MSRecommendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C0CC86416408F6B008B830B /* MSRecommendCell.m */; };
 		8C1699F0163F937100194888 /* MSMiniCalenderScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C1699EF163F937100194888 /* MSMiniCalenderScrollView.m */; };
 		8C180947163F29C9003400EB /* starNonSelect.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C180946163F29C9003400EB /* starNonSelect.png */; };
@@ -92,6 +100,11 @@
 		2757A2B816417C1B00975AC8 /* MSFriendFoodLineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSFriendFoodLineViewController.m; sourceTree = "<group>"; };
 		2757A2C21641963900975AC8 /* MSSignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSSignUpViewController.h; sourceTree = "<group>"; };
 		2757A2C31641963900975AC8 /* MSSignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSSignUpViewController.m; sourceTree = "<group>"; };
+		27684C401643880D0006540B /* tabicon_today.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabicon_today.png; sourceTree = "<group>"; };
+		27684C4316438A0A0006540B /* tabicon_account.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabicon_account.png; sourceTree = "<group>"; };
+		27684C4416438A0A0006540B /* tabicon_foodline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabicon_foodline.png; sourceTree = "<group>"; };
+		27684C4516438A0A0006540B /* tabicon_minical.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabicon_minical.png; sourceTree = "<group>"; };
+		27684C4616438A0A0006540B /* tabicon_recommend.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabicon_recommend.png; sourceTree = "<group>"; };
 		279DA49C163F689D00AF6E26 /* MSValueImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSValueImageView.h; sourceTree = "<group>"; };
 		279DA49D163F689D00AF6E26 /* MSValueImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSValueImageView.m; sourceTree = "<group>"; };
 		279FB491163FAAFA0057D896 /* no_image_breakfast.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = no_image_breakfast.png; sourceTree = "<group>"; };
@@ -105,6 +118,9 @@
 		27EA729816431ED2007CD1AC /* Icon_Facebook_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_Facebook_dark.png; sourceTree = "<group>"; };
 		27EA729916431ED2007CD1AC /* Icon_Facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_Facebook.png; sourceTree = "<group>"; };
 		27EA729A16431ED2007CD1AC /* Icon_Twitter_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_Twitter_dark.png; sourceTree = "<group>"; };
+		27EA72AF16434DAE007CD1AC /* breakfastMealFrame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = breakfastMealFrame.png; sourceTree = "<group>"; };
+		27EA72B116434DAE007CD1AC /* lunchMealFrame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lunchMealFrame.png; sourceTree = "<group>"; };
+		27EA72B316434DAE007CD1AC /* supperMealFrame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = supperMealFrame.png; sourceTree = "<group>"; };
 		8C0CC86316408F6B008B830B /* MSRecommendCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSRecommendCell.h; sourceTree = "<group>"; };
 		8C0CC86416408F6B008B830B /* MSRecommendCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSRecommendCell.m; sourceTree = "<group>"; };
 		8C1699EE163F937100194888 /* MSMiniCalenderScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMiniCalenderScrollView.h; sourceTree = "<group>"; };
@@ -208,6 +224,14 @@
 		B80524A2163EEB59005B74F8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				27684C4316438A0A0006540B /* tabicon_account.png */,
+				27684C4416438A0A0006540B /* tabicon_foodline.png */,
+				27684C4516438A0A0006540B /* tabicon_minical.png */,
+				27684C4616438A0A0006540B /* tabicon_recommend.png */,
+				27684C401643880D0006540B /* tabicon_today.png */,
+				27EA72AF16434DAE007CD1AC /* breakfastMealFrame.png */,
+				27EA72B116434DAE007CD1AC /* lunchMealFrame.png */,
+				27EA72B316434DAE007CD1AC /* supperMealFrame.png */,
 				27EA729816431ED2007CD1AC /* Icon_Facebook_dark.png */,
 				27EA729916431ED2007CD1AC /* Icon_Facebook.png */,
 				27EA729A16431ED2007CD1AC /* Icon_Twitter_dark.png */,
@@ -474,6 +498,14 @@
 				27EA729B16431ED2007CD1AC /* Icon_Facebook_dark.png in Resources */,
 				27EA729C16431ED2007CD1AC /* Icon_Facebook.png in Resources */,
 				27EA729D16431ED2007CD1AC /* Icon_Twitter_dark.png in Resources */,
+				27EA72B516434DAE007CD1AC /* breakfastMealFrame.png in Resources */,
+				27EA72B716434DAE007CD1AC /* lunchMealFrame.png in Resources */,
+				27EA72B916434DAE007CD1AC /* supperMealFrame.png in Resources */,
+				27684C411643880D0006540B /* tabicon_today.png in Resources */,
+				27684C4716438A0A0006540B /* tabicon_account.png in Resources */,
+				27684C4816438A0A0006540B /* tabicon_foodline.png in Resources */,
+				27684C4916438A0A0006540B /* tabicon_minical.png in Resources */,
+				27684C4A16438A0A0006540B /* tabicon_recommend.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

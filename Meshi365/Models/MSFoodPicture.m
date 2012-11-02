@@ -28,22 +28,22 @@
 - (id)init:(NSDictionary*)json
 {
 	if (self = [super init]) {
+		NSString *strNull = @"(null)";
+		
 		self.createdAt	= [json objectForKey:@"created_at"];
 		self.uiid		= [json objectForKey:@"uiid"];
 		self.mealType	= [[json objectForKey:@"meal_type"] integerValue];
 		self.url		= [json objectForKey:@"url"];
-		
 		self.storeName	= [json objectForKey:@"store_name"];
-		NSLog(@".......store name %@",self.storeName);
-		if(self.storeName != nil)self.storeName = @"<no name>";
-		
 		self.menuName	= [json objectForKey:@"menu_name"];
-		if(self.menuName != nil)self.menuName = @"<no name>";
-		
 		self.comment	= [json objectForKey:@"comment"];
-		if(self.comment != nil)self.storeName = @"<no name>";
-		
 		self.starNum	= [[json objectForKey:@"star_num"] integerValue];
+		self.user = [[MSUser alloc] initWithJson:json];
+		
+		if([self.storeName isEqualToString:strNull])self.storeName = nil;
+		if([self.menuName isEqualToString:strNull])self.menuName = nil;
+		if([self.comment isEqualToString:strNull])self.comment = nil;
+
 	}
 	return self;
 }

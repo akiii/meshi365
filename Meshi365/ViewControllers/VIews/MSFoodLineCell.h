@@ -13,11 +13,13 @@
 @interface MSFoodLineCell : UITableViewCell
 
 
-- (void)updateJsonData:(MSFoodPicture*)foodPict image:(UIImage*)image;
 
 
 @property(nonatomic,strong) NSString* imageCacheKey;
-@property(nonatomic, strong) NSString* imageUrl;
-
+@property(assign) int indexPathRow;
+@property(nonatomic, strong) MSFoodPicture* foodPicture;
+@property(nonatomic, strong) UIImage* foodImage;
+@property(nonatomic, strong) UIImage* profileImage;
+@property(assign)int height;
 
 @end

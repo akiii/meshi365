@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MSUser.h"
 
 @interface MSFoodPicture : NSObject
 @property (nonatomic, strong) NSString *createdAt;
@@ -19,7 +20,7 @@
 @property (nonatomic, strong) NSString *comment;
 @property (assign) int starNum;
 @property (readonly) NSString *params;
-
+@property(nonatomic,strong) MSUser* user;
 - (id)init:(NSDictionary*)json;
 
 @end

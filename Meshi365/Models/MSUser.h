@@ -15,5 +15,7 @@
 @property (nonatomic, strong) NSString *profileImageUrl;
 @property (readonly) NSString *params;
 + (MSUser *)currentUser;
+- (id)initWithJson:(NSDictionary*)json;
 - (BOOL)signuped;
+-(void)sendUserData;
 @end
