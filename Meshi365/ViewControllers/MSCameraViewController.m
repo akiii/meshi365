@@ -24,8 +24,13 @@
                                     image.size.height,
                                     image.size.height);
     
-    self.camera_image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect([image CGImage], image_rect)];
+    UIImage *resizedImage = [UIImage imageWithCGImage:CGImageCreateWithImageInRect([image CGImage], image_rect)];
 
+    UIGraphicsBeginImageContext(CGSizeMake(640, 640));
+    [resizedImage drawInRect:CGRectMake(0, 0, 640, 640)];
+    self.camera_image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
     [self dismissModalViewControllerAnimated:NO];
 }
 
