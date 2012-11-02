@@ -195,7 +195,6 @@
         [mealNameTextField resignFirstResponder];
 }
 
-
 -(void)twitter:(id)sender{
     if(self.flag_twitter){
         self.flag_twitter = false;
@@ -273,13 +272,16 @@ attributes:(NSDictionary *)attributeDict {
     if(node_flag==1&&[elementName isEqualToString:@"tag"]){
         if([[attributeDict valueForKey:@"k"] isEqualToString:@"amenity"]){
             name_amenity = [attributeDict valueForKey:@"v"];
-            if([name_amenity isEqualToString:@"cafe"]||[name_amenity isEqualToString:@"restaurant"]||[name_amenity isEqualToString:@"fast_food"])
-            amenity_flag = 1;
-            
+            if([name_amenity isEqualToString:@"cafe"])
+                amenity_flag = 1;
+            if([name_amenity isEqualToString:@"restaurant"])
+                amenity_flag = 2;
+            if([name_amenity isEqualToString:@"fast_food"])
+                amenity_flag = 3;
         }
-        if(amenity_flag==1&&[[attributeDict valueForKey:@"k"] isEqualToString:@"name"]){
+        if(amenity_flag>0&&[[attributeDict valueForKey:@"k"] isEqualToString:@"name"]){
             [nameArray addObject:[attributeDict valueForKey:@"v"]];
-            [amenityArray addObject:name_amenity];
+            [amenityArray addObject:[NSString stringWithFormat:@"%d",amenity_flag]];
             [locationArray addObject:node_latitude];
             [locationArray addObject:node_longitude];
         }
@@ -297,12 +299,10 @@ attributes:(NSDictionary *)attributeDict {
 }
 
 - (void)parser:(NSXMLParser *)parser
-foundCharacters:(NSString *)string {
-}
+foundCharacters:(NSString *)string {}
 
 - (void)parser:(NSXMLParser *)parser
-parseErrorOccurred:(NSError *)parseError {
-}
+parseErrorOccurred:(NSError *)parseError {}
 
 #pragma mark Location
 - (void)locationManager:(CLLocationManager *)manager
