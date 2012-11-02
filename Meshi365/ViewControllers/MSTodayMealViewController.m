@@ -232,19 +232,39 @@ clickedButtonAtIndex:(NSInteger)buttonIndex {
     CGRect image_rect = CGRectMake(0, (msValueImageView.squareFoodPictureImage.size.height-no_image_size.height)/2,
                                    msValueImageView.squareFoodPictureImage.size.width,
                                    msValueImageView.squareFoodPictureImage.size.height*no_image_size.height/no_image_size.width);
+    UIImage *image,*frame;
     if([msCamera.state isEqualToString:@"breakfast"]){
-        breakfastImageView.image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect
+        image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect
                                     ([msValueImageView.squareFoodPictureImage CGImage], image_rect)];
+        frame = [UIImage imageNamed:@"breakfastMealFrame.png"];
+        UIGraphicsBeginImageContext(CGSizeMake(no_image_size.width, no_image_size.height));
+        [image drawInRect:CGRectMake(0, 0,no_image_size.width, no_image_size.height)];
+        [frame drawAtPoint:CGPointMake(0, 0)];
+        breakfastImageView.image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+
         breakfastImageView.userInteractionEnabled = NO;
     }
     if([msCamera.state isEqualToString:@"lunch"]){
-        lunchImageView.image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect
+        image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect
                                     ([msValueImageView.squareFoodPictureImage CGImage], image_rect)];
+        frame = [UIImage imageNamed:@"lunchMealFrame.png"];
+        UIGraphicsBeginImageContext(CGSizeMake(no_image_size.width, no_image_size.height));
+        [image drawInRect:CGRectMake(0, 0,no_image_size.width, no_image_size.height)];
+        [frame drawAtPoint:CGPointMake(0, 0)];
+        lunchImageView.image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
         lunchImageView.userInteractionEnabled = NO;
     }
     if([msCamera.state isEqualToString:@"supper"]){
-        supperImageView.image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect
-                                    ([msValueImageView.squareFoodPictureImage CGImage], image_rect)];
+        image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect
+                 ([msValueImageView.squareFoodPictureImage CGImage], image_rect)];
+        frame = [UIImage imageNamed:@"supperMealFrame.png"];
+        UIGraphicsBeginImageContext(CGSizeMake(no_image_size.width, no_image_size.height));
+        [image drawInRect:CGRectMake(0, 0,no_image_size.width, no_image_size.height)];
+        [frame drawAtPoint:CGPointMake(0, 0)];
+        supperImageView.image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
         supperImageView.userInteractionEnabled = NO;
     }
     
