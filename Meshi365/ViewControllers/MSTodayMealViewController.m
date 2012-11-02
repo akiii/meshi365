@@ -63,37 +63,29 @@
     [self.view addSubview:naviBar];
     
     //Making views in Today Meal
-    breakfastImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_image_breakfast.png"]];
-    lunchImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_image_lunch.png"]];
-    supperImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_image_supper.png"]];
+    mealImageView[0] = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_image_breakfast.png"]];
+    mealImageView[1] = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_image_lunch.png"]];
+    mealImageView[2] = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_image_supper.png"]];
+    //タップされた時に実行される関数を指定
+     [mealImageView[0] addGestureRecognizer:[[UITapGestureRecognizer alloc]
+                                               initWithTarget:self
+                                               action:@selector(breakfastCameraAction)]];
+     [mealImageView[1] addGestureRecognizer:[[UITapGestureRecognizer alloc]
+                                           initWithTarget:self
+                                           action:@selector(lunchCameraAction)]];
+     [mealImageView[3] addGestureRecognizer:[[UITapGestureRecognizer alloc]
+                                            initWithTarget:self
+                                            action:@selector(supperCameraAction)]];
     
     //Image View をタップで反応できるようにする設定
-    breakfastImageView.userInteractionEnabled = YES;
-    lunchImageView.userInteractionEnabled = YES;
-    supperImageView.userInteractionEnabled = YES;
-    
-    //タップされた時に実行される関数を指定
-    [breakfastImageView addGestureRecognizer:[[UITapGestureRecognizer alloc]
-                                              initWithTarget:self
-                                              action:@selector(breakfastCameraAction)]];
-    [lunchImageView addGestureRecognizer:[[UITapGestureRecognizer alloc]
-                                          initWithTarget:self
-                                          action:@selector(lunchCameraAction)]];
-    [supperImageView addGestureRecognizer:[[UITapGestureRecognizer alloc]
-                                           initWithTarget:self
-                                           action:@selector(supperCameraAction)]];
-    
-    //画像の大きさを設定
-    breakfastImageView.frame = CGRectMake(20,50,no_image_size.width ,no_image_size.height);
-    lunchImageView.frame = CGRectMake(20,135,no_image_size.width ,no_image_size.height);
-    supperImageView.frame = CGRectMake(20,220,no_image_size.width ,no_image_size.height);
-    
-    breakfastImageView.contentMode = UIViewContentModeScaleAspectFit;
+    for(int i=0;i<3;i++){
+        mealImageView[i].userInteractionEnabled = YES;
+        //画像の大きさを設定
+        mealImageView[i].frame = CGRectMake(20,50+85*i,no_image_size.width ,no_image_size.height);
+        [self.view addSubview:mealImageView[i]];
+    }
     
     //画像の表示
-    [self.view addSubview:breakfastImageView];
-    [self.view addSubview:lunchImageView];
-    [self.view addSubview:supperImageView];
     
     cntOtherImage = 1;
     
@@ -117,7 +109,6 @@
     otherImageView.frame = CGRectMake(25+i*65,330,60,60);
     [self.view addSubview:otherImageView];
     
-    
     [self.view addSubview:othersLabel];
 }
 
@@ -139,8 +130,8 @@
         NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
         for (int i=0; i<[jsonArray count]; i++) {
             MSFoodPicture *foodPicture = [[MSFoodPicture alloc] init:jsonArray[i]];
-            if (breakfastImageView.userInteractionEnabled==YES&&foodPicture.mealType==0) {
-                breakfastImageView.userInteractionEnabled=NO;
+            if (mealImageView[0].userInteractionEnabled==YES&&foodPicture.mealType==0) {
+                mealImageView[0].userInteractionEnabled=NO;
                 
                 dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
                 dispatch_queue_t q_main = dispatch_get_main_queue();
@@ -299,22 +290,9 @@ clickedButtonAtIndex:(NSInteger)buttonIndex {
     [image0 drawInRect:CGRectMake(0, 0, no_image_size.width, no_image_size.height)];
     [frame drawInRect:CGRectMake(0, 0, no_image_size.width, no_image_size.height)];
     
-    switch (type) {
-        case 0:
-            breakfastImageView.image = UIGraphicsGetImageFromCurrentImageContext();
-            breakfastImageView.userInteractionEnabled = NO;
-            break;
-        case 1:
-            lunchImageView.image = UIGraphicsGetImageFromCurrentImageContext();
-            lunchImageView.userInteractionEnabled = NO;
-            break;
-        case 2:
-            supperImageView.image = UIGraphicsGetImageFromCurrentImageContext();
-            supperImageView.userInteractionEnabled = NO;
-            break;
-    }
+    mealImageView[type].image = UIGraphicsGetImageFromCurrentImageContext();
+    mealImageView[type].userInteractionEnabled = NO;
     UIGraphicsEndImageContext();
-    
 }
 
 @end
