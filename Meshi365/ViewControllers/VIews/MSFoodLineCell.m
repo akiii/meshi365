@@ -13,6 +13,7 @@
 
 @property(nonatomic,strong)UILabel *comment;
 @property(nonatomic,strong)UIImageView* profileImageView;
+@property(nonatomic,strong)UIImageView* foodImageView;
 @property(nonatomic,strong)UILabel *userName;
 @property(nonatomic,strong)UILabel *storeName;
 @property(nonatomic,strong)UILabel *menuName;
@@ -159,11 +160,16 @@
 
 	
 	
-	self.imageView.image = _foodImage;
+	//self.imageView.image = _foodImage;
 	length = [UIScreen mainScreen].bounds.size.width-100;
 	int imagePosX = ([UIScreen mainScreen].bounds.size.width  - length )/2;
-	self.imageView.frame = CGRectMake(imagePosX, y, length,length);
-	self.imageView.contentMode = UIViewContentModeScaleToFill;
+//	self.imageView.frame = CGRectMake(imagePosX, y, length,length);
+//	self.imageView.contentMode = UIViewContentModeScaleToFill;
+	
+	
+	_foodImageView.image = _foodImage;
+	_foodImageView.frame = CGRectMake(imagePosX, y, length,length);
+
 	y+=length+10;
 
 	
@@ -215,7 +221,14 @@
 
 	}
 	else _comment.text = @"";
+
 	
+	[self addSubview:_profileImageView];
+	[self addSubview:_foodImageView];
+	[self addSubview:_userName];
+	[self addSubview:_comment];
+	[self addSubview:_menuName];
+	[self addSubview:_storeName];
 	
 	self.height = y;
 }
@@ -240,17 +253,22 @@
 
 		_profileImageView = [[UIImageView alloc]init];
 		_profileImageView.contentMode = UIViewContentModeScaleToFill;
+	
+		_foodImageView = [[UIImageView alloc]init];
+		_foodImageView.contentMode = UIViewContentModeScaleToFill;
 		_storeName = [[UILabel alloc] init];
 		_menuName = [[UILabel alloc] init];
 		_comment = [[UILabel alloc] init];
 		_userName = [[UILabel alloc] init];
 
 		
-		[self addSubview:_profileImageView];
-		[self addSubview:_userName];
-		[self addSubview:_comment];
-		[self addSubview:_menuName];
-		[self addSubview:_storeName];
+//		[self addSubview:_profileImageView];
+//		[self addSubview:_foodImageView];
+//
+//		[self addSubview:_userName];
+//		[self addSubview:_comment];
+//		[self addSubview:_menuName];
+//		[self addSubview:_storeName];
 		
 
 	

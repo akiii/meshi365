@@ -110,12 +110,13 @@
 - (UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	
+
     static NSString *CellIdentifier = @"Cell";	
     MSFoodLineCell *cell =[_tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
 		cell =[[MSFoodLineCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
+		
 	}
-	
 	
 	MSFoodPicture *foodPicture = [[MSFoodPicture alloc]init: jsonArray[indexPath.row] ];
 	cell.indexPathRow = indexPath.row;
@@ -130,8 +131,8 @@
 	
 	
 	//NSLog(@"......make access key %d",indexPath.row);
-	NSURL *foodImageAccessKeyUrl = [MSAWSConnector getS3UrlFromString:cell.foodPicture.url];
-	NSURL *profileImageAccessKeyUrl = [MSAWSConnector getS3UrlFromString:cell.foodPicture.user.profileImageUrl];
+	NSURL *foodImageAccessKeyUrl = [MSAWSConnector getS3UrlFromString:foodPicture.url];
+	NSURL *profileImageAccessKeyUrl = [MSAWSConnector getS3UrlFromString:foodPicture.user.profileImageUrl];
 	
 	
 	//load food image
@@ -145,6 +146,8 @@
 	{
 		//NSLog(@"......no ImageCache:%d",indexPath.row);
 		cell.foodImage = [UIImage imageNamed:@"star.png"];
+		[_imageCache setObject:cell.foodImage forKey:foodPicture.url];
+
 		
 		dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
 		dispatch_queue_t q_main = dispatch_get_main_queue();
@@ -157,7 +160,7 @@
 			dispatch_async(q_main, ^{
 				//NSLog(@"...... %@",imageUrl);
 				//NSLog(@"...... %@",cell.imageUrl);
-				//	if( cell.indexPathRow == indexPath.row)
+				if( cell.indexPathRow == indexPath.row)
 				{
 					[_imageCache setObject:image forKey:foodPicture.url];
 					
@@ -182,6 +185,7 @@
 	}
 	else{
 		cell.profileImage = [UIImage imageNamed:@"star.png"];
+		[_imageCache setObject:cell.profileImage forKey:foodPicture.user.profileImageUrl];
 		
 		dispatch_queue_t q_globalProfile = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
 		dispatch_queue_t q_mainProfile = dispatch_get_main_queue();
@@ -191,7 +195,7 @@
 			
 			
 			dispatch_async(q_mainProfile, ^{
-				//	if( cell.indexPathRow == indexPath.row)
+				if( cell.indexPathRow == indexPath.row )
 				{
 					[_profileImageCache setObject:image forKey:foodPicture.user.profileImageUrl];
 					cell.profileImage = image;
