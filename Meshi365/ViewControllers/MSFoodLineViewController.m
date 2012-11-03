@@ -85,42 +85,42 @@
 	
 	
 	
-//	for( int i = 0; i < jsonArray.count;i++)
-//	{
-//		MSFoodPicture *foodPicture = [[MSFoodPicture alloc]init: jsonArray[i] ];
-//		
-//		dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
-//		dispatch_async(q_global, ^{
-//			NSLog(@"...... load start:%d", i);
-//			
-//			NSURL *foodImageAccessKeyUrl = [MSAWSConnector getS3UrlFromString:foodPicture.url];
-//			NSData* data = [NSData dataWithContentsOfURL:foodImageAccessKeyUrl];
-//			UIImage* image = [[UIImage alloc] initWithData:data];
-//			
-//			[_imageCache setObject:image forKey:foodPicture.url];
-//			[_tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-//		});
-//		
-//		
-//		if(![_profileImageCache objectForKey:foodPicture.user.profileImageUrl])
-//		{
-//			dispatch_queue_t q_globalProfile = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-//			dispatch_async(q_globalProfile, ^{
-//				NSURL *profileImageAccessKeyUrl = [MSAWSConnector getS3UrlFromString:foodPicture.user.profileImageUrl];
-//				NSData* data = [NSData dataWithContentsOfURL:profileImageAccessKeyUrl];
-//				UIImage* image = [[UIImage alloc] initWithData:data];
-//				
-//				NSLog(@"ProfileImg loaded:%d",i);
-//				[_profileImageCache setObject:image forKey:foodPicture.user.profileImageUrl];
-//				[_tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-//				
-//			});
-//			
-//		}
-//	}
+	for( int i = 0; i < jsonArray.count;i++)
+	{
+		MSFoodPicture *foodPicture = [[MSFoodPicture alloc]init: jsonArray[i] ];
+		
+		dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+		dispatch_async(q_global, ^{
+			NSLog(@"...... load start:%d", i);
+			
+			NSURL *foodImageAccessKeyUrl = [MSAWSConnector getS3UrlFromString:foodPicture.url];
+			NSData* data = [NSData dataWithContentsOfURL:foodImageAccessKeyUrl];
+			UIImage* image = [[UIImage alloc] initWithData:data];
+			
+			[_imageCache setObject:image forKey:foodPicture.url];
+			[_tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+		});
+		
+		
+		if(![_profileImageCache objectForKey:foodPicture.user.profileImageUrl])
+		{
+			dispatch_queue_t q_globalProfile = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+			dispatch_async(q_globalProfile, ^{
+				NSURL *profileImageAccessKeyUrl = [MSAWSConnector getS3UrlFromString:foodPicture.user.profileImageUrl];
+				NSData* data = [NSData dataWithContentsOfURL:profileImageAccessKeyUrl];
+				UIImage* image = [[UIImage alloc] initWithData:data];
+				
+				NSLog(@"ProfileImg loaded:%d",i);
+				[_profileImageCache setObject:image forKey:foodPicture.user.profileImageUrl];
+				[_tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+				
+			});
+			
+		}
+	}
 
 
-
+	
 	[_tableView reloadData];
 	
 }
@@ -173,8 +173,8 @@
 	}
 	
 	cell.foodPicture = foodPicture;
-	[cell layoutSubviews];
 	
+	[cell layoutSubviews];
 	
 	return cell;
 }
