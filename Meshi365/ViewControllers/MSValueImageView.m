@@ -39,6 +39,7 @@
         
         int left_line = ([[UIScreen mainScreen] bounds].size.width-200)/2;
         self.cnt_stars = 3;
+        observing = NO;
         
         //撮影画像表示
         im = [[UIImageView alloc] init];
@@ -62,6 +63,7 @@
         [view addSubview:lbl1];
         mealNameTextField = [[UITextField alloc] initWithFrame:CGRectMake(left_line-20, 310, 200, 28)];
         mealNameTextField.borderStyle = UITextBorderStyleRoundedRect;
+        mealNameTextField.delegate = self;
         [view addSubview:mealNameTextField];
         
         
@@ -101,6 +103,7 @@
         dispatch_queue_t q_main = dispatch_get_main_queue();
         
         dispatch_async(q_global, ^{
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
             while (longitude*latitude==0)
                 [NSThread sleepForTimeInterval:0.1];
             
@@ -113,7 +116,10 @@
             [nameArray addObject:@"Other"];
             
             [locationManager stopUpdatingLocation];
-            dispatch_async(q_main, ^{[table reloadData];});
+            dispatch_async(q_main, ^{
+                [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+                [table reloadData];
+            });
         });
         
         //Add Social Button
@@ -168,6 +174,36 @@
     }
 }
 
+
+
+-(BOOL)textFieldShouldBeginEditing: (UITextField*)textField{
+    [self scrollRectToVisible:CGRectMake(mealNameTextField.frame.origin.x, mealNameTextField.frame.origin.y, 300, 300) animated:YES];
+    return YES;
+}
+
+-(BOOL)textViewShouldBeginEditing:(UITextView*)textView{
+    [self scrollRectToVisible:CGRectMake(comment.frame.origin.x, comment.frame.origin.y, 300, 350) animated:YES];
+    return YES;
+}
+
+
+
+-(void) stopKeyBoardObserving{
+    if (observing) {
+        NSNotificationCenter *center;
+        center = [NSNotificationCenter defaultCenter];
+        [center removeObserver:self
+                          name:UIKeyboardWillShowNotification
+                        object:nil];
+        [center removeObserver:self
+                          name:UIKeyboardWillHideNotification
+                        object:nil];
+        
+        observing = NO;
+    }
+}
+
+
 -(void) tap_star0:(UIButton *)sender{
     self.cnt_stars = sender.tag + 1;
     for (int i = 0; i < kNumOfStars; i++) {
@@ -211,7 +247,7 @@
         [facebookBtn setBackgroundImage:[UIImage imageNamed:@"Icon_Facebook_dark.png"] forState:UIControlStateNormal];
     }else{
         self.flag_facebook = true;
-        [facebookBtn setBackgroundImage:[UIImage imageNamed:@"Icon_FaceBook.png"] forState:UIControlStateNormal];
+        [facebookBtn setBackgroundImage:[UIImage imageNamed:@"Icon_Facebook.png"] forState:UIControlStateNormal];
     }
 }
 

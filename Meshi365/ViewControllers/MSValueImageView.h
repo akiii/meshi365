@@ -4,7 +4,9 @@
 
 #define kNumOfStars 5
 
-@interface MSValueImageView : UIScrollView<UITableViewDelegate,UITableViewDataSource,NSXMLParserDelegate,CLLocationManagerDelegate,UIScrollViewDelegate,UITextViewDelegate>{
+@interface MSValueImageView : UIScrollView<UITableViewDelegate,UITableViewDataSource,NSXMLParserDelegate,CLLocationManagerDelegate,UIScrollViewDelegate,UITextFieldDelegate,UITextViewDelegate>{
+    Boolean observing;
+    
     UIButton *star[kNumOfStars];
     UIImageView *im;
     
