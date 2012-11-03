@@ -6,6 +6,8 @@
 
 @interface MSTodayMealViewController : UIViewController<UIActionSheetDelegate>{
     
+    UIActivityIndicatorView *indicator[3];
+    
     UIImageView *mealImageView[3];
     UIImageView *otherImageView;
     
@@ -19,6 +21,7 @@
     CGSize no_image_size;
     
     int cntOtherImage;
+    int flag_async;
 }
 
 @end

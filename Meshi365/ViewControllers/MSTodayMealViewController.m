@@ -36,7 +36,10 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if(self) self.view.backgroundColor = [UIColor colorWithRed:1.0 green:0.93 blue:0.8 alpha:1.0];
+    if(self){
+        self.view.backgroundColor = [UIColor colorWithRed:1.0 green:0.93 blue:0.8 alpha:1.0];
+        flag_async = 0;
+    }
     return self;
 }
 
@@ -45,7 +48,6 @@
     [super viewDidLoad];
     
     msCamera = [[MSCameraViewController alloc] init];
-    
     no_image_size = CGSizeMake(280, 80);
     
     as = [[UIActionSheet alloc] init];
@@ -73,20 +75,22 @@
      [mealImageView[1] addGestureRecognizer:[[UITapGestureRecognizer alloc]
                                            initWithTarget:self
                                            action:@selector(lunchCameraAction)]];
-     [mealImageView[3] addGestureRecognizer:[[UITapGestureRecognizer alloc]
+     [mealImageView[2] addGestureRecognizer:[[UITapGestureRecognizer alloc]
                                             initWithTarget:self
                                             action:@selector(supperCameraAction)]];
     
-    //Image View をタップで反応できるようにする設定
     for(int i=0;i<3;i++){
         mealImageView[i].userInteractionEnabled = YES;
-        //画像の大きさを設定
         mealImageView[i].frame = CGRectMake(20,50+85*i,no_image_size.width ,no_image_size.height);
         [self.view addSubview:mealImageView[i]];
+        
+        indicator[i] = [[UIActivityIndicatorView alloc]  initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        indicator[i].color = [UIColor colorWithRed:0.4 green:0.0 blue:0.1 alpha:1.0];
+        [indicator[i] setCenter:CGPointMake(mealImageView[i].center.x, mealImageView[i].center.y-10)];
+        [self.view addSubview: indicator[i]];
     }
     
     //画像の表示
-    
     cntOtherImage = 1;
     
     UILabel *othersLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 300, 80, 30)];
@@ -110,6 +114,7 @@
     [self.view addSubview:otherImageView];
     
     [self.view addSubview:othersLabel];
+    
 }
 
 -(void) viewWillAppear:(BOOL)animated{
@@ -126,31 +131,42 @@
     
     params = [params stringByAppendingFormat:@"%@=%@&", @"to_date", toDateString];
     [MSNetworkConnector requestToUrl:URL_OF_CALENDER([MSUser currentUser].uiid) method:RequestMethodPost params:params block:^(NSData *response){
-
         NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
         for (int i=0; i<[jsonArray count]; i++) {
             MSFoodPicture *foodPicture = [[MSFoodPicture alloc] init:jsonArray[i]];
-            if (mealImageView[0].userInteractionEnabled==YES&&foodPicture.mealType==0) {
-                mealImageView[0].userInteractionEnabled=NO;
-                
-                dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-                dispatch_queue_t q_main = dispatch_get_main_queue();
-        
-                dispatch_async(q_global, ^{
-                    NSURL *foodImageAccessKeyUrl = [MSAWSConnector getS3UrlFromString:foodPicture.url];
-                    NSData* data = [NSData dataWithContentsOfURL:foodImageAccessKeyUrl];
-                    UIImage* image = [[UIImage alloc] initWithData:data];
-                    dispatch_async(q_main, ^{
-                        [self setMealImage:0 :image];
+            for(int j=0;j<3;j++){
+                if (mealImageView[j].userInteractionEnabled==YES&&foodPicture.mealType==j) {
+                    
+                    flag_async++;
+                    [indicator[j] startAnimating];
+                    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+                    mealImageView[j].userInteractionEnabled=NO;
+                    mealImageView[j].image = [UIImage imageNamed:@"loadingMealImage.png"];
+
+                    
+                    
+                    dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+                    dispatch_queue_t q_main = dispatch_get_main_queue();
+            
+                    dispatch_async(q_global, ^{
+                        NSURL *foodImageAccessKeyUrl = [MSAWSConnector getS3UrlFromString:foodPicture.url];
+                        NSData* data = [NSData dataWithContentsOfURL:foodImageAccessKeyUrl];
+                        UIImage* image = [[UIImage alloc] initWithData:data];
+                        dispatch_async(q_main, ^{
+                            [self setMealImage:j :image];
+                            [indicator[j] stopAnimating];
+                            flag_async--;
+                            if(flag_async==0)
+                                [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+                        });
                     });
-                });
+                }
             }
         }
-        NSLog(@"%@",jsonArray);
+        //NSLog(@"%@",jsonArray);
     }];
     
-
-    
+        
     naviBar.topItem.title = @"Today Menu";
     if(msCamera.state>0){
         msValueImageView = [[MSValueImageView alloc] init];
@@ -190,8 +206,7 @@
     }
 }
 
--(void)actionSheet:(UIActionSheet*)actionSheet
-clickedButtonAtIndex:(NSInteger)buttonIndex {
+-(void)actionSheet:(UIActionSheet*)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if(buttonIndex!=2){
         if(buttonIndex)
             msCamera.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
@@ -200,6 +215,8 @@ clickedButtonAtIndex:(NSInteger)buttonIndex {
 
         msCamera.allowsEditing = YES;
         [self presentViewController:msCamera animated:YES completion:^{}];
+    }else{
+        msCamera.state = 0;
     }
 }
 
