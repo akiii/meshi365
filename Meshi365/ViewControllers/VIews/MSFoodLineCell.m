@@ -48,7 +48,7 @@
 		case 2:self.textLabel.text = @"Dinner";break;
 		default:self.textLabel.text = @"Dessert";break;break;
 	}
-	//self.textLabel.text = [NSString stringWithFormat:@"%d" ,self.indexPathRow ];
+	self.textLabel.text = [NSString stringWithFormat:@"%d" ,self.indexPathRow ];
 	
 	self.textLabel.frame =  CGRectMake(x, y, [UIScreen mainScreen].bounds.size.width,30);
 	
@@ -82,16 +82,16 @@
 	y+=starSize+5;
 	
 
-	[_storeName setOpaque:YES];
-	[_menuName setOpaque:YES];
-	[_comment setOpaque:YES];
+	[_storeName setHidden:YES];
+	[_menuName setHidden:YES];
+	[_comment setHidden:YES];
 
-	
+	fontSize = 18;
 	if(_foodPicture.storeName != nil)
 	{
-		[_storeName setOpaque:NO];
-		_storeName.frame = CGRectMake(x, y, [UIScreen mainScreen].bounds.size.width, 30);
-		[_storeName setFont:[UIFont systemFontOfSize:18]];
+		[_storeName setHidden:NO];
+		_storeName.frame = CGRectMake(x, y, [UIScreen mainScreen].bounds.size.width, fontSize);
+		[_storeName setFont:[UIFont systemFontOfSize:fontSize]];
 		_storeName.text = [NSString stringWithFormat:@"Place:%@",_foodPicture.storeName ];
 		y+=dy;
 	}
@@ -99,9 +99,9 @@
 	
 	if(_foodPicture.menuName != nil)
 	{
-		[_menuName setOpaque:NO];
-		_menuName.frame = CGRectMake(x, y, [UIScreen mainScreen].bounds.size.width, 30);
-		[_menuName setFont:[UIFont systemFontOfSize:18]];
+		[_menuName setHidden:NO];
+		_menuName.frame = CGRectMake(x, y, [UIScreen mainScreen].bounds.size.width, fontSize);
+		[_menuName setFont:[UIFont systemFontOfSize:fontSize]];
 		_menuName.text = [NSString stringWithFormat:@"Menu:%@",_foodPicture.menuName ];
 		y+=dy;
 
@@ -109,15 +109,14 @@
 	
 	if(_foodPicture.comment != nil)
 	{
-		[_comment setOpaque:NO];
+		[_comment setHidden:NO];
 		_comment.frame = CGRectMake(x, y, [UIScreen mainScreen].bounds.size.width, 30);
 		[_comment setFont:[UIFont systemFontOfSize:18]];
 		_comment.text = [NSString stringWithFormat:@"Comment:%@",_foodPicture.comment ];
 		y+=dy;
 
 	}
-	
-	
+
 	self.height = y;
 }
 
@@ -153,6 +152,8 @@
 		[self.contentView addSubview:_comment];
 		[self.contentView addSubview:_menuName];
 		[self.contentView addSubview:_storeName];
+		
+		[self layoutSubviews];
 	}
     return self;
 }
