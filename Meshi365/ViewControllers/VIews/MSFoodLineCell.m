@@ -48,7 +48,7 @@
 		case 2:self.textLabel.text = @"Dinner";break;
 		default:self.textLabel.text = @"Dessert";break;break;
 	}
-	self.textLabel.text = [NSString stringWithFormat:@"%d" ,self.indexPathRow ];
+	//self.textLabel.text = [NSString stringWithFormat:@"%d" ,self.indexPathRow ];
 	
 	self.textLabel.frame =  CGRectMake(x, y, [UIScreen mainScreen].bounds.size.width,30);
 	
