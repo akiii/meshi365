@@ -12,4 +12,5 @@
 
 @property(nonatomic,strong)NSArray* jsonArray;
 
+-(void)loadImage;
 @end
