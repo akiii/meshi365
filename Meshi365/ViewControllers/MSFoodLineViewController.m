@@ -75,7 +75,7 @@
 	
 	NSLog(@"Your UIID:%@",[[MSUser currentUser] uiid]);
 	[MSNetworkConnector requestToUrl:URL_OF_FOOD_LINE( [[MSUser currentUser] uiid]) method:RequestMethodGet params:nil block:^(NSData *response)
-	{
+	 {
 		 _jsonArray = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
 		 
 		 NSLog(@"JsonArray %@",_jsonArray);
@@ -104,8 +104,11 @@
 			NSData* data = [NSData dataWithContentsOfURL:foodImageAccessKeyUrl];
 			UIImage* image = [[UIImage alloc] initWithData:data];
 			
-			[_imageCache setObject:image forKey:foodPicture.url];
-			[_tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+			if(image != nil)
+			{
+				[_imageCache setObject:image forKey:foodPicture.url];
+				[_tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+			}
 		});
 		
 		
@@ -154,7 +157,7 @@
 	MSFoodPicture *foodPicture = [[MSFoodPicture alloc]init: _jsonArray[indexPath.row] ];
 	cell.indexPathRow = indexPath.row;
 	cell.foodPicture = foodPicture;
-
+	
 	
 	//set food image
 	if([_imageCache objectForKey:foodPicture.url] )
@@ -171,7 +174,7 @@
 	
 	
 	
-	[cell layoutSubviews];	
+	[cell layoutSubviews];
 	return cell;
 }
 
