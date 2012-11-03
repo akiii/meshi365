@@ -122,8 +122,12 @@
     
     NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
     [outputFormatter setDateFormat:@"yyyy-MM-dd"];
-    NSString *sinceDateString = @"2012-11-02";
-    NSString *toDateString = @"2012-11-03";
+    NSString *sinceDateString = [outputFormatter stringFromDate:[NSDate date]];//@"2012-11-02";
+    NSString *toDateString = [outputFormatter stringFromDate:[NSDate dateWithTimeIntervalSinceNow:60*60*24]];
+    
+    NSLog(@"%@",sinceDateString);
+    NSLog(@"%@",toDateString);
+    
     
     NSString *params = [NSString string];
     params = [params stringByAppendingFormat:@"%@=%@&", @"my_uiid", [MSUser currentUser].uiid];
@@ -134,39 +138,37 @@
         NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
         for (int i=0; i<[jsonArray count]; i++) {
             MSFoodPicture *foodPicture = [[MSFoodPicture alloc] init:jsonArray[i]];
-            for(int j=0;j<3;j++){
-                if (mealImageView[j].userInteractionEnabled==YES&&foodPicture.mealType==j) {
-                    
-                    flag_async++;
-                    [indicator[j] startAnimating];
-                    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-                    mealImageView[j].userInteractionEnabled=NO;
-                    mealImageView[j].image = [UIImage imageNamed:@"loadingMealImage.png"];
+            if(foodPicture.mealType==3){
+            }else{
+                for(int j=0;j<3;j++){
+                    if (mealImageView[j].userInteractionEnabled==YES&&foodPicture.mealType==j) {
+                        
+                        flag_async++;
+                        [indicator[j] startAnimating];
+                        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+                        mealImageView[j].userInteractionEnabled=NO;
+                        mealImageView[j].image = [UIImage imageNamed:@"loadingMealImage.png"];
 
-                    
-                    
-                    dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-                    dispatch_queue_t q_main = dispatch_get_main_queue();
-            
-                    dispatch_async(q_global, ^{
-                        NSURL *foodImageAccessKeyUrl = [MSAWSConnector getS3UrlFromString:foodPicture.url];
-                        NSData* data = [NSData dataWithContentsOfURL:foodImageAccessKeyUrl];
-                        UIImage* image = [[UIImage alloc] initWithData:data];
-                        dispatch_async(q_main, ^{
-                            [self setMealImage:j :image];
-                            [indicator[j] stopAnimating];
-                            flag_async--;
-                            if(flag_async==0)
-                                [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+                        dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+                        dispatch_queue_t q_main = dispatch_get_main_queue();
+                
+                        dispatch_async(q_global, ^{
+                            NSURL *foodImageAccessKeyUrl = [MSAWSConnector getS3UrlFromString:foodPicture.url];
+                            NSData* data = [NSData dataWithContentsOfURL:foodImageAccessKeyUrl];
+                            UIImage* image = [[UIImage alloc] initWithData:data];
+                            dispatch_async(q_main, ^{
+                                [self setMealImage:j :image];
+                                [indicator[j] stopAnimating];
+                                flag_async--;
+                                if(flag_async==0) [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+                            });
                         });
-                    });
+                    }
                 }
             }
         }
-        //NSLog(@"%@",jsonArray);
     }];
     
-        
     naviBar.topItem.title = @"Today Menu";
     if(msCamera.state>0){
         msValueImageView = [[MSValueImageView alloc] init];
@@ -222,6 +224,8 @@
 
 -(void) save_image:(id)sender{
     
+    [msValueImageView showSavingDark];
+    
     NSString *urlString = [MSAWSConnector uploadFoodPictureToAWS:msValueImageView.squareFoodPictureImage];
     msValueImageView.squareFoodPictureImage.foodPicture.uiid = [MSUser currentUser].uiid;
     msValueImageView.squareFoodPictureImage.foodPicture.mealType = msCamera.state-1;
@@ -244,8 +248,9 @@
                 NSArray *accountArray = [accountStore accountsWithAccountType:[accountTypes objectAtIndex:i]];
                 if (accountArray.count > 0) {
                     NSURL *url = [NSURL URLWithString:@"https://upload.twitter.com/1/statuses/update_with_media.json"];
-                    NSDictionary *params = [NSDictionary dictionaryWithObject:msValueImageView.squareFoodPictureImage.foodPicture.comment forKey:@"status"];
-                                                       
+                    NSString *tweet = [NSString stringWithFormat:@"%@ #meal_diary",msValueImageView.squareFoodPictureImage.foodPicture.comment];
+                    NSDictionary *params = [NSDictionary dictionaryWithObject:tweet forKey:@"status"];
+                    
                     SLRequest *request = [SLRequest requestForServiceType:SLServiceTypeTwitter
                                                             requestMethod:SLRequestMethodPOST
                                                                       URL:url
@@ -254,7 +259,7 @@
                     
                     NSData *imageData = UIImagePNGRepresentation(msValueImageView.squareFoodPictureImage);
                     [request addMultipartData:imageData withName:@"media[]" type:@"multipart/form-data" filename:nil];
-                    [request addMultipartData:[msValueImageView.squareFoodPictureImage.foodPicture.comment dataUsingEncoding:NSUTF8StringEncoding] withName:@"status" type:@"multipart/form-data" filename:nil];
+                    [request addMultipartData:[tweet dataUsingEncoding:NSUTF8StringEncoding] withName:@"status" type:@"multipart/form-data" filename:nil];
 
                     [request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
                         //NSLog(@"responseData=%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
@@ -265,7 +270,6 @@
     }
     
     [self setMealImage:msCamera.state-1 :msValueImageView.squareFoodPictureImage];
-    
     [self cancel_image:sender];
 }
 
