@@ -120,9 +120,12 @@
 			NSURL *profileImageAccessKeyUrl = [MSAWSConnector getS3UrlFromString:foodPicture.user.profileImageUrl];
 			NSData* data = [NSData dataWithContentsOfURL:profileImageAccessKeyUrl];
 			UIImage* image = [[UIImage alloc] initWithData:data];
-		
-			[_profileImageCache setObject:image forKey:foodPicture.user.profileImageUrl];
-			[_tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+			
+			if(image != nil)
+			{
+				[_profileImageCache setObject:image forKey:foodPicture.user.profileImageUrl];
+				[_tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+			}
 			
 		});
 	}
