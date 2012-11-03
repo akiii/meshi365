@@ -50,8 +50,8 @@
 	params = [params stringByAppendingFormat:@"%@=%@&", @"since_date", sinceDateString];
 	
 	params = [params stringByAppendingFormat:@"%@=%@&", @"to_date", toDateString];
-	//[MSNetworkConnector requestToUrl:URL_OF_CALENDER([MSUser currentUser].uiid) method:RequestMethodPost params:params block:^(NSData *response)
-	[MSNetworkConnector requestToUrl:URL_OF_CALENDER( @"EC9EE18E-E44F-4419-9105-9650711EED9F") method:RequestMethodPost params:params block:^(NSData *response)
+	[MSNetworkConnector requestToUrl:URL_OF_CALENDER([MSUser currentUser].uiid) method:RequestMethodPost params:params block:^(NSData *response)
+	 //[MSNetworkConnector requestToUrl:URL_OF_CALENDER( @"EC9EE18E-E44F-4419-9105-9650711EED9F") method:RequestMethodPost params:params block:^(NSData *response)
 	{
 		_jsonArray = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
 	
