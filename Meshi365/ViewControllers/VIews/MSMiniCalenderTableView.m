@@ -7,8 +7,17 @@
 //
 
 #import "MSMiniCalenderTableView.h"
+#import "MSFoodLineCell.h"
+#import "MSAWSConnector.h"
+
+
+@interface MSMiniCalenderTableView()
+@property(nonatomic,strong)	NSCache *imageCache;
+@property(nonatomic,strong) UILabel *label;
+@end
 
 @implementation MSMiniCalenderTableView
+
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -22,13 +31,13 @@
 }
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect
+ {
+ // Drawing code
+ }
+ */
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -37,10 +46,39 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return _jsonArray.count;
 }
 
 
+-(void)loadImage
+{
+	_imageCache = [[NSCache alloc] init];
+	
+	for( int i = 0; i < _jsonArray.count;i++)
+	{
+		MSFoodPicture *foodPicture = [[MSFoodPicture alloc]init: _jsonArray[i] ];
+		
+		if([_imageCache objectForKey:foodPicture.url])continue;
+		
+		dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+		dispatch_async(q_global, ^{
+			NSLog(@"...... load start:%d", i);
+			
+			
+			NSURL *foodImageAccessKeyUrl = [MSAWSConnector getS3UrlFromString:foodPicture.url];
+			NSData* data = [NSData dataWithContentsOfURL:foodImageAccessKeyUrl];
+			UIImage* image = [[UIImage alloc] initWithData:data];
+			
+			if(![_imageCache objectForKey:foodPicture.url])
+			{
+				[_imageCache setObject:image forKey:foodPicture.url];
+				[self performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+				NSLog(@"...... load done:%d", i);
+			}
+		});
+	}
+	
+}
 
 
 
@@ -48,28 +86,43 @@
 {
     static NSString *CellIdentifier = @"Cell";
 	
+	MSFoodPicture *foodPicture = [[MSFoodPicture alloc]init: _jsonArray[indexPath.row] ];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 		
 		
+		
 		int size = [UIScreen mainScreen].bounds.size.width/3 - 20;
-		UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(3, 10, size, size)];
-		imageView.image = [UIImage imageNamed:@"sampleMenu.png"];
-		imageView.contentMode = UIViewContentModeScaleToFill;
-		[cell addSubview:imageView];
+		cell.imageView.frame = CGRectMake(3, 10, size, size);
+		if([_imageCache objectForKey:foodPicture.url])
+			cell.imageView.image =  [_imageCache objectForKey:foodPicture.url];
+		else
+			cell.imageView.image =  [UIImage imageNamed:@"star.png"];
 		
 		
 		
-		UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(3, 3, size, 30)];
-		label.text = @"Breakfast";
-		
-		[cell addSubview:label];
-		
-
+		_label = [[UILabel alloc]initWithFrame:CGRectMake(3, 3, size, 30)];
+		[_label setBackgroundColor: [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.0]];
+		switch (foodPicture.mealType) {
+			case 0:_label.text = @"Breakfast";break;
+			case 1:_label.text = @"Lunch";break;
+			case 2:_label.text = @"Dinner";break;
+			default:_label.text = @"Dessert";break;break;
+		}
+		[cell addSubview:_label];
 	}
 	
-    return cell;
+	
+	
+	if([_imageCache objectForKey:foodPicture.url])
+	{
+		NSLog(@"..update draw %d",indexPath.row);
+		cell.imageView.image =  [_imageCache objectForKey:foodPicture.url];
+	}
+
+    
+	return cell;
 }
 
 
