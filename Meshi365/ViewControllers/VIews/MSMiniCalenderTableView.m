@@ -46,7 +46,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _jsonArray.count;
+    return MAX(_jsonArray.count, 3);
 }
 
 
@@ -86,7 +86,12 @@
 {
     static NSString *CellIdentifier = @"Cell";
 	
-	MSFoodPicture *foodPicture = [[MSFoodPicture alloc]init: _jsonArray[indexPath.row] ];
+	
+	MSFoodPicture *foodPicture = nil;
+
+	if(_jsonArray && _jsonArray.count > indexPath.row)foodPicture= [[MSFoodPicture alloc]init: _jsonArray[indexPath.row] ];
+	
+	
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
@@ -95,31 +100,33 @@
 		
 		int size = [UIScreen mainScreen].bounds.size.width/3 - 20;
 		cell.imageView.frame = CGRectMake(3, 10, size, size);
-		if([_imageCache objectForKey:foodPicture.url])
-			cell.imageView.image =  [_imageCache objectForKey:foodPicture.url];
-		else
-			cell.imageView.image =  [UIImage imageNamed:@"star.png"];
-		
 		
 		
 		_label = [[UILabel alloc]initWithFrame:CGRectMake(3, 3, size, 30)];
 		[_label setBackgroundColor: [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.0]];
-		switch (foodPicture.mealType) {
-			case 0:_label.text = @"Breakfast";break;
-			case 1:_label.text = @"Lunch";break;
-			case 2:_label.text = @"Dinner";break;
-			default:_label.text = @"Dessert";break;break;
+		if(!foodPicture)_label.text = @"Nothing";
+		else
+		{
+			switch (foodPicture.mealType) {
+				case 0:_label.text = @"Breakfast";break;
+				case 1:_label.text = @"Lunch";break;
+				case 2:_label.text = @"Dinner";break;
+				case 3:_label.text = @"Other";break;
+			}
 		}
+		
+		
 		[cell addSubview:_label];
 	}
 	
 	
-	
-	if([_imageCache objectForKey:foodPicture.url])
-	{
-		NSLog(@"..update draw %d",indexPath.row);
+	if(!foodPicture)
+		cell.imageView.image =  [UIImage imageNamed:@"starNonSelect.png"];
+	else if( [_imageCache objectForKey:foodPicture.url])
 		cell.imageView.image =  [_imageCache objectForKey:foodPicture.url];
-	}
+	else
+		cell.imageView.image =  [UIImage imageNamed:@"star.png"];
+
 
     
 	return cell;

@@ -35,8 +35,13 @@
 	
 	NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
 	[outputFormatter setDateFormat:@"yyyy-MM-dd"];
-	NSString *sinceDateString = @"2012-11-01";
-	NSString *toDateString = @"2012-11-8";
+
+	int day = 7;
+	NSDate *toDate =  [NSDate dateWithTimeIntervalSinceNow:-day*24*60*60];
+	NSString *sinceDateString = [outputFormatter stringFromDate:toDate];
+	NSString *toDateString = [outputFormatter stringFromDate:[NSDate date]];
+
+	
 	
 	NSString *params = [NSString string];
 	//	params = [params stringByAppendingFormat:@"%@=%@&", @"my_uiid", [MSUser currentUser].uiid];
@@ -77,15 +82,20 @@
 	for( int i = 0 ; i < tableViewNum; i++)
 	{
 		NSLog(@".....making miniCal:[%d]",i);
+		
+		int x = (tableViewNum - i - 1)*width;
 		miniCalenderTableView[i] = [[MSMiniCalenderTableView alloc]init];
 		miniCalenderTableView[i].bounces = YES;
-		miniCalenderTableView[i].frame = CGRectMake(i*width, naviHeight+14, width, height);
+		miniCalenderTableView[i].frame = CGRectMake(x, naviHeight+14, width, height);
 	
 		NSMutableArray* jsonOneDayArray = [[NSMutableArray alloc]init];
 		for(int j = 0; j < _jsonArray.count; j++)
 		{
+			
+			NSDate *oldDay =  [NSDate dateWithTimeIntervalSinceNow:-i*24*60*60];
+			NSString *toDateString = [outputFormatter stringFromDate:oldDay];
 			MSFoodPicture *foodPicture = [[MSFoodPicture alloc]init:_jsonArray[j]];
-			NSRange searchResult = [foodPicture.createdAt rangeOfString:@"2012-11-02"];
+			NSRange searchResult = [foodPicture.createdAt rangeOfString:toDateString];
 			if(searchResult.location != NSNotFound)
 			{
 				[jsonOneDayArray addObject:_jsonArray[j]];
@@ -102,16 +112,15 @@
 		NSDate* date= [NSDate dateWithTimeIntervalSinceNow: -24*60*60 * i];
 		NSCalendar *calendar = [NSCalendar currentCalendar];
 		NSDateComponents *dateComps = [calendar components:NSDayCalendarUnit|NSMonthCalendarUnit fromDate:date];
+
+		
+		dayLabel[i].text = [NSString stringWithFormat:@"%2d",dateComps.day];
 		if(i == 0)
-		{
-			dayLabel[i].text = @"Today";
-		}
+			dayLabel[i].backgroundColor = [UIColor colorWithRed:0.9 green:0.57 blue:0.82 alpha:1.0];
 		else
-		{
-			dayLabel[i].text = [NSString stringWithFormat:@"%2d",dateComps.day];
-		}
-		dayLabel[i].backgroundColor = [UIColor colorWithRed:0.9 green:0.87 blue:0.92 alpha:1.0];
-		dayLabel[i].frame = CGRectMake(i*width+2, naviHeight-14, width, 30);
+			dayLabel[i].backgroundColor = [UIColor colorWithRed:0.9 green:0.87 blue:0.92 alpha:1.0];
+
+		dayLabel[i].frame = CGRectMake(x, naviHeight-14, width, 30);
 		
 		
 		
@@ -134,6 +143,10 @@
 	[self.view addSubview:scrollView];
 	[self.view addSubview:monthLabel];
 
+	
+	int x = scrollView.frame.size.width + [UIScreen mainScreen].bounds.size.width/3.0f;
+	[scrollView setContentOffset:CGPointMake(x , 0.0f) animated:YES];
+
 	NSLog(@".....viewDidLoad done");
 
 }
@@ -141,7 +154,7 @@
 -(void)viewDidAppear:(BOOL)animated
 {
 	
-
+	
 	
 }
 
