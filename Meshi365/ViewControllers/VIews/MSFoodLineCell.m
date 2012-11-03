@@ -147,11 +147,12 @@
 		_profileImageView.contentMode	= UIViewContentModeScaleToFill;
 		self.imageView.contentMode		= UIViewContentModeScaleToFill;
 		
-		[self addSubview:_profileImageView];
-		[self addSubview:_userName];
-		[self addSubview:_comment];
-		[self addSubview:_menuName];
-		[self addSubview:_storeName];
+		//self.contentView
+		[self.contentView addSubview:_profileImageView];
+		[self.contentView addSubview:_userName];
+		[self.contentView addSubview:_comment];
+		[self.contentView addSubview:_menuName];
+		[self.contentView addSubview:_storeName];
 	}
     return self;
 }
