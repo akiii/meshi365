@@ -42,6 +42,7 @@
 		8C180950163F355B003400EB /* MSMiniCalenderTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C18094F163F355B003400EB /* MSMiniCalenderTableView.m */; };
 		8C66D31816408A9B0010777F /* MSRecommendTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C66D31716408A9B0010777F /* MSRecommendTableView.m */; };
 		8C7B3BD1163E3F2600B8D7C1 /* MSRootTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C7B3BD0163E3F2600B8D7C1 /* MSRootTabBarController.m */; };
+		8CA5657C164640F000F21089 /* MSImageLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA5657B164640EF00F21089 /* MSImageLoader.m */; };
 		8CD1BA56163EEF8C00AFA334 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 8CD1BA55163EEF8C00AFA334 /* star.png */; };
 		8CECB8D616417CC600BA4BE2 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CECB8D516417CC600BA4BE2 /* Social.framework */; };
 		8CECB8DD16418A4B00BA4BE2 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CECB8DC16418A4B00BA4BE2 /* Accounts.framework */; };
@@ -137,6 +138,8 @@
 		8C66D31716408A9B0010777F /* MSRecommendTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSRecommendTableView.m; sourceTree = "<group>"; };
 		8C7B3BCF163E3F2600B8D7C1 /* MSRootTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSRootTabBarController.h; sourceTree = "<group>"; };
 		8C7B3BD0163E3F2600B8D7C1 /* MSRootTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSRootTabBarController.m; sourceTree = "<group>"; };
+		8CA5657A164640EF00F21089 /* MSImageLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSImageLoader.h; sourceTree = "<group>"; };
+		8CA5657B164640EF00F21089 /* MSImageLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSImageLoader.m; sourceTree = "<group>"; };
 		8CD1BA55163EEF8C00AFA334 /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
 		8CECB8D516417CC600BA4BE2 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		8CECB8DC16418A4B00BA4BE2 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
@@ -371,6 +374,8 @@
 				B805249A163E4EF0005B74F8 /* MSUIIDController.m */,
 				8C7B3BCF163E3F2600B8D7C1 /* MSRootTabBarController.h */,
 				8C7B3BD0163E3F2600B8D7C1 /* MSRootTabBarController.m */,
+				8CA5657A164640EF00F21089 /* MSImageLoader.h */,
+				8CA5657B164640EF00F21089 /* MSImageLoader.m */,
 				B8052503163F96B7005B74F8 /* Models */,
 				B80524A7163EEBBA005B74F8 /* ViewControllers */,
 			);
@@ -574,6 +579,7 @@
 				2757A2B61641796600975AC8 /* MSFriendListViewController.m in Sources */,
 				2757A2B916417C1B00975AC8 /* MSFriendFoodLineViewController.m in Sources */,
 				2757A2C41641963900975AC8 /* MSSignUpViewController.m in Sources */,
+				8CA5657C164640F000F21089 /* MSImageLoader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

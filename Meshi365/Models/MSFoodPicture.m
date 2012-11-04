@@ -25,7 +25,7 @@
     return self;
 }
 
-- (id)init:(NSDictionary*)json
+- (id)initWithJson:(NSDictionary*)json
 {
 	if (self = [super init]) {
 		/*HACK:

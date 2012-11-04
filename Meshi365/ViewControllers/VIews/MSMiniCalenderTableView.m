@@ -56,7 +56,7 @@
 	
 	for( int i = 0; i < _jsonArray.count;i++)
 	{
-		MSFoodPicture *foodPicture = [[MSFoodPicture alloc]init: _jsonArray[i] ];
+		MSFoodPicture *foodPicture = [[MSFoodPicture alloc]initWithJson: _jsonArray[i] ];
 		
 		if([_imageCache objectForKey:foodPicture.url])continue;
 		
@@ -89,7 +89,7 @@
 	
 	MSFoodPicture *foodPicture = nil;
 
-	if(_jsonArray && _jsonArray.count > indexPath.row)foodPicture= [[MSFoodPicture alloc]init: _jsonArray[indexPath.row] ];
+	if(_jsonArray && _jsonArray.count > indexPath.row)foodPicture= [[MSFoodPicture alloc]initWithJson: _jsonArray[indexPath.row] ];
 	
 	
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];

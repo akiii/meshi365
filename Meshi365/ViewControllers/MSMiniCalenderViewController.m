@@ -94,7 +94,7 @@
 			
 			NSDate *oldDay =  [NSDate dateWithTimeIntervalSinceNow:-i*24*60*60];
 			NSString *toDateString = [outputFormatter stringFromDate:oldDay];
-			MSFoodPicture *foodPicture = [[MSFoodPicture alloc]init:_jsonArray[j]];
+			MSFoodPicture *foodPicture = [[MSFoodPicture alloc]initWithJson:_jsonArray[j]];
 			NSRange searchResult = [foodPicture.createdAt rangeOfString:toDateString];
 			if(searchResult.location != NSNotFound)
 			{

@@ -21,6 +21,6 @@
 @property (assign) int starNum;
 @property (readonly) NSString *params;
 @property(nonatomic,strong) MSUser* user;
-- (id)init:(NSDictionary*)json;
+- (id)initWithJson:(NSDictionary*)json;
 
 @end

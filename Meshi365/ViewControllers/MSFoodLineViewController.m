@@ -11,6 +11,7 @@
 #import "MSFoodLineCell.h"
 #import "MSNetworkConnector.h"
 #import "MSAWSConnector.h"
+#import "MSImageLoader.h"
 
 
 @interface MSFoodLineViewController ()
@@ -74,8 +75,10 @@
 	
 	
 	NSLog(@"Your UIID:%@",[[MSUser currentUser] uiid]);
-	[MSNetworkConnector requestToUrl:URL_OF_FOOD_LINE( [[MSUser currentUser] uiid]) method:RequestMethodGet params:nil block:^(NSData *response)
-	 {
+	//	[MSNetworkConnector requestToUrl:URL_OF_FOOD_LINE( [[MSUser currentUser] uiid]) method:RequestMethodGet params:nil block:^(NSData *response)
+	[MSNetworkConnector requestToUrl:URL_OF_FOOD_LINE( @"7C53178F-C613-4C26-ACD3-61BB069F3766") method:RequestMethodGet params:nil block:^(NSData *response)
+ 
+	{
 		 _jsonArray = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
 		 
 		 NSLog(@"JsonArray %@",_jsonArray);
@@ -92,51 +95,11 @@
 -(void)loadImages{
 	for( int i = 0; i < _jsonArray.count;i++)
 	{
-		MSFoodPicture *foodPicture = [[MSFoodPicture alloc]init: _jsonArray[i] ];
+		MSFoodPicture *foodPicture = [[MSFoodPicture alloc]initWithJson: _jsonArray[i] ];
 		
+		[MSImageLoader ImageLoad:foodPicture tableView:_tableView imageCache:_imageCache requestCache:nil];
 		
-		//load images
-		dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
-		dispatch_async(q_global, ^{
-			NSLog(@"Image load start:%d", i);
-
-			NSURL *foodImageAccessKeyUrl = [MSAWSConnector getS3UrlFromString:foodPicture.url];
-			NSData* data = [NSData dataWithContentsOfURL:foodImageAccessKeyUrl];
-			UIImage* image = [[UIImage alloc] initWithData:data];
-			
-			if(image != nil)
-			{
-				NSLog(@"Image load done:%d", i);
-
-				[_imageCache setObject:image forKey:foodPicture.url];
-				[_tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-				
-
-			}
-		});
-		
-		
-		if([_profileImageRequestCache objectForKey:foodPicture.user.profileImageUrl])continue;
-		
-		[_profileImageRequestCache setObject:@"lock" forKey:foodPicture.user.profileImageUrl];
-
-		//load pofile images
-		dispatch_queue_t q_globalProfile = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-		dispatch_async(q_globalProfile, ^{
-			NSLog(@"ProfileImg load start:%d",i);
-			NSURL *profileImageAccessKeyUrl = [MSAWSConnector getS3UrlFromString:foodPicture.user.profileImageUrl];
-			NSData* data = [NSData dataWithContentsOfURL:profileImageAccessKeyUrl];
-			UIImage* image = [[UIImage alloc] initWithData:data];
-			
-			if(image != nil)
-			{
-				NSLog(@"profileImage load done:%d", i);
-
-				[_profileImageCache setObject:image forKey:foodPicture.user.profileImageUrl];
-				[_tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-			}
-			
-		});
+		[MSImageLoader ImageLoad:foodPicture tableView:_tableView imageCache:_profileImageCache requestCache:_profileImageCache];
 	}
 }
 
@@ -160,7 +123,7 @@
 		cell =[[MSFoodLineCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
 	}
 	
-	MSFoodPicture *foodPicture = [[MSFoodPicture alloc]init: _jsonArray[indexPath.row] ];
+	MSFoodPicture *foodPicture = [[MSFoodPicture alloc]initWithJson: _jsonArray[indexPath.row] ];
 	cell.indexPathRow = indexPath.row;
 	cell.foodPicture = foodPicture;
 	
