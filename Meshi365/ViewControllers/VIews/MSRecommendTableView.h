@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface MSRecommendTableView : UITableView<UITableViewDataSource, UITableViewDelegate>
-
+-(void)loadImage;
 
 @property(nonatomic,strong)	NSArray *jsonArray;
 

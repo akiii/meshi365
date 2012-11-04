@@ -29,7 +29,7 @@
 	self.showsVerticalScrollIndicator = NO;
 	self.bounces = YES;
 	self.pagingEnabled = NO;
-
+	
 	[self setDecelerationRate:UIScrollViewDecelerationRateFast];
 	
 }
@@ -46,21 +46,21 @@
 //
 - (void)fixScrollOffset
 {
-
+	
 	int step = [UIScreen mainScreen].bounds.size.width/3;
 	float stopX = (int)((self.contentOffset.x+ step*0.5f) / step) * step;
 	[self setContentOffset:CGPointMake( stopX, 0.0f) animated:YES];
-
-
-
-//	if(stopX >= self.contentSize.width - step*4 - 5)
-//	{
-//		[self setContentOffset:CGPointMake( self.frame.size.width/2.0f, 0.0f) animated:YES];
-//		[self setContentOffset:CGPointMake( 80, 0.0f) animated:NO];
-//
-//	}
-//
-
+	
+	
+	
+	//	if(stopX >= self.contentSize.width - step*4 - 5)
+	//	{
+	//		[self setContentOffset:CGPointMake( self.frame.size.width/2.0f, 0.0f) animated:YES];
+	//		[self setContentOffset:CGPointMake( 80, 0.0f) animated:NO];
+	//
+	//	}
+	//
+	
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView*)scrollView
@@ -70,7 +70,7 @@
 
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)_scrollView
-willDecelerate:(BOOL)decelerate
+				  willDecelerate:(BOOL)decelerate
 {
 	if(decelerate == NO)
 		[self fixScrollOffset];

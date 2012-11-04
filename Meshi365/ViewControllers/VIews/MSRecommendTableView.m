@@ -9,6 +9,14 @@
 #import "MSRecommendTableView.h"
 #import "MSRecommendCell.h"
 #import "MSAWSConnector.h"
+#import "MSImageLoader.h"
+#import "MSFoodPicture.h"
+
+@interface MSRecommendTableView()
+@property(nonatomic,strong)	NSCache *imageCache;
+@property(nonatomic,strong)	NSCache *imageRequestCache;
+@property(nonatomic,strong) UILabel *label;
+@end
 
 @implementation MSRecommendTableView
 
@@ -23,13 +31,13 @@
 }
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect
+ {
+ // Drawing code
+ }
+ */
 
 
 
@@ -50,33 +58,59 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
+	MSFoodPicture *foodPicture = nil;
 	
-    MSRecommendCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-		cell =[[MSRecommendCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
-
+	if(_jsonArray && _jsonArray.count > indexPath.row)foodPicture= [[MSFoodPicture alloc]initWithJson: _jsonArray[indexPath.row] ];
+	
+	
+	MSRecommendCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	if (cell == nil) {
+		cell = [[MSRecommendCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 		
-		int size = [UIScreen mainScreen].bounds.size.width/2;
-		UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(3, 3, size, 30)];
-		label.text = @"Breakfast";
-		[cell addSubview:label];
+		
+		
+		int size = [UIScreen mainScreen].bounds.size.width/3;
+		cell.imageView.frame = CGRectMake(0, 0, size, size);
+		cell.foodPicture = foodPicture;
+		
 	}
 	
 	
-	//[cell updateJsonData:[MSAWSConnector foodPictureImageUrlFromJsonArray:_jsonArray imageNum:indexPath.row] jsonData:_jsonArray[indexPath.row]];
+	if(!foodPicture)
+		cell.imageView.image =  [UIImage imageNamed:@"starNonSelect.png"];
+	else if( [_imageCache objectForKey:foodPicture.url])
+		cell.imageView.image =  [_imageCache objectForKey:foodPicture.url];
+	else
+		cell.imageView.image =  [UIImage imageNamed:@"star.png"];
 	
 	
-    return cell;
+	
+	return cell;
+	
+	
 }
 
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	//todo セルのサイズに合わせてか可変を
-	return 400;
+	MSRecommendCell *cell = (MSRecommendCell*)[self tableView:tableView cellForRowAtIndexPath:indexPath];
+    return cell.height;
 	
 }
 
+
+-(void)loadImage
+{
+	_imageCache = [[NSCache alloc] init];
+	
+	NSLog(@"Start Load Food Image");
+	for( int i = 0; i < _jsonArray.count;i++)
+	{
+		MSFoodPicture* foodPicture = [[MSFoodPicture alloc] initWithJson:_jsonArray[i]];
+		
+		[MSImageLoader ImageLoad:foodPicture.url tableView:self imageCache:_imageCache requestCache:_imageRequestCache];
+	}
+}
 
 
 
