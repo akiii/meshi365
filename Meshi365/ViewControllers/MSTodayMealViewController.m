@@ -125,7 +125,7 @@
     
     naviBar.topItem.title = @"Today Menu";
     if(msCamera.state>0){
-        msValueImageView = [[MSValueImageView alloc] init];
+        msValueImageView = [[MSValueImageView alloc] initWithFrame:CGRectMake(0, 44, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen]applicationFrame].size.height - 44)];
         msValueImageView.cameraImage = msCamera.camera_image;
         
         naviBar.topItem.title = @"Food Image Config";
@@ -154,7 +154,7 @@
     }];
     MSFoodPicture *foodPicture;
     for (int i=0; i<[self.jsonArray count]; i++) {
-         foodPicture = [[MSFoodPicture alloc] init:self.jsonArray[i]];
+        foodPicture = [[MSFoodPicture alloc] initWithJson:self.jsonArray[i]];
         if(foodPicture.mealType==3){
         }else{
             for(int j=0;j<3;j++){
@@ -228,7 +228,8 @@
 -(void) save_image:(id)sender{
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    [msValueImageView showSavingDark];
+    //[msValueImageView showSavingDark];
+    msValueImageView.darkView.hidden = NO;
     
     NSString *urlString = [MSAWSConnector uploadFoodPictureToAWS:msValueImageView.squareFoodPictureImage];
     msValueImageView.squareFoodPictureImage.foodPicture.uiid = [MSUser currentUser].uiid;
