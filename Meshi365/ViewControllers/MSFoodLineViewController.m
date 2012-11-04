@@ -18,6 +18,7 @@
 @property(nonatomic,strong)	UITableView *tableView;
 @property(nonatomic,strong)	NSArray *jsonArray;
 @property(nonatomic,strong)	NSCache *imageCache;
+@property(nonatomic,strong)	NSCache *imageRequestCache;
 @property(nonatomic,strong)	NSCache *profileImageCache;
 @property(nonatomic,strong)	NSCache *profileImageRequestCache;
 
@@ -39,7 +40,13 @@
 {
     [super viewDidLoad];
 	
-    
+	_imageCache = [[NSCache alloc] init];
+	_imageRequestCache = [[NSCache alloc] init];
+	_profileImageCache = [[NSCache alloc] init];
+	_profileImageRequestCache = [[NSCache alloc] init];
+	//        _imageCache.countLimit = 20;
+	//        _imageCache.totalCostLimit = 640 * 480 * 10;
+
 	self.navigationItem.title = @"Food Line";
     
     UIBarButtonItem *btn =
@@ -67,11 +74,6 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	
-	_imageCache = [[NSCache alloc] init];
-	_profileImageCache = [[NSCache alloc] init];
-	_profileImageRequestCache = [[NSCache alloc] init];
-	//        _imageCache.countLimit = 20;
-	//        _imageCache.totalCostLimit = 640 * 480 * 10;
 	
 	
 	NSLog(@"Your UIID:%@",[[MSUser currentUser] uiid]);
@@ -93,13 +95,23 @@
 }
 
 -(void)loadImages{
+	//HACK:デバグ用表示のため、敢えてFoodImageとProfileImageのループを分けている。
+	NSLog(@"Start Load Food Image");
 	for( int i = 0; i < _jsonArray.count;i++)
 	{
-		MSFoodPicture *foodPicture = [[MSFoodPicture alloc]initWithJson: _jsonArray[i] ];
+		MSFoodPicture* foodPicture = [[MSFoodPicture alloc] initWithJson:_jsonArray[i]];
 		
-		[MSImageLoader ImageLoad:foodPicture tableView:_tableView imageCache:_imageCache requestCache:nil];
-		
-		[MSImageLoader ImageLoad:foodPicture tableView:_tableView imageCache:_profileImageCache requestCache:_profileImageCache];
+		[MSImageLoader ImageLoad:foodPicture.url tableView:_tableView imageCache:_imageCache requestCache:_imageRequestCache];
+	}
+	
+	
+	NSLog(@"Start Load profile Image");
+	for( int i = 0; i < _jsonArray.count;i++)
+	{
+		MSFoodPicture* foodPicture = [[MSFoodPicture alloc] initWithJson:_jsonArray[i]];
+
+
+		[MSImageLoader ImageLoad:foodPicture.user.profileImageUrl tableView:_tableView imageCache:_profileImageCache requestCache:_profileImageRequestCache];
 	}
 }
 

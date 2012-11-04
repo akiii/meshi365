@@ -9,10 +9,11 @@
 #import "MSMiniCalenderTableView.h"
 #import "MSFoodLineCell.h"
 #import "MSAWSConnector.h"
-
+#import "MSImageLoader.h"
 
 @interface MSMiniCalenderTableView()
 @property(nonatomic,strong)	NSCache *imageCache;
+@property(nonatomic,strong)	NSCache *imageRequestCache;
 @property(nonatomic,strong) UILabel *label;
 @end
 
@@ -54,29 +55,37 @@
 {
 	_imageCache = [[NSCache alloc] init];
 	
+	NSLog(@"Start Load Food Image");
 	for( int i = 0; i < _jsonArray.count;i++)
 	{
-		MSFoodPicture *foodPicture = [[MSFoodPicture alloc]initWithJson: _jsonArray[i] ];
+		MSFoodPicture* foodPicture = [[MSFoodPicture alloc] initWithJson:_jsonArray[i]];
 		
-		if([_imageCache objectForKey:foodPicture.url])continue;
-		
-		dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
-		dispatch_async(q_global, ^{
-			NSLog(@"...... load start:%d", i);
-			
-			
-			NSURL *foodImageAccessKeyUrl = [MSAWSConnector getS3UrlFromString:foodPicture.url];
-			NSData* data = [NSData dataWithContentsOfURL:foodImageAccessKeyUrl];
-			UIImage* image = [[UIImage alloc] initWithData:data];
-			
-			if(![_imageCache objectForKey:foodPicture.url])
-			{
-				[_imageCache setObject:image forKey:foodPicture.url];
-				[self performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-				NSLog(@"...... load done:%d", i);
-			}
-		});
+		[MSImageLoader ImageLoad:foodPicture.url tableView:self imageCache:_imageCache requestCache:_imageRequestCache];
 	}
+	
+//	for( int i = 0; i < _jsonArray.count;i++)
+//	{
+//		MSFoodPicture *foodPicture = [[MSFoodPicture alloc]initWithJson: _jsonArray[i] ];
+//		
+//		if([_imageCache objectForKey:foodPicture.url])continue;
+//		
+//		dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+//		dispatch_async(q_global, ^{
+//			NSLog(@"...... load start:%d", i);
+//			
+//			
+//			NSURL *foodImageAccessKeyUrl = [MSAWSConnector getS3UrlFromString:foodPicture.url];
+//			NSData* data = [NSData dataWithContentsOfURL:foodImageAccessKeyUrl];
+//			UIImage* image = [[UIImage alloc] initWithData:data];
+//			
+//			if(![_imageCache objectForKey:foodPicture.url])
+//			{
+//				[_imageCache setObject:image forKey:foodPicture.url];
+//				[self performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+//				NSLog(@"...... load done:%d", i);
+//			}
+//		});
+//	}
 	
 }
 
@@ -98,9 +107,8 @@
 		
 		
 		
-		int size = [UIScreen mainScreen].bounds.size.width/3 - 20;
-		cell.imageView.frame = CGRectMake(3, 10, size, size);
-		
+		int size = [UIScreen mainScreen].bounds.size.width/3;
+		cell.imageView.frame = CGRectMake(0, 0, size, size);
 		
 		_label = [[UILabel alloc]initWithFrame:CGRectMake(3, 3, size, 30)];
 		[_label setBackgroundColor: [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.0]];

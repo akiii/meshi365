@@ -229,7 +229,7 @@
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     //[msValueImageView showSavingDark];
-    msValueImageView.darkView.hidden = NO;
+	// msValueImageView.darkView.hidden = NO;
     
     NSString *urlString = [MSAWSConnector uploadFoodPictureToAWS:msValueImageView.squareFoodPictureImage];
     msValueImageView.squareFoodPictureImage.foodPicture.uiid = [MSUser currentUser].uiid;
