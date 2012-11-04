@@ -108,7 +108,7 @@
 {
 	int naviHeight = 44;
 	int height =  self.view.frame.size.height;
-	int width = [UIScreen mainScreen].bounds.size.width/3;
+	float width = [UIScreen mainScreen].bounds.size.width/3;
 	UILabel *dayLabel[maxViewNum];
 	MSMiniCalenderTableView *miniTable[maxViewNum];
 
@@ -121,7 +121,7 @@
 	{
 		NSLog(@".....making miniCal:[%d]",i);
 		
-		int x = (maxViewNum - i)*width;
+		float x = (maxViewNum - i-1)*width;
 		miniTable[i] = [[MSMiniCalenderTableView alloc]init];
 		miniTable[i].bounces = YES;
 		miniTable[i].separatorColor = [UIColor clearColor];
