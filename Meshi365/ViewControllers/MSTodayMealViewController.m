@@ -1,11 +1,14 @@
+#define MEAL_IMAGE_WIDTH 280
+#define MEAL_IMAGE_HEIGHT 80
+
 #import <Social/Social.h>
 #import <Accounts/Accounts.h>
 #import "MSTodayMealViewController.h"
 #import "MSNetworkConnector.h"
 #import "MSUser.h"
 
-@interface MSTodayMealViewController ()
 
+@interface MSTodayMealViewController ()
 @end
 
 @implementation MSTodayMealViewController
@@ -39,6 +42,7 @@
     if(self){
         self.view.backgroundColor = [UIColor colorWithRed:1.0 green:0.93 blue:0.8 alpha:1.0];
         flag_async = 0;
+        msCamera = [[MSCameraViewController alloc] init];
     }
     return self;
 }
@@ -46,9 +50,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    msCamera = [[MSCameraViewController alloc] init];
-    no_image_size = CGSizeMake(280, 80);
     
     as = [[UIActionSheet alloc] init];
     as.delegate = self;
@@ -81,7 +82,7 @@
     
     for(int i=0;i<3;i++){
         mealImageView[i].userInteractionEnabled = YES;
-        mealImageView[i].frame = CGRectMake(20,50+85*i,no_image_size.width ,no_image_size.height);
+        mealImageView[i].frame = CGRectMake(20,50+85*i,MEAL_IMAGE_WIDTH ,MEAL_IMAGE_HEIGHT);
         [self.view addSubview:mealImageView[i]];
         
         indicator[i] = [[UIActivityIndicatorView alloc]  initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
@@ -117,57 +118,10 @@
     
 }
 
+
+//Value Image View に行くかどうか分岐する
 -(void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
-    NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
-    [outputFormatter setDateFormat:@"yyyy-MM-dd"];
-    NSString *sinceDateString = [outputFormatter stringFromDate:[NSDate date]];//@"2012-11-02";
-    NSString *toDateString = [outputFormatter stringFromDate:[NSDate dateWithTimeIntervalSinceNow:60*60*24]];
-    
-    NSLog(@"%@",sinceDateString);
-    NSLog(@"%@",toDateString);
-    
-    
-    NSString *params = [NSString string];
-    params = [params stringByAppendingFormat:@"%@=%@&", @"my_uiid", [MSUser currentUser].uiid];
-    params = [params stringByAppendingFormat:@"%@=%@&", @"since_date", sinceDateString];
-    
-    params = [params stringByAppendingFormat:@"%@=%@&", @"to_date", toDateString];
-    [MSNetworkConnector requestToUrl:URL_OF_CALENDER([MSUser currentUser].uiid) method:RequestMethodPost params:params block:^(NSData *response){
-        NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
-        for (int i=0; i<[jsonArray count]; i++) {
-            MSFoodPicture *foodPicture = [[MSFoodPicture alloc] init:jsonArray[i]];
-            if(foodPicture.mealType==3){
-            }else{
-                for(int j=0;j<3;j++){
-                    if (mealImageView[j].userInteractionEnabled==YES&&foodPicture.mealType==j) {
-                        
-                        flag_async++;
-                        [indicator[j] startAnimating];
-                        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-                        mealImageView[j].userInteractionEnabled=NO;
-                        mealImageView[j].image = [UIImage imageNamed:@"loadingMealImage.png"];
-
-                        dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-                        dispatch_queue_t q_main = dispatch_get_main_queue();
-                
-                        dispatch_async(q_global, ^{
-                            NSURL *foodImageAccessKeyUrl = [MSAWSConnector getS3UrlFromString:foodPicture.url];
-                            NSData* data = [NSData dataWithContentsOfURL:foodImageAccessKeyUrl];
-                            UIImage* image = [[UIImage alloc] initWithData:data];
-                            dispatch_async(q_main, ^{
-                                [self setMealImage:j :image];
-                                [indicator[j] stopAnimating];
-                                flag_async--;
-                                if(flag_async==0) [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-                            });
-                        });
-                    }
-                }
-            }
-        }
-    }];
     
     naviBar.topItem.title = @"Today Menu";
     if(msCamera.state>0){
@@ -180,27 +134,76 @@
     }
 }
 
+//非同期で画像を読み込む
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    
+    NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
+    [outputFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *sinceDateString = [outputFormatter stringFromDate:[NSDate date]];//@"2012-11-02";
+    NSString *toDateString = [outputFormatter stringFromDate:[NSDate dateWithTimeIntervalSinceNow:60*60*24]];
+    
+    NSString *params = [NSString string];
+    params = [params stringByAppendingFormat:@"%@=%@&", @"my_uiid", [MSUser currentUser].uiid];
+    params = [params stringByAppendingFormat:@"%@=%@&", @"since_date", sinceDateString];
+    params = [params stringByAppendingFormat:@"%@=%@&", @"to_date", toDateString];
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    [MSNetworkConnector requestToUrl:URL_OF_CALENDER([MSUser currentUser].uiid) method:RequestMethodPost params:params block:^(NSData *response){
+       self.jsonArray = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
+    }];
+    MSFoodPicture *foodPicture;
+    for (int i=0; i<[self.jsonArray count]; i++) {
+         foodPicture = [[MSFoodPicture alloc] init:self.jsonArray[i]];
+        if(foodPicture.mealType==3){
+        }else{
+            for(int j=0;j<3;j++){
+                if (mealImageView[j].userInteractionEnabled==YES&&foodPicture.mealType==j) {
+                    
+                    flag_async++;
+                    [indicator[j] startAnimating];
+                    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+                    mealImageView[j].userInteractionEnabled=NO;
+                    mealImageView[j].image = [UIImage imageNamed:@"loadingMealImage.png"];
+                    
+                    dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+                    dispatch_queue_t q_main = dispatch_get_main_queue();
+                    
+                    dispatch_async(q_global, ^{
+                        NSURL *foodImageAccessKeyUrl = [MSAWSConnector getS3UrlFromString:foodPicture.url];
+                        NSData* data = [NSData dataWithContentsOfURL:foodImageAccessKeyUrl];
+                        UIImage* image = [[UIImage alloc] initWithData:data];
+                        dispatch_async(q_main, ^{
+                            [self setMealImage:j :image];
+                            [indicator[j] stopAnimating];
+                            flag_async--;
+                            if(flag_async==0) [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+                        });
+                    });
+                }
+            }
+        }
+    }
+}
+
 -(void)breakfastCameraAction{
     if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
         msCamera.state = 1;
         [as showFromTabBar:self.tabBarController.tabBar];
     }
 }
-
 -(void)lunchCameraAction{
     if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
         msCamera.state = 2;
         [as showFromTabBar:self.tabBarController.tabBar];
     }
 }
-
 -(void)supperCameraAction{
     if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
         msCamera.state = 3;
         [as showFromTabBar:self.tabBarController.tabBar];
     }
 }
-
 -(void)otherCameraAction{
     if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
         msCamera.state = 4;
@@ -224,6 +227,7 @@
 
 -(void) save_image:(id)sender{
     
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     [msValueImageView showSavingDark];
     
     NSString *urlString = [MSAWSConnector uploadFoodPictureToAWS:msValueImageView.squareFoodPictureImage];
@@ -259,18 +263,18 @@
                     
                     NSData *imageData = UIImagePNGRepresentation(msValueImageView.squareFoodPictureImage);
                     [request addMultipartData:imageData withName:@"media[]" type:@"multipart/form-data" filename:nil];
-                    [request addMultipartData:[tweet dataUsingEncoding:NSUTF8StringEncoding] withName:@"status" type:@"multipart/form-data" filename:nil];
 
-                    [request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
-                        //NSLog(@"responseData=%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
-                    }];
+                    [request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {}];
                 }
             }
         }];
     }
     
+    
     [self setMealImage:msCamera.state-1 :msValueImageView.squareFoodPictureImage];
     [self cancel_image:sender];
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
 -(void) cancel_image:(id)sender{
@@ -281,9 +285,9 @@
 }
 
 -(void) setMealImage:(int)type :(UIImage*)image{
-    CGRect image_rect = CGRectMake(0, (image.size.height-no_image_size.height)/2,
+    CGRect image_rect = CGRectMake(0, (image.size.height-MEAL_IMAGE_HEIGHT)/2,
                                    image.size.width,
-                                   image.size.height*no_image_size.height/no_image_size.width);
+                                   image.size.height*MEAL_IMAGE_HEIGHT/MEAL_IMAGE_WIDTH);
     UIImage *image0,*frame;
     image0 = [UIImage imageWithCGImage:CGImageCreateWithImageInRect([image CGImage], image_rect)];
     switch (type) {
@@ -298,9 +302,9 @@
             break;
     }
     
-    UIGraphicsBeginImageContext(CGSizeMake(no_image_size.width, no_image_size.height));
-    [image0 drawInRect:CGRectMake(0, 0, no_image_size.width, no_image_size.height)];
-    [frame drawInRect:CGRectMake(0, 0, no_image_size.width, no_image_size.height)];
+    UIGraphicsBeginImageContext(CGSizeMake(MEAL_IMAGE_WIDTH, MEAL_IMAGE_HEIGHT));
+    [image0 drawInRect:CGRectMake(0, 0, MEAL_IMAGE_WIDTH, MEAL_IMAGE_HEIGHT)];
+    [frame drawInRect:CGRectMake(0, 0, MEAL_IMAGE_WIDTH, MEAL_IMAGE_HEIGHT)];
     
     mealImageView[type].image = UIGraphicsGetImageFromCurrentImageContext();
     mealImageView[type].userInteractionEnabled = NO;

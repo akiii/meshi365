@@ -14,14 +14,16 @@
     MSCameraViewController *msCamera;
     MSValueImageView *msValueImageView;
     
+    
     UIActionSheet *as;
     
     UINavigationBar *naviBar;
     
-    CGSize no_image_size;
-    
     int cntOtherImage;
     int flag_async;
 }
+
+
+@property(nonatomic,strong)	NSArray *jsonArray;
 
 @end
