@@ -99,33 +99,39 @@
 		dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
 		dispatch_async(q_global, ^{
 			NSLog(@"Image load start:%d", i);
-			
+
 			NSURL *foodImageAccessKeyUrl = [MSAWSConnector getS3UrlFromString:foodPicture.url];
 			NSData* data = [NSData dataWithContentsOfURL:foodImageAccessKeyUrl];
 			UIImage* image = [[UIImage alloc] initWithData:data];
 			
 			if(image != nil)
 			{
+				NSLog(@"Image load done:%d", i);
+
 				[_imageCache setObject:image forKey:foodPicture.url];
 				[_tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+				
+
 			}
 		});
 		
 		
 		if([_profileImageRequestCache objectForKey:foodPicture.user.profileImageUrl])continue;
 		
+		[_profileImageRequestCache setObject:@"lock" forKey:foodPicture.user.profileImageUrl];
+
 		//load pofile images
 		dispatch_queue_t q_globalProfile = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
 		dispatch_async(q_globalProfile, ^{
 			NSLog(@"ProfileImg load start:%d",i);
-			
-			[_profileImageRequestCache setObject:@"lock" forKey:foodPicture.user.profileImageUrl];
 			NSURL *profileImageAccessKeyUrl = [MSAWSConnector getS3UrlFromString:foodPicture.user.profileImageUrl];
 			NSData* data = [NSData dataWithContentsOfURL:profileImageAccessKeyUrl];
 			UIImage* image = [[UIImage alloc] initWithData:data];
 			
 			if(image != nil)
 			{
+				NSLog(@"profileImage load done:%d", i);
+
 				[_profileImageCache setObject:image forKey:foodPicture.user.profileImageUrl];
 				[_tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
 			}
