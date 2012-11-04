@@ -73,6 +73,8 @@
 		cell.imageView.frame = CGRectMake(0, 0, size, size);
 		cell.foodPicture = foodPicture;
 		
+		NSLog(@"!!!!!!!!!!!!!!!!fucking cretate %d",indexPath.row);
+		
 	}
 	
 	
@@ -84,7 +86,7 @@
 		cell.imageView.image =  [UIImage imageNamed:@"star.png"];
 	
 	
-	
+	cell.imageView.image =  [UIImage imageNamed:@"star.png"];
 	return cell;
 	
 	

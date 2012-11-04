@@ -31,7 +31,7 @@
 	
 	length = [UIScreen mainScreen].bounds.size.width-100;
 	int imagePosX = ([UIScreen mainScreen].bounds.size.width  - length )/2;
-	self.imageView.image = _foodImage;
+	//	self.imageView.image = _foodImage;
 	self.imageView.frame = CGRectMake(imagePosX, y, length,length);
 	y+=length+10;
 	
@@ -73,7 +73,20 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-		self.height = 400;
+		//	self.height = 400;
+		
+		self.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.0];
+		
+		_storeName			= [[UILabel alloc] init];
+		_menuName			= [[UILabel alloc] init];
+		
+		self.imageView.contentMode		= UIViewContentModeScaleToFill;
+	
+		[self.contentView addSubview:_menuName];
+		[self.contentView addSubview:_storeName];
+		
+		[self layoutSubviews];
+
     }
 	
     return self;

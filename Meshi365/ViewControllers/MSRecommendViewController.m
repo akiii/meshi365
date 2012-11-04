@@ -49,6 +49,8 @@
 	 
 	 {
 		 _selfRecommendJsonArray = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
+		 
+		 NSLog(@"\nself recommend\n%@",_selfRecommendJsonArray);
 	 }];
 	
 	
@@ -57,6 +59,8 @@
 	 //[MSNetworkConnector requestToUrl:URL_OF_POST_FOOD_PICTURE method:RequestMethodGet params:nil block:^(NSData *response)
 	 {
 		 _otherRecommendJsonArray = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
+		 NSLog(@"\nother recommend\n%@",_selfRecommendJsonArray);
+
 	 }];
 	
 	
