@@ -40,4 +40,4 @@
 #define URL_OF_CALENDER(uiid)               [NSString stringWithFormat:@"%@/api/%@/calender", SERVER_BASE_URL, uiid]
 
 /* params keys : { "word" } */
-#define URL_OF_SEARCH_USERS(words)          [NSString stringWithFormat:@"%@/api/%@/friends/search", SERVER_BASE_URL, uiid]
+#define URL_OF_SEARCH_USERS(words)          [NSString stringWithFormat:@"%@/api/%@/friends/search", SERVER_BASE_URL, words]
