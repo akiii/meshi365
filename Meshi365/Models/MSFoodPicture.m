@@ -39,6 +39,7 @@
 		self.uiid		= [json objectForKey:@"uiid"];
 		self.mealType	= [[json objectForKey:@"meal_type"] integerValue];
 		self.url		= [json objectForKey:@"url"];
+        //[[json objectForKey:@"url"] stringByReplacingOccurrencesOfString:@"s3.amazonaws.com/meshi365-images" withString:@"s3efdeg3pyykt7.cloudfront.net"];
 		self.storeName	= [NSString stringWithFormat:@"%@", [json objectForKey:@"store_name"]];
 		self.menuName	= [NSString stringWithFormat:@"%@", [json objectForKey:@"menu_name"]];
 		self.comment	= [NSString stringWithFormat:@"%@", [json objectForKey:@"comment"]];
