@@ -8,23 +8,27 @@
 
 #import "MSImageCache.h"
 
+@interface MSImageCache()
+
+@end
+
 @implementation MSImageCache
+
 static MSImageCache* imageCache = nil;
 
 + (MSImageCache*)sharedManager {
     @synchronized(self) {
         if (imageCache == nil) {
-			imageCache.foodIimage = [[NSCache alloc] init];
-			imageCache.foodImageRequest = [[NSCache alloc] init];
-			imageCache.profileImage = [[NSCache alloc] init];
-			imageCache.profileImageRequest = [[NSCache alloc] init];
+            imageCache = [[self alloc] init];
+			imageCache.image = [[NSCache alloc] init];
+			imageCache.imageRequest = [[NSCache alloc] init];
 			
 			//        _imageCache.countLimit = 20;
 			//        _imageCache.totalCostLimit = 640 * 480 * 10;
+			
+			
+			
 
-			
-			
-            imageCache = [[self alloc] init];
         }
     }
     return imageCache;

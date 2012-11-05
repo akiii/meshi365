@@ -12,15 +12,11 @@
 #import "MSNetworkConnector.h"
 #import "MSAWSConnector.h"
 #import "MSImageLoader.h"
-
+#import "MSImageCache.h"
 
 @interface MSFoodLineViewController ()
 @property(nonatomic,strong)	UITableView *tableView;
 @property(nonatomic,strong)	NSArray *jsonArray;
-@property(nonatomic,strong)	NSCache *imageCache;
-@property(nonatomic,strong)	NSCache *imageRequestCache;
-@property(nonatomic,strong)	NSCache *profileImageCache;
-@property(nonatomic,strong)	NSCache *profileImageRequestCache;
 
 
 @end
@@ -40,12 +36,6 @@
 {
     [super viewDidLoad];
 	
-	_imageCache = [[NSCache alloc] init];
-	_imageRequestCache = [[NSCache alloc] init];
-	_profileImageCache = [[NSCache alloc] init];
-	_profileImageRequestCache = [[NSCache alloc] init];
-	//        _imageCache.countLimit = 20;
-	//        _imageCache.totalCostLimit = 640 * 480 * 10;
 
 	self.navigationItem.title = @"Food Line";
     
@@ -77,8 +67,8 @@
 	
 	
 	NSLog(@"Your UIID:%@",[[MSUser currentUser] uiid]);
-	//	[MSNetworkConnector requestToUrl:URL_OF_FOOD_LINE( [[MSUser currentUser] uiid]) method:RequestMethodGet params:nil block:^(NSData *response)
-	[MSNetworkConnector requestToUrl:URL_OF_FOOD_LINE( @"7C53178F-C613-4C26-ACD3-61BB069F3766") method:RequestMethodGet params:nil block:^(NSData *response)
+	[MSNetworkConnector requestToUrl:URL_OF_FOOD_LINE( [[MSUser currentUser] uiid]) method:RequestMethodGet params:nil block:^(NSData *response)
+
  
 	{
 		 _jsonArray = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
@@ -101,18 +91,18 @@
 	{
 		MSFoodPicture* foodPicture = [[MSFoodPicture alloc] initWithJson:_jsonArray[i]];
 		
-		[MSImageLoader ImageLoad:foodPicture.url tableView:_tableView imageCache:_imageCache requestCache:_imageRequestCache];
+		[MSImageLoader ImageLoad:foodPicture.url tableView:_tableView];
 	}
 	
 	
 	NSLog(@"Start Load profile Image");
-	for( int i = 0; i < _jsonArray.count;i++)
-	{
-		MSFoodPicture* foodPicture = [[MSFoodPicture alloc] initWithJson:_jsonArray[i]];
-
-
-		[MSImageLoader ImageLoad:foodPicture.user.profileImageUrl tableView:_tableView imageCache:_profileImageCache requestCache:_profileImageRequestCache];
-	}
+//	for( int i = 0; i < _jsonArray.count;i++)
+//	{
+//		MSFoodPicture* foodPicture = [[MSFoodPicture alloc] initWithJson:_jsonArray[i]];
+//
+//
+//		[MSImageLoader ImageLoad:foodPicture.user.profileImageUrl tableView:_tableView];
+//	}
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -140,16 +130,19 @@
 	cell.foodPicture = foodPicture;
 	
 	
+	MSImageCache* cache = [MSImageCache sharedManager];
+
+	
 	//set food image
-	if([_imageCache objectForKey:foodPicture.url] )
-		cell.foodImage = [_imageCache objectForKey:foodPicture.url];
+	if([cache.image objectForKey:foodPicture.url] )
+		cell.foodImage = [cache.image objectForKey:foodPicture.url];
 	else
 		cell.foodImage = [UIImage imageNamed:@"star.png"];
 	
 	
 	//set profile image
-	if([_profileImageCache objectForKey:foodPicture.user.profileImageUrl])
-		cell.profileImage = [_profileImageCache objectForKey:foodPicture.user.profileImageUrl];
+	if([cache.image objectForKey:foodPicture.user.profileImageUrl])
+		cell.profileImage = [cache.image objectForKey:foodPicture.user.profileImageUrl];
 	else
 		cell.profileImage = [UIImage imageNamed:@"star.png"];
 	

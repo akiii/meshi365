@@ -10,7 +10,7 @@
 #import "MSFoodPicture.h"
 
 @interface MSImageLoader : NSObject
-+(void)ImageLoad:(NSString*)url tableView:(UITableView*)tableView imageCache:(NSCache*)imageCache requestCache:(NSCache*)requestCache;
++(void)ImageLoad:(NSString*)url tableView:(UITableView*)tableView;
 
 
 @end
