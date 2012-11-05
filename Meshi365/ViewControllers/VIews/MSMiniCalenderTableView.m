@@ -82,9 +82,10 @@
 		
 		
 		
-		int size = [UIScreen mainScreen].bounds.size.width/3;
+		int size = 20;
 		cell.imageView.frame = CGRectMake(0, 0, size, size);
 		
+		size = [UIScreen mainScreen].bounds.size.width/3-10;
 		_label = [[UILabel alloc]initWithFrame:CGRectMake(3, 3, size, 30)];
 		[_label setBackgroundColor: [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.0]];
 		if(!foodPicture)_label.text = @"Nothing";
@@ -121,7 +122,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	//todo セルのサイズに合わせてか可変を
-	return 120;
+	return self.frame.size.height/3.0f;//110;
 	
 }
 

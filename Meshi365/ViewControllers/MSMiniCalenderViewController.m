@@ -43,16 +43,18 @@
 	[outputFormatter setDateFormat:@"yyyy-MM-dd"];
 	
 	int day = 7;
-	NSDate *toDate =  [NSDate dateWithTimeIntervalSinceNow:-day*24*60*60];
-	NSString *sinceDateString = [outputFormatter stringFromDate:toDate];
-	NSString *toDateString = [outputFormatter stringFromDate:[NSDate date]];
+	NSDate *sinceDate =  [NSDate dateWithTimeIntervalSinceNow:-day*24*60*60];
+	NSDate *toDate =  [NSDate dateWithTimeIntervalSinceNow:1*24*60*60];
+
+	NSString *sinceDateString = [outputFormatter stringFromDate:sinceDate];
+	NSString *toDateString = [outputFormatter stringFromDate:toDate];
 	
-	
+
 	
 	NSString *params = [NSString string];
 	params = [params stringByAppendingFormat:@"%@=%@&", @"my_uiid", [MSUser currentUser].uiid];
-	params = [params stringByAppendingFormat:@"%@=%@&", @"since_date", sinceDateString];
-	params = [params stringByAppendingFormat:@"%@=%@&", @"to_date", toDateString];
+	params = [params stringByAppendingFormat:@"%@=%@&", @"since_date",sinceDateString];
+			  params = [params stringByAppendingFormat:@"%@=%@&", @"to_date", toDateString];
 	[MSNetworkConnector requestToUrl:URL_OF_CALENDER([MSUser currentUser].uiid) method:RequestMethodPost params:params block:^(NSData *response)
 	 {
 		 _jsonArray = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
@@ -142,7 +144,7 @@
 		NSLog(@".....set json done:[%d]",_jsonArray.count);
 		miniTable[i].jsonArray = jsonOneDayArray;
 		[miniTable[i] loadImage];
-		miniTable[i].frame =CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+		miniTable[i].frame =CGRectMake((maxViewNum-i-1)*width, naviHeight+14,width,  self.view.frame.size.height - naviHeight-56);
 		
 		
 		
