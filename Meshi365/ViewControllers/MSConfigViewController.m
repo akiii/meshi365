@@ -9,6 +9,8 @@
 #import "MSConfigViewController.h"
 #import "MSFriendSearchViewController.h"
 #import "MSFriendRequestViewController.h"
+#import "MSUser.h"
+#import "MSNetworkConnector.h"
 
 
 @interface MSConfigViewController ()
@@ -31,13 +33,26 @@
 	
     self.navigationItem.title = @"Account";
 
-    /*
-	UINavigationBar *naviBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, naviHeight)];
-    naviBar.tintColor = [UIColor colorWithRed:1.0 green:0.80 blue:0.1 alpha:0.7];
-    UINavigationItem *title = [[UINavigationItem alloc] initWithTitle:@"Account"];
-    [naviBar pushNavigationItem:title animated:YES];
-    [self.view addSubview:naviBar];
-*/
+    UIImageView *profileImageView = [[UIImageView alloc] initWithImage:nil];
+    profileImageView.frame = CGRectMake(20,80,120,120);
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    MSUser *currentUser = [MSUser currentUser];
+    dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_queue_t q_main = dispatch_get_main_queue();
+    dispatch_async(q_global, ^{
+        NSLog(@"aaa = %@",currentUser.profileImageUrl);
+        NSData* data = [NSData dataWithContentsOfURL:[NSURL URLWithString:currentUser.profileImageUrl]];
+        UIImage* image = [[UIImage alloc] initWithData:data];
+        dispatch_async(q_main, ^{
+            if(image==nil) NSLog(@"test");// 画像がnilの時
+            profileImageView.image = image;
+            //[self setMealImage:j :image];
+            //[indicator[j] stopAnimating];
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        });
+    });
+    
     
 	self.view.backgroundColor = [UIColor colorWithRed:1.0 green:0.93 blue:0.8 alpha:1.0];
 	UIScrollView* scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0,0,[UIScreen mainScreen].bounds.size.width,[UIScreen mainScreen].bounds.size.height)];
@@ -55,16 +70,30 @@
 	inputUserName.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.0];
 	[scrollView addSubview:inputUserName];
 	y+=dy;
+
 	
+    
+    friendSearchTextField = [[UITextField alloc] initWithFrame:CGRectMake(10, 250, 200, 30)];
+    friendSearchTextField.borderStyle = UITextBorderStyleRoundedRect;
+    friendSearchTextField.placeholder = @"User Name";
+	[friendSearchTextField addTarget:self action:@selector(userSearchInputDone) forControlEvents:UIControlEventEditingDidEndOnExit];
+    [scrollView addSubview:friendSearchTextField];
+    
+    UIButton *confirmBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    confirmBtn.frame = CGRectMake(10, 300, 120, 30);
+	[confirmBtn setTitle:@"Request" forState:UIControlStateNormal];
+    [confirmBtn addTarget:self action:@selector(confirmButtonSelected) forControlEvents:UIControlEventTouchUpInside];
+    [scrollView addSubview:confirmBtn];
 	
-	_textField = [[UITextField alloc] initWithFrame:CGRectMake(x, y, 200, 30)];
-	_textField.placeholder = @"input your nickname";
-	_textField.clearButtonMode = UITextFieldViewModeAlways;
-	_textField.borderStyle = UITextBorderStyleRoundedRect;
-	[_textField addTarget:self action:@selector(nicknameInputDone) forControlEvents:UIControlEventEditingDidEndOnExit];
-	[scrollView addSubview:_textField];
-	
-	
+    /*
+     
+     _textField = [[UITextField alloc] initWithFrame:CGRectMake(x, y, 200, 30)];
+     _textField.placeholder = @"input your nickname";
+     _textField.clearButtonMode = UITextFieldViewModeAlways;
+     _textField.borderStyle = UITextBorderStyleRoundedRect;
+     [_textField addTarget:self action:@selector(nicknameInputDone) forControlEvents:UIControlEventEditingDidEndOnExit];
+     [scrollView addSubview:_textField];
+     
 	UIButton *submitButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
 	[submitButton setTitle:@"Submit" forState:UIControlStateNormal];
 	submitButton.frame = CGRectMake(x+210, y, 80, 30);
@@ -96,20 +125,25 @@
 	[twButton2 addTarget:self action:@selector(twPost2:) forControlEvents:UIControlEventTouchDown];
 	[scrollView addSubview:twButton2];
 	y+=dy;
-    
-    friendSearchTextField = [[UITextField alloc] initWithFrame:CGRectMake(10, 250, 200, 30)];
-    friendSearchTextField.borderStyle = UITextBorderStyleRoundedRect;
-    friendSearchTextField.placeholder = @"User Name";
-	[friendSearchTextField addTarget:self action:@selector(userSearchInputDone) forControlEvents:UIControlEventEditingDidEndOnExit];
-    [scrollView addSubview:friendSearchTextField];
-    
-    UIButton *confirmBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    confirmBtn.frame = CGRectMake(10, 300, 120, 30);
-	[confirmBtn setTitle:@"Request" forState:UIControlStateNormal];
-    [confirmBtn addTarget:self action:@selector(confirmButtonSelected) forControlEvents:UIControlEventTouchUpInside];
-    [scrollView addSubview:confirmBtn];
+     */
+
 }
 
+-(void)userSearchInputDone{
+    [friendSearchTextField resignFirstResponder];
+    
+    MSFriendSearchViewController *friendSearchViewController = [[MSFriendSearchViewController alloc] init];
+    friendSearchViewController.userSearchQuery = friendSearchTextField.text;
+    NSLog(@"%@",friendSearchTextField.text);
+    [self.navigationController pushViewController:friendSearchViewController animated:YES];
+}
+
+-(void)confirmButtonSelected{
+    MSFriendRequestViewController *friendRequestViewController = [[MSFriendRequestViewController alloc] init];
+    [self.navigationController pushViewController:friendRequestViewController animated:YES];
+}
+
+/*
 -(void)submitNickname:(UITextField*)textfield{
 	NSLog(@"submit!!!!!!!");
 }
@@ -193,7 +227,6 @@
 
 
 
-
 - (void)getFollower:(UITextField*)textfield
 {
 	
@@ -255,20 +288,8 @@
 	return YES;
 }
 -(void)nicknameInputDone{
+}
+ */
 
-}
--(void)userSearchInputDone{
-    [friendSearchTextField resignFirstResponder];
-    
-    MSFriendSearchViewController *friendSearchViewController = [[MSFriendSearchViewController alloc] init];
-    friendSearchViewController.userSearchQuery = friendSearchTextField.text;
-    NSLog(@"%@",friendSearchTextField.text);
-    [self.navigationController pushViewController:friendSearchViewController animated:YES];
-}
-
--(void)confirmButtonSelected{
-    MSFriendRequestViewController *friendRequestViewController = [[MSFriendRequestViewController alloc] init];
-    [self.navigationController pushViewController:friendRequestViewController animated:YES];
-}
 
 @end
