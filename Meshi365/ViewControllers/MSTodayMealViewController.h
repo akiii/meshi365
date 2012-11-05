@@ -7,6 +7,7 @@
 @interface MSTodayMealViewController : UIViewController<UIActionSheetDelegate>{
     
     UIActivityIndicatorView *indicator[3];
+    UIScrollView *scv;
     
     UIImageView *mealImageView[3];
     UIImageView *otherImageView;

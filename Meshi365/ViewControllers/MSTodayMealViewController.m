@@ -53,6 +53,8 @@
 {
     [super viewDidLoad];
     
+    scv = [[UIScrollView alloc] initWithFrame:CGRectMake(25, 330, [[UIScreen mainScreen] bounds].size.width-25, 70)];
+    
     as = [[UIActionSheet alloc] init];
     as.delegate = self;
     as.title = @"";
@@ -93,29 +95,10 @@
         [self.view addSubview: indicator[i]];
     }
     
-    //画像の表示
-    cntOtherImage = 1;
     
     UILabel *othersLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 300, 80, 30)];
     othersLabel.backgroundColor = [UIColor clearColor];
     othersLabel.text = @"Others";
-    
-    int i;
-    UIImageView *im;
-    for (i=0; i<cntOtherImage; i++) {
-        im = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sampleMenu.png"]];
-        im.frame = CGRectMake(25+i*65,330,60,60);
-        [self.view addSubview:im];
-    }
-    
-    otherImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_image_others.png"]];
-    otherImageView.userInteractionEnabled = YES;
-    [otherImageView addGestureRecognizer:[[UITapGestureRecognizer alloc]
-                                          initWithTarget:self
-                                          action:@selector(otherCameraAction)]];
-    otherImageView.frame = CGRectMake(25+i*65,330,60,60);
-    [self.view addSubview:otherImageView];
-    
     [self.view addSubview:othersLabel];
     
 }
@@ -131,6 +114,7 @@
         msValueImageView.cameraImage = msCamera.camera_image;
         
         naviBar.topItem.title = @"Food Image Config";
+        [scv removeFromSuperview];
         [self hideTabBar:self.tabBarController];
         [self.view addSubview:msValueImageView];
     }
@@ -139,6 +123,9 @@
 //非同期で画像を読み込む
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+    
+    NSMutableArray *otherImageViews = [NSMutableArray array];
+    NSMutableArray *otherImageLoadingIndicators = [NSMutableArray array];
     
     NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
     [outputFormatter setDateFormat:@"yyyy-MM-dd"];
@@ -158,10 +145,33 @@
     for (int i=0; i<[self.jsonArray count]; i++) {
         foodPicture = [[MSFoodPicture alloc] initWithJson:self.jsonArray[i]];
         if(foodPicture.mealType==3){
+            flag_async++;
+            
+            UIImageView *iv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"loadingMealImage.png"]];
+            [otherImageViews addObject:iv];
+            
+            UIActivityIndicatorView *aiv = [[UIActivityIndicatorView alloc]  initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+            aiv.color = [UIColor colorWithRed:0.4 green:0.0 blue:0.1 alpha:1.0];
+            [aiv startAnimating];
+            [otherImageLoadingIndicators addObject:aiv];
+            
+            dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+            dispatch_queue_t q_main = dispatch_get_main_queue();
+            dispatch_async(q_global, ^{
+                NSURL *foodImageAccessKeyUrl = [MSAWSConnector getS3UrlFromString:foodPicture.url];
+                NSData* data = [NSData dataWithContentsOfURL:foodImageAccessKeyUrl];
+                UIImage* image = [[UIImage alloc] initWithData:data];
+                dispatch_async(q_main, ^{
+                    if(image==nil);// 画像がnilの時
+                    iv.image = image;
+                    [aiv stopAnimating];
+                    flag_async--;
+                    if(flag_async==0) [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+                });
+            });
         }else{
             for(int j=0;j<3;j++){
                 if (mealImageView[j].userInteractionEnabled==YES&&foodPicture.mealType==j) {
-                    
                     flag_async++;
                     [indicator[j] startAnimating];
                     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
@@ -173,9 +183,11 @@
                     
                     dispatch_async(q_global, ^{
                         NSURL *foodImageAccessKeyUrl = [MSAWSConnector getS3UrlFromString:foodPicture.url];
+                        NSLog(@"%@",foodPicture.url);
                         NSData* data = [NSData dataWithContentsOfURL:foodImageAccessKeyUrl];
                         UIImage* image = [[UIImage alloc] initWithData:data];
                         dispatch_async(q_main, ^{
+                            if(image==nil);// 画像がnilの時
                             [self setMealImage:j :image];
                             [indicator[j] stopAnimating];
                             flag_async--;
@@ -186,6 +198,30 @@
             }
         }
     }
+    [self alignOtherImages:otherImageViews:otherImageLoadingIndicators];
+}
+
+-(void) alignOtherImages:(NSMutableArray *)imageViewArray:(NSMutableArray *)indicatorArray{
+    
+    scv.contentSize = CGSizeMake(65*([imageViewArray count]+1), 60);
+    
+    int i;
+    for (i=0; i<[imageViewArray count]; i++) {
+        ((UIImageView *)[imageViewArray objectAtIndex:i]).frame = CGRectMake(i*65,0,60,60);
+        ((UIActivityIndicatorView *)[indicatorArray objectAtIndex:i]).frame = CGRectMake(i*65,0,60,60);
+        [scv addSubview:[imageViewArray objectAtIndex:i]];
+        [scv addSubview:[indicatorArray objectAtIndex:i]];
+    }
+    
+    otherImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_image_others.png"]];
+    otherImageView.userInteractionEnabled = YES;
+    [otherImageView addGestureRecognizer:[[UITapGestureRecognizer alloc]
+                                          initWithTarget:self
+                                          action:@selector(otherCameraAction)]];
+    otherImageView.frame = CGRectMake(i*65,0,60,60);
+    [scv addSubview:otherImageView];
+    [self.view addSubview:scv];
+    [self.view sendSubviewToBack:scv];
 }
 
 -(void)breakfastCameraAction{
@@ -281,9 +317,11 @@
     
     
     [self setMealImage:msCamera.state-1 :msValueImageView.squareFoodPictureImage];
-    [self cancel_image:sender];
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [self viewDidAppear:YES];
+    
+    [self cancel_image:sender];
 }
 
 -(void) cancel_image:(id)sender{
