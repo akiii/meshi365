@@ -3,6 +3,7 @@
 #import "MSValueImageView.h"
 
 @implementation MSValueImageView
+@synthesize darkView;
 
 - (NSString *) getDataFrom:(NSString *)url{
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
@@ -154,6 +155,8 @@
         UIButton *save_button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         save_button.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2+5, 750, 80, 30);
         [save_button setTitle:@"Save" forState:UIControlStateNormal];
+        [save_button addTarget:self action:@selector(waitingIndicatorShow)
+              forControlEvents:UIControlEventTouchDown];
         [save_button addTarget:self.delegate action:@selector(save_image:)
               forControlEvents:UIControlEventTouchUpInside];
         [view addSubview:save_button];
@@ -171,6 +174,13 @@
     if(im.image==nil){
         self.squareFoodPictureImage = [[MSFoodPictureImage alloc] initWithCGImage:[self.cameraImage CGImage]];
         im.image = self.squareFoodPictureImage;
+        
+        darkView = [[UIView alloc] initWithFrame:CGRectMake(0, 300, [[UIScreen mainScreen] applicationFrame].size.width , [[UIScreen mainScreen] applicationFrame].size.height-44)];
+        darkView.backgroundColor = [UIColor blackColor];
+        darkView.alpha = 0.4;
+        
+        [self addSubview:darkView];
+        darkView.hidden = YES;
     }
 }
 
@@ -186,29 +196,11 @@
     return YES;
 }
 
-
-
--(void) stopKeyBoardObserving{
-    if (observing) {
-        NSNotificationCenter *center;
-        center = [NSNotificationCenter defaultCenter];
-        [center removeObserver:self
-                          name:UIKeyboardWillShowNotification
-                        object:nil];
-        [center removeObserver:self
-                          name:UIKeyboardWillHideNotification
-                        object:nil];
-        
-        observing = NO;
-    }
-}
-
-
 -(void) tap_star0:(UIButton *)sender{
     self.cnt_stars = sender.tag + 1;
-    for (int i = 0; i < kNumOfStars; i++) {
+    for (int i = 0; i < kNumOfStars; i++)
         [self setBackgroundImageOfStarButton:star[i].tag];
-    }
+
     self.squareFoodPictureImage.foodPicture.starNum = self.cnt_stars;
 }
 
@@ -232,23 +224,19 @@
 }
 
 -(void)twitter:(id)sender{
-    if(self.flag_twitter){
-        self.flag_twitter = false;
+    if(self.flag_twitter)
         [twitterBtn setBackgroundImage:[UIImage imageNamed:@"Icon_Twitter_dark.png"] forState:UIControlStateNormal];
-    }else{
-        self.flag_twitter = true;
+    else
         [twitterBtn setBackgroundImage:[UIImage imageNamed:@"Icon_Twitter.png"] forState:UIControlStateNormal];
-    }
+    self.flag_twitter = !self.flag_twitter;
 }
 
 -(void)facebook:(id)sender{
-    if(self.flag_facebook){
-        self.flag_facebook = false;
+    if(self.flag_facebook)
         [facebookBtn setBackgroundImage:[UIImage imageNamed:@"Icon_Facebook_dark.png"] forState:UIControlStateNormal];
-    }else{
-        self.flag_facebook = true;
+    else
         [facebookBtn setBackgroundImage:[UIImage imageNamed:@"Icon_Facebook.png"] forState:UIControlStateNormal];
-    }
+    self.flag_facebook = !self.flag_facebook;
 }
 
 -(void)dataPreservation{
@@ -257,6 +245,12 @@
     self.squareFoodPictureImage.foodPicture.amenity = self.place_amenity;
     self.squareFoodPictureImage.foodPicture.comment= comment.text;
     self.squareFoodPictureImage.foodPicture.starNum= self.cnt_stars;
+}
+-(void)waitingIndicatorShow{
+    NSLog(@"test");
+    darkView.hidden = NO;
+    [self setNeedsDisplay];
+    [self drawRect:self.frame];
 }
 
 #pragma mark Restaurant List Table View

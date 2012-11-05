@@ -43,6 +43,7 @@
         self.view.backgroundColor = [UIColor colorWithRed:1.0 green:0.93 blue:0.8 alpha:1.0];
         flag_async = 0;
         msCamera = [[MSCameraViewController alloc] init];
+        msCamera.state = 0;
     }
     return self;
 }
@@ -70,13 +71,13 @@
     mealImageView[1] = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_image_lunch.png"]];
     mealImageView[2] = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_image_supper.png"]];
     //タップされた時に実行される関数を指定
-     [mealImageView[0] addGestureRecognizer:[[UITapGestureRecognizer alloc]
-                                               initWithTarget:self
-                                               action:@selector(breakfastCameraAction)]];
-     [mealImageView[1] addGestureRecognizer:[[UITapGestureRecognizer alloc]
-                                           initWithTarget:self
-                                           action:@selector(lunchCameraAction)]];
-     [mealImageView[2] addGestureRecognizer:[[UITapGestureRecognizer alloc]
+    [mealImageView[0] addGestureRecognizer:[[UITapGestureRecognizer alloc]
+                                            initWithTarget:self
+                                            action:@selector(breakfastCameraAction)]];
+    [mealImageView[1] addGestureRecognizer:[[UITapGestureRecognizer alloc]
+                                            initWithTarget:self
+                                            action:@selector(lunchCameraAction)]];
+    [mealImageView[2] addGestureRecognizer:[[UITapGestureRecognizer alloc]
                                             initWithTarget:self
                                             action:@selector(supperCameraAction)]];
     
@@ -109,8 +110,8 @@
     otherImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_image_others.png"]];
     otherImageView.userInteractionEnabled = YES;
     [otherImageView addGestureRecognizer:[[UITapGestureRecognizer alloc]
-                                           initWithTarget:self
-                                           action:@selector(otherCameraAction)]];
+                                          initWithTarget:self
+                                          action:@selector(otherCameraAction)]];
     otherImageView.frame = CGRectMake(25+i*65,330,60,60);
     [self.view addSubview:otherImageView];
     
@@ -150,7 +151,7 @@
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     [MSNetworkConnector requestToUrl:URL_OF_CALENDER([MSUser currentUser].uiid) method:RequestMethodPost params:params block:^(NSData *response){
-       self.jsonArray = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
+        self.jsonArray = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
     }];
     MSFoodPicture *foodPicture;
     for (int i=0; i<[self.jsonArray count]; i++) {
@@ -217,7 +218,7 @@
             msCamera.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
         else
             msCamera.sourceType = UIImagePickerControllerSourceTypeCamera;
-
+        
         msCamera.allowsEditing = YES;
         [self presentViewController:msCamera animated:YES completion:^{}];
     }else{
@@ -229,7 +230,13 @@
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     //[msValueImageView showSavingDark];
-	// msValueImageView.darkView.hidden = NO;
+    //zmsValueImageView.darkView.hidden = NO;
+    
+    while (msValueImageView.darkView.hidden)
+        [NSThread sleepUntilDate:[[NSDate date] addTimeInterval:0.1]];
+    [self.view setNeedsDisplay];
+    [self.view drawRect:self.view.frame];
+    
     
     NSString *urlString = [MSAWSConnector uploadFoodPictureToAWS:msValueImageView.squareFoodPictureImage];
     msValueImageView.squareFoodPictureImage.foodPicture.uiid = [MSUser currentUser].uiid;
@@ -243,32 +250,32 @@
     ACAccountStore *accountStore = [[ACAccountStore alloc] init];
     if(msValueImageView.flag_twitter&&[SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter])
         [accountTypes addObject:[accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter]];
-    //if(msValueImageView.flag_facebook&&[SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook])
-        //[accountTypes addObject:[accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook]];
+    //    if(msValueImageView.flag_facebook&&[SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook])
+    //        [accountTypes addObject:[accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook]];
     for(int i=0;i<[accountTypes count];i++){
         [accountStore requestAccessToAccountsWithType:[accountTypes objectAtIndex:i]
                                               options:nil
                                            completion:^(BOOL granted, NSError *error) {
-            if (granted) {
-                NSArray *accountArray = [accountStore accountsWithAccountType:[accountTypes objectAtIndex:i]];
-                if (accountArray.count > 0) {
-                    NSURL *url = [NSURL URLWithString:@"https://upload.twitter.com/1/statuses/update_with_media.json"];
-                    NSString *tweet = [NSString stringWithFormat:@"%@ #meal_diary",msValueImageView.squareFoodPictureImage.foodPicture.comment];
-                    NSDictionary *params = [NSDictionary dictionaryWithObject:tweet forKey:@"status"];
-                    
-                    SLRequest *request = [SLRequest requestForServiceType:SLServiceTypeTwitter
-                                                            requestMethod:SLRequestMethodPOST
-                                                                      URL:url
-                                                                parameters:params];
-                    [request setAccount:[accountArray objectAtIndex:0]];
-                    
-                    NSData *imageData = UIImagePNGRepresentation(msValueImageView.squareFoodPictureImage);
-                    [request addMultipartData:imageData withName:@"media[]" type:@"multipart/form-data" filename:nil];
-
-                    [request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {}];
-                }
-            }
-        }];
+                                               if (granted) {
+                                                   NSArray *accountArray = [accountStore accountsWithAccountType:[accountTypes objectAtIndex:i]];
+                                                   if (accountArray.count > 0) {
+                                                       NSURL *url = [NSURL URLWithString:@"https://upload.twitter.com/1/statuses/update_with_media.json"];
+                                                       NSString *tweet = [NSString stringWithFormat:@"%@ #meal_diary",msValueImageView.squareFoodPictureImage.foodPicture.comment];
+                                                       NSDictionary *params = [NSDictionary dictionaryWithObject:tweet forKey:@"status"];
+                                                       
+                                                       SLRequest *request = [SLRequest requestForServiceType:SLServiceTypeTwitter
+                                                                                               requestMethod:SLRequestMethodPOST
+                                                                                                         URL:url
+                                                                                                  parameters:params];
+                                                       [request setAccount:[accountArray objectAtIndex:0]];
+                                                       
+                                                       NSData *imageData = UIImagePNGRepresentation(msValueImageView.squareFoodPictureImage);
+                                                       [request addMultipartData:imageData withName:@"media[]" type:@"multipart/form-data" filename:nil];
+                                                       
+                                                       [request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {}];
+                                                   }
+                                               }
+                                           }];
     }
     
     

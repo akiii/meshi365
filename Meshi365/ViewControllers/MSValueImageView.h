@@ -11,7 +11,8 @@
     UIImageView *im;
     
     //For XMLParser
-    int node_flag,amenity_flag;
+    int node_flag;
+    int amenity_flag;
     NSString *name_amenity,*node_latitude,*node_longitude;
     NSMutableArray *nameArray,*amenityArray,*locationArray;
     
@@ -32,6 +33,7 @@
 @property (nonatomic,strong) NSString *place_name;
 @property (nonatomic,strong) UIImage *cameraImage;
 @property (nonatomic,strong) MSFoodPictureImage *squareFoodPictureImage;
+@property (nonatomic,strong) UIView *darkView;
 
 -(void) dataPreservation;
 
