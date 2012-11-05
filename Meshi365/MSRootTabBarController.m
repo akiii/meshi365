@@ -19,13 +19,14 @@
     if (self) {
         self.view.backgroundColor = [UIColor blackColor];
         
-        MSFoodLineViewController *view = [[MSFoodLineViewController alloc]init];
+        MSFoodLineViewController *view0 = [[MSFoodLineViewController alloc]init];
+        MSConfigViewController *view1 = [[MSConfigViewController alloc]init];
         
 		self.todayMEalViewController	= [[MSTodayMealViewController alloc]init];
-		self.foodLineNavigationViewController		= [[MSFoodLineNavigationViewController alloc]initWithRootViewController:view];
+		self.foodLineNavigationViewController		= [[MSFoodLineNavigationViewController alloc]initWithRootViewController:view0];
 		self.miniCalenderViewController	= [[MSMiniCalenderViewController alloc]init];
 		self.recommendViewController	= [[MSRecommendViewController alloc]init];
-		self.configViewController		= [[MSConfigViewController alloc]init];
+		self.accountNavigationController		= [[MSAccountNavigationController alloc]initWithRootViewController:view1];
 		
 		/*
         self.todayMEalViewController.title = @"Today";
@@ -46,11 +47,11 @@
         self.recommendViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Recommend"
                                                                                 image:[UIImage imageNamed:@"tabicon_recommend.png"]
                                                                                   tag:3];
-        self.configViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Account"
+        self.accountNavigationController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Account"
                                                                              image:[UIImage imageNamed:@"tabicon_account.png"]
                                                                                tag:4];
 
-		NSArray *views = [NSArray arrayWithObjects:self.todayMEalViewController, self.foodLineNavigationViewController, self.miniCalenderViewController, self. recommendViewController, self.configViewController, nil];
+		NSArray *views = [NSArray arrayWithObjects:self.todayMEalViewController, self.foodLineNavigationViewController, self.miniCalenderViewController, self. recommendViewController, self.accountNavigationController, nil];
 		[self setViewControllers:views animated:NO];
     }
     return self;
