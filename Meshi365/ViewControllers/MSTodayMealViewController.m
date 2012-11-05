@@ -13,7 +13,6 @@
 
 @implementation MSTodayMealViewController
 
-
 - (void)hideTabBar:(UITabBarController *) tabbarcontroller{
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.5];
@@ -35,6 +34,8 @@
     }
     [UIView commitAnimations];
 }
+
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

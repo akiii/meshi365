@@ -32,7 +32,6 @@
         locationArray = [NSMutableArray array];
         
         //スクロールビューの設定
-        self.frame = CGRectMake(0, 44, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen]applicationFrame].size.height - 44);
         self.backgroundColor = [UIColor colorWithRed:1.0 green:0.93 blue:0.8 alpha:1.0];
         UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 800)];
         view.backgroundColor = self.backgroundColor;
