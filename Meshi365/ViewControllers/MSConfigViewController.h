@@ -15,6 +15,8 @@
 <UITextFieldDelegate>
 {
 	NSString *postMsg;
+    
+    UITextField *friendSearchTextField;
 }
 
 
