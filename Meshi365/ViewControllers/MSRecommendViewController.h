@@ -9,7 +9,4 @@
 #import <UIKit/UIKit.h>
 
 @interface MSRecommendViewController : UIViewController
-{
-	NSArray* jsonArray;
-}
 @end

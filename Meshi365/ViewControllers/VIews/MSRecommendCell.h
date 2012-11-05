@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MSFoodPictureImage.h"
 
 @interface MSRecommendCell : UITableViewCell
-
+@property(assign)int height;
+@property(nonatomic, strong) MSFoodPicture* foodPicture;
+@property(nonatomic,strong)UIImage* foodImage;
 - (void)updateJsonData:(NSURL*)imageUrl jsonData:(NSDictionary*)jsonData
 ;
 
