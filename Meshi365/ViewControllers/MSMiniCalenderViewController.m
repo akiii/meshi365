@@ -150,6 +150,7 @@
 		NSLog(@".....set json done:[%d]",_jsonArray.count);
 		miniTable[i].jsonArray = jsonOneDayArray;
 		[miniTable[i] loadImage];
+		miniTable[i].frame =CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
 		
 		
 		
