@@ -11,10 +11,10 @@
 #import "MSAWSConnector.h"
 #import "MSImageLoader.h"
 #import "MSFoodPicture.h"
+#import "MSImageCache.h"
+
 
 @interface MSRecommendTableView()
-@property(nonatomic,strong)	NSCache *imageCache;
-@property(nonatomic,strong)	NSCache *imageRequestCache;
 @property(nonatomic,strong) UILabel *label;
 @end
 
@@ -78,10 +78,11 @@
 	}
 	
 	
+	MSImageCache* cache = [MSImageCache sharedManager];
 	if(!foodPicture)
 		cell.imageView.image =  [UIImage imageNamed:@"starNonSelect.png"];
-	else if( [_imageCache objectForKey:foodPicture.url])
-		cell.imageView.image =  [_imageCache objectForKey:foodPicture.url];
+	else if( [cache.image objectForKey:foodPicture.url])
+		cell.imageView.image =  [cache.image  objectForKey:foodPicture.url];
 	else
 		cell.imageView.image =  [UIImage imageNamed:@"star.png"];
 	
@@ -103,14 +104,13 @@
 
 -(void)loadImage
 {
-	_imageCache = [[NSCache alloc] init];
 	
 	NSLog(@"Start Load Food Image");
 	for( int i = 0; i < _jsonArray.count;i++)
 	{
 		MSFoodPicture* foodPicture = [[MSFoodPicture alloc] initWithJson:_jsonArray[i]];
 		
-		[MSImageLoader ImageLoad:foodPicture.url tableView:self imageCache:_imageCache requestCache:_imageRequestCache];
+		[MSImageLoader ImageLoad:foodPicture.url tableView:self];
 	}
 }
 

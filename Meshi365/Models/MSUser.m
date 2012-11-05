@@ -56,7 +56,7 @@ static MSUser *currentUser = nil;
 }
 
 - (NSString *)profileImageUrl{
-    return ASSETS_FILE_URL(self.profileImageUrl);
+    return ASSETS_FILE_URL(self.fileName);
 }
 
 - (void)dealloc{

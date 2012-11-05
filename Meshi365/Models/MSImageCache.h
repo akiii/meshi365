@@ -9,10 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface MSImageCache : NSObject
-@property(nonatomic,strong)	NSCache *foodIimage;
-@property(nonatomic,strong)	NSCache *foodImageRequest;
-@property(nonatomic,strong)	NSCache *profileImage;
-@property(nonatomic,strong)	NSCache *profileImageRequest;
+@property(nonatomic,strong)	NSCache *image;
+@property(nonatomic,strong)	NSCache *imageRequest;
 
 
 + (MSImageCache*)sharedManager;

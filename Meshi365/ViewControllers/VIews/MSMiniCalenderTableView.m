@@ -10,10 +10,9 @@
 #import "MSFoodLineCell.h"
 #import "MSAWSConnector.h"
 #import "MSImageLoader.h"
+#import "MSImageCache.h"
 
 @interface MSMiniCalenderTableView()
-@property(nonatomic,strong)	NSCache *imageCache;
-@property(nonatomic,strong)	NSCache *imageRequestCache;
 @property(nonatomic,strong) UILabel *label;
 @end
 
@@ -53,39 +52,15 @@
 
 -(void)loadImage
 {
-	_imageCache = [[NSCache alloc] init];
 	
 	NSLog(@"Start Load Food Image");
 	for( int i = 0; i < _jsonArray.count;i++)
 	{
 		MSFoodPicture* foodPicture = [[MSFoodPicture alloc] initWithJson:_jsonArray[i]];
 		
-		[MSImageLoader ImageLoad:foodPicture.url tableView:self imageCache:_imageCache requestCache:_imageRequestCache];
+		[MSImageLoader ImageLoad:foodPicture.url tableView:self];
 	}
 	
-//	for( int i = 0; i < _jsonArray.count;i++)
-//	{
-//		MSFoodPicture *foodPicture = [[MSFoodPicture alloc]initWithJson: _jsonArray[i] ];
-//		
-//		if([_imageCache objectForKey:foodPicture.url])continue;
-//		
-//		dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
-//		dispatch_async(q_global, ^{
-//			NSLog(@"...... load start:%d", i);
-//			
-//			
-//			NSURL *foodImageAccessKeyUrl = [MSAWSConnector getS3UrlFromString:foodPicture.url];
-//			NSData* data = [NSData dataWithContentsOfURL:foodImageAccessKeyUrl];
-//			UIImage* image = [[UIImage alloc] initWithData:data];
-//			
-//			if(![_imageCache objectForKey:foodPicture.url])
-//			{
-//				[_imageCache setObject:image forKey:foodPicture.url];
-//				[self performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-//				NSLog(@"...... load done:%d", i);
-//			}
-//		});
-//	}
 	
 }
 
@@ -107,9 +82,10 @@
 		
 		
 		
-		int size = [UIScreen mainScreen].bounds.size.width/3;
+		int size = 20;
 		cell.imageView.frame = CGRectMake(0, 0, size, size);
 		
+		size = [UIScreen mainScreen].bounds.size.width/3-10;
 		_label = [[UILabel alloc]initWithFrame:CGRectMake(3, 3, size, 30)];
 		[_label setBackgroundColor: [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.0]];
 		if(!foodPicture)_label.text = @"Nothing";
@@ -126,12 +102,14 @@
 		
 		[cell addSubview:_label];
 	}
+
 	
 	
+	MSImageCache* cache = [MSImageCache sharedManager];
 	if(!foodPicture)
 		cell.imageView.image =  [UIImage imageNamed:@"starNonSelect.png"];
-	else if( [_imageCache objectForKey:foodPicture.url])
-		cell.imageView.image =  [_imageCache objectForKey:foodPicture.url];
+	else if( [cache.image objectForKey:foodPicture.url])
+		cell.imageView.image =  [cache.image objectForKey:foodPicture.url];
 	else
 		cell.imageView.image =  [UIImage imageNamed:@"star.png"];
 
@@ -144,7 +122,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	//todo セルのサイズに合わせてか可変を
-	return 120;
+	return self.frame.size.height/3.0f;//110;
 	
 }
 

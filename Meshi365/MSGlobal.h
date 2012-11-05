@@ -8,7 +8,7 @@
 
 #define LOCAL       0
 #define STAGING     1
-#define RELEASE     2
+#define PRODUCTION  2
 
 #define ENVIRONMENT STAGING
 
@@ -20,7 +20,7 @@
 
 #define SERVER_BASE_URL @"http://morning-depths-1177.herokuapp.com"
 
-#elif ENVIRONMENT == RELEASE
+#elif ENVIRONMENT == PRODUCTION
 
 #define SERVER_BASE_URL @"http://morning-depths-1177.herokuapp.com"
 

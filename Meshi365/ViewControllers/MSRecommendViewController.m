@@ -44,9 +44,7 @@
 	
 	
 	
-	//[MSNetworkConnector requestToUrl:URL_OF_POST_FOOD_PICTURE method:RequestMethodGet params:nil block:^(NSData *response)
-	[MSNetworkConnector requestToUrl:URL_OF_FOOD_LINE( @"7C53178F-C613-4C26-ACD3-61BB069F3766") method:RequestMethodGet params:nil block:^(NSData *response)
-	 
+	[MSNetworkConnector requestToUrl:URL_OF_POST_FOOD_PICTURE method:RequestMethodGet params:nil block:^(NSData *response)
 	 {
 		 _selfRecommendJsonArray = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
 		 
@@ -54,9 +52,7 @@
 	 }];
 	
 	
-	[MSNetworkConnector requestToUrl:URL_OF_FOOD_LINE( @"EC9EE18E-E44F-4419-9105-9650711EED9F") method:RequestMethodGet params:nil block:^(NSData *response)
-	 
-	 //[MSNetworkConnector requestToUrl:URL_OF_POST_FOOD_PICTURE method:RequestMethodGet params:nil block:^(NSData *response)
+	 [MSNetworkConnector requestToUrl:URL_OF_POST_FOOD_PICTURE method:RequestMethodGet params:nil block:^(NSData *response)
 	 {
 		 _otherRecommendJsonArray = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
 		 NSLog(@"\nother recommend\n%@",_selfRecommendJsonArray);
