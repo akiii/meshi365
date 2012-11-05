@@ -18,3 +18,4 @@
 #define kUIID   @"user_uiid"
 
 #import "MSGlobal.h"
+#import "MSAWSSettings.h"

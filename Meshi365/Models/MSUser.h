@@ -12,7 +12,8 @@
 @property (assign) int uid;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *uiid;
-@property (nonatomic, strong) NSString *profileImageUrl;
+@property (nonatomic, strong) NSString *fileName;
+@property (readonly) NSString *profileImageUrl;
 @property (readonly) NSString *params;
 + (MSUser *)currentUser;
 - (id)initWithJson:(NSDictionary*)json;

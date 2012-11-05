@@ -26,7 +26,7 @@
 
 #endif
 
-/* params keys : { "name" , "uiid" , "profile_image_url" } */
+/* params keys : { "name" , "uiid" , "profile_image_file_name" } */
 #define URL_OF_SIGN_UP                      [NSString stringWithFormat:@"%@/api/signup", SERVER_BASE_URL]
 #define URL_OF_GET_FRIENDS(uiid)            [NSString stringWithFormat:@"%@/api/%@/friends", SERVER_BASE_URL, uiid]
 #define URL_OF_GET_REQUESTING_USERS(uiid)   [NSString stringWithFormat:@"%@/api/%@/requesting_users", SERVER_BASE_URL, uiid]
@@ -34,7 +34,7 @@
 #define URL_OF_SEND_FRIEND_REQUEST          [NSString stringWithFormat:@"%@/api/send_friend_request", SERVER_BASE_URL]
 
 #define URL_OF_POST_FOOD_PICTURE            [NSString stringWithFormat:@"%@/api/post/food_picture", SERVER_BASE_URL]
-/* params keys : { "uiid" , "url" , "store_name" , "menu_name", "menity" , "comment" , "star_num" } */
+/* params keys : { "uiid" , "file_name" , "store_name" , "menu_name", "menity" , "comment" , "star_num" } */
 #define URL_OF_FOOD_LINE(uiid)              [NSString stringWithFormat:@"%@/api/%@/food_line", SERVER_BASE_URL, uiid]
 /* params keys : { "my_uiid" , "since_date" , "to_date" } */
 #define URL_OF_CALENDER(uiid)               [NSString stringWithFormat:@"%@/api/%@/calender", SERVER_BASE_URL, uiid]

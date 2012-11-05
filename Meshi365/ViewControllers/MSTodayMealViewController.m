@@ -275,10 +275,10 @@
     [self.view drawRect:self.view.frame];
     
     
-    NSString *urlString = [MSAWSConnector uploadFoodPictureToAWS:msValueImageView.squareFoodPictureImage];
+    NSString *fileName = [MSAWSConnector uploadFoodPictureToAWS:msValueImageView.squareFoodPictureImage];
     msValueImageView.squareFoodPictureImage.foodPicture.uiid = [MSUser currentUser].uiid;
     msValueImageView.squareFoodPictureImage.foodPicture.mealType = msCamera.state-1;
-    msValueImageView.squareFoodPictureImage.foodPicture.url = urlString;
+    msValueImageView.squareFoodPictureImage.foodPicture.fileName = fileName;
     [msValueImageView dataPreservation];
     
     [MSNetworkConnector requestToUrl:URL_OF_POST_FOOD_PICTURE method:RequestMethodPost params:msValueImageView.squareFoodPictureImage.foodPicture.params block:^(NSData *response) {}];

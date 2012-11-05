@@ -14,10 +14,6 @@
 #import "CommonCrypto/CommonDigest.h"
 #import <AWSiOSSDK/S3/AmazonS3Client.h>
 
-#define AWS_BASE_URL                @"https://s3.amazonaws.com"
-
-#define AWS_BUCKET_NAME             @"meshi365-images"
-
 #define AWS_ACCESS_KEY_ID           @"AKIAIGLYHE4PH36VP7HQ"
 #define AWS_SECRET_KEY              @"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"
 
@@ -34,7 +30,7 @@
     S3PutObjectResponse *res = [s3 putObject:por];
     
     if (res) {
-        return [NSString stringWithFormat:@"%@/%@/%@", AWS_BASE_URL, AWS_BUCKET_NAME, fileName];
+        return fileName;
     }else {
         return nil;
     }
@@ -83,7 +79,6 @@
 
 	gpsur.responseHeaderOverrides = override;
 	return [s3 getPreSignedURL:gpsur];
-
 }
 
 

@@ -27,9 +27,9 @@ static MSUser *currentUser = nil;
 {
 	if (self = [super init]) {
 		NSDictionary *user = [json objectForKey:@"user"];
-		self.name	= [user objectForKey:@"name"];
-		self.uiid	= [user objectForKey:@"uiid"];
-		self.profileImageUrl = [user objectForKey:@"profile_image_url"];
+		self.name       = [user objectForKey:@"name"];
+		self.uiid       = [user objectForKey:@"uiid"];
+		self.fileName   = [user objectForKey:@"profile_image_file_name"];
 		
 		//NSLog(@"userName:%@",self.name);
 		
@@ -49,16 +49,20 @@ static MSUser *currentUser = nil;
 - (NSString *)params{
     NSLog(@"id : %@", self.uiid);
     NSString *params = [NSString string];
-    params = [params stringByAppendingFormat:@"%@=%@&", @"name",                self.name];
-    params = [params stringByAppendingFormat:@"%@=%@&", @"uiid",                self.uiid];
-    params = [params stringByAppendingFormat:@"%@=%@&", @"profile_image_url",   self.profileImageUrl];
+    params = [params stringByAppendingFormat:@"%@=%@&", @"name",                    self.name];
+    params = [params stringByAppendingFormat:@"%@=%@&", @"uiid",                    self.uiid];
+    params = [params stringByAppendingFormat:@"%@=%@&", @"profile_image_file_name", self.fileName];
     return params;
+}
+
+- (NSString *)profileImageUrl{
+    return ASSETS_FILE_URL(self.profileImageUrl);
 }
 
 - (void)dealloc{
     self.name = nil;
     self.uiid = nil;
-    self.profileImageUrl = nil;
+    self.fileName = nil;
 }
 
 

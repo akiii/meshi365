@@ -83,7 +83,7 @@
         
         currentUser.name = tf.text;
         currentUser.uiid = [[MSUIIDController sharedController] create];
-        currentUser.profileImageUrl = [MSAWSConnector uploadProfileImageToAWS:profileImageView.image];
+        currentUser.fileName = [MSAWSConnector uploadProfileImageToAWS:profileImageView.image];
         
 		[currentUser sendUserData];
 //        [MSNetworkConnector requestToUrl:URL_OF_SIGN_UP method:RequestMethodPost params:currentUser.params block:^(NSData *response) {

@@ -15,7 +15,7 @@
     if (self = [super init]) {
         self.uiid = [MSUser currentUser].uiid;
         self.mealType = 1;
-        self.url = @"";
+        self.fileName = @"";
         self.storeName = @"";
         self.menuName = @"";
         self.amenity = 0;
@@ -38,7 +38,7 @@
 		self.createdAt	= [json objectForKey:@"created_at"];
 		self.uiid		= [json objectForKey:@"uiid"];
 		self.mealType	= [[json objectForKey:@"meal_type"] integerValue];
-		self.url		= [json objectForKey:@"url"];
+		self.fileName		= [json objectForKey:@"file_name"];
         //[[json objectForKey:@"url"] stringByReplacingOccurrencesOfString:@"s3.amazonaws.com/meshi365-images" withString:@"s3efdeg3pyykt7.cloudfront.net"];
 		self.storeName	= [NSString stringWithFormat:@"%@", [json objectForKey:@"store_name"]];
 		self.menuName	= [NSString stringWithFormat:@"%@", [json objectForKey:@"menu_name"]];
@@ -63,7 +63,7 @@
     NSString *params = [NSString string];
     params = [params stringByAppendingFormat:@"%@=%@&", @"uiid",         self.uiid];
     params = [params stringByAppendingFormat:@"%@=%@&", @"meal_type",    [NSNumber numberWithInt:self.mealType]];
-    params = [params stringByAppendingFormat:@"%@=%@&", @"url",          self.url];
+    params = [params stringByAppendingFormat:@"%@=%@&", @"file_name",    self.fileName];
     if (![self.storeName isEqualToString:@""]) {
         params = [params stringByAppendingFormat:@"%@=%@&", @"store_name",   self.storeName];
     }
@@ -78,10 +78,14 @@
     return params;
 }
 
+- (NSString *)url{
+    return ASSETS_FILE_URL(self.fileName);
+}
+
 - (void)dealloc{
 	self.createdAt = nil;
     self.uiid = nil;
-    self.url = nil;
+    self.fileName = nil;
     self.storeName = nil;
     self.menuName = nil;
     self.comment = nil;
