@@ -7,6 +7,7 @@
 //
 
 #import "MSConfigViewController.h"
+#import "MSFriendSearchViewController.h"
 
 
 @interface MSConfigViewController ()
@@ -19,9 +20,6 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-		
-		
-		
     }
     return self;
 }
@@ -30,18 +28,18 @@
 {
     [super viewDidLoad];
 	
-	
-	int naviHeight = 44;
+    self.navigationItem.title = @"Account";
+
+    /*
 	UINavigationBar *naviBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, naviHeight)];
     naviBar.tintColor = [UIColor colorWithRed:1.0 green:0.80 blue:0.1 alpha:0.7];
     UINavigationItem *title = [[UINavigationItem alloc] initWithTitle:@"Account"];
     [naviBar pushNavigationItem:title animated:YES];
     [self.view addSubview:naviBar];
-	
-	
-	
+*/
+    
 	self.view.backgroundColor = [UIColor colorWithRed:1.0 green:0.93 blue:0.8 alpha:1.0];
-	UIScrollView* scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0,naviHeight,[UIScreen mainScreen].bounds.size.width,[UIScreen mainScreen].bounds.size.height-naviHeight)];
+	UIScrollView* scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0,0,[UIScreen mainScreen].bounds.size.width,[UIScreen mainScreen].bounds.size.height)];
 	scrollView.contentSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, 800);
 	scrollView.showsHorizontalScrollIndicator = NO;
 	scrollView.showsVerticalScrollIndicator = YES;
@@ -62,7 +60,7 @@
 	_textField.placeholder = @"input your nickname";
 	_textField.clearButtonMode = UITextFieldViewModeAlways;
 	_textField.borderStyle = UITextBorderStyleRoundedRect;
-	[_textField addTarget:self action:@selector(nicknameInputDone:) forControlEvents:UIControlEventEditingDidEndOnExit];
+	[_textField addTarget:self action:@selector(nicknameInputDone) forControlEvents:UIControlEventEditingDidEndOnExit];
 	[scrollView addSubview:_textField];
 	
 	
@@ -97,9 +95,12 @@
 	[twButton2 addTarget:self action:@selector(twPost2:) forControlEvents:UIControlEventTouchDown];
 	[scrollView addSubview:twButton2];
 	y+=dy;
-	
-	
-	
+    
+    friendSearchTextField = [[UITextField alloc] initWithFrame:CGRectMake(10, 250, 200, 30)];
+    friendSearchTextField.borderStyle = UITextBorderStyleRoundedRect;
+    friendSearchTextField.placeholder = @"User Name";
+	[friendSearchTextField addTarget:self action:@selector(userSearchInputDone) forControlEvents:UIControlEventEditingDidEndOnExit];
+    [scrollView addSubview:friendSearchTextField];
 	
 }
 
@@ -254,5 +255,15 @@
 	[_textField resignFirstResponder];
 	return YES;
 }
+-(void)nicknameInputDone{
 
+}
+-(void)userSearchInputDone{
+    [friendSearchTextField resignFirstResponder];
+    
+    MSFriendSearchViewController *friendSearchViewController = [[MSFriendSearchViewController alloc] init];
+    friendSearchViewController.userSearchQuery = friendSearchTextField.text;
+    NSLog(@"%@",friendSearchTextField.text);
+    [self.navigationController pushViewController:friendSearchViewController animated:YES];
+}
 @end

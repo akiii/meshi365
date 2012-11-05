@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface MSFriendFoodLineViewController : UIViewController
-@property(nonatomic,strong)NSString* uiid;
+@property(nonatomic,strong) NSDictionary *friendJson;
 @end

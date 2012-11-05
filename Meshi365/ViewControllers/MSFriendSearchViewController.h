@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MSFriendSearchViewController : UIViewController
+@interface MSFriendSearchViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>{
+    NSMutableArray *userArray;
+    UITableView *myTableView;
+}
+
+@property (nonatomic,strong) NSString *userSearchQuery;
 
 @end
