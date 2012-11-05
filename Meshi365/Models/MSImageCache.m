@@ -14,10 +14,10 @@ static MSImageCache* imageCache = nil;
 + (MSImageCache*)sharedManager {
     @synchronized(self) {
         if (imageCache == nil) {
-			foodIimage = [[NSCache alloc] init];
-			foodImageRequest = [[NSCache alloc] init];
-			profileImage = [[NSCache alloc] init];
-			profileImageRequest = [[NSCache alloc] init];
+			imageCache.foodIimage = [[NSCache alloc] init];
+			imageCache.foodImageRequest = [[NSCache alloc] init];
+			imageCache.profileImage = [[NSCache alloc] init];
+			imageCache.profileImageRequest = [[NSCache alloc] init];
 			
 			//        _imageCache.countLimit = 20;
 			//        _imageCache.totalCostLimit = 640 * 480 * 10;
@@ -44,20 +44,5 @@ static MSImageCache* imageCache = nil;
     return self;  // シングルトン状態を保持するため何もせず self を返す
 }
 
-- (id)retain {
-    return self;  // シングルトン状態を保持するため何もせず self を返す
-}
-
-- (unsigned)retainCount {
-    return UINT_MAX;  // 解放できないインスタンスを表すため unsigned int 値の最大値 UINT_MAX を返す
-}
-
-- (void)release {
-    // シングルトン状態を保持するため何もしない
-}
-
-- (id)autorelease {
-    return self;  // シングルトン状態を保持するため何もせず self を返す
-}
 
 @end
