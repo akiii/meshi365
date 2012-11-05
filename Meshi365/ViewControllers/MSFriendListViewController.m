@@ -7,7 +7,7 @@
 //
 
 #import "MSFriendListViewController.h"
-#import "MSFriendFoodLineViewController.h"
+#import "MSFoodLineViewController.h"
 
 @interface MSFriendListViewController ()
 
@@ -48,7 +48,7 @@
     
 }
 -(void)deleteFriend{
-
+	
 }
 
 #pragma mark Table View
@@ -74,14 +74,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    MSFriendFoodLineViewController *friendFoodLineViewController = [[MSFriendFoodLineViewController alloc] init];
-    friendFoodLineViewController.friendJson = [friendArray objectAtIndex:indexPath.row];
+    MSFoodLineViewController *friendFoodLineViewController = [[MSFoodLineViewController alloc] initWithJson:[friendArray objectAtIndex:indexPath.row]];
     [self.navigationController pushViewController:friendFoodLineViewController animated:YES];
-
+	
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
- forRowAtIndexPath:(NSIndexPath *)indexPath {
+forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [friendArray removeObjectAtIndex:indexPath.row];
         [myTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];

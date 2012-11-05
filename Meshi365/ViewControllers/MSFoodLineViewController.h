@@ -12,4 +12,8 @@
 
 
 @interface MSFoodLineViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
+@property(nonatomic,strong)	NSArray *jsonArray;
+
+- (id)initWithJson:(NSArray *)jsonArray;
+
 @end

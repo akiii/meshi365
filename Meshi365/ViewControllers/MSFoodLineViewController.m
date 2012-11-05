@@ -16,7 +16,6 @@
 
 @interface MSFoodLineViewController ()
 @property(nonatomic,strong)	UITableView *tableView;
-@property(nonatomic,strong)	NSArray *jsonArray;
 
 
 @end
@@ -32,11 +31,21 @@
     return self;
 }
 
+- (id)initWithJson:(NSArray *)jsonArray
+{
+    self = [super init ];
+    if (self) {
+		self.jsonArray = jsonArray;
+	 	
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	
-
+	
 	self.navigationItem.title = @"Food Line";
     
     UIBarButtonItem *btn =
@@ -67,14 +76,18 @@
 	
 	
 	NSLog(@"Your UIID:%@",[[MSUser currentUser] uiid]);
-	[MSNetworkConnector requestToUrl:URL_OF_FOOD_LINE( [[MSUser currentUser] uiid]) method:RequestMethodGet params:nil block:^(NSData *response)
-
- 
+	
+	if(_jsonArray == nil)
 	{
-		 _jsonArray = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
+		[MSNetworkConnector requestToUrl:URL_OF_FOOD_LINE( [[MSUser currentUser] uiid]) method:RequestMethodGet params:nil block:^(NSData *response)
 		 
-		 NSLog(@"JsonArray %@",_jsonArray);
-	 }];
+		 {
+			 _jsonArray = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
+			 NSLog(@"JsonArray %@",_jsonArray);
+		 }];
+		
+	}
+	
 	
 	
 	[self loadImages];
@@ -96,13 +109,13 @@
 	
 	
 	NSLog(@"Start Load profile Image");
-//	for( int i = 0; i < _jsonArray.count;i++)
-//	{
-//		MSFoodPicture* foodPicture = [[MSFoodPicture alloc] initWithJson:_jsonArray[i]];
-//
-//
-//		[MSImageLoader ImageLoad:foodPicture.user.profileImageUrl tableView:_tableView];
-//	}
+	//	for( int i = 0; i < _jsonArray.count;i++)
+	//	{
+	//		MSFoodPicture* foodPicture = [[MSFoodPicture alloc] initWithJson:_jsonArray[i]];
+	//
+	//
+	//		[MSImageLoader ImageLoad:foodPicture.user.profileImageUrl tableView:_tableView];
+	//	}
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -131,7 +144,7 @@
 	
 	
 	MSImageCache* cache = [MSImageCache sharedManager];
-
+	
 	
 	//set food image
 	if([cache.image objectForKey:foodPicture.url] )
