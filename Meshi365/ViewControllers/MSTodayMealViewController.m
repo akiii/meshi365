@@ -195,11 +195,14 @@
             }
         }
     }
-    [self alignOtherImages:otherImageViews:otherImageLoadingIndicators];
+    NSArray *reverseOtherImageViews =[[otherImageViews reverseObjectEnumerator] allObjects];
+    NSArray *reverseOtherImageLoadingIndicators =[[otherImageLoadingIndicators reverseObjectEnumerator] allObjects];
+    if(msCamera.state==0&&![self.view.subviews containsObject:scv])
+        [self alignOtherImages:reverseOtherImageViews:reverseOtherImageLoadingIndicators];
     if(flag_async==0) [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
--(void) alignOtherImages:(NSMutableArray *)imageViewArray:(NSMutableArray *)indicatorArray{
+-(void) alignOtherImages:(NSArray *)imageViewArray:(NSArray *)indicatorArray{
     
     scv = [[UIScrollView alloc] initWithFrame:CGRectMake(25, 330, [[UIScreen mainScreen] bounds].size.width-25, 70)];
     scv.contentSize = CGSizeMake(65*([imageViewArray count]+1), 60);
@@ -220,6 +223,8 @@
     otherImageView.frame = CGRectMake(i*65,0,60,60);
     [scv addSubview:otherImageView];
     [self.view addSubview:scv];
+    
+    //ValueImageより前に来ないように
     [self.view sendSubviewToBack:scv];
 }
 
@@ -270,7 +275,6 @@
     msValueImageView.squareFoodPictureImage.foodPicture.mealType = msCamera.state-1;
     msValueImageView.squareFoodPictureImage.foodPicture.fileName = fileName;
     [msValueImageView dataPreservation];
-    
     [MSNetworkConnector requestToUrl:URL_OF_POST_FOOD_PICTURE method:RequestMethodPost params:msValueImageView.squareFoodPictureImage.foodPicture.params block:^(NSData *response) {}];
     
     [self socialWithImage:msValueImageView.squareFoodPictureImage.foodPicture.comment :msValueImageView.squareFoodPictureImage];
@@ -278,8 +282,8 @@
     [self setMealImage:msCamera.state-1 :msValueImageView.squareFoodPictureImage];
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    msCamera.state = 0;
     [self viewDidAppear:YES];
-    
     [self cancel_image:sender];
 }
 
@@ -332,26 +336,28 @@
                                    image.size.width,
                                    image.size.height*MEAL_IMAGE_HEIGHT/MEAL_IMAGE_WIDTH);
     UIImage *image0,*frame;
-    image0 = [UIImage imageWithCGImage:CGImageCreateWithImageInRect([image CGImage], image_rect)];
-    switch (type) {
-        case 0:
-            frame = [UIImage imageNamed:@"breakfastMealFrame.png"];
-            break;
-        case 1:
-            frame = [UIImage imageNamed:@"lunchMealFrame.png"];
-            break;
-        case 2:
-            frame = [UIImage imageNamed:@"supperMealFrame.png"];
-            break;
+    if(type<3){
+        image0 = [UIImage imageWithCGImage:CGImageCreateWithImageInRect([image CGImage], image_rect)];
+        switch (type) {
+            case 0:
+                frame = [UIImage imageNamed:@"breakfastMealFrame.png"];
+                break;
+            case 1:
+                frame = [UIImage imageNamed:@"lunchMealFrame.png"];
+                break;
+            case 2:
+                frame = [UIImage imageNamed:@"supperMealFrame.png"];
+                break;
+        }
+        
+        UIGraphicsBeginImageContext(CGSizeMake(MEAL_IMAGE_WIDTH, MEAL_IMAGE_HEIGHT));
+        [image0 drawInRect:CGRectMake(0, 0, MEAL_IMAGE_WIDTH, MEAL_IMAGE_HEIGHT)];
+        [frame drawInRect:CGRectMake(0, 0, MEAL_IMAGE_WIDTH, MEAL_IMAGE_HEIGHT)];
+        
+        mealImageView[type].image = UIGraphicsGetImageFromCurrentImageContext();
+        mealImageView[type].userInteractionEnabled = NO;
+        UIGraphicsEndImageContext();
     }
-    
-    UIGraphicsBeginImageContext(CGSizeMake(MEAL_IMAGE_WIDTH, MEAL_IMAGE_HEIGHT));
-    [image0 drawInRect:CGRectMake(0, 0, MEAL_IMAGE_WIDTH, MEAL_IMAGE_HEIGHT)];
-    [frame drawInRect:CGRectMake(0, 0, MEAL_IMAGE_WIDTH, MEAL_IMAGE_HEIGHT)];
-    
-    mealImageView[type].image = UIGraphicsGetImageFromCurrentImageContext();
-    mealImageView[type].userInteractionEnabled = NO;
-    UIGraphicsEndImageContext();
 }
 
 @end
