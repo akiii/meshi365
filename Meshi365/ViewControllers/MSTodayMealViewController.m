@@ -41,7 +41,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if(self){
-        self.view.backgroundColor = [UIColor colorWithRed:1.0 green:0.93 blue:0.8 alpha:1.0];
+        self.view.backgroundColor = DEFAULT_BGCOLOR;
         msCamera = [[MSCameraViewController alloc] init];
         msCamera.state = 0;
         flag_async = 0;

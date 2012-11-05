@@ -10,6 +10,8 @@
 #define STAGING     1
 #define PRODUCTION  2
 
+#define DEFAULT_BGCOLOR [UIColor colorWithRed:1.0 green:0.93 blue:0.8 alpha:1.0]
+
 #define ENVIRONMENT STAGING
 
 #if ENVIRONMENT == LOCAL
