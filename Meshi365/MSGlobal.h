@@ -30,6 +30,8 @@
 
 /* params keys : { "name" , "uiid" , "profile_image_file_name" } */
 #define URL_OF_SIGN_UP                      [NSString stringWithFormat:@"%@/api/signup", SERVER_BASE_URL]
+/* params keys : { "uiid" } */
+#define URL_OF_ME                           [NSString stringWithFormat:@"%@/api/me", SERVER_BASE_URL]
 #define URL_OF_GET_FRIENDS(uiid)            [NSString stringWithFormat:@"%@/api/%@/friends", SERVER_BASE_URL, uiid]
 #define URL_OF_GET_REQUESTING_USERS(uiid)   [NSString stringWithFormat:@"%@/api/%@/requesting_users", SERVER_BASE_URL, uiid]
 /* params keys : { "from_user_uiid" , "to_user_uiid" } */
