@@ -75,7 +75,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     MSFriendFoodLineViewController *friendFoodLineViewController = [[MSFriendFoodLineViewController alloc] init];
-    friendFoodLineViewController.uiid = [[friendArray objectAtIndex:indexPath.row] objectForKey:@"uiid"];
+    friendFoodLineViewController.friendJson = [friendArray objectAtIndex:indexPath.row];
     [self.navigationController pushViewController:friendFoodLineViewController animated:YES];
 
 }
