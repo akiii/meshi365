@@ -7,6 +7,7 @@
 //
 
 #import "MSFriendListViewController.h"
+#import "MSFriendFoodLineViewController.h"
 
 @interface MSFriendListViewController ()
 
@@ -36,7 +37,7 @@
         NSArray *jsonDic = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
         NSLog(@"%@",jsonDic);
         for(int i=0;i<[jsonDic count];i++)
-            [friendArray addObject:[[jsonDic objectAtIndex:i] objectForKey:@"name"]];
+            [friendArray addObject:[jsonDic objectAtIndex:i]];
     }];
     
     
@@ -65,9 +66,18 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 	
-    cell.textLabel.text = [friendArray objectAtIndex:indexPath.row];
+    cell.textLabel.text = [[friendArray objectAtIndex:indexPath.row] objectForKey:@"name"];
     
 	return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    MSFriendFoodLineViewController *friendFoodLineViewController = [[MSFriendFoodLineViewController alloc] init];
+    friendFoodLineViewController.uiid = [[friendArray objectAtIndex:indexPath.row] objectForKey:@"uiid"];
+    [self.navigationController pushViewController:friendFoodLineViewController animated:YES];
+
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
