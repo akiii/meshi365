@@ -39,6 +39,8 @@
         
         int left_line = ([[UIScreen mainScreen] bounds].size.width-200)/2;
         self.cnt_stars = 3;
+        self.place_amenity = 0;
+        self.place_name = nil;
         observing = NO;
         
         //撮影画像表示
@@ -273,6 +275,7 @@
     
 	return cell;
 }
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     //[tableView deselectRowAtIndexPath:indexPath animated:YES];
     if(indexPath.row==0){
