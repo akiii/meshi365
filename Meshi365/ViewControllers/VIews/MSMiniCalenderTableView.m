@@ -58,7 +58,7 @@
 	{
 		MSFoodPicture* foodPicture = [[MSFoodPicture alloc] initWithJson:_jsonArray[i]];
 		
-		[[MSImageLoader sharedManager] ImageLoad:foodPicture.url tableView:self];
+		[[MSImageLoader sharedManager] ImageLoad:foodPicture.url view:self];
 	}
 	
 	
@@ -80,6 +80,9 @@
     if (cell == nil) {
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 		
+//		_foodImgIdctr = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+//		_profileImgIdctr = [[UIActivityIndicatorView alloc]  initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+
 		
 		
 		int size = [UIScreen mainScreen].bounds.size.width/3-10;

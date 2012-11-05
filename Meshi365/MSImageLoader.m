@@ -41,7 +41,7 @@ static MSImageLoader* sharedHistory = nil;
 
 
 
--(void)ImageLoad:(NSString*)url tableView:(UITableView*)tableView
+-(void)ImageLoad:(NSString*)url view:(UIView*)view
 {
 	MSImageCache* cache = [MSImageCache sharedManager];
 		
@@ -63,7 +63,7 @@ static MSImageLoader* sharedHistory = nil;
 		{
 			NSLog(@"Image load done:%@", url);
 			[cache.image setObject:image forKey:url];
-			[tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];			
+			[view performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];			
 		}
 	});
 }

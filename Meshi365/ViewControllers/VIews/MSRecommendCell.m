@@ -67,6 +67,13 @@
 	
 	
 	
+	
+	_foodImgIdctr.color = DEFAULT_INDICATOR_COLOR;
+	[_foodImgIdctr setCenter:CGPointMake(self.imageView.frame.size.width/2,self.imageView.frame.size.height/2)];
+	[_foodImgIdctr setTransform:FOOD_LINE_IMAGE_INDICATOR_TRANSFORM];
+	
+	
+
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -75,7 +82,10 @@
     if (self) {
 		//	self.height = 400;
 		
-		self.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.0];
+		self.backgroundColor = DEFAULT_BGCOLOR;
+		
+		_foodImgIdctr = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+
 		
 		_storeName			= [[UILabel alloc] init];
 		_menuName			= [[UILabel alloc] init];
@@ -84,6 +94,8 @@
 	
 		[self.contentView addSubview:_menuName];
 		[self.contentView addSubview:_storeName];
+		
+		[self.imageView addSubview:_foodImgIdctr];
 		
 		[self layoutSubviews];
 

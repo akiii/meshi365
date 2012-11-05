@@ -13,6 +13,10 @@
 @property(assign)int height;
 @property(nonatomic, strong) MSFoodPicture* foodPicture;
 @property(nonatomic,strong)UIImage* foodImage;
+@property(nonatomic,strong)UIActivityIndicatorView *foodImgIdctr;
+
+
+
 - (void)updateJsonData:(NSURL*)imageUrl jsonData:(NSDictionary*)jsonData
 ;
 

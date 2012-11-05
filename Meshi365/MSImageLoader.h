@@ -12,6 +12,6 @@
 @interface MSImageLoader : NSObject
 
 + (MSImageLoader*)sharedManager;
--(void)ImageLoad:(NSString*)url tableView:(UITableView*)tableView;
+-(void)ImageLoad:(NSString*)url view:(UIView*)view;
 
 @end

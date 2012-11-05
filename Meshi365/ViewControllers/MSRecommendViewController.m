@@ -40,23 +40,27 @@
     [naviBar pushNavigationItem:title animated:YES];
     [self.view addSubview:naviBar];
 	
+
 	
 	
 	
-	
-	[MSNetworkConnector requestToUrl:URL_OF_POST_FOOD_PICTURE method:RequestMethodGet params:nil block:^(NSData *response)
-	 {
+	//	[MSNetworkConnector requestToUrl:URL_OF_POST_FOOD_PICTURE method:RequestMethodGet params:nil block:^(NSData *response)
+	 [MSNetworkConnector requestToUrl:URL_OF_FOOD_LINE(@"E209E884-91BD-4F99-8D84-446EFC84DF11") method:RequestMethodGet params:nil block:^(NSData *response)
+ 
+	{
 		 _selfRecommendJsonArray = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
 		 
 		 NSLog(@"\nself recommend\n%@",_selfRecommendJsonArray);
 	 }];
 	
 	
-	 [MSNetworkConnector requestToUrl:URL_OF_POST_FOOD_PICTURE method:RequestMethodGet params:nil block:^(NSData *response)
+	
+	//	 [MSNetworkConnector requestToUrl:URL_OF_POST_FOOD_PICTURE method:RequestMethodGet params:nil block:^(NSData *response)
+		[MSNetworkConnector requestToUrl:URL_OF_FOOD_LINE(@"E209E884-91BD-4F99-8D84-446EFC84DF11") method:RequestMethodGet params:nil block:^(NSData *response)
 	 {
 		 _otherRecommendJsonArray = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
 		 NSLog(@"\nother recommend\n%@",_selfRecommendJsonArray);
-
+		 
 	 }];
 	
 	

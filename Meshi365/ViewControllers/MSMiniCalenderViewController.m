@@ -88,8 +88,7 @@
 	
 	UILabel *monthLabel= [[UILabel alloc]init];
 	monthLabel.frame = CGRectMake(0, naviHeight, [UIScreen mainScreen].bounds.size.width, 30);
-	monthLabel.backgroundColor = 	scrollView.backgroundColor  = [UIColor colorWithRed:1.0 green:0.80 blue:0.1 alpha:1.0];
-
+	monthLabel.backgroundColor = 	scrollView.backgroundColor  = DEFAULT_BGCOLOR;
 	monthLabel.textAlignment = NSTextAlignmentCenter;
 	//	monthLabel.text = [NSString stringWithFormat:@"%2d",dateComps.month];
 	monthLabel.text = [NSString stringWithFormat:@"JUN/MAY"];

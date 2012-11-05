@@ -12,6 +12,13 @@
 
 #define DEFAULT_BGCOLOR [UIColor colorWithRed:1.0 green:0.93 blue:0.8 alpha:1.0]
 
+#define FOOD_LINE_IMAGE_INDICATOR_TRANSFORM CGAffineTransformMakeScale(3.0f,3.0f)
+
+
+#define FOOD_LINE_PROFILE_INDICATOR_TRANSFORM CGAffineTransformMakeScale(1.5f, 1.5f)
+
+#define DEFAULT_INDICATOR_COLOR  [UIColor colorWithRed:0.4 green:0.0 blue:0.1 alpha:1.0]
+
 #define ENVIRONMENT STAGING
 
 #if ENVIRONMENT == LOCAL

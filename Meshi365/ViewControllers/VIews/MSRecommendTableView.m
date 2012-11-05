@@ -79,15 +79,19 @@
 	
 	
 	MSImageCache* cache = [MSImageCache sharedManager];
+	[cell.foodImgIdctr startAnimating];
 	if(!foodPicture)
 		cell.imageView.image =  [UIImage imageNamed:@"starNonSelect.png"];
 	else if( [cache.image objectForKey:foodPicture.url])
+	{
 		cell.imageView.image =  [cache.image  objectForKey:foodPicture.url];
+		[cell.foodImgIdctr stopAnimating];
+	}
 	else
 		cell.imageView.image =  [UIImage imageNamed:@"star.png"];
 	
 	
-	cell.imageView.image =  [UIImage imageNamed:@"star.png"];
+	//	cell.imageView.image =  [UIImage imageNamed:@"star.png"];
 	return cell;
 	
 	
@@ -110,7 +114,7 @@
 	{
 		MSFoodPicture* foodPicture = [[MSFoodPicture alloc] initWithJson:_jsonArray[i]];
 		
-		[[MSImageLoader sharedManager] ImageLoad:foodPicture.url tableView:self];
+		[[MSImageLoader sharedManager] ImageLoad:foodPicture.url view:self];
 	}
 }
 

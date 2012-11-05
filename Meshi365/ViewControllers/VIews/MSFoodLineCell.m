@@ -125,14 +125,13 @@
 
 	self.height = y;
 	
-	
-	_foodImgIdctr.color = [UIColor colorWithRed:0.4 green:0.0 blue:0.1 alpha:1.0];
+	_foodImgIdctr.color = DEFAULT_INDICATOR_COLOR;
 	[_foodImgIdctr setCenter:CGPointMake(self.imageView.frame.size.width/2,self.imageView.frame.size.height/2)];
-	[_foodImgIdctr setTransform:CGAffineTransformMakeScale(5.0f, 5.0f)];
+	[_foodImgIdctr setTransform:FOOD_LINE_IMAGE_INDICATOR_TRANSFORM];
 
 	
-	_profileImgIdctr.color = _foodImgIdctr.color;
-	[_profileImgIdctr setTransform:CGAffineTransformMakeScale(1.5f, 1.5f)];
+	_profileImgIdctr.color = DEFAULT_INDICATOR_COLOR;
+	[_profileImgIdctr setTransform:FOOD_LINE_PROFILE_INDICATOR_TRANSFORM];
 	[_profileImgIdctr setCenter:CGPointMake(_profileImageView.frame.size.width/2,_profileImageView.frame.size.height/2)];
 	
 }

@@ -56,7 +56,7 @@
 	_tableView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
 	_tableView.dataSource = self;
     _tableView.delegate = self;
-	_tableView.backgroundColor =  [UIColor colorWithRed:1.0 green:0.80 blue:0.1 alpha:1.0];;
+	_tableView.backgroundColor =  DEFAULT_BGCOLOR;
     [self.view addSubview:_tableView];
 }
 
@@ -125,7 +125,7 @@
 	{
 		MSFoodPicture* foodPicture = [[MSFoodPicture alloc] initWithJson:_jsonArray[i]];
 		
-		[imageLoader ImageLoad:foodPicture.url tableView:_tableView];
+		[imageLoader ImageLoad:foodPicture.url view:_tableView];
 	}
 	
 	
@@ -133,7 +133,7 @@
 	for( int i = 0; i < _jsonArray.count;i++)
 	{
 		MSFoodPicture* foodPicture = [[MSFoodPicture alloc] initWithJson:_jsonArray[i]];
-		[imageLoader ImageLoad:foodPicture.user.profileImageUrl tableView:_tableView];
+		[imageLoader ImageLoad:foodPicture.user.profileImageUrl view:_tableView];
 	}
 }
 
