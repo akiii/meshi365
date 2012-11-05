@@ -15,6 +15,8 @@
 #define ASSETS_SERVER_S3            0
 #define ASSETS_SERVER_CLOUD_FRONT   1
 
+#define AWS_ASSETS_SEVER            ASSETS_SERVER_CLOUD_FRONT
+
 #if AWS_ASSETS_SEVER == ASSETS_SERVER_S3
 
 #define ASSETS_FILE_URL(fileName)   [NSString stringWithFormat:@"%@/%@/%@", AWS_BASE_URL, AWS_BUCKET_NAME, fileName]
