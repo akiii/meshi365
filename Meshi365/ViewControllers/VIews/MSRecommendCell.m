@@ -22,17 +22,17 @@
 - (void) layoutSubviews {
     [super layoutSubviews];
 	int fontSize =  26;
-	int x = 15;
-	int y = 10;
+	int x = 5;
+	int y = 5;
 	int dy=30;
 	int length = 50;
 	
 	
 	
-	length = [UIScreen mainScreen].bounds.size.width-100;
-	int imagePosX = ([UIScreen mainScreen].bounds.size.width  - length )/2;
+	length = [UIScreen mainScreen].bounds.size.width/2-x*2;
+	//int imagePosX = ([UIScreen mainScreen].bounds.size.width  - length )/2;
 	//	self.imageView.image = _foodImage;
-	self.imageView.frame = CGRectMake(imagePosX, y, length,length);
+	self.imageView.frame = CGRectMake(x, y, length,length);
 	y+=length+10;
 	
 	

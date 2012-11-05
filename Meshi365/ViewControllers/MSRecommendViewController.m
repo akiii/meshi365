@@ -64,7 +64,7 @@
 	 }];
 	
 	
-	int height = [UIScreen mainScreen].bounds.size.height - 10;
+	int height = self.view.frame.size.height;//[UIScreen mainScreen].bounds.size.height - 10;
 	int width = [UIScreen mainScreen].bounds.size.width/2;
 	int tableViewNum = 2;
 	MSRecommendTableView *recommendTableView[tableViewNum];
@@ -87,7 +87,7 @@
 		
 		recommendTableView[i].bounces = YES;
 		recommendTableView[i].frame = CGRectMake(i*width, naviHeight+30, width, height-naviHeight);
-		
+		//recommendTableView[i].frame = CGRectMake(0, 0, self, );
 		[recommendTableView[i] loadImage ];
 		
 		
