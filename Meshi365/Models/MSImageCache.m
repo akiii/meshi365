@@ -14,7 +14,14 @@ static MSImageCache* imageCache = nil;
 + (MSImageCache*)sharedManager {
     @synchronized(self) {
         if (imageCache == nil) {
-			foodIimage = [imageCache alloc] in
+			foodIimage = [[NSCache alloc] init];
+			foodImageRequest = [[NSCache alloc] init];
+			profileImage = [[NSCache alloc] init];
+			profileImageRequest = [[NSCache alloc] init];
+			
+			//        _imageCache.countLimit = 20;
+			//        _imageCache.totalCostLimit = 640 * 480 * 10;
+
 			
 			
             imageCache = [[self alloc] init];

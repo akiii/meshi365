@@ -15,5 +15,6 @@
 @property(nonatomic,strong)	NSCache *profileImageRequest;
 
 
-+ (MSImageCache*)imageCache;
++ (MSImageCache*)sharedManager;
++ (id)allocWithZone:(NSZone *)zone;
 @end
