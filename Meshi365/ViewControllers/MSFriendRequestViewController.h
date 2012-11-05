@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MSFriendRequestViewController : UIView
+@interface MSFriendRequestViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>{
+
+    UITableView *myTableView;
+    NSMutableArray *userArray;
+}
 
 @end

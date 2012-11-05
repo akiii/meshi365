@@ -8,6 +8,7 @@
 
 #import "MSConfigViewController.h"
 #import "MSFriendSearchViewController.h"
+#import "MSFriendRequestViewController.h"
 
 
 @interface MSConfigViewController ()
@@ -101,7 +102,11 @@
     friendSearchTextField.placeholder = @"User Name";
 	[friendSearchTextField addTarget:self action:@selector(userSearchInputDone) forControlEvents:UIControlEventEditingDidEndOnExit];
     [scrollView addSubview:friendSearchTextField];
-	
+    
+    UIButton *confirmBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    confirmBtn.frame = CGRectMake(10, 300, 120, 30);
+    [confirmBtn addTarget:self action:@selector(confirmButtonSelected) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:confirmBtn];
 }
 
 - (void)didReceiveMemoryWarning
@@ -266,4 +271,10 @@
     NSLog(@"%@",friendSearchTextField.text);
     [self.navigationController pushViewController:friendSearchViewController animated:YES];
 }
+
+-(void)confirmButtonSelected{
+    MSFriendRequestViewController *friendRequestViewController = [[MSFriendRequestViewController alloc] init];
+    [self.navigationController pushViewController:friendRequestViewController animated:YES];
+}
+
 @end
