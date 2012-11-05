@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		270E10171647ABBA00D8896B /* MSFriendSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 270E10161647ABBA00D8896B /* MSFriendSearchViewController.m */; };
+		270E101B1647B4F900D8896B /* MSAccountNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 270E101A1647B4F800D8896B /* MSAccountNavigationController.m */; };
 		2732C980164200BF000B3AB0 /* Icon_Twitter.png in Resources */ = {isa = PBXBuildFile; fileRef = 2732C97E164200BF000B3AB0 /* Icon_Twitter.png */; };
 		2757A2AF16416E1800975AC8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2757A2AE16416E1800975AC8 /* CoreLocation.framework */; };
 		2757A2B31641765F00975AC8 /* MSFoodLineNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2757A2B21641765F00975AC8 /* MSFoodLineNavigationViewController.m */; };
@@ -98,6 +99,8 @@
 /* Begin PBXFileReference section */
 		270E10151647ABBA00D8896B /* MSFriendSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSFriendSearchViewController.h; sourceTree = "<group>"; };
 		270E10161647ABBA00D8896B /* MSFriendSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSFriendSearchViewController.m; sourceTree = "<group>"; };
+		270E10191647B4F700D8896B /* MSAccountNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAccountNavigationController.h; sourceTree = "<group>"; };
+		270E101A1647B4F800D8896B /* MSAccountNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSAccountNavigationController.m; sourceTree = "<group>"; };
 		2732C97E164200BF000B3AB0 /* Icon_Twitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_Twitter.png; sourceTree = "<group>"; };
 		2757A2AE16416E1800975AC8 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		2757A2B11641765F00975AC8 /* MSFoodLineNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSFoodLineNavigationViewController.h; sourceTree = "<group>"; };
@@ -300,6 +303,8 @@
 				2757A2C31641963900975AC8 /* MSSignUpViewController.m */,
 				270E10151647ABBA00D8896B /* MSFriendSearchViewController.h */,
 				270E10161647ABBA00D8896B /* MSFriendSearchViewController.m */,
+				270E10191647B4F700D8896B /* MSAccountNavigationController.h */,
+				270E101A1647B4F800D8896B /* MSAccountNavigationController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -600,6 +605,7 @@
 				8CA314B81646C54F00539E4B /* MSImageCellBaseCell.m in Sources */,
 				8CA314CD1647A92300539E4B /* MSImageCache.m in Sources */,
 				270E10171647ABBA00D8896B /* MSFriendSearchViewController.m in Sources */,
+				270E101B1647B4F900D8896B /* MSAccountNavigationController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
