@@ -105,16 +105,10 @@
     
     UIButton *confirmBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     confirmBtn.frame = CGRectMake(10, 300, 120, 30);
+	[confirmBtn setTitle:@"Request" forState:UIControlStateNormal];
     [confirmBtn addTarget:self action:@selector(confirmButtonSelected) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:confirmBtn];
+    [scrollView addSubview:confirmBtn];
 }
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 
 -(void)submitNickname:(UITextField*)textfield{
 	NSLog(@"submit!!!!!!!");
