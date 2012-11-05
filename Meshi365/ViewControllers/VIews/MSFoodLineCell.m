@@ -7,6 +7,8 @@
 //
 
 #import "MSFoodLineCell.h"
+#import "MSImageLoader.h"
+
 
 @interface MSFoodLineCell()
 
@@ -122,6 +124,17 @@
 	}
 
 	self.height = y;
+	
+	
+	_foodImgIdctr.color = [UIColor colorWithRed:0.4 green:0.0 blue:0.1 alpha:1.0];
+	[_foodImgIdctr setCenter:CGPointMake(self.imageView.frame.size.width/2,self.imageView.frame.size.height/2)];
+	[_foodImgIdctr setTransform:CGAffineTransformMakeScale(5.0f, 5.0f)];
+
+	
+	_profileImgIdctr.color = _foodImgIdctr.color;
+	[_profileImgIdctr setTransform:CGAffineTransformMakeScale(1.5f, 1.5f)];
+	[_profileImgIdctr setCenter:CGPointMake(_profileImageView.frame.size.width/2,_profileImageView.frame.size.height/2)];
+	
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -140,6 +153,15 @@
 			[_starArray addObject: star];
 		}
 
+		
+		_foodImgIdctr = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+		_profileImgIdctr = [[UIActivityIndicatorView alloc]  initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+
+
+		
+		
+
+		
 		_profileImageView	= [[UIImageView alloc]init];
 		_storeName			= [[UILabel alloc] init];
 		_menuName			= [[UILabel alloc] init];
@@ -156,6 +178,10 @@
 		[self.contentView addSubview:_comment];
 		[self.contentView addSubview:_menuName];
 		[self.contentView addSubview:_storeName];
+		
+		[self.imageView addSubview:_foodImgIdctr];
+		[self.profileImageView addSubview:_profileImgIdctr];
+		
 		
 		[self layoutSubviews];
 	}

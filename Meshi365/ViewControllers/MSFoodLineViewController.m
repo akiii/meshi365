@@ -116,13 +116,16 @@
 }
 
 -(void)loadImages{
+	
+	MSImageLoader* imageLoader = [MSImageLoader sharedManager];
+
 	//HACK:デバグ用表示のため、敢えてFoodImageとProfileImageのループを分けている。
 	NSLog(@"Start Load Food Image");
 	for( int i = 0; i < _jsonArray.count;i++)
 	{
 		MSFoodPicture* foodPicture = [[MSFoodPicture alloc] initWithJson:_jsonArray[i]];
 		
-		[MSImageLoader ImageLoad:foodPicture.url tableView:_tableView];
+		[imageLoader ImageLoad:foodPicture.url tableView:_tableView];
 	}
 	
 	
@@ -130,7 +133,7 @@
 	for( int i = 0; i < _jsonArray.count;i++)
 	{
 		MSFoodPicture* foodPicture = [[MSFoodPicture alloc] initWithJson:_jsonArray[i]];
-		[MSImageLoader ImageLoad:foodPicture.user.profileImageUrl tableView:_tableView];
+		[imageLoader ImageLoad:foodPicture.user.profileImageUrl tableView:_tableView];
 	}
 }
 
@@ -152,6 +155,7 @@
     MSFoodLineCell *cell =[_tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
 		cell =[[MSFoodLineCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
+		
 	}
 	
 	MSFoodPicture *foodPicture = [[MSFoodPicture alloc]initWithJson: _jsonArray[indexPath.row] ];
@@ -163,17 +167,28 @@
 	
 	
 	//set food image
+	[cell.foodImgIdctr startAnimating];
 	if([cache.image objectForKey:foodPicture.url] )
+	{
+		
 		cell.foodImage = [cache.image objectForKey:foodPicture.url];
+		[cell.foodImgIdctr stopAnimating];
+	}
 	else
 		cell.foodImage = [UIImage imageNamed:@"star.png"];
 	
 	
+	
 	//set profile image
+	[cell.profileImgIdctr startAnimating];
 	if([cache.image objectForKey:foodPicture.user.profileImageUrl])
+	{
 		cell.profileImage = [cache.image objectForKey:foodPicture.user.profileImageUrl];
+		[cell.profileImgIdctr stopAnimating];
+	}
 	else
 		cell.profileImage = [UIImage imageNamed:@"star.png"];
+	
 	
 	
 	

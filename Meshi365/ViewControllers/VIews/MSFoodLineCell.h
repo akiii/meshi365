@@ -13,7 +13,8 @@
 @interface MSFoodLineCell : UITableViewCell
 
 
-
+@property(nonatomic,strong)UIActivityIndicatorView *foodImgIdctr;
+@property(nonatomic,strong)UIActivityIndicatorView *profileImgIdctr;
 
 @property(nonatomic,strong) NSString* imageCacheKey;
 @property(assign) int indexPathRow;

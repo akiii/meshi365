@@ -106,7 +106,6 @@
 -(void)loadEachTableImage:(int)maxViewNum
 {
 	int naviHeight = 44;
-	int height =  self.view.frame.size.height;
 	float width = [UIScreen mainScreen].bounds.size.width/3-_fixWidth;
 	UILabel *dayLabel[maxViewNum];
 	MSMiniCalenderTableView *miniTable[maxViewNum];

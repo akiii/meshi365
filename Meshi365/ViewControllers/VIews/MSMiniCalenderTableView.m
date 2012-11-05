@@ -58,7 +58,7 @@
 	{
 		MSFoodPicture* foodPicture = [[MSFoodPicture alloc] initWithJson:_jsonArray[i]];
 		
-		[MSImageLoader ImageLoad:foodPicture.url tableView:self];
+		[[MSImageLoader sharedManager] ImageLoad:foodPicture.url tableView:self];
 	}
 	
 	

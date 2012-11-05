@@ -6,7 +6,7 @@
 #import "MSTodayMealViewController.h"
 #import "MSNetworkConnector.h"
 #import "MSUser.h"
-
+#import "MSImageCache.h"
 
 @interface MSTodayMealViewController ()
 @end
@@ -143,6 +143,13 @@
     for (int i=0; i<[self.jsonArray count]; i++) {
         foodPicture = [[MSFoodPicture alloc] initWithJson:self.jsonArray[i]];
         if(foodPicture.mealType==3){
+			
+			if([ [MSImageCache sharedManager].imageRequest objectForKey:foodPicture.url])continue;
+			if([[MSImageCache sharedManager].image objectForKey:foodPicture.url])continue;
+			[[MSImageCache sharedManager].imageRequest  setObject:@"lock" forKey:foodPicture.url];
+			
+
+			
             flag_async++;
             
             UIImageView *iv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"loadingMealImage.png"]];
@@ -153,6 +160,9 @@
             [aiv startAnimating];
             [otherImageLoadingIndicators addObject:aiv];
             
+			
+			
+			
             dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
             dispatch_queue_t q_main = dispatch_get_main_queue();
             dispatch_async(q_global, ^{
@@ -160,16 +170,27 @@
                 NSData* data = [NSData dataWithContentsOfURL:foodImageAccessKeyUrl];
                 UIImage* image = [[UIImage alloc] initWithData:data];
                 dispatch_async(q_main, ^{
-                    if(image==nil);// 画像がnilの時
-                    iv.image = image;
-                    [aiv stopAnimating];
-                    flag_async--;
-                    if(flag_async==0) [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+                    if(image!=nil)
+					{
+						[[MSImageCache sharedManager].image  setObject:image forKey:foodPicture.url];
+						iv.image = image;
+						[aiv stopAnimating];
+						flag_async--;
+						if(flag_async==0) [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+					}
                 });
             });
         }else{
             for(int j=0;j<3;j++){
                 if (mealImageView[j].userInteractionEnabled==YES&&foodPicture.mealType==j) {
+					
+		
+					
+					if([ [MSImageCache sharedManager].imageRequest objectForKey:foodPicture.url])continue;
+					if([[MSImageCache sharedManager].image objectForKey:foodPicture.url])continue;
+					[[MSImageCache sharedManager].imageRequest  setObject:@"lock" forKey:foodPicture.url];
+
+					
                     flag_async++;
                     [indicator[j] startAnimating];
                     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
@@ -184,11 +205,14 @@
                         NSData* data = [NSData dataWithContentsOfURL:foodImageAccessKeyUrl];
                         UIImage* image = [[UIImage alloc] initWithData:data];
                         dispatch_async(q_main, ^{
-                            if(image==nil);// 画像がnilの時
-                            [self setMealImage:j :image];
-                            [indicator[j] stopAnimating];
-                            flag_async--;
-                            if(flag_async==0) [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+                            if(image!=nil)
+							{
+								[[MSImageCache sharedManager].image  setObject:image forKey:foodPicture.url];
+								[self setMealImage:j :image];
+								[indicator[j] stopAnimating];
+								flag_async--;
+								if(flag_async==0) [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+							}
                         });
                     });
                 }
