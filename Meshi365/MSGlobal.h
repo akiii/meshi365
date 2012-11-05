@@ -8,7 +8,7 @@
 
 #define LOCAL       0
 #define STAGING     1
-#define RELEASE     2
+#define PRODUCTION  2
 
 #define ENVIRONMENT STAGING
 
@@ -20,7 +20,7 @@
 
 #define SERVER_BASE_URL @"http://morning-depths-1177.herokuapp.com"
 
-#elif ENVIRONMENT == RELEASE
+#elif ENVIRONMENT == PRODUCTION
 
 #define SERVER_BASE_URL @"http://morning-depths-1177.herokuapp.com"
 
@@ -40,4 +40,4 @@
 #define URL_OF_CALENDER(uiid)               [NSString stringWithFormat:@"%@/api/%@/calender", SERVER_BASE_URL, uiid]
 
 /* params keys : { "word" } */
-#define URL_OF_SEARCH_USERS(words)          [NSString stringWithFormat:@"%@/api/%@/friends/search", SERVER_BASE_URL, uiid]
+#define URL_OF_SEARCH_USERS(uiid)           [NSString stringWithFormat:@"%@/api/%@/friends/search", SERVER_BASE_URL, uiid]
