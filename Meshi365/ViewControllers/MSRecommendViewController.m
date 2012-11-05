@@ -83,7 +83,6 @@
 		
 		recommendTableView[i].bounces = YES;
 		recommendTableView[i].frame = CGRectMake(i*width, naviHeight+30, width, height-naviHeight);
-		//recommendTableView[i].frame = CGRectMake(0, 0, self, );
 		[recommendTableView[i] loadImage ];
 		
 		

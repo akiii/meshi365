@@ -14,7 +14,7 @@
 
 @interface MSMiniCalenderViewController ()
 @property(nonatomic,strong) NSArray *jsonArray;
-
+@property(assign)int fixWidth;
 @end
 
 @implementation MSMiniCalenderViewController
@@ -24,6 +24,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+		_fixWidth = 10;
     }
     return self;
 }
@@ -76,6 +77,9 @@
 	scrollView.frame = CGRectMake(0, naviHeight, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height - naviHeight);
 	[scrollView setLayout:tableViewNum];
 	
+	int x = scrollView.frame.size.width + [UIScreen mainScreen].bounds.size.width/3.0f - (tableViewNum -1 )* _fixWidth;
+	[scrollView setContentOffset:CGPointMake(x , 0.0f) animated:YES];
+
 
 	
 	[self loadEachTableImage:day];
@@ -84,14 +88,13 @@
 	
 	UILabel *monthLabel= [[UILabel alloc]init];
 	monthLabel.frame = CGRectMake(0, naviHeight, [UIScreen mainScreen].bounds.size.width, 30);
+	monthLabel.backgroundColor = 	scrollView.backgroundColor  = [UIColor colorWithRed:1.0 green:0.80 blue:0.1 alpha:1.0];
+
 	monthLabel.textAlignment = NSTextAlignmentCenter;
 	//	monthLabel.text = [NSString stringWithFormat:@"%2d",dateComps.month];
 	monthLabel.text = [NSString stringWithFormat:@"JUN/MAY"];
 	[self.view addSubview:monthLabel];
 	
-	
-	int x = scrollView.frame.size.width + [UIScreen mainScreen].bounds.size.width/3.0f;
-	[scrollView setContentOffset:CGPointMake(x , 0.0f) animated:YES];
 	
 	NSLog(@".....viewDidLoad done");	
 }
@@ -104,7 +107,7 @@
 {
 	int naviHeight = 44;
 	int height =  self.view.frame.size.height;
-	float width = [UIScreen mainScreen].bounds.size.width/3;
+	float width = [UIScreen mainScreen].bounds.size.width/3-_fixWidth;
 	UILabel *dayLabel[maxViewNum];
 	MSMiniCalenderTableView *miniTable[maxViewNum];
 
@@ -121,7 +124,7 @@
 		miniTable[i] = [[MSMiniCalenderTableView alloc]init];
 		miniTable[i].bounces = YES;
 		miniTable[i].separatorColor = [UIColor clearColor];
-		miniTable[i].frame = CGRectMake(x, naviHeight+14, width, height - (naviHeight+58));
+		//miniTable[i].frame = CGRectMake(x, naviHeight+14, width, height - (naviHeight+58));
 		
 		NSMutableArray* jsonOneDayArray = [[NSMutableArray alloc]init];
 		for(int j = 0; j < _jsonArray.count; j++)
@@ -144,7 +147,7 @@
 		NSLog(@".....set json done:[%d]",_jsonArray.count);
 		miniTable[i].jsonArray = jsonOneDayArray;
 		[miniTable[i] loadImage];
-		miniTable[i].frame =CGRectMake((maxViewNum-i-1)*width, naviHeight+14,width,  self.view.frame.size.height - naviHeight-56);
+		miniTable[i].frame =CGRectMake(x, naviHeight+14,width,  self.view.frame.size.height - naviHeight-56);
 		
 		
 		

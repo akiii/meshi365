@@ -22,9 +22,8 @@
 
 -(void)setLayout:(int)tableNum
 {
-	
-	self.backgroundColor = [UIColor cyanColor];
-	self.contentSize = CGSizeMake([UIScreen mainScreen].bounds.size.width*tableNum/3.0f, 0);
+	self.backgroundColor  = [UIColor colorWithRed:1.0 green:0.80 blue:0.1 alpha:1.0];
+	self.contentSize = CGSizeMake([UIScreen mainScreen].bounds.size.width*tableNum/3.0f - 10, 0);
 	self.showsHorizontalScrollIndicator = YES;
 	self.showsVerticalScrollIndicator = NO;
 	self.bounces = YES;
@@ -47,9 +46,10 @@
 - (void)fixScrollOffset
 {
 	
-	int step = [UIScreen mainScreen].bounds.size.width/3;
+	float step =[UIScreen mainScreen].bounds.size.width/3.0f-10;
+	//[UIScreen mainScreen].bounds.size.width/3;
 	float stopX = (int)((self.contentOffset.x+ step*0.5f) / step) * step;
-	[self setContentOffset:CGPointMake( stopX, 0.0f) animated:YES];
+	[self setContentOffset:CGPointMake( stopX - 20, 0.0f) animated:YES];
 	
 	
 	
