@@ -37,6 +37,7 @@
 	
 	
 	_userName.frame =CGRectMake(x+length+10, y+fontSize/2, [UIScreen mainScreen].bounds.size.width, fontSize+5);
+	_userName.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.0];
 	[_userName setFont:[UIFont systemFontOfSize:fontSize]];
 	[_userName setText:_foodPicture.user.name];
 	y+=length;
@@ -90,6 +91,7 @@
 	if(_foodPicture.storeName != nil)
 	{
 		[_storeName setHidden:NO];
+		_storeName.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.0];
 		_storeName.frame = CGRectMake(x, y, [UIScreen mainScreen].bounds.size.width, fontSize);
 		[_storeName setFont:[UIFont systemFontOfSize:fontSize]];
 		_storeName.text = [NSString stringWithFormat:@"Place:%@",_foodPicture.storeName ];
@@ -100,6 +102,7 @@
 	if(_foodPicture.menuName != nil)
 	{
 		[_menuName setHidden:NO];
+		_menuName.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.0];
 		_menuName.frame = CGRectMake(x, y, [UIScreen mainScreen].bounds.size.width, fontSize);
 		[_menuName setFont:[UIFont systemFontOfSize:fontSize]];
 		_menuName.text = [NSString stringWithFormat:@"Menu:%@",_foodPicture.menuName ];
@@ -110,6 +113,7 @@
 	if(_foodPicture.comment != nil)
 	{
 		[_comment setHidden:NO];
+		_comment.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.0];
 		_comment.frame = CGRectMake(x, y, [UIScreen mainScreen].bounds.size.width, 30);
 		[_comment setFont:[UIFont systemFontOfSize:18]];
 		_comment.text = [NSString stringWithFormat:@"Comment:%@",_foodPicture.comment ];

@@ -19,7 +19,7 @@
     if (self) {
         self.view.backgroundColor = [UIColor blackColor];
         
-        MSFoodLineViewController *view0 = [[MSFoodLineViewController alloc]init];
+        MSFoodLineViewController *view0 = [[MSFoodLineViewController alloc]initWithUiid:[[MSUser currentUser] uiid]];
         MSConfigViewController *view1 = [[MSConfigViewController alloc]init];
         
 		self.todayMEalViewController	= [[MSTodayMealViewController alloc]init];

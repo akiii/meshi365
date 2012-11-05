@@ -74,8 +74,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    MSFoodLineViewController *friendFoodLineViewController = [[MSFoodLineViewController alloc] initWithJson:[friendArray objectAtIndex:indexPath.row]];
-    [self.navigationController pushViewController:friendFoodLineViewController animated:YES];
+	// MSFoodLineViewController *friendFoodLineViewController = [[MSFoodLineViewController alloc] initWithJson:[friendArray objectAtIndex:indexPath.row]];
+	MSFoodPicture *foodPicture = [[MSFoodPicture alloc] initWithJson: friendArray[indexPath.row]];
+	MSFoodLineViewController *friendFoodLineViewController = [[MSFoodLineViewController alloc] initWithUiid:foodPicture.uiid];
+															  
+	[self.navigationController pushViewController:friendFoodLineViewController animated:YES];
 	
 }
 
