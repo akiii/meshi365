@@ -11,6 +11,8 @@
 @interface MSMiniCalenderTableView : UITableView<UITableViewDataSource, UITableViewDelegate>
 
 @property(nonatomic,strong)NSArray* jsonArray;
+@property(nonatomic,strong)UIViewController* baseView;
+@property(nonatomic,strong) UIView *popUpView;
 
 -(void)loadImage;
 @end

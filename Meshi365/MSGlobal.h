@@ -16,6 +16,7 @@
 
 #define IMAGE_SIZE 240
 
+#define COLOR_POPUP [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8]
 #define DEFAULT_BGCOLOR [UIColor colorWithRed:1.0 green:0.93 blue:0.8 alpha:1.0]
 #define COLOR_TODAY [UIColor colorWithRed:0.96 green:0.2 blue:0.4 alpha:1.0]
 #define COLOR_OLDDAY [UIColor colorWithRed:0.5 green:0.2 blue:0.4 alpha:1.0]

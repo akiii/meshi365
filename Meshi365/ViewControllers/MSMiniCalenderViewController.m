@@ -15,6 +15,7 @@
 @interface MSMiniCalenderViewController ()
 @property(nonatomic,strong) NSArray *jsonArray;
 @property(assign)int fixWidth;
+@property(nonatomic,strong)NSMutableArray* miniTalbeArray;
 @end
 
 @implementation MSMiniCalenderViewController
@@ -25,6 +26,7 @@
     if (self) {
         // Custom initialization
 		_fixWidth = 10;
+	
     }
     return self;
 }
@@ -39,7 +41,7 @@
 -(void)viewDidAppear:(BOOL)animated
 {
 	
-	
+	_miniTalbeArray = [NSMutableArray array];
 	NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
 	[outputFormatter setDateFormat:@"yyyy-MM-dd"];
 	
@@ -95,7 +97,7 @@
 {
 	float width = [UIScreen mainScreen].bounds.size.width/3-_fixWidth;
 	UILabel *dayLabel[maxViewNum];
-	MSMiniCalenderTableView *miniTable[maxViewNum];
+	//MSMiniCalenderTableView *miniTable[maxViewNum];
 
 	
 	NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
@@ -107,9 +109,9 @@
 		NSLog(@".....making miniCal:[%d]",i);
 		
 		float x = (maxViewNum - i-1)*width;
-		miniTable[i] = [[MSMiniCalenderTableView alloc]init];
-		miniTable[i].bounces = YES;
-		miniTable[i].separatorColor = [UIColor clearColor];
+		MSMiniCalenderTableView* miniTable = [[MSMiniCalenderTableView alloc]init];
+		miniTable.bounces = YES;
+		miniTable.separatorColor = [UIColor clearColor];
 		//miniTable[i].frame = CGRectMake(x, naviHeight+14, width, height - (naviHeight+58));
 		
 		NSMutableArray* jsonOneDayArray = [[NSMutableArray alloc]init];
@@ -152,10 +154,10 @@
 		
 		
 		NSLog(@".....set json done:[%d]",_jsonArray.count);
-		miniTable[i].jsonArray = jsonOneDayArray;
-		[miniTable[i] loadImage];
-		miniTable[i].frame =CGRectMake(x, 40,width,  self.view.frame.size.height - 40-43);
-		
+		miniTable.jsonArray = jsonOneDayArray;
+		[miniTable loadImage];
+		miniTable.frame =CGRectMake(x, 40,width,  self.view.frame.size.height - 40-43);
+		miniTable.baseView = self;
 		
 		
 		NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -197,8 +199,8 @@
 			monthLabel.text = [NSString stringWithFormat:@""];
 		}
 		
-		
-		[scrollView addSubview:miniTable[i]];
+		[_miniTalbeArray addObject:miniTable]; 
+		[scrollView addSubview:miniTable];
 		[scrollView addSubview:dayLabel[i]];
 		[scrollView addSubview:monthLabel];
 		
@@ -214,5 +216,16 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+	printf("!!!!!!!!testUIScrollView touchesBegan\n");
+	
+	for( int i = 0 ; i < 9; i++)
+	{
+		MSMiniCalenderTableView* table = _miniTalbeArray[i];
+		[table.popUpView setHidden:YES];
 
+	}
+	
+	[super touchesBegan:touches withEvent:event];
+}
 @end
