@@ -99,14 +99,13 @@
     
 }
 
-
 //Value Image View に行くかどうか分岐する
 -(void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
     naviBar.topItem.title = @"Today Menu";
     if(msCamera.state>0){
-        msValueImageView = [[MSValueImageView alloc] initWithFrame:CGRectMake(0, 44, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen]applicationFrame].size.height - 44)];
+        msValueImageView =[[MSValueImageView alloc] initWithFrame:CGRectMake(0, 44, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen]applicationFrame].size.height - 44)];
         msValueImageView.cameraImage = msCamera.camera_image;
         
         naviBar.topItem.title = @"Food Image Config";
@@ -125,7 +124,7 @@
     
     NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
     [outputFormatter setDateFormat:@"yyyy-MM-dd"];
-    NSString *sinceDateString = [outputFormatter stringFromDate:[NSDate date]];//@"2012-11-02";
+    NSString *sinceDateString = [outputFormatter stringFromDate:[NSDate date]];
     NSString *toDateString = [outputFormatter stringFromDate:[NSDate dateWithTimeIntervalSinceNow:60*60*24]];
     
     NSString *params = [NSString string];
@@ -137,18 +136,11 @@
     [MSNetworkConnector requestToUrl:URL_OF_CALENDER([MSUser currentUser].uiid) method:RequestMethodPost params:params block:^(NSData *response){
         self.jsonArray = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
     }];
+    NSLog(@"%@",self.jsonArray);
     MSFoodPicture *foodPicture;
     for (int i=0; i<[self.jsonArray count]; i++) {
         foodPicture = [[MSFoodPicture alloc] initWithJson:self.jsonArray[i]];
         if(foodPicture.mealType==3){
-			
-			if([ [MSImageCache sharedManager].imageRequest objectForKey:foodPicture.url])continue;
-			if([[MSImageCache sharedManager].image objectForKey:foodPicture.url])continue;
-			[[MSImageCache sharedManager].imageRequest  setObject:@"lock" forKey:foodPicture.url];
-			
-
-			
-            flag_async++;
             
             UIImageView *iv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"otherNowLoading.png"]];
             [otherImageViews addObject:iv];
@@ -158,9 +150,17 @@
             [aiv startAnimating];
             [otherImageLoadingIndicators addObject:aiv];
             
-			
-			
-			
+			if([[MSImageCache sharedManager].image objectForKey:foodPicture.url]){
+                iv.image = [self framedImage:[[MSImageCache sharedManager].image objectForKey:foodPicture.url] :60];
+                [aiv stopAnimating];
+                continue;   
+            }
+            
+			//if([[MSImageCache sharedManager].imageRequest objectForKey:foodPicture.url])continue;
+			[[MSImageCache sharedManager].imageRequest  setObject:@"lock" forKey:foodPicture.url];
+
+            flag_async++;
+
             dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
             dispatch_queue_t q_main = dispatch_get_main_queue();
             dispatch_async(q_global, ^{
@@ -171,7 +171,7 @@
                     if(image!=nil)
 					{
 						[[MSImageCache sharedManager].image  setObject:image forKey:foodPicture.url];
-						iv.image = [self framedImage:image :601];
+						iv.image = [self framedImage:image :60];
 						[aiv stopAnimating];
 						flag_async--;
 						if(flag_async==0) [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
@@ -182,8 +182,8 @@
             for(int j=0;j<3;j++){
                 if (mealImageView[j].userInteractionEnabled==YES&&foodPicture.mealType==j) {
 					
-					if([ [MSImageCache sharedManager].imageRequest objectForKey:foodPicture.url])continue;
 					if([[MSImageCache sharedManager].image objectForKey:foodPicture.url])continue;
+					if([[MSImageCache sharedManager].imageRequest objectForKey:foodPicture.url])continue;
 					[[MSImageCache sharedManager].imageRequest  setObject:@"lock" forKey:foodPicture.url];
                     
                     UIImage *loadImage;
