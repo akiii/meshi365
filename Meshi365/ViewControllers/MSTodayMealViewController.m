@@ -93,11 +93,9 @@
         [self.view addSubview: indicator[i]];
     }
     
-    
-    UILabel *othersLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 300, 80, 30)];
-    othersLabel.backgroundColor = [UIColor clearColor];
-    othersLabel.text = @"Others";
-    [self.view addSubview:othersLabel];
+    UIImageView *otherLogoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 295, 90, 36)];
+    otherLogoImageView.image = [UIImage imageNamed:@"othersLogo.png"];
+    [self.view addSubview:otherLogoImageView];
     
 }
 
@@ -238,13 +236,13 @@
 
 -(void) alignOtherImages:(NSArray *)imageViewArray:(NSArray *)indicatorArray{
     
-    scv = [[UIScrollView alloc] initWithFrame:CGRectMake(25, 330, [[UIScreen mainScreen] bounds].size.width-25, 70)];
-    scv.contentSize = CGSizeMake(65*([imageViewArray count]+1), 60);
+    scv = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 330, [[UIScreen mainScreen] bounds].size.width, 70)];
+    scv.contentSize = CGSizeMake(25+65*([imageViewArray count]+1), 60);
     
     int i;
     for (i=0; i<[imageViewArray count]; i++) {
-        ((UIImageView *)[imageViewArray objectAtIndex:i]).frame = CGRectMake(i*65,0,60,60);
-        ((UIActivityIndicatorView *)[indicatorArray objectAtIndex:i]).frame = CGRectMake(i*65,0,60,60);
+        ((UIImageView *)[imageViewArray objectAtIndex:i]).frame = CGRectMake(25+i*65,0,60,60);
+        ((UIActivityIndicatorView *)[indicatorArray objectAtIndex:i]).frame = CGRectMake(25+i*65,0,60,60);
         [scv addSubview:[imageViewArray objectAtIndex:i]];
         [scv addSubview:[indicatorArray objectAtIndex:i]];
     }
@@ -254,7 +252,7 @@
     [otherImageView addGestureRecognizer:[[UITapGestureRecognizer alloc]
                                           initWithTarget:self
                                           action:@selector(otherCameraAction)]];
-    otherImageView.frame = CGRectMake(i*65,0,60,60);
+    otherImageView.frame = CGRectMake(25+i*65,0,60,60);
     [scv addSubview:otherImageView];
     [self.view addSubview:scv];
     
