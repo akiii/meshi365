@@ -105,7 +105,6 @@
 
 -(void)loadEachTableImage:(int)maxViewNum
 {
-	int naviHeight = 44;
 	float width = [UIScreen mainScreen].bounds.size.width/3-_fixWidth;
 	UILabel *dayLabel[maxViewNum];
 	MSMiniCalenderTableView *miniTable[maxViewNum];
@@ -163,7 +162,7 @@
 		NSLog(@".....set json done:[%d]",_jsonArray.count);
 		miniTable[i].jsonArray = jsonOneDayArray;
 		[miniTable[i] loadImage];
-		miniTable[i].frame =CGRectMake(x, naviHeight+14,width,  self.view.frame.size.height - naviHeight-56);
+		miniTable[i].frame =CGRectMake(x, 40,width,  self.view.frame.size.height - 40-43);
 		
 		
 		
@@ -185,7 +184,7 @@
 		NSCalendar *calendar = [NSCalendar currentCalendar];
 		NSDateComponents *dateComps = [calendar components:NSDayCalendarUnit|NSMonthCalendarUnit fromDate:date];
 		dayLabel[i].text = [NSString stringWithFormat:@"%2d",dateComps.day];
-		dayLabel[i].frame = CGRectMake(x, naviHeight-14, width, 20);
+		dayLabel[i].frame = CGRectMake(x, 20, width, 20);
 
 		
 		if(i == 0)

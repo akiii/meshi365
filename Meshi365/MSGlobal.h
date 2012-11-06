@@ -19,7 +19,7 @@
 #define COLOR_TODAY [UIColor colorWithRed:0.96 green:0.2 blue:0.4 alpha:1.0]
 #define COLOR_OLDDAY [UIColor colorWithRed:0.5 green:0.2 blue:0.4 alpha:1.0]
 #define COLOR_CURRENT [UIColor colorWithRed:0.96 green:0.7 blue:0.8 alpha:1.0]
-#define COLOR_PAST [UIColor colorWithRed:0.3 green:0.7 blue:0.8 alpha:1.0]
+#define COLOR_PAST [UIColor colorWithRed:0.87 green:0.8 blue:0.85 alpha:1.0]
 
 #define FOOD_LINE_IMAGE_INDICATOR_TRANSFORM CGAffineTransformMakeScale(3.0f,3.0f)
 

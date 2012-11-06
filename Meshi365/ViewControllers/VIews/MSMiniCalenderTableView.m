@@ -131,7 +131,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	//todo セルのサイズに合わせてか可変を
-	return self.frame.size.height/3.0f;//110;
+	return self.frame.size.height/3.0f-5;//110;
 	
 }
 
