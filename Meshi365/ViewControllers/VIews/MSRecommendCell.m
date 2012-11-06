@@ -83,7 +83,8 @@
 		//	self.height = 400;
 		
 		self.backgroundColor = DEFAULT_BGCOLOR;
-		
+		self.selectionStyle = UITableViewCellSelectionStyleNone;
+
 		_foodImgIdctr = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
 
 		

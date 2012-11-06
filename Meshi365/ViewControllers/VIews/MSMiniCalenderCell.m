@@ -25,21 +25,42 @@
     [super layoutSubviews];
 	int length = [UIScreen mainScreen].bounds.size.width/3;
 
-	
+	float y = 2;
+	_label.backgroundColor = [UIColor colorWithRed:0.97 green:0.96 blue:0.5 alpha:0.6];
+	//_label.backgroundColor = DEFAULT_BGCOLOR;
 	switch (_foodPicture.mealType) {
-		case 0:_label.text = @"Breakfast";break;
-		case 1:_label.text = @"Lunch";break;
-		case 2:_label.text = @"Dinner";break;
-		case 3:_label.text = @"other";break;
+		case 0:
+			_label.text = @"Breakfast";
+			_label.frame =  CGRectMake(0, y, length-30,20);
+
+			break;
+		case 1:
+			_label.text = @"Lunch";
+			_label.frame =  CGRectMake(0, y, length-55,20);
+
+			break;
+		case 2:
+			_label.text = @"Supper";
+			_label.frame =  CGRectMake(0, y, length-45,20);
+
+			break;
+		case 3:
+			_label.text = @"other";
+			_label.frame =  CGRectMake(0, y, length-57,20);
+
+			break;
 	}
 	//self.textLabel.text = [NSString stringWithFormat:@"%d" ,self.indexPathRow ];
-	if(_foodPicture == nil)_label.text = @"";
-
-	_label.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.0];
-	_label.frame =  CGRectMake(0, 0, length,30);
+	if(_foodPicture == nil)
+	{
+		_label.text = @"";
+		_label.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.0];
+	}
 	
 	
-	_foodImgView.frame = CGRectMake(0, 2, length-10,length-10);
+	
+	
+	_foodImgView.frame = CGRectMake(0, y, length-10,length-10);
 	_foodImgView.image = _foodImage;
 
 	
@@ -54,7 +75,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
 		self.backgroundColor = DEFAULT_BGCOLOR;
-		
+		self.selectionStyle = UITableViewCellSelectionStyleNone;
 		
 		_foodImgIdctr = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
 		_label			= [[UILabel alloc] init];

@@ -63,7 +63,6 @@
 		8C40728B16490E4E00990A74 /* MSMiniCalenderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C40728A16490E4E00990A74 /* MSMiniCalenderCell.m */; };
 		8C66D31816408A9B0010777F /* MSRecommendTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C66D31716408A9B0010777F /* MSRecommendTableView.m */; };
 		8C7B3BD1163E3F2600B8D7C1 /* MSRootTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C7B3BD0163E3F2600B8D7C1 /* MSRootTabBarController.m */; };
-		8CA314B81646C54F00539E4B /* MSImageCellBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA314B71646C54F00539E4B /* MSImageCellBaseCell.m */; };
 		8CA314CD1647A92300539E4B /* MSImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA314CC1647A92200539E4B /* MSImageCache.m */; };
 		8CA5657C164640F000F21089 /* MSImageLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA5657B164640EF00F21089 /* MSImageLoader.m */; };
 		8CD1BA56163EEF8C00AFA334 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 8CD1BA55163EEF8C00AFA334 /* star.png */; };
@@ -181,8 +180,6 @@
 		8C66D31716408A9B0010777F /* MSRecommendTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSRecommendTableView.m; sourceTree = "<group>"; };
 		8C7B3BCF163E3F2600B8D7C1 /* MSRootTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSRootTabBarController.h; sourceTree = "<group>"; };
 		8C7B3BD0163E3F2600B8D7C1 /* MSRootTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSRootTabBarController.m; sourceTree = "<group>"; };
-		8CA314B61646C54F00539E4B /* MSImageCellBaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSImageCellBaseCell.h; sourceTree = "<group>"; };
-		8CA314B71646C54F00539E4B /* MSImageCellBaseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSImageCellBaseCell.m; sourceTree = "<group>"; };
 		8CA314CB1647A92200539E4B /* MSImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSImageCache.h; sourceTree = "<group>"; };
 		8CA314CC1647A92200539E4B /* MSImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSImageCache.m; sourceTree = "<group>"; };
 		8CA5657A164640EF00F21089 /* MSImageLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSImageLoader.h; sourceTree = "<group>"; };
@@ -371,8 +368,6 @@
 				8C66D31716408A9B0010777F /* MSRecommendTableView.m */,
 				8C0CC86316408F6B008B830B /* MSRecommendCell.h */,
 				8C0CC86416408F6B008B830B /* MSRecommendCell.m */,
-				8CA314B61646C54F00539E4B /* MSImageCellBaseCell.h */,
-				8CA314B71646C54F00539E4B /* MSImageCellBaseCell.m */,
 				8C40728916490E4D00990A74 /* MSMiniCalenderCell.h */,
 				8C40728A16490E4E00990A74 /* MSMiniCalenderCell.m */,
 			);
@@ -662,7 +657,6 @@
 				2757A2B61641796600975AC8 /* MSFriendListViewController.m in Sources */,
 				2757A2C41641963900975AC8 /* MSSignUpViewController.m in Sources */,
 				8CA5657C164640F000F21089 /* MSImageLoader.m in Sources */,
-				8CA314B81646C54F00539E4B /* MSImageCellBaseCell.m in Sources */,
 				8CA314CD1647A92300539E4B /* MSImageCache.m in Sources */,
 				270E10171647ABBA00D8896B /* MSFriendSearchViewController.m in Sources */,
 				270E101B1647B4F900D8896B /* MSAccountNavigationController.m in Sources */,

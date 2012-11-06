@@ -141,7 +141,8 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
 		self.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.0];
-		
+		self.selectionStyle = UITableViewCellSelectionStyleNone;
+
 		int maxStar =5;
 		_starArray = [NSMutableArray array];
 		for(int i = 0; i < maxStar; i++)
