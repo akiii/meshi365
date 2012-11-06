@@ -315,12 +315,22 @@ attributes:(NSDictionary *)attributeDict {
     if(node_flag==1&&[elementName isEqualToString:@"tag"]){
         if([[attributeDict valueForKey:@"k"] isEqualToString:@"amenity"]){
             name_amenity = [attributeDict valueForKey:@"v"];
+            
+            amenity_flag = 0;
+            if([name_amenity rangeOfString:@"cafe"].location!= NSNotFound)
+                amenity_flag = 1;
+            if([name_amenity rangeOfString:@"restaurant"].location!= NSNotFound)
+                amenity_flag = 2;
+            if([name_amenity rangeOfString:@"fast_food"].location!= NSNotFound)
+                amenity_flag = 3;
+            /*
             if([name_amenity isEqualToString:@"cafe"])
                 amenity_flag = 1;
             if([name_amenity isEqualToString:@"restaurant"])
                 amenity_flag = 2;
             if([name_amenity isEqualToString:@"fast_food"])
                 amenity_flag = 3;
+             */
         }
         if(amenity_flag>0&&[[attributeDict valueForKey:@"k"] isEqualToString:@"name"]){
             [nameArray addObject:[attributeDict valueForKey:@"v"]];
