@@ -29,7 +29,7 @@
 		self.delegate = self;
 		self.dataSource = self;
 		_indctrDict = [NSMutableDictionary dictionary];
-		
+		self.backgroundColor = DEFAULT_BGCOLOR;
 		
     }
     return self;

@@ -45,9 +45,7 @@
 	
 	_foodImgIdctr.color = DEFAULT_INDICATOR_COLOR;
 	[_foodImgIdctr setCenter:CGPointMake(length/2.0f,length/2.0f)];
-	//[_foodImgIdctr setCenter:CGPointMake(0,0)];
-
-	[_foodImgIdctr setTransform:FOOD_LINE_IMAGE_INDICATOR_TRANSFORM];
+	[_foodImgIdctr setTransform:FOOD_LINE_PROFILE_INDICATOR_TRANSFORM];
 	
 }
 
@@ -57,12 +55,13 @@
     if (self) {
 		self.backgroundColor = DEFAULT_BGCOLOR;
 		
+		
 		_foodImgIdctr = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
 		_label			= [[UILabel alloc] init];
 		
 		_foodImgView = [[UIImageView alloc] init];
 		_foodImgView.contentMode		= UIViewContentModeScaleToFill;
-		
+		_foodImgView.backgroundColor = DEFAULT_BGCOLOR;
 		//self.contentView
 		[self.contentView addSubview:_foodImgView];
 		[self.contentView addSubview:_label];
