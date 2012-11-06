@@ -11,6 +11,8 @@
 #import "MSFriendRequestViewController.h"
 #import "MSUser.h"
 #import "MSNetworkConnector.h"
+#import "MSAWSConnector.h"
+
 
 
 @interface MSConfigViewController ()
@@ -32,56 +34,86 @@
     [super viewDidLoad];
 	
     self.navigationItem.title = @"Account";
-
-    UIImageView *profileImageView = [[UIImageView alloc] initWithImage:nil];
-    profileImageView.frame = CGRectMake(20,80,120,120);
-    
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    MSUser *currentUser = [MSUser currentUser];
-    dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_queue_t q_main = dispatch_get_main_queue();
-    dispatch_async(q_global, ^{
-        NSLog(@"aaa = %@",currentUser.profileImageUrl);
-        NSData* data = [NSData dataWithContentsOfURL:[NSURL URLWithString:currentUser.profileImageUrl]];
-        UIImage* image = [[UIImage alloc] initWithData:data];
-        dispatch_async(q_main, ^{
-            if(image==nil) NSLog(@"test");// 画像がnilの時
-            profileImageView.image = image;
-            //[self setMealImage:j :image];
-            //[indicator[j] stopAnimating];
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        });
-    });
     
     
 	self.view.backgroundColor = [UIColor colorWithRed:1.0 green:0.93 blue:0.8 alpha:1.0];
 	UIScrollView* scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0,0,[UIScreen mainScreen].bounds.size.width,[UIScreen mainScreen].bounds.size.height)];
-	scrollView.contentSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, 800);
+	//scrollView.contentSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, 300);
 	scrollView.showsHorizontalScrollIndicator = NO;
 	scrollView.showsVerticalScrollIndicator = YES;
 	[self.view addSubview:scrollView];
-	
-	
-	int x = 10;
-	int y = 50;
-	int dy = 30;
-	UILabel *inputUserName = [[UILabel alloc]initWithFrame:CGRectMake(x, y, 100, 30)];
-	inputUserName.text = @"User Name";
-	inputUserName.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.0];
-	[scrollView addSubview:inputUserName];
-	y+=dy;
-
-	
     
-    friendSearchTextField = [[UITextField alloc] initWithFrame:CGRectMake(10, 250, 200, 30)];
+    MSUser *currentUser = [MSUser currentUser];
+    
+    NSString *params = [NSString string];
+    
+    params = [params stringByAppendingFormat:@"%@=%@", @"uiid", currentUser.uiid];
+    [MSNetworkConnector fetchDataFromUrl:URL_OF_ME
+                                  method:RequestMethodPost
+                                  params:params block:^(NSData *response) {
+                                      jsonDic = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
+                                      NSLog(@"%@",jsonDic);
+                                  }];
+
+    UIImageView *profileImageView = [[UIImageView alloc] initWithImage:nil];
+    profileImageView.frame = CGRectMake(20,30,80,80);
+    profileImageView.image = [UIImage imageNamed:@"BigNowLoading.png"];
+    [scrollView addSubview:profileImageView];
+    
+    UIActivityIndicatorView  *aiv = [[UIActivityIndicatorView alloc]
+                                     initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    aiv.color = [UIColor colorWithRed:0.4 green:0.0 blue:0.1 alpha:1.0];
+    aiv.center = CGPointMake(profileImageView.frame.size.width/2, profileImageView.frame.size.height/2);
+    [aiv startAnimating];
+    [profileImageView addSubview:aiv];
+    
+    
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_queue_t q_main = dispatch_get_main_queue();
+    dispatch_async(q_global, ^{
+        NSURL *foodImageAccessKeyUrl = [MSAWSConnector getS3UrlFromString:
+                                        [NSURL URLWithString:ASSETS_FILE_URL([jsonDic objectForKey:@"profile_image_file_name"])]];
+        NSLog(@"%@",foodImageAccessKeyUrl);
+        
+        NSData* data = [NSData dataWithContentsOfURL:foodImageAccessKeyUrl];
+        UIImage* image = [[UIImage alloc] initWithData:data];
+        dispatch_async(q_main, ^{
+            if(image==nil) NSLog(@"test");// 画像がnilの時
+            profileImageView.image = [self framedImage:image :80];
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+            [aiv stopAnimating];
+        });
+    });
+	
+	UILabel *lbl0 = [[UILabel alloc]initWithFrame:CGRectMake(120, 35, 200, 30)];
+	lbl0.text = @"User Name";
+    lbl0.font = [UIFont systemFontOfSize:17];
+	lbl0.backgroundColor = [UIColor clearColor];
+	[scrollView addSubview:lbl0];
+    
+	UILabel *lbl1 = [[UILabel alloc]initWithFrame:CGRectMake(120, 65, 200, 30)];
+	lbl1.text = [jsonDic objectForKey:@"name"];
+    lbl1.font = [UIFont systemFontOfSize:25];
+	lbl1.backgroundColor = [UIColor clearColor];
+	[scrollView addSubview:lbl1];
+    
+    UILabel *lbl2 = [[UILabel alloc]initWithFrame:CGRectMake(20, 120, 200, 30)];
+	lbl2.text = @"User Search";
+    lbl2.font = [UIFont systemFontOfSize:17];
+	lbl2.backgroundColor = [UIColor clearColor];
+	[scrollView addSubview:lbl2];
+    
+    friendSearchTextField = [[UITextField alloc] initWithFrame:CGRectMake(20, 150, 200, 30)];
     friendSearchTextField.borderStyle = UITextBorderStyleRoundedRect;
     friendSearchTextField.placeholder = @"User Name";
 	[friendSearchTextField addTarget:self action:@selector(userSearchInputDone) forControlEvents:UIControlEventEditingDidEndOnExit];
     [scrollView addSubview:friendSearchTextField];
     
     UIButton *confirmBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    confirmBtn.frame = CGRectMake(10, 300, 120, 30);
-	[confirmBtn setTitle:@"Request" forState:UIControlStateNormal];
+    confirmBtn.frame = CGRectMake(20, 185, 180, 50);
+	[confirmBtn setTitle:@"Request Confirmation" forState:UIControlStateNormal];
     [confirmBtn addTarget:self action:@selector(confirmButtonSelected) forControlEvents:UIControlEventTouchUpInside];
     [scrollView addSubview:confirmBtn];
 	
@@ -127,6 +159,18 @@
 	y+=dy;
      */
 
+}
+
+-(UIImage *)framedImage:(UIImage *)image:(int)size{
+    
+    UIImage *frame = [UIImage imageNamed:@"otherMealFrame.png"];
+    
+    UIGraphicsBeginImageContext(CGSizeMake(size, size));
+    [image drawInRect:CGRectMake(0, 0, size, size)];
+    [frame drawInRect:CGRectMake(0, 0, size, size)];
+    
+    return UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
 }
 
 -(void)userSearchInputDone{

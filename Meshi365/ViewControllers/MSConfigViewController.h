@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <Social/Social.h>
 #import <Accounts/Accounts.h>
+#import "MSFoodPicture.h"
 
 
 @interface MSConfigViewController : UIViewController
@@ -17,6 +18,7 @@
 	NSString *postMsg;
     
     UITextField *friendSearchTextField;
+    NSDictionary *jsonDic;
 }
 
 
