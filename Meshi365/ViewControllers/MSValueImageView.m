@@ -256,6 +256,8 @@
     self.squareFoodPictureImage.foodPicture.amenity = self.place_amenity;
     self.squareFoodPictureImage.foodPicture.comment= comment.text;
     self.squareFoodPictureImage.foodPicture.starNum= self.cnt_stars;
+    NSLog(@"%d",self.squareFoodPictureImage.foodPicture.amenity);
+    NSLog(@"%@",self.squareFoodPictureImage.foodPicture.storeName);
 }
 -(void)waitingIndicatorShow{
     NSLog(@"test");
@@ -291,7 +293,8 @@
     if(indexPath.row==0){
         self.place_amenity = 0;
     }else if(indexPath.row<=[amenityArray count]){
-        self.place_amenity = (int)[amenityArray objectAtIndex:indexPath.row-1];
+        self.place_name = [nameArray objectAtIndex:indexPath.row];
+        self.place_amenity = [[amenityArray objectAtIndex:(indexPath.row-1)] intValue];
     }else{
         self.place_name = nil;
         self.place_amenity = 0;
@@ -316,6 +319,7 @@ attributes:(NSDictionary *)attributeDict {
         if([[attributeDict valueForKey:@"k"] isEqualToString:@"amenity"]){
             name_amenity = [attributeDict valueForKey:@"v"];
             
+            
             amenity_flag = 0;
             if([name_amenity rangeOfString:@"cafe"].location!= NSNotFound)
                 amenity_flag = 1;
@@ -330,7 +334,7 @@ attributes:(NSDictionary *)attributeDict {
                 amenity_flag = 2;
             if([name_amenity isEqualToString:@"fast_food"])
                 amenity_flag = 3;
-             */
+            */
         }
         if(amenity_flag>0&&[[attributeDict valueForKey:@"k"] isEqualToString:@"name"]){
             [nameArray addObject:[attributeDict valueForKey:@"v"]];
