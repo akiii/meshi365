@@ -53,6 +53,18 @@
         NSString *timesString = [NSString stringWithFormat:@"%@", formatterDate];
         NSArray *times = [timesString componentsSeparatedByString:@" "];
         self.createdAt = [NSString stringWithFormat:@"%@ %@", times[0], times[1]];
+        
+        self.user = [[MSUser alloc] initWithJson:json];
+		
+		NSString *strNull = @"(null)";
+		if([self.storeName isEqualToString:strNull])self.storeName = nil;
+		if([self.menuName isEqualToString:strNull])self.menuName = nil;
+		if([self.comment isEqualToString:strNull])self.comment = nil;
+        
+		strNull = @"<null>";
+		if([self.storeName isEqualToString:strNull])self.storeName = nil;
+		if([self.menuName isEqualToString:strNull])self.menuName = nil;
+		if([self.comment isEqualToString:strNull])self.comment = nil;
 	}
 	return self;
 }
