@@ -176,9 +176,19 @@
         self.squareFoodPictureImage = [[MSFoodPictureImage alloc] initWithCGImage:[self.cameraImage CGImage]];
         im.image = self.squareFoodPictureImage;
         
-        darkView = [[UIView alloc] initWithFrame:CGRectMake(0, 300, [[UIScreen mainScreen] applicationFrame].size.width , [[UIScreen mainScreen] applicationFrame].size.height-44)];
+        darkView = [[UIView alloc] initWithFrame:CGRectMake(100, 500, 120 , 120)];
         darkView.backgroundColor = [UIColor blackColor];
-        darkView.alpha = 0.4;
+        darkView.alpha = 0.6;
+        
+        UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(5, 50, 100, 30)];
+        lbl.textColor = [UIColor whiteColor];
+        lbl.text = @"Now Sending...";
+        
+        UIActivityIndicatorView *aic = [[UIActivityIndicatorView alloc]  initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        aic.color = [UIColor whiteColor];
+        [aic setCenter:CGPointMake(60, 60)];
+        [darkView addSubview:aic];
+        [aic startAnimating];
         
         [self addSubview:darkView];
         darkView.hidden = YES;
