@@ -43,8 +43,8 @@
 	NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
 	[outputFormatter setDateFormat:@"yyyy-MM-dd"];
 	
-	int day = 7;
-	NSDate *sinceDate =  [NSDate dateWithTimeIntervalSinceNow:-day*24*60*60];
+	int tableViewNum = 7;
+	NSDate *sinceDate =  [NSDate dateWithTimeIntervalSinceNow:-(tableViewNum-1)*24*60*60];
 	NSDate *toDate =  [NSDate dateWithTimeIntervalSinceNow:1*24*60*60];
 
 	NSString *sinceDateString = [outputFormatter stringFromDate:sinceDate];
@@ -71,7 +71,6 @@
     [self.view addSubview:naviBar];
 	
 	
-	int tableViewNum = 7;
 	
 	scrollView = [[MSMiniCalenderScrollView alloc] initWithFrame:self.view.bounds];
 	scrollView.frame = CGRectMake(0, naviHeight, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height - naviHeight);
@@ -82,7 +81,7 @@
 
 
 	
-	[self loadEachTableImage:day];
+	[self loadEachTableImage:tableViewNum];
 	[self.view addSubview:scrollView];
 	
 //	
@@ -128,7 +127,7 @@
 		for(int j = 0; j < _jsonArray.count; j++)
 		{
 			
-			NSDate *oldDay =  [NSDate dateWithTimeIntervalSinceNow:-i*24*60*60];
+			NSDate *oldDay =  [NSDate dateWithTimeIntervalSinceNow:-(i+1)*24*60*60];
 			NSString *toDateString = [outputFormatter stringFromDate:oldDay];
 			MSFoodPicture *foodPicture = [[MSFoodPicture alloc]initWithJson:_jsonArray[j]];
 			NSRange searchResult = [foodPicture.createdAt rangeOfString:toDateString];
