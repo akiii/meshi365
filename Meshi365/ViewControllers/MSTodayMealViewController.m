@@ -1,6 +1,8 @@
 #define MEAL_IMAGE_WIDTH 280
 #define MEAL_IMAGE_HEIGHT 80
 
+#define TABBAR_HEIGHT       49
+
 #import <Social/Social.h>
 #import <Accounts/Accounts.h>
 #import "MSTodayMealViewController.h"
@@ -18,8 +20,8 @@
     [UIView setAnimationDuration:0.5];
     for(UIView *view in tabbarcontroller.view.subviews){
         if([view isKindOfClass:[UITabBar class]])
-            [view setFrame:CGRectMake(view.frame.origin.x, 480, view.frame.size.width, view.frame.size.height)];
-        else [view setFrame:CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, 480)];
+            [view setFrame:CGRectMake(view.frame.origin.x, [UIScreen mainScreen].bounds.size.height, view.frame.size.width, view.frame.size.height)];
+        else [view setFrame:CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, [UIScreen mainScreen].bounds.size.height)];
     }
     [UIView commitAnimations];
 }
@@ -29,8 +31,8 @@
     [UIView setAnimationDuration:0.5];
     for(UIView *view in tabbarcontroller.view.subviews){
         if([view isKindOfClass:[UITabBar class]])
-            [view setFrame:CGRectMake(view.frame.origin.x, 431, view.frame.size.width, view.frame.size.height)];
-        else [view setFrame:CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, 431)];
+            [view setFrame:CGRectMake(view.frame.origin.x, [UIScreen mainScreen].bounds.size.height - TABBAR_HEIGHT, view.frame.size.width, view.frame.size.height)];
+        else [view setFrame:CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, [UIScreen mainScreen].bounds.size.height - TABBAR_HEIGHT)];
     }
     [UIView commitAnimations];
 }
@@ -105,7 +107,7 @@
     
     naviBar.topItem.title = @"Today Menu";
     if(msCamera.state>0){
-        msValueImageView =[[MSValueImageView alloc] initWithFrame:CGRectMake(0, 44, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen]applicationFrame].size.height - 44)];
+        msValueImageView =[[MSValueImageView alloc] initWithFrame:CGRectMake(0, 44, [[UIScreen mainScreen] bounds].size.width, [UIScreen mainScreen].bounds.size.height - 44)];
         msValueImageView.cameraImage = msCamera.camera_image;
         
         naviBar.topItem.title = @"Food Image Config";
