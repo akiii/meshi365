@@ -22,7 +22,7 @@
 
 -(void)setLayout:(int)tableNum
 {
-	self.backgroundColor  = [UIColor colorWithRed:1.0 green:0.80 blue:0.1 alpha:1.0];
+	self.backgroundColor  = DEFAULT_BGCOLOR;
 	self.contentSize = CGSizeMake([UIScreen mainScreen].bounds.size.width*tableNum/3.0f - 10, 0);
 	self.showsHorizontalScrollIndicator = YES;
 	self.showsVerticalScrollIndicator = NO;

@@ -85,15 +85,16 @@
 	[self loadEachTableImage:day];
 	[self.view addSubview:scrollView];
 	
-	
-	UILabel *monthLabel= [[UILabel alloc]init];
-	monthLabel.frame = CGRectMake(0, naviHeight, [UIScreen mainScreen].bounds.size.width, 30);
-	monthLabel.backgroundColor = 	scrollView.backgroundColor  = DEFAULT_BGCOLOR;
-	monthLabel.textAlignment = NSTextAlignmentCenter;
-	//	monthLabel.text = [NSString stringWithFormat:@"%2d",dateComps.month];
-	monthLabel.text = [NSString stringWithFormat:@"JUN/MAY"];
-	[self.view addSubview:monthLabel];
-	
+//	
+//	UILabel *monthLabel= [[UILabel alloc]init];
+//	//	monthLabel.frame = CGRectMake(0, naviHeight, [UIScreen mainScreen].bounds.size.width, 30);
+//	monthLabel.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 30);
+//	monthLabel.backgroundColor = 	scrollView.backgroundColor  = DEFAULT_BGCOLOR;
+//	monthLabel.textAlignment = NSTextAlignmentLeft;
+//	//	monthLabel.text = [NSString stringWithFormat:@"%2d",dateComps.month];
+//	monthLabel.text = [NSString stringWithFormat:@"JUN/MAY"];
+//	//[self.view addSubview:monthLabel];
+//	[scrollView addSubview:monthLabel];
 	
 	NSLog(@".....viewDidLoad done");	
 }
@@ -166,23 +167,50 @@
 		
 		
 		
+		NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+		[formatter setDateFormat:@"MMMM"];
+		NSString *currentMonth = [formatter stringFromDate:[NSDate date]];
+		NSString *preMonth = [formatter stringFromDate:[NSDate dateWithTimeIntervalSinceNow:-i*24*60*60]];
+		
+		
+		
+		UILabel *monthLabel= [[UILabel alloc]init];
+		monthLabel.frame = CGRectMake(x, 0, width, 20);
+		monthLabel.textAlignment = NSTextAlignmentLeft;
+		
+		
 		
 		dayLabel[i] = [[UILabel alloc]init];
 		NSDate* date= [NSDate dateWithTimeIntervalSinceNow: -24*60*60 * i];
 		NSCalendar *calendar = [NSCalendar currentCalendar];
 		NSDateComponents *dateComps = [calendar components:NSDayCalendarUnit|NSMonthCalendarUnit fromDate:date];
 		dayLabel[i].text = [NSString stringWithFormat:@"%2d",dateComps.day];
+		dayLabel[i].frame = CGRectMake(x, naviHeight-14, width, 20);
+
+		
 		if(i == 0)
-			dayLabel[i].backgroundColor = [UIColor colorWithRed:0.9 green:0.57 blue:0.82 alpha:1.0];
-		else
-			dayLabel[i].backgroundColor = [UIColor colorWithRed:0.9 green:0.87 blue:0.92 alpha:1.0];
-		
-		dayLabel[i].frame = CGRectMake(x, naviHeight-14, width, 30);
-		
+		{
+			dayLabel[i].backgroundColor = COLOR_TODAY;
+			monthLabel.backgroundColor = COLOR_CURRENT;
+			monthLabel.text = currentMonth;
+		}
+		else if(![currentMonth isEqualToString:preMonth])
+		{
+			dayLabel[i].backgroundColor = COLOR_PAST;
+			monthLabel.backgroundColor = COLOR_PAST;
+			monthLabel.text = preMonth;
+		}
+		else{
+			dayLabel[i].backgroundColor = COLOR_CURRENT;
+			monthLabel.backgroundColor  = COLOR_CURRENT;
+			monthLabel.text = [NSString stringWithFormat:@""];
+		}
 		
 		
 		[scrollView addSubview:miniTable[i]];
 		[scrollView addSubview:dayLabel[i]];
+		[scrollView addSubview:monthLabel];
+		
 		
 	}
 	
