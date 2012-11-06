@@ -44,6 +44,19 @@
 		self.menuName	= [NSString stringWithFormat:@"%@", [json objectForKey:@"menu_name"]];
 		self.comment	= [NSString stringWithFormat:@"%@", [json objectForKey:@"comment"]];
 		self.starNum	= [[json objectForKey:@"star_num"] integerValue];
+        self.createdAt  = [json objectForKey:@"created_at"];
+        
+        NSDateFormatter *inputFormatter = [[NSDateFormatter alloc] init];
+        [inputFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZZ"];
+        
+        NSDate *formatterDate = [inputFormatter dateFromString:self.createdAt];
+        
+        NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
+        [outputFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        
+        NSString *dateString = [outputFormatter stringFromDate:formatterDate];
+        self.createdAt = dateString;
+        
 		self.user = [[MSUser alloc] initWithJson:json];
 		
 		NSString *strNull = @"(null)";
