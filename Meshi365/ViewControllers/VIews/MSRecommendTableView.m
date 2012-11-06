@@ -77,14 +77,14 @@
 	MSImageCache* cache = [MSImageCache sharedManager];
 	[cell.foodImgIdctr startAnimating];
 	if(!foodPicture)
-		cell.imageView.image =  [UIImage imageNamed:@"starNonSelect.png"];
+		cell.imageView.image =  [UIImage imageNamed:IMG_NO_IMAGE_LARGE];
 	else if( [cache.image objectForKey:foodPicture.url])
 	{
 		cell.imageView.image =  [cache.image  objectForKey:foodPicture.url];
 		[cell.foodImgIdctr stopAnimating];
 	}
 	else
-		cell.imageView.image =  [UIImage imageNamed:@"star.png"];
+		cell.imageView.image =  [UIImage imageNamed:IMG_NOW_LOADING_LARGE];
 	
 	return cell;
 }

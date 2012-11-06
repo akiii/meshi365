@@ -43,8 +43,8 @@
 	NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
 	[outputFormatter setDateFormat:@"yyyy-MM-dd"];
 	
-	int day = 7;
-	NSDate *sinceDate =  [NSDate dateWithTimeIntervalSinceNow:-day*24*60*60];
+	int tableViewNum = 9;
+	NSDate *sinceDate =  [NSDate dateWithTimeIntervalSinceNow:-(tableViewNum-1)*24*60*60];
 	NSDate *toDate =  [NSDate dateWithTimeIntervalSinceNow:1*24*60*60];
 
 	NSString *sinceDateString = [outputFormatter stringFromDate:sinceDate];
@@ -71,30 +71,19 @@
     [self.view addSubview:naviBar];
 	
 	
-	int tableViewNum = 7;
 	
 	scrollView = [[MSMiniCalenderScrollView alloc] initWithFrame:self.view.bounds];
 	scrollView.frame = CGRectMake(0, naviHeight, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height - naviHeight);
 	[scrollView setLayout:tableViewNum];
 	
-	int x = scrollView.frame.size.width + [UIScreen mainScreen].bounds.size.width/3.0f - (tableViewNum -1 )* _fixWidth;
+	int x = [UIScreen mainScreen].bounds.size.width/3.0f * ( tableViewNum -4 ) + _fixWidth;
 	[scrollView setContentOffset:CGPointMake(x , 0.0f) animated:YES];
-
+	[scrollView fixScrollOffset];
 
 	
-	[self loadEachTableImage:day];
+	[self loadEachTableImage:tableViewNum];
 	[self.view addSubview:scrollView];
-	
-	
-	UILabel *monthLabel= [[UILabel alloc]init];
-	monthLabel.frame = CGRectMake(0, naviHeight, [UIScreen mainScreen].bounds.size.width, 30);
-	monthLabel.backgroundColor = 	scrollView.backgroundColor  = DEFAULT_BGCOLOR;
-	monthLabel.textAlignment = NSTextAlignmentCenter;
-	//	monthLabel.text = [NSString stringWithFormat:@"%2d",dateComps.month];
-	monthLabel.text = [NSString stringWithFormat:@"JUN/MAY"];
-	[self.view addSubview:monthLabel];
-	
-	
+		
 	NSLog(@".....viewDidLoad done");	
 }
 
@@ -104,7 +93,6 @@
 
 -(void)loadEachTableImage:(int)maxViewNum
 {
-	int naviHeight = 44;
 	float width = [UIScreen mainScreen].bounds.size.width/3-_fixWidth;
 	UILabel *dayLabel[maxViewNum];
 	MSMiniCalenderTableView *miniTable[maxViewNum];
@@ -128,7 +116,7 @@
 		for(int j = 0; j < _jsonArray.count; j++)
 		{
 			
-			NSDate *oldDay =  [NSDate dateWithTimeIntervalSinceNow:-i*24*60*60];
+			NSDate *oldDay =  [NSDate dateWithTimeIntervalSinceNow:-(i+1)*24*60*60];
 			NSString *toDateString = [outputFormatter stringFromDate:oldDay];
 			MSFoodPicture *foodPicture = [[MSFoodPicture alloc]initWithJson:_jsonArray[j]];
 			NSRange searchResult = [foodPicture.createdAt rangeOfString:toDateString];
@@ -138,6 +126,23 @@
 			}
 		}
 		
+		for(int i = 1; i < jsonOneDayArray.count; i++)
+		{
+			MSFoodPicture *pre = [[MSFoodPicture alloc] initWithJson:jsonOneDayArray[i-1]];
+			MSFoodPicture *current = [[MSFoodPicture alloc] initWithJson:jsonOneDayArray[i]];
+
+			if(pre.mealType > current.mealType)
+			{
+				NSDictionary *tmp = jsonOneDayArray[i];
+				jsonOneDayArray[i] = jsonOneDayArray[i-1];
+				jsonOneDayArray[i-1] = tmp;
+				
+				i-=2;
+				if(i < 0)i=0;
+			}
+		}
+		
+		
 		
 		
 		
@@ -145,8 +150,20 @@
 		NSLog(@".....set json done:[%d]",_jsonArray.count);
 		miniTable[i].jsonArray = jsonOneDayArray;
 		[miniTable[i] loadImage];
-		miniTable[i].frame =CGRectMake(x, naviHeight+14,width,  self.view.frame.size.height - naviHeight-56);
+		miniTable[i].frame =CGRectMake(x, 40,width,  self.view.frame.size.height - 40-43);
 		
+		
+		
+		NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+		[formatter setDateFormat:@"MMMM"];
+		NSString *currentMonth = [formatter stringFromDate:[NSDate date]];
+		NSString *preMonth = [formatter stringFromDate:[NSDate dateWithTimeIntervalSinceNow:-i*24*60*60]];
+		
+		
+		
+		UILabel *monthLabel= [[UILabel alloc]init];
+		monthLabel.frame = CGRectMake(x, 0, width, 20);
+		monthLabel.textAlignment = NSTextAlignmentLeft;
 		
 		
 		
@@ -155,17 +172,32 @@
 		NSCalendar *calendar = [NSCalendar currentCalendar];
 		NSDateComponents *dateComps = [calendar components:NSDayCalendarUnit|NSMonthCalendarUnit fromDate:date];
 		dayLabel[i].text = [NSString stringWithFormat:@"%2d",dateComps.day];
+		dayLabel[i].frame = CGRectMake(x, 20, width, 20);
+
+		
 		if(i == 0)
-			dayLabel[i].backgroundColor = [UIColor colorWithRed:0.9 green:0.57 blue:0.82 alpha:1.0];
-		else
-			dayLabel[i].backgroundColor = [UIColor colorWithRed:0.9 green:0.87 blue:0.92 alpha:1.0];
-		
-		dayLabel[i].frame = CGRectMake(x, naviHeight-14, width, 30);
-		
+		{
+			dayLabel[i].backgroundColor = COLOR_TODAY;
+			monthLabel.backgroundColor = COLOR_CURRENT;
+			monthLabel.text = currentMonth;
+		}
+		else if(![currentMonth isEqualToString:preMonth])
+		{
+			dayLabel[i].backgroundColor = COLOR_PAST;
+			monthLabel.backgroundColor = COLOR_PAST;
+			monthLabel.text = preMonth;
+		}
+		else{
+			dayLabel[i].backgroundColor = COLOR_CURRENT;
+			monthLabel.backgroundColor  = COLOR_CURRENT;
+			monthLabel.text = [NSString stringWithFormat:@""];
+		}
 		
 		
 		[scrollView addSubview:miniTable[i]];
 		[scrollView addSubview:dayLabel[i]];
+		[scrollView addSubview:monthLabel];
+		
 		
 	}
 	

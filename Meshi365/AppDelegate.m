@@ -40,22 +40,7 @@
         self.signUpViewController = [[MSSignUpViewController alloc] init];
         self.window.rootViewController = self.signUpViewController;
     }
-    
-//    NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
-//    [outputFormatter setDateFormat:@"yyyy-MM-dd"];
-//    NSString *sinceDateString = @"2012-11-01";
-//    NSString *toDateString = @"2012-11-02";
-//    
-//    NSString *params = [NSString string];
-//    params = [params stringByAppendingFormat:@"%@=%@&", @"my_uiid", [MSUser currentUser].uiid];
-//    params = [params stringByAppendingFormat:@"%@=%@&", @"since_date", sinceDateString];
-//    
-//    params = [params stringByAppendingFormat:@"%@=%@&", @"to_date", toDateString];
-//    [MSNetworkConnector requestToUrl:URL_OF_CALENDER([MSUser currentUser].uiid) method:RequestMethodPost params:params block:^(NSData *response) {
-//        NSJSONSerialization *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
-//        NSLog(@"json : %@", json);
-//    }];
-    
+        
     return YES;
 }
 

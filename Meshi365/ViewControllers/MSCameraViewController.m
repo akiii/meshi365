@@ -27,8 +27,8 @@
     
     UIImage *resizedImage = [UIImage imageWithCGImage:CGImageCreateWithImageInRect([image CGImage], image_rect)];
 
-    UIGraphicsBeginImageContext(CGSizeMake(640, 640));
-    [resizedImage drawInRect:CGRectMake(0, 0, 640, 640)];
+    UIGraphicsBeginImageContext(CGSizeMake(IMAGE_SIZE, IMAGE_SIZE));
+    [resizedImage drawInRect:CGRectMake(0, 0, IMAGE_SIZE, IMAGE_SIZE)];
     self.camera_image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     

@@ -10,7 +10,17 @@
 #define STAGING     1
 #define PRODUCTION  2
 
+#define IMG_NOW_LOADING_LARGE @"BigNowLoading.png"
+#define IMG_NO_IMAGE @"NoImage.png"
+#define IMG_NO_IMAGE_LARGE @"BigNoImage.png"
+
+#define IMAGE_SIZE 240
+
 #define DEFAULT_BGCOLOR [UIColor colorWithRed:1.0 green:0.93 blue:0.8 alpha:1.0]
+#define COLOR_TODAY [UIColor colorWithRed:0.96 green:0.2 blue:0.4 alpha:1.0]
+#define COLOR_OLDDAY [UIColor colorWithRed:0.5 green:0.2 blue:0.4 alpha:1.0]
+#define COLOR_CURRENT [UIColor colorWithRed:0.96 green:0.7 blue:0.8 alpha:1.0]
+#define COLOR_PAST [UIColor colorWithRed:0.87 green:0.8 blue:0.85 alpha:1.0]
 
 #define FOOD_LINE_IMAGE_INDICATOR_TRANSFORM CGAffineTransformMakeScale(3.0f,3.0f)
 
@@ -52,3 +62,5 @@
 
 /* params keys : { "word" } */
 #define URL_OF_SEARCH_USERS(uiid)           [NSString stringWithFormat:@"%@/api/%@/friends/search", SERVER_BASE_URL, uiid]
+
+#define URL_OF_RECOMMEND_STORES(uiid)       [NSString stringWithFormat:@"%@/api/%@/recommend/group/stores", SERVER_BASE_URL, uiid]

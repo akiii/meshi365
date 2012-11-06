@@ -11,6 +11,7 @@
 #import "MSAWSConnector.h"
 #import "MSImageLoader.h"
 #import "MSImageCache.h"
+#import "MSMiniCalenderCell.h"
 
 @interface MSMiniCalenderTableView()
 @property(nonatomic,strong) UILabel *label;
@@ -28,7 +29,7 @@
 		self.delegate = self;
 		self.dataSource = self;
 		_indctrDict = [NSMutableDictionary dictionary];
-		
+		self.backgroundColor = DEFAULT_BGCOLOR;
 		
     }
     return self;
@@ -78,33 +79,12 @@
 	if(_jsonArray && _jsonArray.count > indexPath.row)foodPicture= [[MSFoodPicture alloc]initWithJson: _jsonArray[indexPath.row] ];
 	
 	
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    MSMiniCalenderCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-		
-		NSLog(@"fucking indexpath [%d]", indexPath.row);
-		_label = [[UILabel alloc]initWithFrame:CGRectMake(3, 3, size, 30)];
-		[_label setBackgroundColor: [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.0]];
-		if(!foodPicture)_label.text = @"Nothing";
-		else
-		{
-			switch (foodPicture.mealType) {
-				case 0:_label.text = @"Breakfast";break;
-				case 1:_label.text = @"Lunch";break;
-				case 2:_label.text = @"Dinner";break;
-				case 3:_label.text = @"Other";break;
-			}
-		}
-		
-		
-		[cell addSubview:_label];
-		
-		
-	
-		
+		cell = [[MSMiniCalenderCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 	}
 	
-	
+	cell.foodPicture = foodPicture;
 	
 	if(foodPicture.url != nil && ![_indctrDict objectForKey:foodPicture.url])
 	{
@@ -120,26 +100,30 @@
 	}
 	
 	
-	if([_indctrDict objectForKey:foodPicture.url])[[_indctrDict objectForKey:foodPicture.url] startAnimating];
+	//if([_indctrDict objectForKey:foodPicture.url])[[_indctrDict objectForKey:foodPicture.url] startAnimating];
 	
+	[cell.foodImgIdctr startAnimating];
 	
 	MSImageCache* cache = [MSImageCache sharedManager];
 	if(!foodPicture)
 	{
-		cell.imageView.image =  [UIImage imageNamed:@"starNonSelect.png"];
-		[[_indctrDict objectForKey:foodPicture.url] stopAnimating];
+		cell.foodImage =  [UIImage imageNamed:IMG_NO_IMAGE_LARGE];
+		//[[_indctrDict objectForKey:foodPicture.url] stopAnimating];
+		[cell.foodImgIdctr stopAnimating];
+
 		
 	}
 	else if( [cache.image objectForKey:foodPicture.url])
 	{
-		cell.imageView.image =  [cache.image objectForKey:foodPicture.url];
-		if([_indctrDict objectForKey:foodPicture.url])[[_indctrDict objectForKey:foodPicture.url] stopAnimating];
+		cell.foodImage =  [cache.image objectForKey:foodPicture.url];
+		//	if([_indctrDict objectForKey:foodPicture.url])[[_indctrDict objectForKey:foodPicture.url] stopAnimating];
+		[cell.foodImgIdctr stopAnimating];
 	}
 	else
-		cell.imageView.image =  [UIImage imageNamed:@"star.png"];
+		cell.foodImage =  [UIImage imageNamed:IMG_NOW_LOADING_LARGE];
 	
 	
-    
+    [cell layoutSubviews];
 	return cell;
 }
 
@@ -147,7 +131,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	//todo セルのサイズに合わせてか可変を
-	return self.frame.size.height/3.0f;//110;
+	return self.frame.size.height/3.0f-5;//110;
 	
 }
 
