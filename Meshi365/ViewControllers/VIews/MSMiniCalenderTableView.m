@@ -84,7 +84,7 @@
 		cell = [[MSMiniCalenderCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 	}
 	
-	
+	cell.foodPicture = foodPicture;
 	
 	if(foodPicture.url != nil && ![_indctrDict objectForKey:foodPicture.url])
 	{
@@ -100,26 +100,30 @@
 	}
 	
 	
-	if([_indctrDict objectForKey:foodPicture.url])[[_indctrDict objectForKey:foodPicture.url] startAnimating];
+	//if([_indctrDict objectForKey:foodPicture.url])[[_indctrDict objectForKey:foodPicture.url] startAnimating];
 	
+	[cell.foodImgIdctr startAnimating];
 	
 	MSImageCache* cache = [MSImageCache sharedManager];
 	if(!foodPicture)
 	{
-		cell.imageView.image =  [UIImage imageNamed:IMG_NO_IMAGE_LARGE];
-		[[_indctrDict objectForKey:foodPicture.url] stopAnimating];
+		cell.foodImage =  [UIImage imageNamed:IMG_NO_IMAGE_LARGE];
+		//[[_indctrDict objectForKey:foodPicture.url] stopAnimating];
+		[cell.foodImgIdctr stopAnimating];
+
 		
 	}
 	else if( [cache.image objectForKey:foodPicture.url])
 	{
-		cell.imageView.image =  [cache.image objectForKey:foodPicture.url];
-		if([_indctrDict objectForKey:foodPicture.url])[[_indctrDict objectForKey:foodPicture.url] stopAnimating];
+		cell.foodImage =  [cache.image objectForKey:foodPicture.url];
+		//	if([_indctrDict objectForKey:foodPicture.url])[[_indctrDict objectForKey:foodPicture.url] stopAnimating];
+		[cell.foodImgIdctr stopAnimating];
 	}
 	else
-		cell.imageView.image =  [UIImage imageNamed:IMG_NOW_LOADING_LARGE];
+		cell.foodImage =  [UIImage imageNamed:IMG_NOW_LOADING_LARGE];
 	
 	
-    
+    [cell layoutSubviews];
 	return cell;
 }
 
