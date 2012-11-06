@@ -84,7 +84,7 @@
     
     for(int i=0;i<3;i++){
         mealImageView[i].userInteractionEnabled = YES;
-        mealImageView[i].frame = CGRectMake(20,50+85*i,MEAL_IMAGE_WIDTH ,MEAL_IMAGE_HEIGHT);
+        mealImageView[i].frame = CGRectMake(20,60+85*i,MEAL_IMAGE_WIDTH ,MEAL_IMAGE_HEIGHT);
         [self.view addSubview:mealImageView[i]];
         
         indicator[i] = [[UIActivityIndicatorView alloc]  initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
@@ -93,7 +93,7 @@
         [self.view addSubview: indicator[i]];
     }
     
-    UIImageView *otherLogoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 295, 90, 36)];
+    UIImageView *otherLogoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 305, 90, 36)];
     otherLogoImageView.image = [UIImage imageNamed:@"othersLogo.png"];
     [self.view addSubview:otherLogoImageView];
     
@@ -236,7 +236,7 @@
 
 -(void) alignOtherImages:(NSArray *)imageViewArray:(NSArray *)indicatorArray{
     
-    scv = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 330, [[UIScreen mainScreen] bounds].size.width, 70)];
+    scv = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 340, [[UIScreen mainScreen] bounds].size.width, 70)];
     scv.contentSize = CGSizeMake(25+65*([imageViewArray count]+1), 60);
     
     int i;
