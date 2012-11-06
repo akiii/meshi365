@@ -67,13 +67,9 @@
 	if (cell == nil) {
 		cell = [[MSRecommendCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 		
-		
-		
 		int size = [UIScreen mainScreen].bounds.size.width/3;
 		cell.imageView.frame = CGRectMake(0, 0, size, size);
 		cell.foodPicture = foodPicture;
-		
-		NSLog(@"!!!!!!!!!!!!!!!!fucking cretate %d",indexPath.row);
 		
 	}
 	
@@ -90,11 +86,7 @@
 	else
 		cell.imageView.image =  [UIImage imageNamed:@"star.png"];
 	
-	
-	//	cell.imageView.image =  [UIImage imageNamed:@"star.png"];
 	return cell;
-	
-	
 }
 
 
