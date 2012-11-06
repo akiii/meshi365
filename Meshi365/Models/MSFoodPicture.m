@@ -51,7 +51,6 @@
         
         NSDate *formatterDate = [inputFormatter dateFromString:self.createdAt];
         NSString *timesString = [NSString stringWithFormat:@"%@", formatterDate];
-        NSLog(@"formatter : %@, %@", formatterDate, timesString);
         NSArray *times = [timesString componentsSeparatedByString:@" "];
         self.createdAt = [NSString stringWithFormat:@"%@ %@", times[0], times[1]];
 	}
