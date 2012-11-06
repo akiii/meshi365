@@ -14,6 +14,7 @@
 #define IMG_NO_IMAGE @"NoImage.png"
 #define IMG_NO_IMAGE_LARGE @"BigNoImage.png"
 
+#define IMAGE_SIZE 240
 
 #define DEFAULT_BGCOLOR [UIColor colorWithRed:1.0 green:0.93 blue:0.8 alpha:1.0]
 #define COLOR_TODAY [UIColor colorWithRed:0.96 green:0.2 blue:0.4 alpha:1.0]

@@ -43,7 +43,7 @@
 	NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
 	[outputFormatter setDateFormat:@"yyyy-MM-dd"];
 	
-	int tableViewNum = 7;
+	int tableViewNum = 9;
 	NSDate *sinceDate =  [NSDate dateWithTimeIntervalSinceNow:-(tableViewNum-1)*24*60*60];
 	NSDate *toDate =  [NSDate dateWithTimeIntervalSinceNow:1*24*60*60];
 
@@ -76,25 +76,14 @@
 	scrollView.frame = CGRectMake(0, naviHeight, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height - naviHeight);
 	[scrollView setLayout:tableViewNum];
 	
-	int x = scrollView.frame.size.width + [UIScreen mainScreen].bounds.size.width/3.0f - (tableViewNum -1 )* _fixWidth;
+	int x = [UIScreen mainScreen].bounds.size.width/3.0f * ( tableViewNum -4 ) + _fixWidth;
 	[scrollView setContentOffset:CGPointMake(x , 0.0f) animated:YES];
-
+	[scrollView fixScrollOffset];
 
 	
 	[self loadEachTableImage:tableViewNum];
 	[self.view addSubview:scrollView];
-	
-//	
-//	UILabel *monthLabel= [[UILabel alloc]init];
-//	//	monthLabel.frame = CGRectMake(0, naviHeight, [UIScreen mainScreen].bounds.size.width, 30);
-//	monthLabel.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 30);
-//	monthLabel.backgroundColor = 	scrollView.backgroundColor  = DEFAULT_BGCOLOR;
-//	monthLabel.textAlignment = NSTextAlignmentLeft;
-//	//	monthLabel.text = [NSString stringWithFormat:@"%2d",dateComps.month];
-//	monthLabel.text = [NSString stringWithFormat:@"JUN/MAY"];
-//	//[self.view addSubview:monthLabel];
-//	[scrollView addSubview:monthLabel];
-	
+		
 	NSLog(@".....viewDidLoad done");	
 }
 

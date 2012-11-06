@@ -323,8 +323,11 @@
     NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
     [outputFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss ZZZZ"];
 
-    NSString *nowDateString = [outputFormatter stringFromDate:[NSDate date]];
-    
+	//TODO
+	//NSString *nowDateString = [outputFormatter stringFromDate:[NSDate date]];
+    NSString *nowDateString =@"2012-10-31-dd HH:mm:ss GMT-08:00";
+	NSLog(@"post time %@",nowDateString);
+	
     msValueImageView.squareFoodPictureImage.foodPicture.createdAt = nowDateString;
     
     [MSNetworkConnector requestToUrl:URL_OF_POST_FOOD_PICTURE method:RequestMethodPost params:msValueImageView.squareFoodPictureImage.foodPicture.params block:^(NSData *response) {}];
