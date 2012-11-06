@@ -74,7 +74,8 @@
     if (![self.comment isEqualToString:@""]) {
         params = [params stringByAppendingFormat:@"%@=%@&", @"comment",      self.comment];
     }
-    params = [params stringByAppendingFormat:@"%@=%@&", @"star_num",     [NSNumber numberWithInt:self.starNum]];
+    params = [params stringByAppendingFormat:@"%@=%@&", @"star_num",        [NSNumber numberWithInt:self.starNum]];
+    params = [params stringByAppendingFormat:@"%@=%@&", @"created_at",      self.createdAt];
     return params;
 }
 

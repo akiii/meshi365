@@ -10,7 +10,6 @@
 #import "MSUser.h"
 
 @interface MSFoodPicture : NSObject
-@property (nonatomic, strong) NSString *createdAt;
 @property (nonatomic, strong) NSString *uiid;
 @property (assign) int mealType;
 @property (nonatomic, strong) NSString *fileName;
@@ -20,6 +19,7 @@
 @property (nonatomic, strong) NSString *comment;
 @property (assign) int starNum;
 @property (readonly) NSString *url;
+@property (nonatomic, strong) NSString *createdAt;
 @property (readonly) NSString *params;
 @property(nonatomic,strong) MSUser* user;
 - (id)initWithJson:(NSDictionary*)json;

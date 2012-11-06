@@ -27,6 +27,13 @@
 		27272A9216484FCC00FC3434 /* otherNoImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27272A8C16484FC900FC3434 /* otherNoImage@2x.png */; };
 		27272A9316484FCC00FC3434 /* otherNowLoading.png in Resources */ = {isa = PBXBuildFile; fileRef = 27272A8D16484FCA00FC3434 /* otherNowLoading.png */; };
 		27272A9416484FCC00FC3434 /* otherNowLoading@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27272A8E16484FCB00FC3434 /* otherNowLoading@2x.png */; };
+		27272A9B1648787700FC3434 /* BigNoImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 27272A951648786E00FC3434 /* BigNoImage.png */; };
+		27272A9C1648787700FC3434 /* BigNoImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27272A961648786F00FC3434 /* BigNoImage@2x.png */; };
+		27272A9D1648787700FC3434 /* BigNowLoading.png in Resources */ = {isa = PBXBuildFile; fileRef = 27272A971648787100FC3434 /* BigNowLoading.png */; };
+		27272A9E1648787700FC3434 /* BigNowLoading@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27272A981648787300FC3434 /* BigNowLoading@2x.png */; };
+		27272A9F1648787700FC3434 /* NoImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 27272A991648787400FC3434 /* NoImage.png */; };
+		27272AA01648787700FC3434 /* NoImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27272A9A1648787600FC3434 /* NoImage@2x.png */; };
+		27272AA216488BE800FC3434 /* othersLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 27272AA116488BE500FC3434 /* othersLogo.png */; };
 		2732C980164200BF000B3AB0 /* Icon_Twitter.png in Resources */ = {isa = PBXBuildFile; fileRef = 2732C97E164200BF000B3AB0 /* Icon_Twitter.png */; };
 		2757A2AF16416E1800975AC8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2757A2AE16416E1800975AC8 /* CoreLocation.framework */; };
 		2757A2B31641765F00975AC8 /* MSFoodLineNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2757A2B21641765F00975AC8 /* MSFoodLineNavigationViewController.m */; };
@@ -124,6 +131,13 @@
 		27272A8C16484FC900FC3434 /* otherNoImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "otherNoImage@2x.png"; sourceTree = "<group>"; };
 		27272A8D16484FCA00FC3434 /* otherNowLoading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = otherNowLoading.png; sourceTree = "<group>"; };
 		27272A8E16484FCB00FC3434 /* otherNowLoading@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "otherNowLoading@2x.png"; sourceTree = "<group>"; };
+		27272A951648786E00FC3434 /* BigNoImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BigNoImage.png; sourceTree = "<group>"; };
+		27272A961648786F00FC3434 /* BigNoImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BigNoImage@2x.png"; sourceTree = "<group>"; };
+		27272A971648787100FC3434 /* BigNowLoading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BigNowLoading.png; sourceTree = "<group>"; };
+		27272A981648787300FC3434 /* BigNowLoading@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BigNowLoading@2x.png"; sourceTree = "<group>"; };
+		27272A991648787400FC3434 /* NoImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NoImage.png; sourceTree = "<group>"; };
+		27272A9A1648787600FC3434 /* NoImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NoImage@2x.png"; sourceTree = "<group>"; };
+		27272AA116488BE500FC3434 /* othersLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = othersLogo.png; sourceTree = "<group>"; };
 		2732C97E164200BF000B3AB0 /* Icon_Twitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_Twitter.png; sourceTree = "<group>"; };
 		2757A2AE16416E1800975AC8 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		2757A2B11641765F00975AC8 /* MSFoodLineNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSFoodLineNavigationViewController.h; sourceTree = "<group>"; };
@@ -254,6 +268,13 @@
 		B80524A2163EEB59005B74F8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				27272AA116488BE500FC3434 /* othersLogo.png */,
+				27272A951648786E00FC3434 /* BigNoImage.png */,
+				27272A961648786F00FC3434 /* BigNoImage@2x.png */,
+				27272A971648787100FC3434 /* BigNowLoading.png */,
+				27272A981648787300FC3434 /* BigNowLoading@2x.png */,
+				27272A991648787400FC3434 /* NoImage.png */,
+				27272A9A1648787600FC3434 /* NoImage@2x.png */,
 				27272A8916484FC600FC3434 /* otherMealFrame.png */,
 				27272A8A16484FC700FC3434 /* otherMealFrame@2x.png */,
 				27272A8B16484FC800FC3434 /* otherNoImage.png */,
@@ -561,6 +582,13 @@
 				27272A9216484FCC00FC3434 /* otherNoImage@2x.png in Resources */,
 				27272A9316484FCC00FC3434 /* otherNowLoading.png in Resources */,
 				27272A9416484FCC00FC3434 /* otherNowLoading@2x.png in Resources */,
+				27272A9B1648787700FC3434 /* BigNoImage.png in Resources */,
+				27272A9C1648787700FC3434 /* BigNoImage@2x.png in Resources */,
+				27272A9D1648787700FC3434 /* BigNowLoading.png in Resources */,
+				27272A9E1648787700FC3434 /* BigNowLoading@2x.png in Resources */,
+				27272A9F1648787700FC3434 /* NoImage.png in Resources */,
+				27272AA01648787700FC3434 /* NoImage@2x.png in Resources */,
+				27272AA216488BE800FC3434 /* othersLogo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

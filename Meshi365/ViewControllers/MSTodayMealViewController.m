@@ -68,9 +68,9 @@
     [self.view addSubview:naviBar];
     
     //Making views in Today Meal
-    mealImageView[0] = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_image_breakfast.png"]];
-    mealImageView[1] = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_image_lunch.png"]];
-    mealImageView[2] = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_image_supper.png"]];
+    mealImageView[0] = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"breakfastNoImage.png"]];
+    mealImageView[1] = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"lunchNoImage.png"]];
+    mealImageView[2] = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"supperNoImage.png"]];
     //タップされた時に実行される関数を指定
     [mealImageView[0] addGestureRecognizer:[[UITapGestureRecognizer alloc]
                                             initWithTarget:self
@@ -152,7 +152,7 @@
 			
             flag_async++;
             
-            UIImageView *iv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"loadingMealImage.png"]];
+            UIImageView *iv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"otherNowLoading.png"]];
             [otherImageViews addObject:iv];
             
             UIActivityIndicatorView *aiv = [[UIActivityIndicatorView alloc]  initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
@@ -173,7 +173,7 @@
                     if(image!=nil)
 					{
 						[[MSImageCache sharedManager].image  setObject:image forKey:foodPicture.url];
-						iv.image = image;
+						iv.image = [self framedImage:image :601];
 						[aiv stopAnimating];
 						flag_async--;
 						if(flag_async==0) [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
@@ -184,18 +184,28 @@
             for(int j=0;j<3;j++){
                 if (mealImageView[j].userInteractionEnabled==YES&&foodPicture.mealType==j) {
 					
-		
-					
 					if([ [MSImageCache sharedManager].imageRequest objectForKey:foodPicture.url])continue;
 					if([[MSImageCache sharedManager].image objectForKey:foodPicture.url])continue;
 					[[MSImageCache sharedManager].imageRequest  setObject:@"lock" forKey:foodPicture.url];
-
-					
+                    
+                    UIImage *loadImage;
+                    switch (j) {
+                        case 0:
+                            loadImage = [UIImage imageNamed:@"breakfastNowLoading.png"];
+                            break;
+                        case 1:
+                            loadImage = [UIImage imageNamed:@"lunchNowLoading.png"];
+                            break;
+                        case 2:
+                            loadImage = [UIImage imageNamed:@"supperNowLoading.png"];
+                            break;
+                    }
+            
                     flag_async++;
                     [indicator[j] startAnimating];
                     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
                     mealImageView[j].userInteractionEnabled=NO;
-                    mealImageView[j].image = [UIImage imageNamed:@"loadingMealImage.png"];
+                    mealImageView[j].image = loadImage;
                     
                     dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
                     dispatch_queue_t q_main = dispatch_get_main_queue();
@@ -239,7 +249,7 @@
         [scv addSubview:[indicatorArray objectAtIndex:i]];
     }
     
-    otherImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_image_others.png"]];
+    otherImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"otherNoImage.png"]];
     otherImageView.userInteractionEnabled = YES;
     [otherImageView addGestureRecognizer:[[UITapGestureRecognizer alloc]
                                           initWithTarget:self
@@ -250,6 +260,18 @@
     
     //ValueImageより前に来ないように
     [self.view sendSubviewToBack:scv];
+}
+
+-(UIImage *)framedImage:(UIImage *)image:(int)size{
+    
+    UIImage *frame = [UIImage imageNamed:@"otherMealFrame.png"];
+
+    UIGraphicsBeginImageContext(CGSizeMake(size, size));
+    [image drawInRect:CGRectMake(0, 0, size, size)];
+    [frame drawInRect:CGRectMake(0, 0, size, size)];
+    
+    return UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
 }
 
 -(void)breakfastCameraAction{
