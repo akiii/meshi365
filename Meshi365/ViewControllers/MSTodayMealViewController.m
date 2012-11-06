@@ -325,7 +325,7 @@
 
 	//TODO
 	//NSString *nowDateString = [outputFormatter stringFromDate:[NSDate date]];
-    NSString *nowDateString =@"2012-10-31-dd HH:mm:ss GMT-08:00";
+    NSString *nowDateString = [NSDate date];
 	NSLog(@"post time %@",nowDateString);
 	
     msValueImageView.squareFoodPictureImage.foodPicture.createdAt = nowDateString;
