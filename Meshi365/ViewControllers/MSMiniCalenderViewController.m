@@ -116,10 +116,14 @@
 		for(int j = 0; j < _jsonArray.count; j++)
 		{
 			
-			NSDate *oldDay =  [NSDate dateWithTimeIntervalSinceNow:-(i+1)*24*60*60];
+			NSDate *oldDay =  [NSDate dateWithTimeIntervalSinceNow:-i*24*60*60];
 			NSString *toDateString = [outputFormatter stringFromDate:oldDay];
 			MSFoodPicture *foodPicture = [[MSFoodPicture alloc]initWithJson:_jsonArray[j]];
 			NSRange searchResult = [foodPicture.createdAt rangeOfString:toDateString];
+			
+			NSLog(@"fp      %@",foodPicture.createdAt);
+			NSLog(@"toDtate %@",toDateString);
+
 			if(searchResult.location != NSNotFound)
 			{
 				[jsonOneDayArray addObject:_jsonArray[j]];
@@ -143,7 +147,7 @@
 		}
 		
 		
-		
+		NSLog(@"%@",jsonOneDayArray);
 		
 		
 		
@@ -181,11 +185,11 @@
 			monthLabel.backgroundColor = COLOR_CURRENT;
 			monthLabel.text = currentMonth;
 		}
-		else if(![currentMonth isEqualToString:preMonth])
+		else if( ![currentMonth isEqualToString:preMonth])
 		{
 			dayLabel[i].backgroundColor = COLOR_PAST;
 			monthLabel.backgroundColor = COLOR_PAST;
-			monthLabel.text = preMonth;
+			if(i == maxViewNum-1)monthLabel.text = preMonth;
 		}
 		else{
 			dayLabel[i].backgroundColor = COLOR_CURRENT;
