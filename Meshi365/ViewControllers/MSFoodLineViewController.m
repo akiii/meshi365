@@ -175,8 +175,8 @@
 		[cell.foodImgIdctr stopAnimating];
 	}
 	else
-		cell.foodImage = [UIImage imageNamed:@"star.png"];
-	
+		cell.foodImage = [UIImage imageNamed:IMG_NOW_LOADING_LARGE];
+
 	
 	
 	//set profile image
@@ -187,7 +187,7 @@
 		[cell.profileImgIdctr stopAnimating];
 	}
 	else
-		cell.profileImage = [UIImage imageNamed:@"star.png"];
+		cell.profileImage = [UIImage imageNamed:IMG_NOW_LOADING_LARGE];
 	
 	
 	

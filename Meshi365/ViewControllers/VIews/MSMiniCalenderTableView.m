@@ -11,6 +11,7 @@
 #import "MSAWSConnector.h"
 #import "MSImageLoader.h"
 #import "MSImageCache.h"
+#import "MSMiniCalenderCell.h"
 
 @interface MSMiniCalenderTableView()
 @property(nonatomic,strong) UILabel *label;
@@ -78,30 +79,9 @@
 	if(_jsonArray && _jsonArray.count > indexPath.row)foodPicture= [[MSFoodPicture alloc]initWithJson: _jsonArray[indexPath.row] ];
 	
 	
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    MSMiniCalenderCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-		
-		NSLog(@"fucking indexpath [%d]", indexPath.row);
-		_label = [[UILabel alloc]initWithFrame:CGRectMake(3, 3, size, 30)];
-		[_label setBackgroundColor: [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.0]];
-		if(!foodPicture)_label.text = @"Nothing";
-		else
-		{
-			switch (foodPicture.mealType) {
-				case 0:_label.text = @"Breakfast";break;
-				case 1:_label.text = @"Lunch";break;
-				case 2:_label.text = @"Dinner";break;
-				case 3:_label.text = @"Other";break;
-			}
-		}
-		
-		
-		[cell addSubview:_label];
-		
-		
-	
-		
+		cell = [[MSMiniCalenderCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 	}
 	
 	
@@ -126,7 +106,7 @@
 	MSImageCache* cache = [MSImageCache sharedManager];
 	if(!foodPicture)
 	{
-		cell.imageView.image =  [UIImage imageNamed:@"starNonSelect.png"];
+		cell.imageView.image =  [UIImage imageNamed:IMG_NO_IMAGE_LARGE];
 		[[_indctrDict objectForKey:foodPicture.url] stopAnimating];
 		
 	}
@@ -136,7 +116,7 @@
 		if([_indctrDict objectForKey:foodPicture.url])[[_indctrDict objectForKey:foodPicture.url] stopAnimating];
 	}
 	else
-		cell.imageView.image =  [UIImage imageNamed:@"star.png"];
+		cell.imageView.image =  [UIImage imageNamed:IMG_NOW_LOADING_LARGE];
 	
 	
     

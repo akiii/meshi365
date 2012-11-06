@@ -57,7 +57,7 @@
 
     UIImageView *profileImageView = [[UIImageView alloc] initWithImage:nil];
     profileImageView.frame = CGRectMake(20,30,80,80);
-    profileImageView.image = [UIImage imageNamed:@"BigNowLoading.png"];
+    profileImageView.image = [UIImage imageNamed:IMG_NOW_LOADING_LARGE];
     [scrollView addSubview:profileImageView];
     
     UIActivityIndicatorView  *aiv = [[UIActivityIndicatorView alloc]

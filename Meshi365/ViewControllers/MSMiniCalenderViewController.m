@@ -138,6 +138,23 @@
 			}
 		}
 		
+		for(int i = 1; i < jsonOneDayArray.count; i++)
+		{
+			MSFoodPicture *pre = [[MSFoodPicture alloc] initWithJson:jsonOneDayArray[i-1]];
+			MSFoodPicture *current = [[MSFoodPicture alloc] initWithJson:jsonOneDayArray[i]];
+
+			if(pre.mealType > current.mealType)
+			{
+				NSDictionary *tmp = jsonOneDayArray[i];
+				jsonOneDayArray[i] = jsonOneDayArray[i-1];
+				jsonOneDayArray[i-1] = tmp;
+				
+				i-=2;
+				if(i < 0)i=0;
+			}
+		}
+		
+		
 		
 		
 		

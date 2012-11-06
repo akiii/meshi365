@@ -10,6 +10,11 @@
 #define STAGING     1
 #define PRODUCTION  2
 
+#define IMG_NOW_LOADING_LARGE @"BigNowLoading.png"
+#define IMG_NO_IMAGE @"NoImage.png"
+#define IMG_NO_IMAGE_LARGE @"BigNoImage.png"
+
+
 #define DEFAULT_BGCOLOR [UIColor colorWithRed:1.0 green:0.93 blue:0.8 alpha:1.0]
 
 #define FOOD_LINE_IMAGE_INDICATOR_TRANSFORM CGAffineTransformMakeScale(3.0f,3.0f)
