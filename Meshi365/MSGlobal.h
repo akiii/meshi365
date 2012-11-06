@@ -52,3 +52,5 @@
 
 /* params keys : { "word" } */
 #define URL_OF_SEARCH_USERS(uiid)           [NSString stringWithFormat:@"%@/api/%@/friends/search", SERVER_BASE_URL, uiid]
+
+#define URL_OF_RECOMMEND_STORES(uiid)       [NSString stringWithFormat:@"%@/api/%@/recommend/group/stores", SERVER_BASE_URL, uiid]
